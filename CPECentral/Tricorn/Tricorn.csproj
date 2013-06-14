@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE6D6CE5-01D9-403D-8AF1-4A97019E1FC9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tricorn</RootNamespace>
+    <AssemblyName>Tricorn</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ART_PLNAME.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Audit.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuditFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuditItem.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Batch.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Break_Times.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibEquipFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibKeysDetail.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibProcFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationEquipment.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationHistory.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationProcedure.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationUsage.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CA_CAPACITY.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CA_HOLIDAY.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CA_WEEKPLAN.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Complaint.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComplaintFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Complaints_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Concession.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConcessionsFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Concession_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cost_Centre.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSatisfaction.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSatisfactionDetail.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer_Currency.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CU_ACCOUNT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CU_COMP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBVersion.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Discount.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiscountDetail.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiscountView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItem.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItemBuiltPartTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItemMatTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItemPartTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItemSubConTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DItemToolTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DMethod.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DNote.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DNoteSearchView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocNote.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dtproperty.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dt_getpropertiesbyid_Result.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dt_getpropertiesbyid_u_Result.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EAddress.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee_Details.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EU_Material_MRP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EU_Parts_TItle_MRP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EU_Title_Mrp.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FAG_DETAIL.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FI_ACCOUNT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetWOrderDetails_Result.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GKN_PROJECT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvItem.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceSearchView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IN_KASSE.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IS_NUM.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IS_SETUP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JIS_ADRESSEN.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JIS_FERTIGUNG.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kpi_GanntData.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kpi_GanntView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KPI_OperatorActive.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KPI_OperatorInactive.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KPI_OperatorProductivity.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KPI_OPERATORTIMES.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LB_FUNCTION.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaintenanceHistory.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaintenanceMachine.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaintenanceProcedure.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaintMachFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaintProcFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Material.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialSearchView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MDC_EVENTSTRUCT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MDC_TERMINALID.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MStock.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MStock_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MWithdrawal.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nominal_codes.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConfFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConfomancies_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nonconformancy.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notifier.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="option.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OP_CNC.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OP_SPC.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderIndex.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OR_FRAG.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OR_GRPTYP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OR_OP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OR_ORDER.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Part.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartSearchView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Part_Lookup_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PA_ARTHIS.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PA_ARTTYP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PA_FIT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PA_PACKAGING.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PE_WPLACE.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PItem.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POrder.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POrderSearchView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POrderSearchView2.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POrder_Trace_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POrder_WOrder_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_LAYOUTS.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_OBJECTS.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_PERS.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_SIMU.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_TRANSBOX.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_TRANSSYS.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_VECTORMAP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRM_WAYCACHE.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Procedure.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProceduresFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PStock.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PStock_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PWithdrawal.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QComponent.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QMaterial.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QPart.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QSubContract.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QSubDiscountView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QTool.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Quote.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QWCentre.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rb_field.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rb_folder.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rb_item.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rb_join.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rb_table.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordKey.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reject.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RejectCategory.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RejectsFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rejects_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RFQ.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RFQ_Item.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RFQ_Plan.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SatisfactionCategory.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule_Deviation_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock_Categories.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ST_PLACE.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ST_STOCK.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubContract.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierPerformance.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SuppPerfFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="today.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Training.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TricornDataProvider.cs" />
+    <Compile Include="TricornModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TricornModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TricornModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TricornModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TricornModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Tricorn_User_Acct.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TTrace.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VAT_Rates.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Warning.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WCentre.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WCentreCost.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WH_INT.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOComponent.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOInspectFullView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOInspection.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOMaterial.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOOperAct.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOPart.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOrder.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WORDER_SCHEDULE_VIEW.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOrder_Templates_View.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOSubContract.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOSubDiscountView.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOTool.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WOWCentre.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WP_MA1.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WP_MAGRP.cs">
+      <DependentUpon>TricornModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="TricornModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TricornModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="TricornModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TricornModel.edmx</DependentUpon>
+      <LastGenOutput>TricornModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="TricornModel.edmx.diagram">
+      <DependentUpon>TricornModel.edmx</DependentUpon>
+    </None>
+    <None Include="TricornModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TricornModel.edmx</DependentUpon>
+      <LastGenOutput>TricornModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
