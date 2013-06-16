@@ -4,35 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cdc073849e4e46fe9e46d86c57da6d0b" Name="Diagram1">
-        <EntityTypeShape EntityType="CPECentralModel.Customer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.Document" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.EmployeeRole" Width="1.5" PointX="10.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.Employee" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="15187db2487849b39903f8a9c13b7dd0" Name="Diagram1">
+        <EntityTypeShape EntityType="CPECentralModel.Customer" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Document" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.EmployeeGroup" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Employee" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CPECentralModel.HolderGroup" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CPECentralModel.Holder" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.HolderTool" Width="1.5" PointX="10.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.MachineGroup" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.Operation" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.OperationTool" Width="1.5" PointX="9.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.Part" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.PartVersion" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.ToolGroup" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPECentralModel.Tool" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.HolderTool" Width="1.5" PointX="12" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.MachineGroup" Width="1.5" PointX="7.5" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Method" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Operation" Width="1.5" PointX="9.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.OperationTool" Width="1.5" PointX="12" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Part" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.PartVersion" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.ToolGroup" Width="1.5" PointX="7.5" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPECentralModel.Tool" Width="1.5" PointX="9.75" PointY="19.5" IsExpanded="true" />
         <AssociationConnector Association="CPECentralModel.FK_Parts_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_Operations" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_PartVersions" ManuallyRouted="false" />
-        <AssociationConnector Association="CPECentralModel.FK_Employees_EmployeeRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="CPECentralModel.FK_Employees_EmployeeGroups" ManuallyRouted="false" />
+        <AssociationConnector Association="CPECentralModel.FK_Employees_Parts" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Holders_HolderGroups" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_HolderTools_Holders" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_HolderTools_Tools" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Operations_MachineGroups" ManuallyRouted="false" />
+        <AssociationConnector Association="CPECentralModel.FK_Methods_PartVersions" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_Operations_PartVersions" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_OperationTools_Operations" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_OperationTools_Tools" ManuallyRouted="false" />
         <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" ManuallyRouted="false" />
-        <AssociationConnector Association="CPECentralModel.FK_Tools_ToolTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="CPECentralModel.FK_Tools_ToolGroups" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

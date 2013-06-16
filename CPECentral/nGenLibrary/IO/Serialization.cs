@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 #endregion
 
-namespace JobBase.Framework.IO
+namespace nGenLibrary.IO
 {
     /// <summary>
     ///     Provides methods for serializing, deserializing & cloning objects

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>nGenLibrary</RootNamespace>
     <AssemblyName>nGenLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +48,9 @@
     <Compile Include="Controls\EnhancedListView.Designer.cs">
       <DependentUpon>EnhancedListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EnhancedSplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\EnhancedTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -63,6 +67,7 @@
     <Compile Include="IO\FileCopier.cs" />
     <Compile Include="IO\Serialization.cs" />
     <Compile Include="Messaging\ActionReference.cs" />
+    <Compile Include="Messaging\IMessageBus.cs" />
     <Compile Include="Messaging\MessageBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Password.cs" />

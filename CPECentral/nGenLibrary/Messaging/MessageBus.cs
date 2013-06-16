@@ -11,7 +11,7 @@ namespace nGenLibrary.Messaging
     ///     A Message Bus is a central messaging system for
     ///     an application.
     /// </summary>
-    public sealed class MessageBus
+    public sealed class MessageBus : IMessageBus
     {
         private readonly object _lock = new object();
 

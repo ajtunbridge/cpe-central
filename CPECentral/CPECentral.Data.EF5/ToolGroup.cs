@@ -20,8 +20,8 @@ namespace CPECentral.Data.EF5
         }
     
         public int Id { get; set; }
-        public string Description { get; set; }
-        public int ParentToolGroupId { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> ParentGroupId { get; set; }
     
         public virtual ICollection<Tool> Tools { get; set; }
     }

@@ -17,17 +17,17 @@ namespace CPECentral.Data.EF5
         public PartVersion()
         {
             this.Documents = new HashSet<Document>();
-            this.Operations = new HashSet<Operation>();
+            this.Methods = new HashSet<Method>();
         }
     
         public int Id { get; set; }
-        public string Version { get; set; }
+        public string VersionNumber { get; set; }
         public int PartId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<Method> Methods { get; set; }
         public virtual Part Part { get; set; }
     }
 }

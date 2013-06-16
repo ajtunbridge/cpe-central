@@ -20,9 +20,10 @@ namespace CPECentral.Data.EF5
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public int EmployeeRoleId { get; set; }
+        public int EmployeeGroupId { get; set; }
         public Nullable<int> LastViewedPartId { get; set; }
     
-        public virtual EmployeeRole EmployeeRole { get; set; }
+        public virtual EmployeeGroup EmployeeGroup { get; set; }
+        public virtual Part Part { get; set; }
     }
 }

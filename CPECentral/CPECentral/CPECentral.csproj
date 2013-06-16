@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ApplicationIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
@@ -48,14 +51,79 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationPermission.cs" />
+    <Compile Include="CustomEventArgs\CustomerSelectedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\OperationSelectedEventArgs.cs" />
+    <Compile Include="CustomEventArgs\PartSelectedEventArgs.cs" />
+    <Compile Include="IDialogService.cs" />
+    <Compile Include="Messages\PartEditedMessage.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="Presenters\OperationsViewPresenter.cs" />
+    <Compile Include="Presenters\PartInformationViewPresenter.cs" />
+    <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
+    <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="StandardDialogService.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Messages\EmployeeLoggedOutMessage.cs" />
+    <Compile Include="Messages\EmployeeLoggedInMessage.cs" />
+    <Compile Include="Presenters\LoginViewPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="ViewModels\PartInformationViewModel.cs" />
+    <Compile Include="ViewModels\PartViewModel.cs" />
+    <Compile Include="Views\CustomerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomerView.Designer.cs">
+      <DependentUpon>CustomerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\LoginView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\LoginView.Designer.cs">
+      <DependentUpon>LoginView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OperationsView.Designer.cs">
+      <DependentUpon>OperationsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartInformationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartInformationView.Designer.cs">
+      <DependentUpon>PartInformationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartLibraryView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartLibraryView.Designer.cs">
+      <DependentUpon>PartLibraryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartLibraryViewModel.cs" />
+    <Compile Include="Views\PartView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartView.Designer.cs">
+      <DependentUpon>PartView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -69,6 +137,30 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\CustomerView.resx">
+      <DependentUpon>CustomerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LoginView.resx">
+      <DependentUpon>LoginView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OperationsView.resx">
+      <DependentUpon>OperationsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartInformationView.resx">
+      <DependentUpon>PartInformationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartLibraryView.resx">
+      <DependentUpon>PartLibraryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartView.resx">
+      <DependentUpon>PartView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ViewBase.resx">
+      <DependentUpon>ViewBase.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -84,9 +176,81 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presenters\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <None Include="Resources\CustomerIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPECentral.Data.EF5\CPECentral.Data.EF5.csproj">
+      <Project>{502dea6a-ea3e-4a9a-bc97-96097cc3c77c}</Project>
+      <Name>CPECentral.Data.EF5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
+      <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
+      <Name>nGenLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tricorn\Tricorn.csproj">
+      <Project>{ee6d6ce5-01d9-403d-8af1-4a97019e1fc9}</Project>
+      <Name>Tricorn</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CompanyLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LogoutIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NewCAMFileIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotesIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PrintIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ReloadIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RotateIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SearchIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PreloaderImage.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WarningIcon_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ErrorIcon_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InformationIcon_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QuestionIcon_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationIconImage_128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -22,18 +22,18 @@ namespace CPECentral.Data.EF5
     
         public int Id { get; set; }
         public int Sequence { get; set; }
-        public string Method { get; set; }
+        public string Description { get; set; }
         public byte[] Notes { get; set; }
         public Nullable<int> SetupTime { get; set; }
         public Nullable<double> CycleTime { get; set; }
-        public int PartVersionId { get; set; }
+        public int MethodId { get; set; }
         public int MachineGroupId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
         public virtual ICollection<Document> Documents { get; set; }
         public virtual MachineGroup MachineGroup { get; set; }
-        public virtual PartVersion PartVersion { get; set; }
+        public virtual Method Method { get; set; }
         public virtual ICollection<OperationTool> OperationTools { get; set; }
     }
 }

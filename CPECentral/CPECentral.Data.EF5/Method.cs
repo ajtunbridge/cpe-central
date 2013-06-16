@@ -12,18 +12,19 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeRole
+    public partial class Method
     {
-        public EmployeeRole()
+        public Method()
         {
-            this.Employees = new HashSet<Employee>();
+            this.Operations = new HashSet<Operation>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
-        public int Permissions { get; set; }
+        public bool IsPreferred { get; set; }
+        public int PartVersionId { get; set; }
     
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual PartVersion PartVersion { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
     }
 }

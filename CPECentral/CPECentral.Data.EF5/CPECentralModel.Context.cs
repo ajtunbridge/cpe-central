@@ -27,12 +27,13 @@ namespace CPECentral.Data.EF5
     
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Document> Documents { get; set; }
-        public DbSet<EmployeeRole> EmployeeRoles { get; set; }
+        public DbSet<EmployeeGroup> EmployeeGroups { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<HolderGroup> HolderGroups { get; set; }
         public DbSet<Holder> Holders { get; set; }
         public DbSet<HolderTool> HolderTools { get; set; }
         public DbSet<MachineGroup> MachineGroups { get; set; }
+        public DbSet<Method> Methods { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<OperationTool> OperationTools { get; set; }
         public DbSet<Part> Parts { get; set; }

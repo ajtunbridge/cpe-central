@@ -9,7 +9,7 @@ using System.Security.Permissions;
 
 #endregion
 
-namespace JobBase.Framework.IO
+namespace nGenLibrary.IO
 {
     public delegate CopyFileCallbackAction CopyFileCallback(
         string fileName, string destinationDirectory, int percentComplete);

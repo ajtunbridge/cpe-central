@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using directives
+
+using System;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
+#endregion
 
 namespace nGenLibrary.Controls
 {
     public partial class EnhancedListView : ListView
     {
-        private int _lastSelectedIndex;
+        private const int SWP_NOSIZE = 1;
         private Color _alternateBackgroundColor = Color.WhiteSmoke;
+        private int _lastSelectedIndex;
 
         public EnhancedListView()
         {
@@ -30,6 +31,10 @@ namespace nGenLibrary.Controls
         {
             get { return Items.Count; }
         }
+
+        [Category("Behavior")]
+        [Description("If true, resizes the last column to fill the remaining space when resized")]
+        public bool ResizeLastColumnToFill { get; set; }
 
         [Category("Misc")]
         [Description("The number of items currently selected")]
@@ -81,6 +86,15 @@ namespace nGenLibrary.Controls
         ///     Raised whenever an item is removed from the ListView
         /// </summary>
         public event EventHandler ItemsRemoved;
+
+        /// <summary>
+        ///     If there are items, this selects the first one
+        /// </summary>
+        public void SelectFirstItem()
+        {
+            if (ItemCount > 0)
+                Items[0].Selected = true;
+        }
 
         protected virtual void OnItemsRemoved()
         {
@@ -140,7 +154,7 @@ namespace nGenLibrary.Controls
             {
                 if (item == null) continue;
 
-                item.BackColor = (index % 2 == 0) ? BackColor : _alternateBackgroundColor;
+                item.BackColor = (index%2 == 0) ? BackColor : _alternateBackgroundColor;
                 index++;
             }
         }
@@ -150,6 +164,7 @@ namespace nGenLibrary.Controls
         {
             const int WM_ERASEBKGND = 0x14;
             const int LVM_FIRST = 0x1000;
+            const int WM_WINDOWPOSCHANGING = 0x46;
             const int LVM_DELETEITEM = LVM_FIRST + 8;
             const int LVM_DELETEALLITEMS = LVM_FIRST + 9;
             const int LVM_INSERTITEMA = LVM_FIRST + 7;
@@ -162,6 +177,9 @@ namespace nGenLibrary.Controls
 
             switch (m.Msg)
             {
+                case WM_WINDOWPOSCHANGING:
+                    HandleWindowPosChanging(ref m);
+                    break;
                 case LVM_DELETEALLITEMS:
                 case LVM_DELETEITEM:
                     OnItemsRemoved();
@@ -172,5 +190,50 @@ namespace nGenLibrary.Controls
                     break;
             }
         }
+
+        protected virtual void HandleWindowPosChanging(ref Message m)
+        {
+            try
+            {
+                var pos = new WINDOWPOS();
+                pos = (WINDOWPOS) Marshal.PtrToStructure(m.LParam, pos.GetType());
+                if (Columns.Count > 0 && ResizeLastColumnToFill && (pos.flags & SWP_NOSIZE) == 0)
+                {
+                    ResizeFreeSpaceFillingColumns(pos.cx - (Bounds.Width - ClientSize.Width));
+                }
+            }
+            catch (ArgumentException)
+            {
+            }
+        }
+
+        private void ResizeFreeSpaceFillingColumns(int listViewWidth)
+        {
+            var lastColumn = Columns.Count - 1;
+            var sumWidth = 0;
+
+            for (var i = 0; i < lastColumn; i++)
+            {
+                sumWidth += Columns[i].Width;
+            }
+
+            Columns[lastColumn].Width = listViewWidth - sumWidth - 3;
+        }
+
+        #region Nested type: WINDOWPOS
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPOS
+        {
+            public IntPtr hwnd;
+            public IntPtr hwndInsertAfter;
+            public int x;
+            public int y;
+            public int cx;
+            public int cy;
+            public int flags;
+        }
+
+        #endregion
     }
 }
