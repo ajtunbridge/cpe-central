@@ -3,7 +3,7 @@
 using System;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
-using CPECentral.Wizard;
+using CPECentral.Dialogs;
 using nGenLibrary.Security;
 
 #endregion
@@ -26,7 +26,7 @@ namespace CPECentral
             //EnsureThereIsAnAdminAccount();
             //AddMyAccount();
 
-            Application.Run(new NewPartWizard());
+            Application.Run(new AddPartDialog());
         }
 
         private static void EnsureThereIsAnAdminAccount()

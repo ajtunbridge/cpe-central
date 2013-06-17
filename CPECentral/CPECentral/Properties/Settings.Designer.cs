@@ -70,5 +70,29 @@ namespace CPECentral.Properties {
                 this["MainFormState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("S:\\SJC Contingency Plan\\Drawing Files")]
+        public string ServerScanDirectory {
+            get {
+                return ((string)(this["ServerScanDirectory"]));
+            }
+            set {
+                this["ServerScanDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".tif|.tiff|.png|.bmp|.jpeg|.jpg")]
+        public string ImageFileExtensions {
+            get {
+                return ((string)(this["ImageFileExtensions"]));
+            }
+            set {
+                this["ImageFileExtensions"] = value;
+            }
+        }
     }
 }

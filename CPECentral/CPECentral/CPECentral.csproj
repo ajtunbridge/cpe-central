@@ -14,7 +14,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -57,16 +57,28 @@
     <Compile Include="Controls\FilesListView.Designer.cs">
       <DependentUpon>FilesListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OkayCancelFooter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OkayCancelFooter.Designer.cs">
+      <DependentUpon>OkayCancelFooter.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomEventArgs\PartVersionEventArgs.cs" />
     <Compile Include="CustomEventArgs\MethodEventArgs.cs" />
     <Compile Include="CustomEventArgs\CustomerEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationEventArgs.cs" />
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
-    <Compile Include="DocumentPreviewPanel.cs">
+    <Compile Include="Dialogs\AddPartDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddPartDialog.Designer.cs">
+      <DependentUpon>AddPartDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DocumentPreviewPanel.Designer.cs">
-      <DependentUpon>DocumentPreviewPanel.cs</DependentUpon>
+    <Compile Include="Controls\FilePreviewPanel.Designer.cs">
+      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="IDialogService.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
@@ -137,23 +149,17 @@
     <Compile Include="Views\ViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizard\NewPartWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Wizard\NewPartWizard.Designer.cs">
-      <DependentUpon>NewPartWizard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\WizardPages.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\WizardPages.Designer.cs">
-      <DependentUpon>WizardPages.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\FilesListView.resx">
       <DependentUpon>FilesListView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DocumentPreviewPanel.resx">
-      <DependentUpon>DocumentPreviewPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
+      <DependentUpon>OkayCancelFooter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AddPartDialog.resx">
+      <DependentUpon>AddPartDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
+      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -192,9 +198,7 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\NewPartWizard.resx">
-      <DependentUpon>NewPartWizard.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config.work" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

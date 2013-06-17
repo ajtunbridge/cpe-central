@@ -27,10 +27,7 @@
         <value>Normal</value>
       </setting>
       <setting name="ServerScanDirectory" serializeAs="String">
-        <value>S:\SJC Contingency Plan\Drawing Files</value>
-      </setting>
-      <setting name="ImageFileExtensions" serializeAs="String">
-        <value>.tif|.tiff|.png|.bmp|.jpeg|.jpg</value>
+        <value>I:\Drawing Files</value>
       </setting>
     </CPECentral.Properties.Settings>
   </userSettings>

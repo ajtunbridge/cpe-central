@@ -1,4 +1,6 @@
-﻿namespace CPECentral.Views
+﻿using CPECentral.Controls;
+
+namespace CPECentral.Views
 {
     partial class PartView
     {
@@ -44,7 +46,7 @@
             this.createdByLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.documentPreviewPanel = new CPECentral.DocumentPreviewPanel();
+            this.documentPreviewPanel = new FilePreviewPanel();
             this.partInformationView = new CPECentral.Views.PartInformationView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -310,7 +312,7 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private DocumentPreviewPanel documentPreviewPanel;
+        private FilePreviewPanel documentPreviewPanel;
 
 
     }

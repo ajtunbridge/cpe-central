@@ -64,6 +64,7 @@
     <Compile Include="Controls\EnhancedTreeView.Designer.cs">
       <DependentUpon>EnhancedTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods\ControlExtensions.cs" />
     <Compile Include="ExtensionMethods\EnumExtensions.cs" />
     <Compile Include="IO\FileCopier.cs" />
     <Compile Include="IO\Serialization.cs" />

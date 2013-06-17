@@ -1,6 +1,6 @@
-﻿namespace CPECentral
+﻿namespace CPECentral.Controls
 {
-    partial class DocumentPreviewPanel
+    partial class FilePreviewPanel
     {
         /// <summary> 
         /// Required designer variable.

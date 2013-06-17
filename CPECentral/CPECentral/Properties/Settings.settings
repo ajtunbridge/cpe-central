@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="LastUserName" Type="System.String" Scope="User">
@@ -15,6 +13,12 @@
     </Setting>
     <Setting Name="MainFormState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="ServerScanDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\SJC Contingency Plan\Drawing Files</Value>
+    </Setting>
+    <Setting Name="ImageFileExtensions" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>
