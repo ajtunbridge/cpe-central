@@ -20,8 +20,9 @@ namespace nGenLibrary.Controls
 
         public EnhancedListView()
         {
-            IndexOfColumnToResize = 0;
             InitializeComponent();
+
+            IndexOfColumnToResize = 0;
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.EnableNotifyMessage, false);
@@ -213,6 +214,9 @@ namespace nGenLibrary.Controls
 
         private void ResizeFreeSpaceFillingColumns(int listViewWidth)
         {
+            if (Columns.Count == 0)
+                return;
+
             var sumWidth = (from ColumnHeader column in Columns where column.Index != IndexOfColumnToResize select column.Width).Sum();
 
             Columns[IndexOfColumnToResize].Width = listViewWidth - sumWidth - 3;
@@ -233,5 +237,10 @@ namespace nGenLibrary.Controls
         }
 
         #endregion
+
+        private void EnhancedListView_ClientSizeChanged(object sender, EventArgs e)
+        {
+            ResizeFreeSpaceFillingColumns(ClientSize.Width);
+        }
     }
 }

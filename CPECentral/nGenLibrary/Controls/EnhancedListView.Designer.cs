@@ -33,6 +33,7 @@
             // EnhancedListView
             // 
             this.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.EnhancedListView_ItemSelectionChanged);
+            this.ClientSizeChanged += new System.EventHandler(this.EnhancedListView_ClientSizeChanged);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.EnhancedListView_MouseUp);
             this.ResumeLayout(false);
 

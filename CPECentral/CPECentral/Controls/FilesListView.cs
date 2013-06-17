@@ -32,6 +32,9 @@ namespace CPECentral.Controls
 
             _smallIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
             _largeIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
+
+            SmallImageList = _smallIconImageList;
+            LargeImageList = _largeIconImageList;
         }
 
         public void AddFile(string fileName, object tag)
@@ -59,18 +62,13 @@ namespace CPECentral.Controls
 
             var friendlySize = GetFriendlyFileSize(fileInfo.Length);
 
-            var item = enhancedListView.Items.Add(fileInfo.Name);
+            var item = Items.Add(fileInfo.Name);
             item.SubItems.Add(extension);
             item.SubItems.Add(friendlySize);
             item.ImageKey = extension;
             item.Tag = tag;
         }
-
-        public IEnumerable<ListViewItem> Items
-        {
-            get { return enhancedListView.Items.CopyTo(; }
-        }
-
+       
         private string GetFriendlyFileSize(long length)
         {
             string[] suffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
@@ -82,7 +80,7 @@ namespace CPECentral.Controls
             int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
 
-            return (Math.Sign(length) * num) + suffixes[place];
+            return (Math.Sign(length) * num) + " " + suffixes[place];
         }
     }
 }
