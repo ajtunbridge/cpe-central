@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System.Diagnostics;
 using System.Windows.Forms;
 
 #endregion
@@ -11,6 +12,9 @@ namespace nGenLibrary.Controls
         public EnhancedTreeView()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         public new TreeNode SelectedNode
@@ -22,6 +26,17 @@ namespace nGenLibrary.Controls
 
                 OnAfterSelect(new TreeViewEventArgs(value, TreeViewAction.Unknown));
             }
+        }
+
+        [DebuggerStepThrough]
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_ERASEBKGND = 0x14;
+
+            //Filter out the WM_ERASEBKGND message to prevent flicker when redrawing
+            if (m.Msg == WM_ERASEBKGND) return;
+
+            base.WndProc(ref m);
         }
 
         private void EnhancedTreeView_MouseUp(object sender, MouseEventArgs e)

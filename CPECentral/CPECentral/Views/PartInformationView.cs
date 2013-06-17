@@ -1,8 +1,10 @@
 ﻿#region Using directives
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Presenters;
@@ -17,12 +19,14 @@ namespace CPECentral.Views
         Part Part { get; }
         PartVersion SelectedVersion { get; }
         event EventHandler ReloadData;
+        event EventHandler<PartVersionEventArgs> VersionSelected;
         event EventHandler SaveChanges;
         void LoadPart(Part part);
         void DisplayModel(PartInformationViewModel model);
         void SaveCompleted(bool successful);
     }
 
+    [DefaultEvent("VersionSelected")]
     public partial class PartInformationView : ViewBase, IPartInformationView
     {
         private readonly PartInformationViewPresenter _presenter;
@@ -44,6 +48,7 @@ namespace CPECentral.Views
         public PartVersion SelectedVersion { get; private set; }
 
         public event EventHandler ReloadData;
+        public event EventHandler<PartVersionEventArgs> VersionSelected;
         public event EventHandler SaveChanges;
 
         public void LoadPart(Part part)
@@ -117,6 +122,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected virtual void OnVersionSelected(PartVersionEventArgs e)
+        {
+            EventHandler<PartVersionEventArgs> handler = VersionSelected;
+            if (handler != null) handler(this, e);
+        }
+
         private void PartInformationView_Load(object sender, EventArgs e)
         {
         }
@@ -141,6 +152,13 @@ namespace CPECentral.Views
             Part.ToolingLocation = toolingLocationTextBox.Text.Trim();
 
             OnSaveChanges();
+        }
+
+        private void versionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedVersion = versionsComboBox.SelectedItem as PartVersion;
+
+            OnVersionSelected(new PartVersionEventArgs(SelectedVersion));
         }
     }
 }

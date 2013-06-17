@@ -5,446 +5,432 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CPECentralModel.Store" Alias="Self" Provider="System.Data.SqlClient"
-              ProviderManifestToken="2008"
-              xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
-              xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="CPECentralModelStoreContainer">
-          <EntitySet Name="Customers" EntityType="CPECentralModel.Store.Customers" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Documents" EntityType="CPECentralModel.Store.Documents" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EmployeeGroups" EntityType="CPECentralModel.Store.EmployeeGroups" store:Type="Tables"
-                     Schema="dbo" />
-          <EntitySet Name="Employees" EntityType="CPECentralModel.Store.Employees" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="HolderGroups" EntityType="CPECentralModel.Store.HolderGroups" store:Type="Tables"
-                     Schema="dbo" />
-          <EntitySet Name="Holders" EntityType="CPECentralModel.Store.Holders" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="HolderTools" EntityType="CPECentralModel.Store.HolderTools" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MachineGroups" EntityType="CPECentralModel.Store.MachineGroups" store:Type="Tables"
-                     Schema="dbo" />
-          <EntitySet Name="Methods" EntityType="CPECentralModel.Store.Methods" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Operations" EntityType="CPECentralModel.Store.Operations" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="OperationTools" EntityType="CPECentralModel.Store.OperationTools" store:Type="Tables"
-                     Schema="dbo" />
-          <EntitySet Name="Parts" EntityType="CPECentralModel.Store.Parts" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PartVersions" EntityType="CPECentralModel.Store.PartVersions" store:Type="Tables"
-                     Schema="dbo" />
-          <EntitySet Name="ToolGroups" EntityType="CPECentralModel.Store.ToolGroups" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Tools" EntityType="CPECentralModel.Store.Tools" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Documents_Operations" Association="CPECentralModel.Store.FK_Documents_Operations">
-            <End Role="Operations" EntitySet="Operations" />
-            <End Role="Documents" EntitySet="Documents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documents_Parts" Association="CPECentralModel.Store.FK_Documents_Parts">
-            <End Role="Parts" EntitySet="Parts" />
-            <End Role="Documents" EntitySet="Documents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Documents_PartVersions"
-                          Association="CPECentralModel.Store.FK_Documents_PartVersions">
-            <End Role="PartVersions" EntitySet="PartVersions" />
-            <End Role="Documents" EntitySet="Documents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_EmployeeGroups"
-                          Association="CPECentralModel.Store.FK_Employees_EmployeeGroups">
-            <End Role="EmployeeGroups" EntitySet="EmployeeGroups" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_Parts" Association="CPECentralModel.Store.FK_Employees_Parts">
-            <End Role="Parts" EntitySet="Parts" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Holders_HolderGroups" Association="CPECentralModel.Store.FK_Holders_HolderGroups">
-            <End Role="HolderGroups" EntitySet="HolderGroups" />
-            <End Role="Holders" EntitySet="Holders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HolderTools_Holders" Association="CPECentralModel.Store.FK_HolderTools_Holders">
-            <End Role="Holders" EntitySet="Holders" />
-            <End Role="HolderTools" EntitySet="HolderTools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HolderTools_Tools" Association="CPECentralModel.Store.FK_HolderTools_Tools">
-            <End Role="Tools" EntitySet="Tools" />
-            <End Role="HolderTools" EntitySet="HolderTools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Methods_PartVersions" Association="CPECentralModel.Store.FK_Methods_PartVersions">
-            <End Role="PartVersions" EntitySet="PartVersions" />
-            <End Role="Methods" EntitySet="Methods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Operations_MachineGroups"
-                          Association="CPECentralModel.Store.FK_Operations_MachineGroups">
-            <End Role="MachineGroups" EntitySet="MachineGroups" />
-            <End Role="Operations" EntitySet="Operations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Operations_PartVersions"
-                          Association="CPECentralModel.Store.FK_Operations_PartVersions">
-            <End Role="Methods" EntitySet="Methods" />
-            <End Role="Operations" EntitySet="Operations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OperationTools_Operations"
-                          Association="CPECentralModel.Store.FK_OperationTools_Operations">
-            <End Role="Operations" EntitySet="Operations" />
-            <End Role="OperationTools" EntitySet="OperationTools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OperationTools_Tools" Association="CPECentralModel.Store.FK_OperationTools_Tools">
-            <End Role="Tools" EntitySet="Tools" />
-            <End Role="OperationTools" EntitySet="OperationTools" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Parts_Customers" Association="CPECentralModel.Store.FK_Parts_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Parts" EntitySet="Parts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartVersions_Parts" Association="CPECentralModel.Store.FK_PartVersions_Parts">
-            <End Role="Parts" EntitySet="Parts" />
-            <End Role="PartVersions" EntitySet="PartVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tools_ToolGroups" Association="CPECentralModel.Store.FK_Tools_ToolGroups">
-            <End Role="ToolGroups" EntitySet="ToolGroups" />
-            <End Role="Tools" EntitySet="Tools" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Customers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Documents">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="150" />
-          <Property Name="IsLocked" Type="bit" Nullable="false" />
-          <Property Name="PartId" Type="int" />
-          <Property Name="PartVersionId" Type="int" />
-          <Property Name="OperationId" Type="int" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EmployeeGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="Permissions" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Employees">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="Password" Type="char" Nullable="false" MaxLength="88" />
-          <Property Name="Salt" Type="char" Nullable="false" MaxLength="24" />
-          <Property Name="EmployeeGroupId" Type="int" Nullable="false" />
-          <Property Name="LastViewedPartId" Type="int" />
-        </EntityType>
-        <EntityType Name="HolderGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
-        </EntityType>
-        <EntityType Name="Holders">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="HolderGroupId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HolderTools">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="HolderId" Type="int" Nullable="false" />
-          <Property Name="ToolId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MachineGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="NextNumber" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Methods">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="IsPreferred" Type="bit" Nullable="false" />
-          <Property Name="PartVersionId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Operations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Sequence" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="Notes" Type="varbinary(max)" />
-          <Property Name="SetupTime" Type="int" />
-          <Property Name="CycleTime" Type="float" />
-          <Property Name="MethodId" Type="int" Nullable="false" />
-          <Property Name="MachineGroupId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OperationTools">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Position" Type="int" Nullable="false" />
-          <Property Name="Offset" Type="int" Nullable="false" />
-          <Property Name="UseOnePer" Type="int" Nullable="false" />
-          <Property Name="Holder" Type="varchar" MaxLength="50" />
-          <Property Name="Notes" Type="varchar" MaxLength="255" />
-          <Property Name="OperationId" Type="int" Nullable="false" />
-          <Property Name="ToolId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Parts">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DrawingNumber" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="ToolingLocation" Type="varchar" MaxLength="50" />
-          <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PartVersions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="VersionNumber" Type="varchar" Nullable="false" MaxLength="10" />
-          <Property Name="PartId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ToolGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
-          <Property Name="ParentGroupId" Type="int" />
-        </EntityType>
-        <EntityType Name="Tools">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="ToolGroupId" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Documents_Operations">
-          <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="0..1" />
-          <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Operations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Documents">
-              <PropertyRef Name="OperationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documents_Parts">
-          <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="0..1" />
-          <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Parts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Documents">
-              <PropertyRef Name="PartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documents_PartVersions">
-          <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="0..1" />
-          <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartVersions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Documents">
-              <PropertyRef Name="PartVersionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employees_EmployeeGroups">
-          <End Role="EmployeeGroups" Type="CPECentralModel.Store.EmployeeGroups" Multiplicity="1" />
-          <End Role="Employees" Type="CPECentralModel.Store.Employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="EmployeeGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employees_Parts">
-          <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="0..1" />
-          <End Role="Employees" Type="CPECentralModel.Store.Employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Parts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="LastViewedPartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Holders_HolderGroups">
-          <End Role="HolderGroups" Type="CPECentralModel.Store.HolderGroups" Multiplicity="1" />
-          <End Role="Holders" Type="CPECentralModel.Store.Holders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HolderGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Holders">
-              <PropertyRef Name="HolderGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HolderTools_Holders">
-          <End Role="Holders" Type="CPECentralModel.Store.Holders" Multiplicity="1" />
-          <End Role="HolderTools" Type="CPECentralModel.Store.HolderTools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Holders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HolderTools">
-              <PropertyRef Name="HolderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HolderTools_Tools">
-          <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="1" />
-          <End Role="HolderTools" Type="CPECentralModel.Store.HolderTools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tools">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HolderTools">
-              <PropertyRef Name="ToolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Methods_PartVersions">
-          <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Methods" Type="CPECentralModel.Store.Methods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartVersions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Methods">
-              <PropertyRef Name="PartVersionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Operations_MachineGroups">
-          <End Role="MachineGroups" Type="CPECentralModel.Store.MachineGroups" Multiplicity="1" />
-          <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MachineGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Operations">
-              <PropertyRef Name="MachineGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Operations_PartVersions">
-          <End Role="Methods" Type="CPECentralModel.Store.Methods" Multiplicity="1" />
-          <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Methods">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Operations">
-              <PropertyRef Name="MethodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OperationTools_Operations">
-          <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="1" />
-          <End Role="OperationTools" Type="CPECentralModel.Store.OperationTools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Operations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OperationTools">
-              <PropertyRef Name="OperationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OperationTools_Tools">
-          <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="1" />
-          <End Role="OperationTools" Type="CPECentralModel.Store.OperationTools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tools">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OperationTools">
-              <PropertyRef Name="ToolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Parts_Customers">
-          <End Role="Customers" Type="CPECentralModel.Store.Customers" Multiplicity="1" />
-          <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Parts">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartVersions_Parts">
-          <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="1" />
-          <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Parts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartVersions">
-              <PropertyRef Name="PartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tools_ToolGroups">
-          <End Role="ToolGroups" Type="CPECentralModel.Store.ToolGroups" Multiplicity="1" />
-          <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToolGroups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Tools">
-              <PropertyRef Name="ToolGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="CPECentralModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CPECentralModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="CPECentralModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents" EntityType="CPECentralModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeGroups" EntityType="CPECentralModel.Store.EmployeeGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employees" EntityType="CPECentralModel.Store.Employees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HolderGroups" EntityType="CPECentralModel.Store.HolderGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Holders" EntityType="CPECentralModel.Store.Holders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HolderTools" EntityType="CPECentralModel.Store.HolderTools" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MachineGroups" EntityType="CPECentralModel.Store.MachineGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Methods" EntityType="CPECentralModel.Store.Methods" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Operations" EntityType="CPECentralModel.Store.Operations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OperationTools" EntityType="CPECentralModel.Store.OperationTools" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Parts" EntityType="CPECentralModel.Store.Parts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PartVersions" EntityType="CPECentralModel.Store.PartVersions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ToolGroups" EntityType="CPECentralModel.Store.ToolGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tools" EntityType="CPECentralModel.Store.Tools" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Parts_Customers" Association="CPECentralModel.Store.FK_Parts_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Parts" EntitySet="Parts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Documents_Operations" Association="CPECentralModel.Store.FK_Documents_Operations">
+      <End Role="Operations" EntitySet="Operations" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Documents_Parts" Association="CPECentralModel.Store.FK_Documents_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Documents_PartVersions" Association="CPECentralModel.Store.FK_Documents_PartVersions">
+      <End Role="PartVersions" EntitySet="PartVersions" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_EmployeeGroups" Association="CPECentralModel.Store.FK_Employees_EmployeeGroups">
+      <End Role="EmployeeGroups" EntitySet="EmployeeGroups" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Parts" Association="CPECentralModel.Store.FK_Employees_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Holders_HolderGroups" Association="CPECentralModel.Store.FK_Holders_HolderGroups">
+      <End Role="HolderGroups" EntitySet="HolderGroups" />
+      <End Role="Holders" EntitySet="Holders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HolderTools_Holders" Association="CPECentralModel.Store.FK_HolderTools_Holders">
+      <End Role="Holders" EntitySet="Holders" />
+      <End Role="HolderTools" EntitySet="HolderTools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HolderTools_Tools" Association="CPECentralModel.Store.FK_HolderTools_Tools">
+      <End Role="Tools" EntitySet="Tools" />
+      <End Role="HolderTools" EntitySet="HolderTools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operations_MachineGroups" Association="CPECentralModel.Store.FK_Operations_MachineGroups">
+      <End Role="MachineGroups" EntitySet="MachineGroups" />
+      <End Role="Operations" EntitySet="Operations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Methods_PartVersions" Association="CPECentralModel.Store.FK_Methods_PartVersions">
+      <End Role="PartVersions" EntitySet="PartVersions" />
+      <End Role="Methods" EntitySet="Methods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operations_PartVersions" Association="CPECentralModel.Store.FK_Operations_PartVersions">
+      <End Role="Methods" EntitySet="Methods" />
+      <End Role="Operations" EntitySet="Operations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OperationTools_Operations" Association="CPECentralModel.Store.FK_OperationTools_Operations">
+      <End Role="Operations" EntitySet="Operations" />
+      <End Role="OperationTools" EntitySet="OperationTools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OperationTools_Tools" Association="CPECentralModel.Store.FK_OperationTools_Tools">
+      <End Role="Tools" EntitySet="Tools" />
+      <End Role="OperationTools" EntitySet="OperationTools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PartVersions_Parts" Association="CPECentralModel.Store.FK_PartVersions_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="PartVersions" EntitySet="PartVersions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tools_ToolGroups" Association="CPECentralModel.Store.FK_Tools_ToolGroups">
+      <End Role="ToolGroups" EntitySet="ToolGroups" />
+      <End Role="Tools" EntitySet="Tools" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="PartId" Type="int" Nullable="true" />
+    <Property Name="PartVersionId" Type="int" Nullable="true" />
+    <Property Name="OperationId" Type="int" Nullable="true" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Permissions" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Password" Type="char" Nullable="false" MaxLength="88" />
+    <Property Name="Salt" Type="char" Nullable="false" MaxLength="24" />
+    <Property Name="EmployeeGroupId" Type="int" Nullable="false" />
+    <Property Name="LastViewedPartId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="HolderGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Holders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="HolderGroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HolderTools">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HolderId" Type="int" Nullable="false" />
+    <Property Name="ToolId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MachineGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="NextNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Methods">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="IsPreferred" Type="bit" Nullable="false" />
+    <Property Name="PartVersionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sequence" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="Notes" Type="varbinary(max)" Nullable="true" />
+    <Property Name="SetupTime" Type="int" Nullable="true" />
+    <Property Name="CycleTime" Type="float" Nullable="true" />
+    <Property Name="MethodId" Type="int" Nullable="false" />
+    <Property Name="MachineGroupId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OperationTools">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Position" Type="int" Nullable="false" />
+    <Property Name="Offset" Type="int" Nullable="false" />
+    <Property Name="UseOnePer" Type="int" Nullable="false" />
+    <Property Name="Holder" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Notes" Type="varchar" Nullable="true" MaxLength="255" />
+    <Property Name="OperationId" Type="int" Nullable="false" />
+    <Property Name="ToolId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DrawingNumber" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ToolingLocation" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartVersions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VersionNumber" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="PartId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToolGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="ParentGroupId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Tools">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ToolGroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Parts_Customers">
+    <End Role="Customers" Type="CPECentralModel.Store.Customers" Multiplicity="1" />
+    <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Parts">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Documents_Operations">
+    <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="0..1" />
+    <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Documents_Parts">
+    <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="0..1" />
+    <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="PartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Documents_PartVersions">
+    <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="0..1" />
+    <End Role="Documents" Type="CPECentralModel.Store.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PartVersions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="PartVersionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_EmployeeGroups">
+    <End Role="EmployeeGroups" Type="CPECentralModel.Store.EmployeeGroups" Multiplicity="1" />
+    <End Role="Employees" Type="CPECentralModel.Store.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeGroups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="EmployeeGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Parts">
+    <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="0..1" />
+    <End Role="Employees" Type="CPECentralModel.Store.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="LastViewedPartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Holders_HolderGroups">
+    <End Role="HolderGroups" Type="CPECentralModel.Store.HolderGroups" Multiplicity="1" />
+    <End Role="Holders" Type="CPECentralModel.Store.Holders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HolderGroups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Holders">
+        <PropertyRef Name="HolderGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HolderTools_Holders">
+    <End Role="Holders" Type="CPECentralModel.Store.Holders" Multiplicity="1" />
+    <End Role="HolderTools" Type="CPECentralModel.Store.HolderTools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Holders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HolderTools">
+        <PropertyRef Name="HolderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HolderTools_Tools">
+    <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="1" />
+    <End Role="HolderTools" Type="CPECentralModel.Store.HolderTools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tools">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HolderTools">
+        <PropertyRef Name="ToolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operations_MachineGroups">
+    <End Role="MachineGroups" Type="CPECentralModel.Store.MachineGroups" Multiplicity="1" />
+    <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MachineGroups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operations">
+        <PropertyRef Name="MachineGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Methods_PartVersions">
+    <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Methods" Type="CPECentralModel.Store.Methods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PartVersions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Methods">
+        <PropertyRef Name="PartVersionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operations_PartVersions">
+    <End Role="Methods" Type="CPECentralModel.Store.Methods" Multiplicity="1" />
+    <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Methods">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operations">
+        <PropertyRef Name="MethodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OperationTools_Operations">
+    <End Role="Operations" Type="CPECentralModel.Store.Operations" Multiplicity="1" />
+    <End Role="OperationTools" Type="CPECentralModel.Store.OperationTools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OperationTools">
+        <PropertyRef Name="OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OperationTools_Tools">
+    <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="1" />
+    <End Role="OperationTools" Type="CPECentralModel.Store.OperationTools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tools">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OperationTools">
+        <PropertyRef Name="ToolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PartVersions_Parts">
+    <End Role="Parts" Type="CPECentralModel.Store.Parts" Multiplicity="1" />
+    <End Role="PartVersions" Type="CPECentralModel.Store.PartVersions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PartVersions">
+        <PropertyRef Name="PartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tools_ToolGroups">
+    <End Role="ToolGroups" Type="CPECentralModel.Store.ToolGroups" Multiplicity="1" />
+    <End Role="Tools" Type="CPECentralModel.Store.Tools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToolGroups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tools">
+        <PropertyRef Name="ToolGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CPECentralModel" Alias="Self"
@@ -948,176 +934,174 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CPECentralModelStoreContainer"
-                                CdmEntityContainer="CPECentralEntities">
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="CPECentralModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="CPECentralModel.Document">
-              <MappingFragment StoreEntitySet="Documents">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
-                <ScalarProperty Name="PartId" ColumnName="PartId" />
-                <ScalarProperty Name="PartVersionId" ColumnName="PartVersionId" />
-                <ScalarProperty Name="OperationId" ColumnName="OperationId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeGroups">
-            <EntityTypeMapping TypeName="CPECentralModel.EmployeeGroup">
-              <MappingFragment StoreEntitySet="EmployeeGroups">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Permissions" ColumnName="Permissions" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="CPECentralModel.Employee">
-              <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Salt" ColumnName="Salt" />
-                <ScalarProperty Name="EmployeeGroupId" ColumnName="EmployeeGroupId" />
-                <ScalarProperty Name="LastViewedPartId" ColumnName="LastViewedPartId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HolderGroups">
-            <EntityTypeMapping TypeName="CPECentralModel.HolderGroup">
-              <MappingFragment StoreEntitySet="HolderGroups">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Holders">
-            <EntityTypeMapping TypeName="CPECentralModel.Holder">
-              <MappingFragment StoreEntitySet="Holders">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="HolderGroupId" ColumnName="HolderGroupId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HolderTools">
-            <EntityTypeMapping TypeName="CPECentralModel.HolderTool">
-              <MappingFragment StoreEntitySet="HolderTools">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="HolderId" ColumnName="HolderId" />
-                <ScalarProperty Name="ToolId" ColumnName="ToolId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MachineGroups">
-            <EntityTypeMapping TypeName="CPECentralModel.MachineGroup">
-              <MappingFragment StoreEntitySet="MachineGroups">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Methods">
-            <EntityTypeMapping TypeName="CPECentralModel.Method">
-              <MappingFragment StoreEntitySet="Methods">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsPreferred" ColumnName="IsPreferred" />
-                <ScalarProperty Name="PartVersionId" ColumnName="PartVersionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Operations">
-            <EntityTypeMapping TypeName="CPECentralModel.Operation">
-              <MappingFragment StoreEntitySet="Operations">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="SetupTime" ColumnName="SetupTime" />
-                <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
-                <ScalarProperty Name="MethodId" ColumnName="MethodId" />
-                <ScalarProperty Name="MachineGroupId" ColumnName="MachineGroupId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OperationTools">
-            <EntityTypeMapping TypeName="CPECentralModel.OperationTool">
-              <MappingFragment StoreEntitySet="OperationTools">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="Offset" ColumnName="Offset" />
-                <ScalarProperty Name="UseOnePer" ColumnName="UseOnePer" />
-                <ScalarProperty Name="Holder" ColumnName="Holder" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="OperationId" ColumnName="OperationId" />
-                <ScalarProperty Name="ToolId" ColumnName="ToolId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Parts">
-            <EntityTypeMapping TypeName="CPECentralModel.Part">
-              <MappingFragment StoreEntitySet="Parts">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DrawingNumber" ColumnName="DrawingNumber" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ToolingLocation" ColumnName="ToolingLocation" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PartVersions">
-            <EntityTypeMapping TypeName="CPECentralModel.PartVersion">
-              <MappingFragment StoreEntitySet="PartVersions">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
-                <ScalarProperty Name="PartId" ColumnName="PartId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ToolGroups">
-            <EntityTypeMapping TypeName="CPECentralModel.ToolGroup">
-              <MappingFragment StoreEntitySet="ToolGroups">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tools">
-            <EntityTypeMapping TypeName="CPECentralModel.Tool">
-              <MappingFragment StoreEntitySet="Tools">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ToolGroupId" ColumnName="ToolGroupId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CPECentralModelStoreContainer" CdmEntityContainer="CPECentralEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Document)">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+          <ScalarProperty Name="PartVersionId" ColumnName="PartVersionId" />
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.EmployeeGroup)">
+        <MappingFragment StoreEntitySet="EmployeeGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Permissions" ColumnName="Permissions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Employee)">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="EmployeeGroupId" ColumnName="EmployeeGroupId" />
+          <ScalarProperty Name="LastViewedPartId" ColumnName="LastViewedPartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HolderGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.HolderGroup)">
+        <MappingFragment StoreEntitySet="HolderGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Holders">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Holder)">
+        <MappingFragment StoreEntitySet="Holders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HolderGroupId" ColumnName="HolderGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HolderTools">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.HolderTool)">
+        <MappingFragment StoreEntitySet="HolderTools">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HolderId" ColumnName="HolderId" />
+          <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MachineGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.MachineGroup)">
+        <MappingFragment StoreEntitySet="MachineGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Methods">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Method)">
+        <MappingFragment StoreEntitySet="Methods">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsPreferred" ColumnName="IsPreferred" />
+          <ScalarProperty Name="PartVersionId" ColumnName="PartVersionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operations">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Operation)">
+        <MappingFragment StoreEntitySet="Operations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="SetupTime" ColumnName="SetupTime" />
+          <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
+          <ScalarProperty Name="MethodId" ColumnName="MethodId" />
+          <ScalarProperty Name="MachineGroupId" ColumnName="MachineGroupId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperationTools">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.OperationTool)">
+        <MappingFragment StoreEntitySet="OperationTools">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Offset" ColumnName="Offset" />
+          <ScalarProperty Name="UseOnePer" ColumnName="UseOnePer" />
+          <ScalarProperty Name="Holder" ColumnName="Holder" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+          <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parts">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Part)">
+        <MappingFragment StoreEntitySet="Parts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DrawingNumber" ColumnName="DrawingNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ToolingLocation" ColumnName="ToolingLocation" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartVersions">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.PartVersion)">
+        <MappingFragment StoreEntitySet="PartVersions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToolGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.ToolGroup)">
+        <MappingFragment StoreEntitySet="ToolGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tools">
+      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Tool)">
+        <MappingFragment StoreEntitySet="Tools">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ToolGroupId" ColumnName="ToolGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">

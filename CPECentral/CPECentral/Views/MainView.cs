@@ -15,15 +15,15 @@ namespace CPECentral.Views
             base.Dock = DockStyle.Fill;
         }
 
-        private void partLibraryView_PartSelected(object sender, PartSelectedEventArgs e)
+        private void partLibraryView_PartSelected(object sender, PartEventArgs e)
         {
-            var partView = new PartView(e.SelectedPart);
+            var partView = new PartView(e.Part);
             ShowView(partView);
         }
 
-        private void partLibraryView_CustomerSelected(object sender, CustomerSelectedEventArgs e)
+        private void partLibraryView_CustomerSelected(object sender, CustomerEventArgs e)
         {
-            var customerView = new CustomerView(e.SelectedCustomer);
+            var customerView = new CustomerView(e.Customer);
             ShowView(customerView);
         }
 

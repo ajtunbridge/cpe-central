@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusyCursor.cs" />
     <Compile Include="Controls\EnhancedListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -73,6 +74,7 @@
     <Compile Include="Security\Password.cs" />
     <Compile Include="Security\IPasswordService.cs" />
     <Compile Include="Security\PBKDF2PasswordService.cs" />
+    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

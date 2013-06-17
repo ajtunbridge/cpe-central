@@ -3,6 +3,7 @@
 using System;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.Wizard;
 using nGenLibrary.Security;
 
 #endregion
@@ -22,9 +23,10 @@ namespace CPECentral
 
             Session.Initialize();
 
-            EnsureThereIsAnAdminAccount();
+            //EnsureThereIsAnAdminAccount();
+            //AddMyAccount();
 
-            Application.Run(new MainForm());
+            Application.Run(new NewPartWizard());
         }
 
         private static void EnsureThereIsAnAdminAccount()
@@ -67,7 +69,60 @@ namespace CPECentral
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                MessageBox.Show(msg);
+            }
+        }
+
+        private static void AddMyAccount()
+        {
+            try
+            {
+                using (var uow = new UnitOfWork())
+                {
+                    var myGroup = uow.EmployeeGroups.GetByName("Power users");
+
+                    if (myGroup == null)
+                    {
+                        myGroup = new EmployeeGroup();
+                        myGroup.Name = "Power users";
+                        myGroup.GrantPermission(ApplicationPermission.ManageDocuments);
+                        myGroup.GrantPermission(ApplicationPermission.ManageEmployees);
+                        myGroup.GrantPermission(ApplicationPermission.ManageOperations);
+                        myGroup.GrantPermission(ApplicationPermission.ManageParts);
+
+                        uow.EmployeeGroups.Add(myGroup);
+
+                        uow.Commit();
+                    }
+
+                    var myEmployee = uow.Employees.GetByUserName("adam");
+
+                    if (myEmployee == null)
+                    {
+                        myEmployee = new Employee();
+                        myEmployee.FirstName = "Adam";
+                        myEmployee.LastName = "Tunbridge";
+                        myEmployee.UserName = "adam";
+                        myEmployee.EmployeeGroupId = myGroup.Id;
+
+                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("hA7p6p0Y13");
+
+                        myEmployee.Password = securedPassword.Hash;
+                        myEmployee.Salt = securedPassword.Salt;
+
+                        uow.Employees.Add(myEmployee);
+
+                        uow.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                MessageBox.Show(msg);
             }
         }
     }

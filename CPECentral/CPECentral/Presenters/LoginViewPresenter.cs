@@ -45,6 +45,12 @@ namespace CPECentral.Presenters
                 return;
             }
             
+            if (e.Result == null)
+            {
+                _loginView.LoginComplete(null);
+                return;
+            }
+            
             var employee = (Employee) e.Result;
 
             Settings.Default.LastUserName = employee.UserName;
@@ -55,8 +61,6 @@ namespace CPECentral.Presenters
 
         private void LoginWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Thread.Sleep(2000);
-
             var args = (LoginArgs) e.Argument;
 
             try

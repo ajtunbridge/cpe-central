@@ -19,7 +19,7 @@ namespace CPECentral.Presenters
         {
             _partInformationView = partInformationView;
 
-            _partInformationView.ReloadData += _partInformationView_ReloadData;
+            _partInformationView.ReloadData += PartInformationView_ReloadData;
             _partInformationView.SaveChanges += _partInformationView_SaveChanges;
         }
 
@@ -38,6 +38,7 @@ namespace CPECentral.Presenters
             if (!successful)
             {
                 HandleException(e.Result as Exception);
+                return;
             }
 
             _partInformationView.SaveCompleted(successful);
@@ -61,7 +62,7 @@ namespace CPECentral.Presenters
             }
         }
 
-        private void _partInformationView_ReloadData(object sender, EventArgs e)
+        private void PartInformationView_ReloadData(object sender, EventArgs e)
         {
             var getDataWorker = new BackgroundWorker();
             getDataWorker.DoWork += getDataWorker_DoWork;
@@ -90,19 +91,20 @@ namespace CPECentral.Presenters
             {
                 var part = (Part) e.Argument;
 
-                var uow = new UnitOfWork();
+                using (var uow = new UnitOfWork())
+                {
+                    var customer = uow.Customers.GetById(part.CustomerId);
+                    var versions = uow.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
 
-                var customer = uow.Customers.GetById(part.CustomerId);
-                var versions = uow.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
+                    var model = new PartInformationViewModel();
+                    model.AllVersions = versions;
+                    model.Customer = customer.Name;
+                    model.DrawingNumber = part.DrawingNumber;
+                    model.Name = part.Name;
+                    model.ToolingLocation = part.ToolingLocation;
 
-                var model = new PartInformationViewModel();
-                model.AllVersions = versions;
-                model.Customer = customer.Name;
-                model.DrawingNumber = part.DrawingNumber;
-                model.Name = part.Name;
-                model.ToolingLocation = part.ToolingLocation;
-
-                e.Result = model;
+                    e.Result = model;
+                }
             }
             catch (Exception ex)
             {

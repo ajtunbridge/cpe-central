@@ -47,14 +47,15 @@ namespace CPECentral.Presenters
         {
             try
             {
-                var uow = new UnitOfWork();
+                using (var uow = new UnitOfWork())
+                {
+                    var customers = uow.Customers.GetAll();
+                    var parts = uow.Parts.GetAll();
 
-                var customers = uow.Customers.GetAll();
-                var parts = uow.Parts.GetAll();
+                    var viewModel = new PartLibraryViewModel {Customers = customers, Parts = parts};
 
-                var viewModel = new PartLibraryViewModel {Customers = customers, Parts = parts};
-
-                e.Result = viewModel;
+                    e.Result = viewModel;
+                }
             }
             catch (Exception ex)
             {

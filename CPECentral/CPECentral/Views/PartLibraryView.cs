@@ -21,8 +21,8 @@ namespace CPECentral.Views
         Customer SelectedCustomer { get; }
 
         event EventHandler ReloadData;
-        event EventHandler<CustomerSelectedEventArgs> CustomerSelected;
-        event EventHandler<PartSelectedEventArgs> PartSelected;
+        event EventHandler<CustomerEventArgs> CustomerSelected;
+        event EventHandler<PartEventArgs> PartSelected;
 
         void DisplayLibrary(PartLibraryViewModel viewModel);
         void DisplaySearchResults(PartLibraryViewModel viewModel);
@@ -54,8 +54,8 @@ namespace CPECentral.Views
         public Customer SelectedCustomer { get; private set; }
 
         public event EventHandler ReloadData;
-        public event EventHandler<CustomerSelectedEventArgs> CustomerSelected;
-        public event EventHandler<PartSelectedEventArgs> PartSelected;
+        public event EventHandler<CustomerEventArgs> CustomerSelected;
+        public event EventHandler<PartEventArgs> PartSelected;
 
         public void DisplayLibrary(PartLibraryViewModel viewModel)
         {
@@ -130,13 +130,13 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
-        protected virtual void OnCustomerSelected(CustomerSelectedEventArgs e)
+        protected virtual void OnCustomerSelected(CustomerEventArgs e)
         {
             var handler = CustomerSelected;
             if (handler != null) handler(this, e);
         }
 
-        protected virtual void OnPartSelected(PartSelectedEventArgs e)
+        protected virtual void OnPartSelected(PartEventArgs e)
         {
             var handler = PartSelected;
             if (handler != null) handler(this, e);
@@ -159,12 +159,12 @@ namespace CPECentral.Views
             if (e.Node.Tag is Part)
             {
                 SelectedPart = (Part) e.Node.Tag;
-                OnPartSelected(new PartSelectedEventArgs(SelectedPart));
+                OnPartSelected(new PartEventArgs(SelectedPart));
             }
-            else // is Customer
+            else if (e.Node.Tag is Customer)
             {
                 SelectedCustomer = (Customer) e.Node.Tag;
-                OnCustomerSelected(new CustomerSelectedEventArgs(SelectedCustomer));
+                OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
             }
         }
     }

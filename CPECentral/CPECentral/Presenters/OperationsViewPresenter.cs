@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Views;
 
@@ -20,15 +21,47 @@ namespace CPECentral.Presenters
         {
             _operationsView = operationsView;
 
-            _operationsView.ReloadData += OperationsViewReloadData;
+            _operationsView.ReloadMethods += OperationsView_ReloadMethods;
+            _operationsView.MethodSelected += OperationsView_MethodSelected;
         }
 
-        private void OperationsViewReloadData(object sender, EventArgs e)
+        private void OperationsView_ReloadMethods(object sender, EventArgs e)
+        {
+            var getMethodsWorker = new BackgroundWorker();
+
+            getMethodsWorker.DoWork += GetMethodsWorker_DoWork;
+            getMethodsWorker.RunWorkerCompleted += GetMethodsWorker_RunWorkerCompleted;
+
+            getMethodsWorker.RunWorkerAsync(_operationsView.CurrentPartVersion);
+        }
+
+        private void OperationsView_MethodSelected(object sender, MethodEventArgs e)
         {
             var getOperationsWorker = new BackgroundWorker();
+
             getOperationsWorker.DoWork += GetOperationsWorker_DoWork;
             getOperationsWorker.RunWorkerCompleted += GetOperationsWorker_RunWorkerCompleted;
-            getOperationsWorker.RunWorkerAsync(_operationsView.CurrentMethod);
+
+            getOperationsWorker.RunWorkerAsync(_operationsView.SelectedMethod);
+        }
+
+        private void GetOperationsWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                var method = (Method) e.Argument;
+
+                using (var uow = new UnitOfWork())
+                {
+                    var ops = uow.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
+
+                    e.Result = ops;
+                }
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex;
+            }
         }
 
         private void GetOperationsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -40,28 +73,43 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var operations = (IEnumerable<Operation>) e.Result;
+            var ops = (IEnumerable<Operation>)e.Result;
 
-            _operationsView.DisplayOperations(operations);
+            _operationsView.DisplayOperations(ops);
         }
 
-        private void GetOperationsWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void GetMethodsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                var currentMethod = (Method) e.Argument;
+                var partVersion = (PartVersion) e.Argument;
 
-                var uow = new UnitOfWork();
+                using (var uow = new UnitOfWork())
+                {
+                    var methods = uow.Methods.GetByPartVersion(partVersion)
+                                     .OrderByDescending(method => method.IsPreferred);
 
-                var operations = uow.Operations.GetByMethod(currentMethod)
-                                    .OrderBy(op => op.Sequence);
-
-                e.Result = operations;
+                    e.Result = methods;
+                }
             }
             catch (Exception ex)
             {
                 e.Result = ex;
             }
+        }
+
+        private void GetMethodsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result is Exception)
+            {
+                HandleException(e.Result as Exception);
+                _operationsView.DisplayMethods(null);
+                return;
+            }
+
+            var methods = (IEnumerable<Method>) e.Result;
+
+            _operationsView.DisplayMethods(methods);
         }
 
         private void HandleException(Exception ex)

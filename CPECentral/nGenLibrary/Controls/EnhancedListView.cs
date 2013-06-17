@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace nGenLibrary.Controls
 
         public EnhancedListView()
         {
+            IndexOfColumnToResize = 0;
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -33,8 +35,10 @@ namespace nGenLibrary.Controls
         }
 
         [Category("Behavior")]
-        [Description("If true, resizes the last column to fill the remaining space when resized")]
-        public bool ResizeLastColumnToFill { get; set; }
+        [Description("If true, resizes the column to fill the remaining space when resized")]
+        public bool ResizeColumnToFill { get; set; }
+
+        public int IndexOfColumnToResize { get; set; }
 
         [Category("Misc")]
         [Description("The number of items currently selected")]
@@ -197,7 +201,7 @@ namespace nGenLibrary.Controls
             {
                 var pos = new WINDOWPOS();
                 pos = (WINDOWPOS) Marshal.PtrToStructure(m.LParam, pos.GetType());
-                if (Columns.Count > 0 && ResizeLastColumnToFill && (pos.flags & SWP_NOSIZE) == 0)
+                if (Columns.Count > 0 && ResizeColumnToFill && (pos.flags & SWP_NOSIZE) == 0)
                 {
                     ResizeFreeSpaceFillingColumns(pos.cx - (Bounds.Width - ClientSize.Width));
                 }
@@ -209,15 +213,9 @@ namespace nGenLibrary.Controls
 
         private void ResizeFreeSpaceFillingColumns(int listViewWidth)
         {
-            var lastColumn = Columns.Count - 1;
-            var sumWidth = 0;
+            var sumWidth = (from ColumnHeader column in Columns where column.Index != IndexOfColumnToResize select column.Width).Sum();
 
-            for (var i = 0; i < lastColumn; i++)
-            {
-                sumWidth += Columns[i].Width;
-            }
-
-            Columns[lastColumn].Width = listViewWidth - sumWidth - 3;
+            Columns[IndexOfColumnToResize].Width = listViewWidth - sumWidth - 3;
         }
 
         #region Nested type: WINDOWPOS

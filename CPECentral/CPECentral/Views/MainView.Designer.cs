@@ -55,10 +55,10 @@
             this.partLibraryView.Location = new System.Drawing.Point(0, 0);
             this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(221, 372);
+            this.partLibraryView.Size = new System.Drawing.Size(186, 372);
             this.partLibraryView.TabIndex = 0;
-            this.partLibraryView.CustomerSelected += new System.EventHandler<CPECentral.CustomEventArgs.CustomerSelectedEventArgs>(this.partLibraryView_CustomerSelected);
-            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartSelectedEventArgs>(this.partLibraryView_PartSelected);
+            this.partLibraryView.CustomerSelected += new System.EventHandler<CPECentral.CustomEventArgs.CustomerEventArgs>(this.partLibraryView_CustomerSelected);
+            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
             // 
             // toolStrip1
             // 
@@ -133,11 +133,10 @@
             // 
             // librarySelectionPanel
             // 
-            this.librarySelectionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.librarySelectionPanel.Location = new System.Drawing.Point(0, 0);
             this.librarySelectionPanel.Name = "librarySelectionPanel";
-            this.librarySelectionPanel.Size = new System.Drawing.Size(468, 372);
+            this.librarySelectionPanel.Size = new System.Drawing.Size(503, 372);
             this.librarySelectionPanel.TabIndex = 4;
             // 
             // splitContainer
@@ -154,8 +153,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.librarySelectionPanel);
             this.splitContainer.Size = new System.Drawing.Size(694, 372);
-            this.splitContainer.SplitterDistance = 221;
-            this.splitContainer.SplitterIncrement = 5;
+            this.splitContainer.SplitterDistance = 186;
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 5;
             // 

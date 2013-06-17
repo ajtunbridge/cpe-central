@@ -13,11 +13,17 @@ namespace CPECentral.Views
 {
     public interface IOperationsView : IView
     {
-        Method CurrentMethod { get; }
+        PartVersion CurrentPartVersion { get; }
+        Method SelectedMethod { get; }
         Operation SelectedOperation { get; }
-        event EventHandler ReloadData;
-        event EventHandler<OperationSelectedEventArgs> OperationSelected;
-        void LoadOperations(Method method);
+
+        event EventHandler ReloadMethods;
+        event EventHandler<MethodEventArgs> MethodSelected;
+        event EventHandler<OperationEventArgs> OperationSelected;
+
+        void LoadMethods(PartVersion partVersion);
+
+        void DisplayMethods(IEnumerable<Method> methods);
         void DisplayOperations(IEnumerable<Operation> operations);
     }
 
@@ -36,64 +42,116 @@ namespace CPECentral.Views
 
         #region IOperationsView Members
 
-        public Method CurrentMethod { get; private set; }
+        public PartVersion CurrentPartVersion { get; private set; }
+
+        public Method SelectedMethod { get; private set; }
         public Operation SelectedOperation { get; private set; }
 
-        public event EventHandler ReloadData;
-        public event EventHandler<OperationSelectedEventArgs> OperationSelected;
+        public event EventHandler ReloadMethods;
+        public event EventHandler<MethodEventArgs> MethodSelected;
+        public event EventHandler<OperationEventArgs> OperationSelected;
 
-        public void LoadOperations(Method method)
+        public void LoadMethods(PartVersion partVersion)
         {
-            CurrentMethod = method;
+            CurrentPartVersion = partVersion;
 
-            enhancedListView.Items.Clear();
-            enhancedListView.Items.Add("-").SubItems.Add("retrieving...");
+            operationsEnhancedListView.Items.Clear();
+            methodsEnhancedListView.Items.Clear();
 
-            OnReloadData();
+            methodsEnhancedListView.Items.Add("retrieving...");
+
+            operationsEnhancedListView.Enabled = false;
+            methodsEnhancedListView.Enabled = false;
+
+            operationsToolStrip.Enabled = false;
+            methodsToolStrip.Enabled = false;
+
+            OnRefreshViewData();
+        }
+
+        public void DisplayMethods(IEnumerable<Method> methods)
+        {
+            methodsEnhancedListView.Items.Clear();
+            methodsEnhancedListView.Enabled = true;
+
+            methodsToolStrip.Enabled = true;
+
+            foreach (var method in methods)
+            {
+                var item = methodsEnhancedListView.Items.Add(method.Description);
+                item.Tag = method;
+            }
+
+            methodsEnhancedListView.SelectFirstItem();
+
+            Invalidate();
         }
 
         public void DisplayOperations(IEnumerable<Operation> operations)
         {
-            enhancedListView.Items.Clear();
+            operationsEnhancedListView.Items.Clear();
+            operationsEnhancedListView.Enabled = true;
 
             foreach (var operation in operations)
             {
-                var item = enhancedListView.Items.Add(operation.Sequence.ToString("D2"));
+                var item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
                 item.SubItems.Add(operation.Description);
                 item.Tag = operation;
             }
 
-            enhancedListView.SelectFirstItem();
+            operationsEnhancedListView.SelectFirstItem();
+
+            Invalidate();
         }
 
         #endregion
 
-        protected virtual void OnReloadData()
+        protected virtual void OnRefreshViewData()
         {
-            var handler = ReloadData;
+            var handler = ReloadMethods;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
-        protected virtual void OnOperationSelected(OperationSelectedEventArgs e)
+        protected virtual void OnMethodSelected(MethodEventArgs e)
+        {
+            var handler = MethodSelected;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnOperationSelected(OperationEventArgs e)
         {
             var handler = OperationSelected;
             if (handler != null) handler(this, e);
         }
 
-        private void enhancedListView_SelectedIndexChanged(object sender, EventArgs e)
+        private void MethodsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            operationsEnhancedListView.Items.Clear();
+
+            operationsToolStrip.Enabled = false;
+            operationsEnhancedListView.Enabled = false;
+
+            if (methodsEnhancedListView.SelectionCount == 0)
+            {
+                SelectedMethod = null;
+                return;
+            }
+
+            operationsEnhancedListView.Items.Add("-").SubItems.Add("retrieving...");
+
+            SelectedMethod = (Method) methodsEnhancedListView.SelectedItems[0].Tag;
+
+            OnMethodSelected(new MethodEventArgs(SelectedMethod));
         }
 
-        private void OperationsView_Load(object sender, EventArgs e)
+        private void OperationsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-        }
+            if (operationsEnhancedListView.SelectionCount == 0)
+                SelectedOperation = null;
+            else
+                SelectedOperation = (Operation) operationsEnhancedListView.SelectedItems[0].Tag;
 
-        private void enhancedListView_ClientSizeChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void enhancedListView_Resize(object sender, EventArgs e)
-        {
+            OnOperationSelected(new OperationEventArgs(SelectedOperation));
         }
     }
 }

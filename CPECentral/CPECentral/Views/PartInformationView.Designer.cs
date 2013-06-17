@@ -46,16 +46,16 @@
             // 
             this.customerTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customerTextBox.Location = new System.Drawing.Point(6, 20);
+            this.customerTextBox.Location = new System.Drawing.Point(0, 20);
             this.customerTextBox.Name = "customerTextBox";
             this.customerTextBox.ReadOnly = true;
-            this.customerTextBox.Size = new System.Drawing.Size(273, 25);
+            this.customerTextBox.Size = new System.Drawing.Size(282, 25);
             this.customerTextBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(-3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 48);
+            this.label2.Location = new System.Drawing.Point(-3, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 17);
             this.label2.TabIndex = 1;
@@ -73,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 96);
+            this.label3.Location = new System.Drawing.Point(-3, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 17);
             this.label3.TabIndex = 1;
@@ -83,15 +83,16 @@
             // 
             this.versionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionsComboBox.FormattingEnabled = true;
-            this.versionsComboBox.Location = new System.Drawing.Point(6, 164);
+            this.versionsComboBox.Location = new System.Drawing.Point(0, 164);
             this.versionsComboBox.Name = "versionsComboBox";
             this.versionsComboBox.Size = new System.Drawing.Size(55, 25);
             this.versionsComboBox.TabIndex = 2;
+            this.versionsComboBox.SelectedIndexChanged += new System.EventHandler(this.versionsComboBox_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 144);
+            this.label4.Location = new System.Drawing.Point(-3, 144);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 17);
             this.label4.TabIndex = 1;
@@ -99,7 +100,7 @@
             // 
             // versionOptionsButton
             // 
-            this.versionOptionsButton.Location = new System.Drawing.Point(67, 164);
+            this.versionOptionsButton.Location = new System.Drawing.Point(61, 164);
             this.versionOptionsButton.Name = "versionOptionsButton";
             this.versionOptionsButton.Size = new System.Drawing.Size(25, 25);
             this.versionOptionsButton.TabIndex = 3;
@@ -110,9 +111,9 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(98, 144);
+            this.label5.Location = new System.Drawing.Point(92, 144);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(181, 17);
+            this.label5.Size = new System.Drawing.Size(190, 17);
             this.label5.TabIndex = 1;
             this.label5.Text = "Tooling location";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -122,9 +123,9 @@
             this.saveChangesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.saveChangesButton.Enabled = false;
-            this.saveChangesButton.Location = new System.Drawing.Point(6, 196);
+            this.saveChangesButton.Location = new System.Drawing.Point(0, 196);
             this.saveChangesButton.Name = "saveChangesButton";
-            this.saveChangesButton.Size = new System.Drawing.Size(273, 37);
+            this.saveChangesButton.Size = new System.Drawing.Size(282, 37);
             this.saveChangesButton.TabIndex = 4;
             this.saveChangesButton.Text = "No changes";
             this.saveChangesButton.UseVisualStyleBackColor = true;
@@ -136,10 +137,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.drawingNumberTextBox.DisableDoubleSpace = true;
-            this.drawingNumberTextBox.Location = new System.Drawing.Point(6, 68);
+            this.drawingNumberTextBox.Location = new System.Drawing.Point(0, 68);
             this.drawingNumberTextBox.MaxLength = 50;
             this.drawingNumberTextBox.Name = "drawingNumberTextBox";
-            this.drawingNumberTextBox.Size = new System.Drawing.Size(273, 25);
+            this.drawingNumberTextBox.Size = new System.Drawing.Size(282, 25);
             this.drawingNumberTextBox.TabIndex = 5;
             this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);
             // 
@@ -149,10 +150,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nameTextBox.DisableDoubleSpace = true;
-            this.nameTextBox.Location = new System.Drawing.Point(6, 116);
+            this.nameTextBox.Location = new System.Drawing.Point(0, 116);
             this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(273, 25);
+            this.nameTextBox.Size = new System.Drawing.Size(282, 25);
             this.nameTextBox.TabIndex = 5;
             this.nameTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);
             // 
@@ -162,10 +163,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolingLocationTextBox.DisableDoubleSpace = false;
-            this.toolingLocationTextBox.Location = new System.Drawing.Point(98, 165);
+            this.toolingLocationTextBox.Location = new System.Drawing.Point(92, 165);
             this.toolingLocationTextBox.MaxLength = 50;
             this.toolingLocationTextBox.Name = "toolingLocationTextBox";
-            this.toolingLocationTextBox.Size = new System.Drawing.Size(181, 25);
+            this.toolingLocationTextBox.Size = new System.Drawing.Size(190, 25);
             this.toolingLocationTextBox.TabIndex = 5;
             this.toolingLocationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolingLocationTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);

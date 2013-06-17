@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.centralPanel = new System.Windows.Forms.Panel();
+            this.verifyingLabel = new System.Windows.Forms.Label();
             this.passwordTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.userNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.preloaderPictureBox = new System.Windows.Forms.PictureBox();
@@ -36,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.verifyingLabel = new System.Windows.Forms.Label();
             this.centralPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.preloaderPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -57,6 +57,16 @@
             this.centralPanel.Size = new System.Drawing.Size(336, 375);
             this.centralPanel.TabIndex = 0;
             // 
+            // verifyingLabel
+            // 
+            this.verifyingLabel.Location = new System.Drawing.Point(55, 345);
+            this.verifyingLabel.Name = "verifyingLabel";
+            this.verifyingLabel.Size = new System.Drawing.Size(223, 20);
+            this.verifyingLabel.TabIndex = 4;
+            this.verifyingLabel.Text = "verifying credentials...";
+            this.verifyingLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.verifyingLabel.Visible = false;
+            // 
             // passwordTextBox
             // 
             this.passwordTextBox.AcceptsReturn = true;
@@ -66,7 +76,7 @@
             this.passwordTextBox.MaxLength = 30;
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(220, 29);
-            this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.TabIndex = 0;
             this.passwordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.passwordTextBox.UseSystemPasswordChar = true;
             this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
@@ -80,7 +90,7 @@
             this.userNameTextBox.MaxLength = 30;
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(220, 29);
-            this.userNameTextBox.TabIndex = 0;
+            this.userNameTextBox.TabIndex = 2;
             this.userNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.userNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
             // 
@@ -101,7 +111,7 @@
             this.loginButton.Location = new System.Drawing.Point(58, 254);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(220, 50);
-            this.loginButton.TabIndex = 2;
+            this.loginButton.TabIndex = 1;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButton_Click);
@@ -135,16 +145,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // verifyingLabel
-            // 
-            this.verifyingLabel.Location = new System.Drawing.Point(55, 345);
-            this.verifyingLabel.Name = "verifyingLabel";
-            this.verifyingLabel.Size = new System.Drawing.Size(223, 20);
-            this.verifyingLabel.TabIndex = 4;
-            this.verifyingLabel.Text = "verifying credentials...";
-            this.verifyingLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.verifyingLabel.Visible = false;
             // 
             // LoginView
             // 

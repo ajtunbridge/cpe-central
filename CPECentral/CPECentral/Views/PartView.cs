@@ -73,7 +73,7 @@ namespace CPECentral.Views
 
         private void PartView_Load(object sender, EventArgs e)
         {
-            partInformationView1.LoadPart(_part);
+            partInformationView.LoadPart(_part);
 
             RefreshData();
         }
@@ -92,6 +92,16 @@ namespace CPECentral.Views
         {
             createdByLabel.Left = Right - createdByLabel.Width - 3;
             modifiedByLabel.Left = Right - modifiedByLabel.Width - 3;
+        }
+
+        private void operationsView1_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)
+        {
+
+        }
+
+        private void partInformationView_VersionSelected(object sender, CustomEventArgs.PartVersionEventArgs e)
+        {
+            operationsView.LoadMethods(e.PartVersion);
         }
     }
 }
