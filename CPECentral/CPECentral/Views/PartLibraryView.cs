@@ -45,6 +45,7 @@ namespace CPECentral.Views
                 _presenter = new PartLibraryViewPresenter(this);
 
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
+                Session.MessageBus.Subscribe<PartAddedMessage>(PartAddedMessage_Published);
             }
         }
 
@@ -142,6 +143,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, e);
         }
 
+        private void PartAddedMessage_Published(PartAddedMessage message)
+        {
+            OnReloadData();
+            SelectPart(message.NewPart);
+        }
+
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
             if (SelectedPart == message.EditedPart)
@@ -165,6 +172,23 @@ namespace CPECentral.Views
             {
                 SelectedCustomer = (Customer) e.Node.Tag;
                 OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
+            }
+        }
+    
+        private void SelectPart(Part part)
+        {
+            foreach (TreeNode customerNode in enhancedTreeView.Nodes)
+            {
+                foreach (TreeNode partNode in customerNode.Nodes)
+                {
+                    var nodePart = (Part) partNode.Tag;
+
+                    if (!nodePart.Equals(part))
+                        continue;
+
+                    enhancedTreeView.SelectedNode = partNode;
+                    return;
+                }
             }
         }
     }

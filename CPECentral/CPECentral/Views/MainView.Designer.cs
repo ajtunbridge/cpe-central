@@ -39,6 +39,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarySelectionPanel = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.addNewPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -115,6 +116,8 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewPartToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "&File";
@@ -157,6 +160,13 @@
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 5;
             // 
+            // addNewPartToolStripMenuItem
+            // 
+            this.addNewPartToolStripMenuItem.Name = "addNewPartToolStripMenuItem";
+            this.addNewPartToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addNewPartToolStripMenuItem.Text = "&Add new part";
+            this.addNewPartToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -195,5 +205,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.Panel librarySelectionPanel;
         private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.ToolStripMenuItem addNewPartToolStripMenuItem;
     }
 }

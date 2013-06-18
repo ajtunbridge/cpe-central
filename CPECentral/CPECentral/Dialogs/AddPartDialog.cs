@@ -28,6 +28,52 @@ namespace CPECentral.Dialogs
                 _dialogService = Session.GetInstanceOf<IDialogService>();
         }
 
+        public bool IsNewCustomer
+        {
+            get { return isNewCustomerCheckBox.Checked; }
+        }
+
+        public Customer SelectedCustomer
+        {
+            get
+            {
+                if (isNewCustomerCheckBox.Checked)
+                    return null;
+
+                return (Customer) customerComboBox.SelectedItem;
+            }
+        }
+
+        public string NewCustomerName
+        {
+            get { return newCustomerNameTextBox.Text.Trim(); }
+        }
+
+        public string DrawingNumber
+        {
+            get { return drawingNumberTextBox.Text; }
+        }
+
+        public string PartName
+        {
+            get { return nameTextBox.Text.Trim(); }
+        }
+
+        public string VersionNumber
+        {
+            get { return versionTextBox.Text.Trim(); }
+        }
+
+        public string ToolingLocation
+        {
+            get { return toolingLocationTextBox.Text.Trim(); }
+        }
+
+        public IEnumerable<string> FilesToImport
+        {
+            get { return from ListViewItem item in filesListView.CheckedItems select (string) item.Tag; }
+        }
+
         private void LoadCustomers()
         {
             using (var uow = new UnitOfWork())
@@ -65,10 +111,20 @@ namespace CPECentral.Dialogs
 
         private void okayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
+            if (filesListView.CheckedCount > 0)
+            {
+                const string question = "Have you verified these files are the correct version?";
+
+                if (!_dialogService.AskQuestion(question))
+                    return;
+            }
+
+            DialogResult = DialogResult.OK;
         }
 
         private void okayCancelFooter_CancelClicked(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -114,6 +170,8 @@ namespace CPECentral.Dialogs
 
                 return;
             }
+
+            _isScanningForFiles = true;
 
             if (string.IsNullOrWhiteSpace(drawingNumberTextBox.Text))
             {
@@ -181,6 +239,8 @@ namespace CPECentral.Dialogs
 
         void _scanServerWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            _isScanningForFiles = false;
+
             scanServerButton.Text = "Scan server for drawings and models";
             scanServerButton.Enabled = true;
             progressBar.Style = ProgressBarStyle.Blocks;

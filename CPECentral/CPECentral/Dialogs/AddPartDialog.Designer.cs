@@ -109,6 +109,7 @@ namespace CPECentral.Dialogs
             this.versionTextBox.Name = "versionTextBox";
             this.versionTextBox.Size = new System.Drawing.Size(74, 25);
             this.versionTextBox.TabIndex = 5;
+            this.versionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // drawingNumberTextBox
             // 

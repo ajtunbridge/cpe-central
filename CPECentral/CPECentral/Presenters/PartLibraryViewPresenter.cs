@@ -2,7 +2,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 

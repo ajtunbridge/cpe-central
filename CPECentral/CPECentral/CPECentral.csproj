@@ -81,6 +81,7 @@
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="IDialogService.cs" />
+    <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />

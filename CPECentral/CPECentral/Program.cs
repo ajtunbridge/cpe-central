@@ -26,7 +26,7 @@ namespace CPECentral
             //EnsureThereIsAnAdminAccount();
             //AddMyAccount();
 
-            Application.Run(new AddPartDialog());
+            Application.Run(new MainForm());
         }
 
         private static void EnsureThereIsAnAdminAccount()
