@@ -58,6 +58,12 @@
     <Compile Include="Controls\FilesListView.Designer.cs">
       <DependentUpon>FilesListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NcCodeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -93,7 +99,7 @@
     </Compile>
     <Compile Include="DocumentService.cs" />
     <Compile Include="IDialogService.cs" />
-    <Compile Include="Messages\DocumentUploadedMessage.cs" />
+    <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
     <Compile Include="NoFlicker.cs" />
@@ -176,6 +182,9 @@
     <EmbeddedResource Include="Controls\FilesListView.resx">
       <DependentUpon>FilesListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\NcCodeEditor.resx">
       <DependentUpon>NcCodeEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,7 +237,7 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config.work" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -239,9 +248,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SyntaxHighlighting\CSharp-Mode.xshd" />
+    <None Include="SyntaxHighlighting\Fanuc.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SyntaxHighlighting\VBNET-Mode.xshd" />
+    <None Include="SyntaxHighlighting\XML-Mode.xshd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config.home" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CAM_Template_Milling.fm" />
@@ -252,6 +267,10 @@
     <ProjectReference Include="..\CPECentral.Data.EF5\CPECentral.Data.EF5.csproj">
       <Project>{502dea6a-ea3e-4a9a-bc97-96097cc3c77c}</Project>
       <Name>CPECentral.Data.EF5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cyotek.Windows.Forms.ImageBox\Cyotek.Windows.Forms.ImageBox.csproj">
+      <Project>{4159c8d3-c18d-4bed-8be6-9bad1b0ca4f6}</Project>
+      <Name>Cyotek.Windows.Forms.ImageBox</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.TextEditor\ICSharpCode.TextEditor.csproj">
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
@@ -340,6 +359,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ScanServerIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomInIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomOutIcon_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

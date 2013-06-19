@@ -45,11 +45,6 @@ namespace CPECentral.Data.EF5.Repositories
 
         private void Attach<TEntity>(TEntity entity, EntityState attachState) where TEntity : class, IEntity
         {
-            var existingEntry = UnitOfWork.Entities.Entry(entity);
-
-            if (existingEntry != null) // it's already attached
-                return;
-
             UnitOfWork.Entities.Set<TEntity>().Attach(entity);
 
             var entry = UnitOfWork.Entities.Entry(entity);

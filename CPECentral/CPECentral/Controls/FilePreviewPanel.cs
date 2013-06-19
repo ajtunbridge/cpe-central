@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Properties;
+using Cyotek.Windows.Forms;
 using ICSharpCode.TextEditor;
 using nGenLibrary;
 
@@ -51,7 +52,9 @@ namespace CPECentral.Controls
                 return;
             }
 
-            if (extension == ".txt" || extension == ".nc")
+            var validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+
+            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
             {
                 var ncEditor = new NcCodeEditor();
                 ncEditor.Dock = DockStyle.Fill;
@@ -61,9 +64,11 @@ namespace CPECentral.Controls
 
             var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (imageExtensions.Any(ext => ext.Equals(extension, StringComparison.OrdinalIgnoreCase)))
+            if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
             {
-                return;
+                var imageViewer = new ImageViewer(fileName);
+                imageViewer.Dock = DockStyle.Fill;
+                Controls.Add(imageViewer);
             }
         }
 

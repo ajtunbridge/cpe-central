@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.openDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteDocumentsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.importMillingProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newTurningProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -44,8 +44,8 @@
             // 
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
+            this.openDocumentToolStripButton,
+            this.deleteDocumentsToolStripButton,
             this.toolStripSeparator,
             this.importMillingProgramToolStripButton,
             this.newTurningProgramToolStripButton,
@@ -55,25 +55,27 @@
             this.toolStrip.Size = new System.Drawing.Size(367, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
+            this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
-            // toolStripButton1
+            // openDocumentToolStripButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::CPECentral.Properties.Resources.OpenIcon_16x16;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.openDocumentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openDocumentToolStripButton.Enabled = false;
+            this.openDocumentToolStripButton.Image = global::CPECentral.Properties.Resources.OpenIcon_16x16;
+            this.openDocumentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openDocumentToolStripButton.Name = "openDocumentToolStripButton";
+            this.openDocumentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.openDocumentToolStripButton.Text = "Open document";
             // 
-            // toolStripButton2
+            // deleteDocumentsToolStripButton
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Enabled = false;
-            this.toolStripButton2.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.deleteDocumentsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteDocumentsToolStripButton.Enabled = false;
+            this.deleteDocumentsToolStripButton.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteDocumentsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteDocumentsToolStripButton.Name = "deleteDocumentsToolStripButton";
+            this.deleteDocumentsToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteDocumentsToolStripButton.Text = "toolStripButton2";
             // 
             // toolStripSeparator
             // 
@@ -130,6 +132,7 @@
             this.filesListView.UseAlternatingBackColor = true;
             this.filesListView.UseCompatibleStateImageBehavior = false;
             this.filesListView.View = System.Windows.Forms.View.Details;
+            this.filesListView.ItemActivate += new System.EventHandler(this.filesListView_ItemActivate);
             this.filesListView.SelectedIndexChanged += new System.EventHandler(this.filesListView_SelectedIndexChanged);
             this.filesListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.filesListView_DragDrop);
             this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
@@ -160,7 +163,7 @@
         private System.Windows.Forms.ToolStripButton newTurningProgramToolStripButton;
         private Controls.FilesListView filesListView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton openDocumentToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteDocumentsToolStripButton;
     }
 }

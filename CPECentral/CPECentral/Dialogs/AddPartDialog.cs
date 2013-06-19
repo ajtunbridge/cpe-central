@@ -246,7 +246,14 @@ namespace CPECentral.Dialogs
                 if (_scanServerWorker.CancellationPending)
                     return;
 
-                var matches = Directory.GetFiles(currentDir, searchPattern);
+                var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+
+                var matches = Directory.GetFiles(currentDir, searchPattern)
+                    .Where(fileName =>
+                        {
+                            var ext = Path.GetExtension(fileName);
+                            return validExtensions.Any(validExt => validExt.Equals(ext, StringComparison.OrdinalIgnoreCase));
+                        });
 
                 filesListView.Invoke((MethodInvoker) delegate
                     {

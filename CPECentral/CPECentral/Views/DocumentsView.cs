@@ -19,10 +19,13 @@ namespace CPECentral.Views
         IEntity CurrentEntity { get; }
         IEnumerable<Document> SelectedDocuments { get; }
         int SelectionCount { get; }
-        
+
+        event EventHandler DeleteSelectedDocuments;
+        event EventHandler OpenDocument;
         event EventHandler RefreshDocuments;
         event EventHandler SelectionChanged;
         event EventHandler<FileDropEventArgs> FilesDropped;
+
         void DisplayDocuments(IEnumerable<DocumentsViewModel> documentModels);
     }
 
@@ -38,7 +41,7 @@ namespace CPECentral.Views
             {
                 _presenter = new DocumentsViewPresenter(this);
 
-                Session.MessageBus.Subscribe<DocumentUploadedMessage>(DocumentUploadedMessage_Published);
+                Session.MessageBus.Subscribe<DocumentsChangedMessage>(DocumentsChangedMessage_Published);
             }
         }
 
@@ -56,11 +59,37 @@ namespace CPECentral.Views
             get { return filesListView.SelectionCount; }
         }
 
+        public event EventHandler DeleteSelectedDocuments;
+        public event EventHandler OpenDocument;
         public event EventHandler RefreshDocuments;
         public event EventHandler SelectionChanged;
         public event EventHandler<FileDropEventArgs> FilesDropped;
 
+        public void DisplayDocuments(IEnumerable<DocumentsViewModel> documentModels)
+        {
+            filesListView.Items.Clear();
+
+            foreach (var model in documentModels)
+            {
+                filesListView.AddFile(model.FileName, model.Document);
+            }
+
+            toolStrip.Enabled = true;
+        }
+
         #endregion
+
+        protected virtual void OnDeleteSelectedDocuments()
+        {
+            EventHandler handler = DeleteSelectedDocuments;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnOpenDocument()
+        {
+            EventHandler handler = OpenDocument;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
 
         protected virtual void OnRefreshDocuments()
         {
@@ -70,13 +99,13 @@ namespace CPECentral.Views
 
         protected virtual void OnSelectionChanged()
         {
-            EventHandler handler = SelectionChanged;
+            var handler = SelectionChanged;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
         protected virtual void OnFilesDropped(FileDropEventArgs e)
         {
-            EventHandler<FileDropEventArgs> handler = FilesDropped;
+            var handler = FilesDropped;
             if (handler != null) handler(this, e);
         }
 
@@ -105,32 +134,25 @@ namespace CPECentral.Views
             OnRefreshDocuments();
         }
 
-        public void DisplayDocuments(IEnumerable<DocumentsViewModel> documentModels)
-        {
-            filesListView.Items.Clear();
-
-            foreach (var model in documentModels)
-            {
-                filesListView.AddFile(model.FileName, model.Document);
-            }
-
-            toolStrip.Enabled = true;
-        }
-
-        private void DocumentUploadedMessage_Published(DocumentUploadedMessage message)
+        private void DocumentsChangedMessage_Published(DocumentsChangedMessage message)
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker) (() => DocumentUploadedMessage_Published(message)));
+                Invoke((MethodInvoker) (() => DocumentsChangedMessage_Published(message)));
                 return;
             }
 
-            if (message.Entity.Equals(CurrentEntity))
-                OnRefreshDocuments();
+                if (message.Entity.Equals(CurrentEntity))
+                    OnRefreshDocuments();
         }
 
         private void filesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var selectionCount = filesListView.SelectionCount;
+
+            openDocumentToolStripButton.Enabled = selectionCount == 1;
+            deleteDocumentsToolStripButton.Enabled = selectionCount > 0;
+
             OnSelectionChanged();
         }
 
@@ -142,9 +164,27 @@ namespace CPECentral.Views
 
         private void filesListView_DragDrop(object sender, DragEventArgs e)
         {
-            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
 
             OnFilesDropped(new FileDropEventArgs(files));
+        }
+
+        private void filesListView_ItemActivate(object sender, EventArgs e)
+        {
+            OnOpenDocument();
+        }
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name)
+            {
+                case "deleteDocumentsToolStripButton":
+                    OnDeleteSelectedDocuments();
+                    break;
+                case "openDocumentToolStripButton":
+                    OnOpenDocument();
+                    break;
+            }
         }
     }
 }

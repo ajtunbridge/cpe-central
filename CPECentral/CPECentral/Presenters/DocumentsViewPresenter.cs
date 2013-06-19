@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+using nGenLibrary;
 
 namespace CPECentral.Presenters
 {
@@ -13,13 +15,33 @@ namespace CPECentral.Presenters
     {
         private readonly IDocumentsView _documentsView;
         private BackgroundWorker _refreshDocumentsWorker;
+        private readonly object _refreshLocker = new object();
 
         public DocumentsViewPresenter(IDocumentsView documentsView)
         {
             _documentsView = documentsView;
 
             _documentsView.RefreshDocuments += _documentsView_RefreshDocuments;
+            _documentsView.OpenDocument += _documentsView_OpenDocument;
+            _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments;
             _documentsView.FilesDropped += _documentsView_FilesDropped;
+        }
+
+        void _documentsView_DeleteSelectedDocuments(object sender, EventArgs e)
+        {
+            const string question = "Are you sure you want to delete these documents?\n\nThis cannot be undone!";
+
+            if (!_documentsView.DialogService.AskQuestion(question))
+                return;
+
+            Session.DocumentService.DeleteDocuments(_documentsView.SelectedDocuments);
+        }
+
+        void _documentsView_OpenDocument(object sender, EventArgs e)
+        {
+            var document = _documentsView.SelectedDocuments.First();
+
+            Session.DocumentService.OpenDocument(document);
         }
 
         void _documentsView_FilesDropped(object sender, CustomEventArgs.FileDropEventArgs e)
@@ -40,37 +62,52 @@ namespace CPECentral.Presenters
 
         void _refreshDocumentsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var entity = e.Argument as IEntity;
-
-            try
+            lock (_refreshLocker)
             {
-                var modelItems = new List<DocumentsViewModel>();
-                    
-                using (var uow = new UnitOfWork())
+                var entity = e.Argument as IEntity;
+
+                try
                 {
-                    uow.OpenConnection();
+                    var modelItems = new List<DocumentsViewModel>();
 
-                    IEnumerable<Document> documents = null;
-
-                    if (entity is Operation)
-                        documents = uow.Documents.GetByOperation(entity.Id);
-                    else if (entity is Part)
-                        documents = uow.Documents.GetByPart(entity.Id);
-                    else if (entity is PartVersion)
-                        documents = uow.Documents.GetByPartVersion(entity.Id);
-
-                    foreach (var document in documents)
+                    using (var uow = new UnitOfWork())
                     {
-                        var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
-                        modelItems.Add(new DocumentsViewModel(document, pathToFile));
-                    }
+                        uow.OpenConnection();
 
-                    e.Result = modelItems;
+                        IEnumerable<Document> documents = null;
+
+                        if (entity is Operation)
+                            documents = uow.Documents.GetByOperation(entity.Id);
+                        else if (entity is Part)
+                            documents = uow.Documents.GetByPart(entity.Id);
+                        else if (entity is PartVersion)
+                            documents = uow.Documents.GetByPartVersion(entity.Id);
+
+                        var documentsMissingFiles = new List<Document>();
+
+                        foreach (var document in documents)
+                        {
+                            var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
+
+                            if (!File.Exists(pathToFile))
+                            {
+                                documentsMissingFiles.Add(document);
+                                continue;
+                            }
+
+                            modelItems.Add(new DocumentsViewModel(document, pathToFile));
+                        }
+
+                        if (documentsMissingFiles.Count > 0)
+                            Session.DocumentService.DeleteDocuments(documentsMissingFiles);
+
+                        e.Result = modelItems;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                e.Result = ex;
+                catch (Exception ex)
+                {
+                    e.Result = ex;
+                }
             }
         }
 

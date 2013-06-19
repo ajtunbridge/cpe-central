@@ -3,12 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Properties;
+using nGenLibrary;
 using nGenLibrary.IO;
 
 #endregion
@@ -17,6 +19,7 @@ namespace CPECentral
 {
     public class DocumentService
     {
+        private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
         private readonly object _locker = new object();
         private readonly List<IQueueItem> _queue = new List<IQueueItem>();
         private BackgroundWorker _worker;
@@ -44,6 +47,68 @@ namespace CPECentral
 
             if (_worker == null)
                 StartWorker();
+        }
+
+        public void OpenDocument(Document document)
+        {
+            var fileName = GetPathToDocument(document);
+
+            try
+            {
+                Process.Start(fileName);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                _dialogService.ShowError(msg);
+            }
+        }
+
+        public void DeleteDocuments(IEnumerable<Document> documents)
+        {
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var uow = new UnitOfWork())
+                    {
+                        foreach (var document in documents)
+                        {
+                            IEntity entity = null;
+
+                            if (document.OperationId.HasValue)
+                                entity = uow.Operations.GetById(document.OperationId.Value);
+                            else if (document.PartId.HasValue)
+                                entity = uow.Parts.GetById(document.PartId.Value);
+                            else if (document.PartVersionId.HasValue)
+                                entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+
+                            var fileName = GetPathToDocument(document, uow);
+
+                            if (File.Exists(fileName))
+                                File.Delete(fileName);
+
+                            uow.Documents.Delete(document);
+
+                            uow.Commit();
+
+                            Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string message;
+
+                if (ex is DataProviderException)
+                    message = ex.Message;
+                else
+                    message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                _dialogService.ShowError(message);
+            }
         }
 
         public string GetPathToDocument(Document document)
@@ -129,9 +194,9 @@ namespace CPECentral
                 
                 // this is for when creating a new part, it gives the view time
                 // to load before firing the message
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
 
-                Session.MessageBus.Publish(new DocumentUploadedMessage(entity));
+                Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
 
                 OnTransferComplete();
             }
