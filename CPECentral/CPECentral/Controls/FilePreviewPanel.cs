@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Properties;
+using ICSharpCode.TextEditor;
 using nGenLibrary;
 
 namespace CPECentral.Controls
@@ -12,6 +14,11 @@ namespace CPECentral.Controls
         public FilePreviewPanel()
         {
             InitializeComponent();
+        }
+
+        public void ClearPreview()
+        {
+            Controls.Clear();
         }
 
         public void ShowFile(string fileName)
@@ -25,11 +32,11 @@ namespace CPECentral.Controls
 
             var extension = fileName.Substring(indexOfLastDot);
 
-            if (extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+            if (extension == ".pdf")
             {
                 using (BusyCursor.Show())
                 {
-                    var tempFile = Path.GetTempFileName() + ".pdf";
+                    var tempFile = Path.GetTempFileName() + extension;
 
                     File.Copy(fileName, tempFile, true);
 
@@ -42,6 +49,14 @@ namespace CPECentral.Controls
                     webBrowser.Navigate(tempFile);
                 }
                 return;
+            }
+
+            if (extension == ".txt" || extension == ".nc")
+            {
+                var ncEditor = new NcCodeEditor();
+                ncEditor.Dock = DockStyle.Fill;
+                Controls.Add(ncEditor);
+                ncEditor.LoadFile(fileName);
             }
 
             var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);

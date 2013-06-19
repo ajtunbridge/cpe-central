@@ -14,11 +14,14 @@
     <Setting Name="MainFormState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="ServerScanDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\SJC Contingency Plan\Drawing Files</Value>
-    </Setting>
     <Setting Name="ImageFileExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
+    </Setting>
+    <Setting Name="ServerScanDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Drawing Files</Value>
+    </Setting>
+    <Setting Name="StorageDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\Storage</Value>
     </Setting>
   </Settings>
 </SettingsFile>

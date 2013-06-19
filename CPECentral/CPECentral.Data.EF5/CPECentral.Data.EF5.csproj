@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationPermission.cs" />
+    <Compile Include="AppPermission.cs" />
     <Compile Include="DataProviderError.cs" />
     <Compile Include="DataProviderException.cs" />
     <Compile Include="CPECentralModel.Context.cs">

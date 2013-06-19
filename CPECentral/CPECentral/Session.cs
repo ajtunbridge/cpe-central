@@ -20,6 +20,8 @@ namespace CPECentral
 
         internal static Employee CurrentEmployee { get; set; }
 
+        internal static DocumentService DocumentService { get; private set; }
+
         internal static void Initialize()
         {
             _kernel = new StandardKernel();
@@ -27,6 +29,8 @@ namespace CPECentral
             _kernel.Bind<IMessageBus>().To<MessageBus>().InSingletonScope();
             _kernel.Bind<IDialogService>().To<StandardDialogService>().InTransientScope();
             _kernel.Bind<IPasswordService>().To<PBKDF2PasswordService>().InTransientScope();
+
+            DocumentService = new DocumentService();
         }
 
         internal static T GetInstanceOf<T>()

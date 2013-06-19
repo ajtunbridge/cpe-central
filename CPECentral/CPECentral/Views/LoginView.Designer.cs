@@ -76,10 +76,11 @@
             this.passwordTextBox.MaxLength = 30;
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(220, 29);
+            this.passwordTextBox.SuppressEnterKey = true;
             this.passwordTextBox.TabIndex = 0;
             this.passwordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.passwordTextBox.UseSystemPasswordChar = true;
-            this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
+            this.passwordTextBox.EnterKeyPressed += new System.EventHandler(this.passwordTextBox_EnterKeyPressed);
             // 
             // userNameTextBox
             // 
@@ -90,9 +91,10 @@
             this.userNameTextBox.MaxLength = 30;
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(220, 29);
+            this.userNameTextBox.SuppressEnterKey = true;
             this.userNameTextBox.TabIndex = 2;
             this.userNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.userNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxes_KeyDown);
+            this.userNameTextBox.EnterKeyPressed += new System.EventHandler(this.passwordTextBox_EnterKeyPressed);
             // 
             // preloaderPictureBox
             // 

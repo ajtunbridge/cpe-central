@@ -57,6 +57,7 @@
             this.sequenceColumnHeader,
             this.descriptionColumnHeader});
             this.operationsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.operationsEnhancedListView.Enabled = false;
             this.operationsEnhancedListView.EnsureSelection = true;
             this.operationsEnhancedListView.FullRowSelect = true;
             this.operationsEnhancedListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -67,7 +68,7 @@
             this.operationsEnhancedListView.Name = "operationsEnhancedListView";
             this.operationsEnhancedListView.ResizeColumnToFill = true;
             this.operationsEnhancedListView.ShowItemToolTips = true;
-            this.operationsEnhancedListView.Size = new System.Drawing.Size(333, 157);
+            this.operationsEnhancedListView.Size = new System.Drawing.Size(331, 146);
             this.operationsEnhancedListView.TabIndex = 1;
             this.operationsEnhancedListView.UseAlternatingBackColor = true;
             this.operationsEnhancedListView.UseCompatibleStateImageBehavior = false;
@@ -82,7 +83,7 @@
             // descriptionColumnHeader
             // 
             this.descriptionColumnHeader.Text = "Description";
-            this.descriptionColumnHeader.Width = 254;
+            this.descriptionColumnHeader.Width = 247;
             // 
             // splitContainer1
             // 
@@ -100,8 +101,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.operationsEnhancedListView);
             this.splitContainer1.Panel2.Controls.Add(this.operationsToolStrip);
-            this.splitContainer1.Size = new System.Drawing.Size(333, 310);
-            this.splitContainer1.SplitterDistance = 123;
+            this.splitContainer1.Size = new System.Drawing.Size(331, 310);
+            this.splitContainer1.SplitterDistance = 134;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -120,7 +121,7 @@
             this.methodsEnhancedListView.Name = "methodsEnhancedListView";
             this.methodsEnhancedListView.ResizeColumnToFill = true;
             this.methodsEnhancedListView.ShowItemToolTips = true;
-            this.methodsEnhancedListView.Size = new System.Drawing.Size(333, 98);
+            this.methodsEnhancedListView.Size = new System.Drawing.Size(331, 109);
             this.methodsEnhancedListView.TabIndex = 2;
             this.methodsEnhancedListView.UseAlternatingBackColor = true;
             this.methodsEnhancedListView.UseCompatibleStateImageBehavior = false;
@@ -130,7 +131,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Method";
-            this.columnHeader1.Width = 331;
+            this.columnHeader1.Width = 324;
             // 
             // methodsToolStrip
             // 
@@ -141,7 +142,7 @@
             this.deleteOperationToolStripButton});
             this.methodsToolStrip.Location = new System.Drawing.Point(0, 0);
             this.methodsToolStrip.Name = "methodsToolStrip";
-            this.methodsToolStrip.Size = new System.Drawing.Size(333, 25);
+            this.methodsToolStrip.Size = new System.Drawing.Size(331, 25);
             this.methodsToolStrip.TabIndex = 1;
             this.methodsToolStrip.Text = "toolStrip1";
             // 
@@ -183,7 +184,7 @@
             this.toolStripButton3});
             this.operationsToolStrip.Location = new System.Drawing.Point(0, 0);
             this.operationsToolStrip.Name = "operationsToolStrip";
-            this.operationsToolStrip.Size = new System.Drawing.Size(333, 25);
+            this.operationsToolStrip.Size = new System.Drawing.Size(331, 25);
             this.operationsToolStrip.TabIndex = 5;
             this.operationsToolStrip.Text = "toolStrip1";
             // 

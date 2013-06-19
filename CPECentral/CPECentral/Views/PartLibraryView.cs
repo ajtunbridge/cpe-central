@@ -19,11 +19,15 @@ namespace CPECentral.Views
     {
         Part SelectedPart { get; }
         Customer SelectedCustomer { get; }
+        SearchField SearchField { get; }
+        string SearchValue { get; }
 
+        event EventHandler<PartSearchEventArgs> Search;
         event EventHandler ReloadData;
         event EventHandler<CustomerEventArgs> CustomerSelected;
         event EventHandler<PartEventArgs> PartSelected;
 
+        void RefreshLibrary();
         void DisplayLibrary(PartLibraryViewModel viewModel);
         void DisplaySearchResults(PartLibraryViewModel viewModel);
     }
@@ -32,6 +36,7 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
+        private Part _partToSelect;
 
         public PartLibraryView()
         {
@@ -54,30 +59,67 @@ namespace CPECentral.Views
         public Part SelectedPart { get; private set; }
         public Customer SelectedCustomer { get; private set; }
 
+        public SearchField SearchField
+        {
+            get
+            {
+                switch (searchFieldComboBox.Text)
+                {
+                    case "Drawing number":
+                        return SearchField.DrawingNumber;
+                    case "Name":
+                        return SearchField.Name;
+                    default:
+                        return SearchField.DrawingNumber;
+                }
+            }
+        }
+
+        public string SearchValue
+        {
+            get { return searchValueTextBox.Text; }
+        }
+
+        public event EventHandler<PartSearchEventArgs> Search;
+
         public event EventHandler ReloadData;
         public event EventHandler<CustomerEventArgs> CustomerSelected;
         public event EventHandler<PartEventArgs> PartSelected;
 
         public void DisplayLibrary(PartLibraryViewModel viewModel)
         {
-            DisplayModel(viewModel);
+            DisplayModel(viewModel, false);
+
+            if (_partToSelect != null)
+                SelectPart(_partToSelect);
         }
 
         public void DisplaySearchResults(PartLibraryViewModel viewModel)
         {
-            DisplayModel(viewModel);
+            DisplayModel(viewModel, true);
 
             enhancedTreeView.ExpandAll();
         }
 
         #endregion
 
-        private void PartLibraryView_Load(object sender, EventArgs e)
+        public void RefreshLibrary()
         {
-            RefreshData();
+            enhancedTreeView.Nodes.Clear();
+            enhancedTreeView.Nodes.Add("loading....");
+            enhancedTreeView.Enabled = false;
+
+            OnReloadData();
         }
 
-        private void DisplayModel(PartLibraryViewModel viewModel)
+        private void PartLibraryView_Load(object sender, EventArgs e)
+        {
+            searchFieldComboBox.SelectedIndex = 0;
+
+            RefreshLibrary();
+        }
+
+        private void DisplayModel(PartLibraryViewModel viewModel, bool isSearchResult)
         {
             enhancedTreeView.Nodes.Clear();
 
@@ -91,11 +133,15 @@ namespace CPECentral.Views
 
             if (!viewModel.Customers.Any())
             {
-                enhancedTreeView.Nodes.Add("There are no parts in the library!");
+                if (isSearchResult)
+                    enhancedTreeView.Nodes.Add("The search returned no results!");
+                else
+                    enhancedTreeView.Nodes.Add("There are no parts in the library!");
+
                 return;
             }
 
-            foreach (var customer in viewModel.Customers)
+            foreach (var customer in viewModel.Customers.OrderBy(c => c.Name))
             {
                 var customerNode = enhancedTreeView.Nodes.Add(customer.Name);
                 customerNode.ImageKey = "CustomerIcon";
@@ -107,22 +153,20 @@ namespace CPECentral.Views
 
                 foreach (var part in customerParts)
                 {
-                    var partNode = customerNode.Nodes.Add(part.DrawingNumber);
+                    string nodeText;
+
+                    if (isSearchResult && SearchField == SearchField.Name)
+                        nodeText = part.DrawingNumber + " (" + part.Name + ")";
+                    else
+                        nodeText = part.DrawingNumber;
+
+                    var partNode = customerNode.Nodes.Add(nodeText);
                     partNode.ImageKey = "PartIcon";
                     partNode.SelectedImageKey = "PartIcon";
                     partNode.ToolTipText = part.Name;
                     partNode.Tag = part;
                 }
             }
-        }
-
-        private void RefreshData()
-        {
-            enhancedTreeView.Nodes.Clear();
-            enhancedTreeView.Nodes.Add("loading....");
-            enhancedTreeView.Enabled = false;
-
-            OnReloadData();
         }
 
         protected virtual void OnReloadData()
@@ -143,10 +187,16 @@ namespace CPECentral.Views
             if (handler != null) handler(this, e);
         }
 
+        protected virtual void OnSearch(PartSearchEventArgs e)
+        {
+            EventHandler<PartSearchEventArgs> handler = Search;
+            if (handler != null) handler(this, e);
+        }
+
         private void PartAddedMessage_Published(PartAddedMessage message)
         {
+            _partToSelect = message.NewPart;
             OnReloadData();
-            SelectPart(message.NewPart);
         }
 
         private void PartEditedMessage_Published(PartEditedMessage message)
@@ -166,6 +216,8 @@ namespace CPECentral.Views
             if (e.Node.Tag is Part)
             {
                 SelectedPart = (Part) e.Node.Tag;
+                _partToSelect = (Part)e.Node.Tag;
+
                 OnPartSelected(new PartEventArgs(SelectedPart));
             }
             else if (e.Node.Tag is Customer)
@@ -191,5 +243,43 @@ namespace CPECentral.Views
                 }
             }
         }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            enhancedTreeView.Nodes.Clear();
+            enhancedTreeView.Nodes.Add("searching...");
+
+            var args = new PartSearchArgs(SearchField, SearchValue);
+
+            OnSearch(new PartSearchEventArgs(args));
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshLibrary();
+        }
+
+        private void searchValueTextBox_EnterKeyPressed(object sender, EventArgs e)
+        {
+            searchButton.PerformClick();
+        }
+    }
+
+    public class PartSearchArgs
+    {
+        public SearchField Field { get; set; }
+        public string Value { get; set; }
+
+        public PartSearchArgs(SearchField field, string value)
+        {
+            Field = field;
+            Value = value;
+        }
+    }
+
+    public enum SearchField
+    {
+        DrawingNumber,
+        Name
     }
 }

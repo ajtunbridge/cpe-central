@@ -32,6 +32,7 @@
             // 
             // EnhancedTextBox
             // 
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnhancedTextBox_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnhancedTextBox_KeyPress);
             this.ResumeLayout(false);
 

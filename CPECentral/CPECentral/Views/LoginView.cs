@@ -101,7 +101,10 @@ namespace CPECentral.Views
         private void TextBoxes_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
                 DoLogin();
+            }
         }
 
         private void DoLogin()
@@ -114,6 +117,11 @@ namespace CPECentral.Views
             loginButton.Enabled = false;
 
             OnLogin();
+        }
+
+        private void passwordTextBox_EnterKeyPressed(object sender, EventArgs e)
+        {
+            DoLogin();
         }
     }
 }

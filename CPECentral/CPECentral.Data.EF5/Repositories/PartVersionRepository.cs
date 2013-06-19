@@ -35,5 +35,30 @@ namespace CPECentral.Data.EF5.Repositories
                            .OrderByDescending(ver => ver.VersionNumber)
                            .First();
         }
+
+        public override void Add(PartVersion entity)
+        {
+            entity.VersionNumber = CleanVersionNumber(entity.VersionNumber);
+
+            base.Add(entity);
+        }
+
+        private string CleanVersionNumber(string version)
+        {
+            if (string.IsNullOrWhiteSpace(version))
+                return string.Empty;
+
+            var trimmed = version.Trim();
+
+            var isNumeric = trimmed.All(char.IsNumber);
+
+            if (isNumeric)
+            {
+                var issueNumber = int.Parse(trimmed);
+                return issueNumber.ToString("D2");
+            }
+
+            return trimmed.ToUpper();
+        }
     }
 }

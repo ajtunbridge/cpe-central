@@ -153,29 +153,29 @@ namespace CPECentral.Data.EF5
 
         #endregion
 
-        public void GrantPermission(ApplicationPermission permission)
+        public void GrantPermission(AppPermission permission)
         {
-            var p = (ApplicationPermission) Permissions;
+            var p = (AppPermission) Permissions;
 
             p |= permission;
 
             Permissions = (int) p;
         }
 
-        public void DenyPermission(ApplicationPermission permission)
+        public void DenyPermission(AppPermission permission)
         {
-            var p = (ApplicationPermission) Permissions;
+            var p = (AppPermission) Permissions;
 
             p &= ~permission;
 
             Permissions = (int) p;
         }
 
-        public bool HasPermission(ApplicationPermission permission)
+        public bool HasPermission(AppPermission permission)
         {
-            var p = (ApplicationPermission) Permissions;
+            var p = (AppPermission) Permissions;
 
-            if (p == ApplicationPermission.Administrator) return true;
+            if (p == AppPermission.Administrator) return true;
 
             return (p & permission) == permission;
         }

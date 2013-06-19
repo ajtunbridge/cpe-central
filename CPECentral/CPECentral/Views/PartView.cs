@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -15,21 +16,21 @@ namespace CPECentral.Views
     {
         Part Part { get; }
         event EventHandler ReloadData;
+
+        void LoadPart(Part part);
+
         void DisplayModel(PartViewModel model);
     }
 
     public partial class PartView : ViewBase, IPartView
     {
-        private readonly Part _part;
         private readonly PartViewPresenter _presenter;
 
-        public PartView(Part part)
+        public PartView()
         {
             InitializeComponent();
 
             base.Dock = DockStyle.Fill;
-
-            _part = part;
 
             if (!IsInDesignMode)
             {
@@ -42,9 +43,16 @@ namespace CPECentral.Views
 
         public event EventHandler ReloadData;
 
-        public Part Part
+        public Part Part { get; private set; }
+
+        public void LoadPart(Part part)
         {
-            get { return _part; }
+            Part = part;
+
+            partInformationView.LoadPart(Part);
+            partDocumentsView.LoadDocuments(Part);
+
+            RefreshData();
         }
 
         public void DisplayModel(PartViewModel model)
@@ -65,21 +73,16 @@ namespace CPECentral.Views
 
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
-            if (!Equals(_part, message.EditedPart))
+            if (!Equals(Part, message.EditedPart))
                 return;
-
-            RefreshData();
-        }
-
-        private void PartView_Load(object sender, EventArgs e)
-        {
-            partInformationView.LoadPart(_part);
 
             RefreshData();
         }
 
         private void RefreshData()
         {
+            selectedDocumentPreviewPanel.ClearPreview();
+            
             createdByLabel.Text = "Created by: N/A";
             modifiedByLabel.Text = "Modified by: N/A";
 
@@ -94,14 +97,33 @@ namespace CPECentral.Views
             modifiedByLabel.Left = Right - modifiedByLabel.Width - 3;
         }
 
-        private void operationsView1_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)
-        {
-
-        }
-
         private void partInformationView_VersionSelected(object sender, CustomEventArgs.PartVersionEventArgs e)
         {
             operationsView.LoadMethods(e.PartVersion);
+
+            versionDocumentsView.LoadDocuments(e.PartVersion);
+        }
+
+        private void DocumentViews_SelectionChanged(object sender, EventArgs e)
+        {
+            var documentsView = (DocumentsView)sender;
+
+            if (documentsView.SelectionCount != 1)
+            {
+                selectedDocumentPreviewPanel.ClearPreview();
+                return;
+            }
+
+            var selectedDocument = documentsView.SelectedDocuments.First();
+
+            var pathToDocument = Session.DocumentService.GetPathToDocument(selectedDocument);
+
+            selectedDocumentPreviewPanel.ShowFile(pathToDocument);
+        }
+
+        private void operationsView_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)
+        {
+            operationDocumentsView.LoadDocuments(e.Operation);
         }
     }
 }

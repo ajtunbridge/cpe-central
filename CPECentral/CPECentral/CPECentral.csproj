@@ -51,11 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSecurity.cs" />
     <Compile Include="Controls\FilesListView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FilesListView.Designer.cs">
       <DependentUpon>FilesListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NcCodeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NcCodeEditor.Designer.cs">
+      <DependentUpon>NcCodeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OkayCancelFooter.cs">
       <SubType>UserControl</SubType>
@@ -63,11 +70,15 @@
     <Compile Include="Controls\OkayCancelFooter.Designer.cs">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
+    <Compile Include="CustomEventArgs\FileDropEventArgs.cs" />
+    <Compile Include="CustomEventArgs\PartSearchEventArgs.cs" />
     <Compile Include="CustomEventArgs\PartVersionEventArgs.cs" />
     <Compile Include="CustomEventArgs\MethodEventArgs.cs" />
     <Compile Include="CustomEventArgs\CustomerEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationEventArgs.cs" />
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
+    <Compile Include="CustomEventArgs\TransferStartedEventArgs.cs" />
     <Compile Include="Dialogs\AddPartDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,10 +91,15 @@
     <Compile Include="Controls\FilePreviewPanel.Designer.cs">
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DocumentService.cs" />
     <Compile Include="IDialogService.cs" />
+    <Compile Include="Messages\DocumentUploadedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
+    <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
+    <Compile Include="Presenters\DocumentsViewPresenter.cs" />
+    <Compile Include="Presenters\MainViewPresenter.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
@@ -101,6 +117,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="ViewModels\DocumentsViewModel.cs" />
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="Views\CustomerView.cs">
@@ -108,6 +125,12 @@
     </Compile>
     <Compile Include="Views\CustomerView.Designer.cs">
       <DependentUpon>CustomerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DocumentsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DocumentsView.Designer.cs">
+      <DependentUpon>DocumentsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\LoginView.cs">
@@ -153,6 +176,9 @@
     <EmbeddedResource Include="Controls\FilesListView.resx">
       <DependentUpon>FilesListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NcCodeEditor.resx">
+      <DependentUpon>NcCodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +204,9 @@
     <EmbeddedResource Include="Views\CustomerView.resx">
       <DependentUpon>CustomerView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\DocumentsView.resx">
+      <DependentUpon>DocumentsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,7 +228,7 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.work" />
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -212,15 +241,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config.home" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\CAM_Template_Milling.fm" />
+    <None Include="Resources\CAM_Template_Turning.fm" />
     <None Include="Resources\CustomerIcon_16x16.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPECentral.Data.EF5\CPECentral.Data.EF5.csproj">
       <Project>{502dea6a-ea3e-4a9a-bc97-96097cc3c77c}</Project>
       <Name>CPECentral.Data.EF5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.TextEditor\ICSharpCode.TextEditor.csproj">
+      <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
+      <Name>ICSharpCode.TextEditor</Name>
     </ProjectReference>
     <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
       <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
@@ -296,6 +331,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GenericFileIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NewTurningProgramIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ImportMillingProgram_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScanServerIcon_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,11 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.ViewModels;
@@ -12,15 +15,78 @@ using CPECentral.Views;
 
 namespace CPECentral.Presenters
 {
+
     public sealed class PartLibraryViewPresenter
     {
         private readonly IPartLibraryView _libraryView;
+        private BackgroundWorker _searchWorker;
 
         public PartLibraryViewPresenter(IPartLibraryView libraryView)
         {
             _libraryView = libraryView;
 
             _libraryView.ReloadData += LibraryViewReloadData;
+            _libraryView.Search += _libraryView_Search;
+        }
+
+        void _libraryView_Search(object sender, PartSearchEventArgs e)
+        {
+            _searchWorker = new BackgroundWorker();
+            _searchWorker.DoWork += _searchWorker_DoWork;
+            _searchWorker.RunWorkerCompleted += _searchWorker_RunWorkerCompleted;
+            _searchWorker.RunWorkerAsync(e.SearchArgs);
+        }
+
+        void _searchWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var args = (PartSearchArgs)e.Argument;
+
+            try
+            {
+                using (var uow = new UnitOfWork())
+                {
+                    IEnumerable<Part> matchingParts;
+
+                    switch (args.Field)
+                    {
+                        case SearchField.DrawingNumber:
+                            matchingParts = uow.Parts.GetWhereDrawingNumberContains(args.Value);
+                            break;
+                        case SearchField.Name:
+                            matchingParts = uow.Parts.GetWhereNameContains(args.Value);
+                            break;
+                        default:
+                            matchingParts = uow.Parts.GetWhereDrawingNumberContains(args.Value);
+                            break;
+                    }
+
+                    var customers = matchingParts.Select(part => part.Customer).Distinct().ToList();
+
+                    var model = new PartLibraryViewModel();
+                    model.Customers = customers;
+                    model.Parts = matchingParts;
+
+                    e.Result = model;
+                }
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex;
+            }
+        }
+
+        void _searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {        
+            if (e.Result is Exception)
+            {
+                HandleException(e.Result as Exception);
+                _libraryView.RefreshLibrary();
+                return;
+            }
+
+            var viewModel = (PartLibraryViewModel)e.Result;
+
+            _libraryView.DisplaySearchResults(viewModel);
         }
 
         private void LibraryViewReloadData(object sender, EventArgs e)
@@ -36,7 +102,7 @@ namespace CPECentral.Presenters
             if (e.Result is Exception)
             {
                 HandleException(e.Result as Exception);
-                _libraryView.DisplayLibrary(null);
+                _libraryView.RefreshLibrary();
                 return;
             }
 

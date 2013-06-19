@@ -47,11 +47,11 @@ namespace CPECentral.Dialogs
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.isNewCustomerCheckBox = new System.Windows.Forms.CheckBox();
             this.newCustomerNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.searchTermTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.filePreviewPanel = new CPECentral.Controls.FilePreviewPanel();
             this.filesListView = new CPECentral.Controls.FilesListView();
-            this.label7 = new System.Windows.Forms.Label();
-            this.searchTermTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -70,17 +70,17 @@ namespace CPECentral.Dialogs
             this.customerComboBox.Location = new System.Drawing.Point(12, 29);
             this.customerComboBox.Name = "customerComboBox";
             this.customerComboBox.Size = new System.Drawing.Size(333, 25);
-            this.customerComboBox.TabIndex = 1;
+            this.customerComboBox.TabIndex = 0;
             // 
             // scanServerButton
             // 
             this.scanServerButton.Location = new System.Drawing.Point(12, 239);
             this.scanServerButton.Name = "scanServerButton";
             this.scanServerButton.Size = new System.Drawing.Size(333, 52);
-            this.scanServerButton.TabIndex = 3;
+            this.scanServerButton.TabIndex = 6;
             this.scanServerButton.Text = "Scan server for drawings and models";
             this.scanServerButton.UseVisualStyleBackColor = true;
-            this.scanServerButton.Click += new System.EventHandler(this.scanServerButton_Click);
+            this.scanServerButton.Click += new System.EventHandler(this.ScanServerButton_Click);
             // 
             // label2
             // 
@@ -108,7 +108,7 @@ namespace CPECentral.Dialogs
             this.versionTextBox.MaxLength = 10;
             this.versionTextBox.Name = "versionTextBox";
             this.versionTextBox.Size = new System.Drawing.Size(74, 25);
-            this.versionTextBox.TabIndex = 5;
+            this.versionTextBox.TabIndex = 3;
             this.versionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // drawingNumberTextBox
@@ -119,8 +119,8 @@ namespace CPECentral.Dialogs
             this.drawingNumberTextBox.MaxLength = 50;
             this.drawingNumberTextBox.Name = "drawingNumberTextBox";
             this.drawingNumberTextBox.Size = new System.Drawing.Size(253, 25);
-            this.drawingNumberTextBox.TabIndex = 5;
-            this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.drawingNumberTextBox_TextChanged);
+            this.drawingNumberTextBox.TabIndex = 2;
+            this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.DrawingNumberTextBox_TextChanged);
             // 
             // label4
             // 
@@ -139,7 +139,7 @@ namespace CPECentral.Dialogs
             this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(333, 25);
-            this.nameTextBox.TabIndex = 5;
+            this.nameTextBox.TabIndex = 4;
             // 
             // label5
             // 
@@ -184,10 +184,10 @@ namespace CPECentral.Dialogs
             this.isNewCustomerCheckBox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.isNewCustomerCheckBox.Name = "isNewCustomerCheckBox";
             this.isNewCustomerCheckBox.Size = new System.Drawing.Size(127, 21);
-            this.isNewCustomerCheckBox.TabIndex = 9;
+            this.isNewCustomerCheckBox.TabIndex = 1;
             this.isNewCustomerCheckBox.Text = "Is new customer?";
             this.isNewCustomerCheckBox.UseVisualStyleBackColor = true;
-            this.isNewCustomerCheckBox.CheckedChanged += new System.EventHandler(this.isNewCustomerCheckBox_CheckedChanged);
+            this.isNewCustomerCheckBox.CheckedChanged += new System.EventHandler(this.IsNewCustomerCheckBox_CheckedChanged);
             // 
             // newCustomerNameTextBox
             // 
@@ -199,6 +199,25 @@ namespace CPECentral.Dialogs
             this.newCustomerNameTextBox.Size = new System.Drawing.Size(333, 25);
             this.newCustomerNameTextBox.TabIndex = 5;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 323);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 17);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Search term";
+            // 
+            // searchTermTextBox
+            // 
+            this.searchTermTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.searchTermTextBox.DisableDoubleSpace = true;
+            this.searchTermTextBox.Location = new System.Drawing.Point(12, 343);
+            this.searchTermTextBox.MaxLength = 50;
+            this.searchTermTextBox.Name = "searchTermTextBox";
+            this.searchTermTextBox.Size = new System.Drawing.Size(333, 25);
+            this.searchTermTextBox.TabIndex = 7;
+            // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
@@ -209,9 +228,9 @@ namespace CPECentral.Dialogs
             this.okayCancelFooter.Name = "okayCancelFooter";
             this.okayCancelFooter.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.okayCancelFooter.Size = new System.Drawing.Size(811, 45);
-            this.okayCancelFooter.TabIndex = 8;
-            this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter_OkayClicked);
-            this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter_CancelClicked);
+            this.okayCancelFooter.TabIndex = 9;
+            this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
+            this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
             // 
             // filePreviewPanel
             // 
@@ -245,30 +264,11 @@ namespace CPECentral.Dialogs
             this.filesListView.ResizeColumnToFill = true;
             this.filesListView.ShowItemToolTips = true;
             this.filesListView.Size = new System.Drawing.Size(333, 144);
-            this.filesListView.TabIndex = 4;
+            this.filesListView.TabIndex = 8;
             this.filesListView.UseAlternatingBackColor = true;
             this.filesListView.UseCompatibleStateImageBehavior = false;
             this.filesListView.View = System.Windows.Forms.View.Details;
-            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.filesListView_SelectedIndexChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 323);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 17);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Search term";
-            // 
-            // searchTermTextBox
-            // 
-            this.searchTermTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.searchTermTextBox.DisableDoubleSpace = true;
-            this.searchTermTextBox.Location = new System.Drawing.Point(12, 343);
-            this.searchTermTextBox.MaxLength = 50;
-            this.searchTermTextBox.Name = "searchTermTextBox";
-            this.searchTermTextBox.Size = new System.Drawing.Size(333, 25);
-            this.searchTermTextBox.TabIndex = 5;
+            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.FilesListView_SelectedIndexChanged);
             // 
             // AddPartDialog
             // 

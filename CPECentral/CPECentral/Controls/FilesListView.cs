@@ -22,16 +22,22 @@ namespace CPECentral.Controls
         {
             InitializeComponent();
 
-            _smallIconImageList = new ImageList();
-            _smallIconImageList.ImageSize = new Size(16, 16);
-            _smallIconImageList.ColorDepth = ColorDepth.Depth32Bit;
+            if (_smallIconImageList == null)
+            {
+                _smallIconImageList = new ImageList();
+                _smallIconImageList.ImageSize = new Size(16, 16);
+                _smallIconImageList.ColorDepth = ColorDepth.Depth32Bit;
+                _smallIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
+            }
 
-            _largeIconImageList = new ImageList();
-            _largeIconImageList.ImageSize = new Size(32, 32);
-            _largeIconImageList.ColorDepth = ColorDepth.Depth32Bit;
+            if (_largeIconImageList == null)
+            {
 
-            _smallIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
-            _largeIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
+                _largeIconImageList = new ImageList();
+                _largeIconImageList.ImageSize = new Size(32, 32);
+                _largeIconImageList.ColorDepth = ColorDepth.Depth32Bit;
+                _largeIconImageList.Images.Add("GenericFileIcon", Resources.GenericFileIcon);
+            }
 
             SmallImageList = _smallIconImageList;
             LargeImageList = _largeIconImageList;

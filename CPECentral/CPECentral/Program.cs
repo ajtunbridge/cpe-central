@@ -41,7 +41,7 @@ namespace CPECentral
                     {
                         adminGroup = new EmployeeGroup();
                         adminGroup.Name = "BUILTIN_ADMIN_GROUP";
-                        adminGroup.GrantPermission(Data.EF5.ApplicationPermission.Administrator);
+                        adminGroup.GrantPermission(Data.EF5.AppPermission.Administrator);
                         uow.EmployeeGroups.Add(adminGroup);
                         uow.Commit();
                     }
@@ -87,10 +87,10 @@ namespace CPECentral
                     {
                         myGroup = new EmployeeGroup();
                         myGroup.Name = "Power users";
-                        myGroup.GrantPermission(ApplicationPermission.ManageDocuments);
-                        myGroup.GrantPermission(ApplicationPermission.ManageEmployees);
-                        myGroup.GrantPermission(ApplicationPermission.ManageOperations);
-                        myGroup.GrantPermission(ApplicationPermission.ManageParts);
+                        myGroup.GrantPermission(AppPermission.ManageDocuments);
+                        myGroup.GrantPermission(AppPermission.ManageEmployees);
+                        myGroup.GrantPermission(AppPermission.ManageOperations);
+                        myGroup.GrantPermission(AppPermission.ManageParts);
 
                         uow.EmployeeGroups.Add(myGroup);
 

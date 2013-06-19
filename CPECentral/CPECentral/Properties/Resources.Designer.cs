@@ -91,6 +91,26 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] CAM_Template_Milling {
+            get {
+                object obj = ResourceManager.GetObject("CAM_Template_Milling", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] CAM_Template_Turning {
+            get {
+                object obj = ResourceManager.GetObject("CAM_Template_Turning", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap CompanyLogo {
@@ -153,6 +173,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImportMillingProgram_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("ImportMillingProgram_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LogoutIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("LogoutIcon_16x16", resourceCulture);
@@ -166,6 +196,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap NewCAMFileIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("NewCAMFileIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewTurningProgramIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("NewTurningProgramIcon_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,6 +276,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap SaveIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("SaveIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ScanServerIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("ScanServerIcon_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

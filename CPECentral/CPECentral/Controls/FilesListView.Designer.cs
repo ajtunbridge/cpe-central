@@ -36,6 +36,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Filename";
+            this.columnHeader1.Width = 185;
             // 
             // columnHeader2
             // 
@@ -61,7 +62,6 @@
             this.ResizeColumnToFill = true;
             this.ShowItemToolTips = true;
             this.Size = new System.Drawing.Size(342, 224);
-            this.View = System.Windows.Forms.View.Details;
             this.ResumeLayout(false);
 
         }

@@ -29,24 +29,30 @@ namespace CPECentral
 
         private void ShowLoginView()
         {
-            Controls.Clear();
+            using (NoFlicker.On(this))
+            {
+                Controls.Clear();
 
-            var loginView = new LoginView();
+                var loginView = new LoginView();
 
-            Controls.Add(loginView);
+                Controls.Add(loginView);
 
-            loginView.Focus();
+                loginView.Focus();
+            }
         }
 
         private void ShowMainView()
         {
-            Controls.Clear();
+            using (NoFlicker.On(this))
+            {
+                Controls.Clear();
 
-            var mainView = new MainView();
+                var mainView = new MainView();
 
-            Controls.Add(mainView);
+                Controls.Add(mainView);
 
-            mainView.Focus();
+                mainView.Focus();
+            }
         }
 
         private void EmployeeLoggedInMessage_Published(EmployeeLoggedInMessage message)

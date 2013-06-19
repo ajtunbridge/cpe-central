@@ -30,7 +30,7 @@
         {
             this.SuspendLayout();
             // 
-            // DocumentPreviewPanel
+            // FilePreviewPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -38,12 +38,13 @@
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "DocumentPreviewPanel";
+            this.Name = "FilePreviewPanel";
             this.Size = new System.Drawing.Size(334, 289);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }

@@ -10,7 +10,7 @@ namespace CPECentral.Data.EF5
     ///     Bit flags for setting application permissions for users
     /// </summary>
     [Flags]
-    public enum ApplicationPermission
+    public enum AppPermission
     {
         /// <summary>
         ///     Has full control of the system

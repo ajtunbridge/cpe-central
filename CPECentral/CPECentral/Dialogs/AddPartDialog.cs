@@ -17,8 +17,8 @@ namespace CPECentral.Dialogs
     public partial class AddPartDialog : Form
     {
         private readonly IDialogService _dialogService;
-        private BackgroundWorker _scanServerWorker;
         private bool _isScanningForFiles;
+        private BackgroundWorker _scanServerWorker;
 
         public AddPartDialog()
         {
@@ -109,8 +109,32 @@ namespace CPECentral.Dialogs
             }
         }
 
-        private void okayCancelFooter_OkayClicked(object sender, EventArgs e)
+        private void OkayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
+            if (IsNewCustomer && string.IsNullOrWhiteSpace(NewCustomerName))
+            {
+                _dialogService.ShowError("The name of the customer must be provided!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(DrawingNumber))
+            {
+                _dialogService.ShowError("A drawing number must be provided!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PartName))
+            {
+                _dialogService.ShowError("The name of this part must be provided!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(VersionNumber))
+            {
+                _dialogService.ShowError("A version number must be provided!");
+                return;
+            }
+
             if (filesListView.CheckedCount > 0)
             {
                 const string question = "Have you verified these files are the correct version?";
@@ -122,7 +146,7 @@ namespace CPECentral.Dialogs
             DialogResult = DialogResult.OK;
         }
 
-        private void okayCancelFooter_CancelClicked(object sender, EventArgs e)
+        private void OkayCancelFooter_CancelClicked(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
@@ -131,11 +155,11 @@ namespace CPECentral.Dialogs
         {
             if (keyData == Keys.Enter)
             {
-                okayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
+                OkayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
             }
             else if (keyData == Keys.Escape)
             {
-                okayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
+                OkayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -146,7 +170,7 @@ namespace CPECentral.Dialogs
             LoadCustomers();
         }
 
-        private void isNewCustomerCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void IsNewCustomerCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (isNewCustomerCheckBox.Checked)
             {
@@ -160,7 +184,7 @@ namespace CPECentral.Dialogs
             }
         }
 
-        private void scanServerButton_Click(object sender, EventArgs e)
+        private void ScanServerButton_Click(object sender, EventArgs e)
         {
             if (_isScanningForFiles)
             {
@@ -187,17 +211,17 @@ namespace CPECentral.Dialogs
 
             _scanServerWorker = new BackgroundWorker();
             _scanServerWorker.WorkerSupportsCancellation = true;
-            _scanServerWorker.DoWork += _scanServerWorker_DoWork;
-            _scanServerWorker.RunWorkerCompleted += _scanServerWorker_RunWorkerCompleted;
+            _scanServerWorker.DoWork += ScanServerWorker_DoWork;
+            _scanServerWorker.RunWorkerCompleted += ScanServerWorker_RunWorkerCompleted;
 
             _scanServerWorker.RunWorkerAsync(searchTermTextBox.Text.Trim());
         }
 
-        void _scanServerWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void ScanServerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var scanDir = Settings.Default.ServerScanDirectory;
 
-            var searchPattern = "*" + (string)e.Argument +"*";
+            var searchPattern = "*" + (string) e.Argument + "*";
 
             var dirStack = new Stack<string>();
             dirStack.Push(scanDir);
@@ -216,7 +240,7 @@ namespace CPECentral.Dialogs
 
                 foreach (var subDir in subDirs)
                 {
-                    dirStack.Push(subDir); 
+                    dirStack.Push(subDir);
                 }
 
                 if (_scanServerWorker.CancellationPending)
@@ -237,7 +261,7 @@ namespace CPECentral.Dialogs
             }
         }
 
-        void _scanServerWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void ScanServerWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _isScanningForFiles = false;
 
@@ -246,7 +270,7 @@ namespace CPECentral.Dialogs
             progressBar.Style = ProgressBarStyle.Blocks;
         }
 
-        private void filesListView_SelectedIndexChanged(object sender, EventArgs e)
+        private void FilesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (filesListView.SelectionCount == 0)
             {
@@ -256,12 +280,12 @@ namespace CPECentral.Dialogs
 
             if (filesListView.SelectionCount == 1)
             {
-                var fileName = (string)filesListView.SelectedItems[0].Tag;
+                var fileName = (string) filesListView.SelectedItems[0].Tag;
                 filePreviewPanel.ShowFile(fileName);
             }
         }
 
-        private void drawingNumberTextBox_TextChanged(object sender, EventArgs e)
+        private void DrawingNumberTextBox_TextChanged(object sender, EventArgs e)
         {
             searchTermTextBox.Text = drawingNumberTextBox.Text;
         }

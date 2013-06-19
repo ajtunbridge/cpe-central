@@ -34,5 +34,12 @@ namespace nGenLibrary.Messaging
         /// <typeparam name="TMessage">The type of message to publish.</typeparam>
         /// <param name="message">The message to be published</param>
         void Publish<TMessage>(TMessage message);
+
+        /// <summary>
+        ///     Publishes a message to any subscribers of a particular message type using
+        ///     default instance of the message type
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message to publish.</typeparam>
+        void Publish<TMessage>();
     }
 }

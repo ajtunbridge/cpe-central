@@ -96,6 +96,22 @@ namespace nGenLibrary.Messaging
             }
         }
 
+        /// <summary>
+        ///     Publishes a message to any subscribers of a particular message type using
+        ///     default instance of the message type
+        /// </summary>
+        /// <typeparam name="TMessage">The type of message to publish.</typeparam>
+        public void Publish<TMessage>()
+        {
+            var message = Activator.CreateInstance<TMessage>();
+
+            var subscribers = RefreshAndGetSubscribers<TMessage>();
+            foreach (var subscriber in subscribers)
+            {
+                subscriber.Invoke(message);
+            }
+        }
+
         #endregion
 
         private List<Action<TMessage>> RefreshAndGetSubscribers<TMessage>()
