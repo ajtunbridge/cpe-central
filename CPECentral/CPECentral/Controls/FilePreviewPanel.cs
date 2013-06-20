@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Properties;
 using Cyotek.Windows.Forms;
-using ICSharpCode.TextEditor;
 using nGenLibrary;
 
 namespace CPECentral.Controls

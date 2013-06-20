@@ -70,12 +70,6 @@
     <Compile Include="Controls\ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NcCodeEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\NcCodeEditor.Designer.cs">
-      <DependentUpon>NcCodeEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\OkayCancelFooter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -197,9 +191,6 @@
     <EmbeddedResource Include="Controls\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\NcCodeEditor.resx">
-      <DependentUpon>NcCodeEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,10 +243,11 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
-    <None Include="CncLanguages\FanucHighlighting.xshd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="App.config.work" />
+    <None Include="CncLanguages\heidenhain_syntax.xshd">
+      <SubType>Designer</SubType>
     </None>
+    <None Include="CncLanguages\fanuc_syntax.xshd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -268,7 +260,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -289,10 +281,6 @@
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ICSharpCode.TextEditor\ICSharpCode.TextEditor.csproj">
-      <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
-      <Name>ICSharpCode.TextEditor</Name>
     </ProjectReference>
     <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
       <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
@@ -391,8 +379,8 @@
     <None Include="Resources\FindAndReplaceIcon_16x16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CncLanguages\Config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="CncLanguages\config.xml">
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

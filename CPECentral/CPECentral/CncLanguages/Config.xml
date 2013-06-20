@@ -2,8 +2,10 @@
 <configuration>
   <language name="Fanuc">
     <toolchange>[^(]T[0-9]{3,}</toolchange>
+    <syntaxfile>fanuc_syntax.xshd</syntaxfile>
   </language>
   <language name="Heidenhain">
     <toolchange>TOOL CALL</toolchange>
+    <syntaxfile>heidenhain_syntax.xshd</syntaxfile>
   </language>
 </configuration>

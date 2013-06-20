@@ -229,9 +229,9 @@ namespace CPECentral
         {
             if (entity is Part)
             {
-                var baseDir = Settings.Default.StorageDirectory;
+                var appDir = Settings.Default.SharedAppDir;
 
-                return string.Format("{0}\\PID{1}", baseDir, entity.Id);
+                return string.Format("{0}\\Documents\\PID{1}", appDir, entity.Id);
             }
 
             if (entity is PartVersion)

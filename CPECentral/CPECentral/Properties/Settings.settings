@@ -17,8 +17,8 @@
     <Setting Name="ImageFileExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
     </Setting>
-    <Setting Name="StorageDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Central\Storage</Value>
+    <Setting Name="SharedAppDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Central\</Value>
     </Setting>
     <Setting Name="ServerScanDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">S:\SJC Contingency Plan\Drawing Files</Value>
@@ -28,6 +28,9 @@
     </Setting>
     <Setting Name="DrawingFileExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t</Value>
+    </Setting>
+    <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Heidenhain</Value>
     </Setting>
   </Settings>
 </SettingsFile>

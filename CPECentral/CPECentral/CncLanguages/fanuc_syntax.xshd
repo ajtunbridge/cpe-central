@@ -1,0 +1,41 @@
+﻿<SyntaxDefinition name="Fanuc"
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" fontStyle="italic" foreground="Green" />
+  <Color name="Axis" fontWeight="bold" foreground="Red"/>
+  <Color name="Macro" fontWeight="bold" foreground="Orange"/>
+  <!-- This is the main ruleset. -->
+  <RuleSet>
+
+    <!-- Program number -->
+    <Rule foreground="Purple" fontWeight="bold">[:][0-9]{4}</Rule>
+
+    <!-- Comments -->
+    <Span color="Comment" begin="[(]" end="[)]"/>
+
+    <!-- Tool change -->
+    <Rule foreground="Blue">T[0-9]{3,4}</Rule>
+
+    <!-- Machine axis -->
+    <Rule color="Axis">X(?=[-]?[0-9]+)</Rule>
+    <Rule color="Axis">Z(?=[-]?[0-9]+)</Rule>
+    <Rule color="Axis">C(?=[-]? [0-9]+)</Rule>
+
+    <!-- Macro B related -->
+    <Rule color="Macro">IF(?=[\[]{1})</Rule>
+    <Rule color="Macro">WHILE(?=[\[]{1})</Rule>
+    <Rule color="Macro">GOTO(?=[#]?[0-9]+)</Rule>
+    <Rule color="Macro">DO(?=[#]?[0-9]+)</Rule>
+    <Rule color="Macro">END(?=[#]?[0-9]+)</Rule>
+    
+    <Rule color="Macro">ABS</Rule>
+    
+    <Rule color="Macro">(?&lt;=[0-9]*)EQ(?=[-]?[#]?[0-9]+)</Rule>
+    <Rule color="Macro">(?&lt;=[0-9]*)LT(?=[-]?[#]?[0-9]+)</Rule>
+    <Rule color="Macro">(?&lt;=[0-9]*)LE(?=[-]?[#]?[0-9]+)</Rule>
+    <Rule color="Macro">(?&lt;=[0-9]*)GT(?=[-]?[#]?[0-9]+)</Rule>
+    <Rule color="Macro">(?&lt;=[0-9]*)GE</Rule>
+
+    <Rule foreground="CornflowerBlue">[#][0-9]{3}</Rule>
+    
+  </RuleSet>
+</SyntaxDefinition>

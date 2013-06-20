@@ -85,13 +85,13 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Central\\Storage")]
-        public string StorageDirectory {
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Central\\")]
+        public string SharedAppDir {
             get {
-                return ((string)(this["StorageDirectory"]));
+                return ((string)(this["SharedAppDir"]));
             }
             set {
-                this["StorageDirectory"] = value;
+                this["SharedAppDir"] = value;
             }
         }
         
@@ -128,6 +128,18 @@ namespace CPECentral.Properties {
             }
             set {
                 this["DrawingFileExtensions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Heidenhain")]
+        public string PreferredNcLanguage {
+            get {
+                return ((string)(this["PreferredNcLanguage"]));
+            }
+            set {
+                this["PreferredNcLanguage"] = value;
             }
         }
     }

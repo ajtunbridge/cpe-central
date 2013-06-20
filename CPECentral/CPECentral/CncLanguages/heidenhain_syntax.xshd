@@ -1,0 +1,25 @@
+﻿<SyntaxDefinition name="Fanuc"
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" fontStyle="italic" foreground="Green" />
+  <Color name="Axis" fontWeight="bold" foreground="Red"/>
+  <Color name="KeyWords" foreground="Orange"/>
+  <!-- This is the main ruleset. -->
+  <RuleSet>
+
+    <!-- Tool change -->
+    <Rule foreground="RoyalBlue">TOOL[ ]CALL</Rule>
+
+    <Rule color="KeyWords">LBL</Rule>
+    <Rule color="KeyWords">CALL[ ]LBL</Rule>
+    <Rule color="KeyWords">CYCL[ ]DEF</Rule>
+    
+    <Rule color="Axis">[ ]X[0-9]*</Rule>
+    <Rule color="Axis">[ ]Y[0-9]*</Rule>
+    <Rule color="Axis">[ ]Z[0-9]*</Rule>
+    
+    <Rule color="Axis">[ ]Z[0-9]*</Rule>
+
+    <Span color="Comment" begin=";" />
+
+  </RuleSet>
+</SyntaxDefinition>
