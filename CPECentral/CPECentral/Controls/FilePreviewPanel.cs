@@ -56,9 +56,10 @@ namespace CPECentral.Controls
 
             if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
             {
-                var ncEditor = new NcCodeEditor();
+                var ncEditor = new AvalonNcEditor();
                 ncEditor.Dock = DockStyle.Fill;
                 Controls.Add(ncEditor);
+                ncEditor.BringToFront();
                 ncEditor.LoadFile(fileName);
             }
 

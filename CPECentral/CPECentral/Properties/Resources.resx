@@ -196,4 +196,10 @@
   <data name="ZoomOutIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ZoomOutIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FindAndReplaceIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FindAndReplaceIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NextToolIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NextToolIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

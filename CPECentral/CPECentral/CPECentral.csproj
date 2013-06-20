@@ -39,8 +39,11 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +52,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSecurity.cs" />
@@ -75,6 +81,12 @@
     </Compile>
     <Compile Include="Controls\OkayCancelFooter.Designer.cs">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AvalonNcEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AvalonNcEditor.Designer.cs">
+      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
     <Compile Include="CustomEventArgs\FileDropEventArgs.cs" />
@@ -191,6 +203,9 @@
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AvalonNcEditor.resx">
+      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\AddPartDialog.resx">
       <DependentUpon>AddPartDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,7 +252,10 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.work" />
+    <None Include="App.config" />
+    <None Include="CncLanguages\FanucHighlighting.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -248,15 +266,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SyntaxHighlighting\CSharp-Mode.xshd" />
-    <None Include="SyntaxHighlighting\Fanuc.xshd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SyntaxHighlighting\VBNET-Mode.xshd" />
-    <None Include="SyntaxHighlighting\XML-Mode.xshd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config.home">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CAM_Template_Milling.fm" />
@@ -271,6 +285,10 @@
     <ProjectReference Include="..\Cyotek.Windows.Forms.ImageBox\Cyotek.Windows.Forms.ImageBox.csproj">
       <Project>{4159c8d3-c18d-4bed-8be6-9bad1b0ca4f6}</Project>
       <Name>Cyotek.Windows.Forms.ImageBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
+      <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
+      <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.TextEditor\ICSharpCode.TextEditor.csproj">
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
@@ -365,6 +383,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ZoomOutIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NextToolIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FindAndReplaceIcon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CncLanguages\Config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

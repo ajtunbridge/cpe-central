@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <language name="Fanuc">
+    <toolchange>[^(]T[0-9]{3,}</toolchange>
+  </language>
+  <language name="Heidenhain">
+    <toolchange>TOOL CALL</toolchange>
+  </language>
+</configuration>
