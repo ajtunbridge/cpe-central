@@ -101,6 +101,10 @@ namespace CPECentral.Views
                 saveChangesButton.Text = "No changes";
 
                 Session.MessageBus.Publish(new PartEditedMessage(Part));
+
+                var status = "Updated " + Part.DrawingNumber + " successfully!";
+
+                Session.MessageBus.Publish(new StatusUpdateMessage(status));
             }
             else
             {

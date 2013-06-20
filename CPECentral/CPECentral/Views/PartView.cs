@@ -6,7 +6,9 @@ using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Presenters;
+using CPECentral.Properties;
 using CPECentral.ViewModels;
+using nGenLibrary;
 
 #endregion
 
@@ -51,6 +53,12 @@ namespace CPECentral.Views
 
             partInformationView.LoadPart(Part);
             partDocumentsView.LoadDocuments(Part);
+
+            using (BusyCursor.Show())
+            {
+                Settings.Default.LastViewedPartId = part.Id;
+                Settings.Default.Save();
+            }
 
             RefreshData();
         }

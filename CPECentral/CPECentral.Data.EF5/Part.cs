@@ -17,7 +17,6 @@ namespace CPECentral.Data.EF5
         public Part()
         {
             this.Documents = new HashSet<Document>();
-            this.Employees = new HashSet<Employee>();
             this.PartVersions = new HashSet<PartVersion>();
         }
     
@@ -31,7 +30,6 @@ namespace CPECentral.Data.EF5
     
         public virtual Customer Customer { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<PartVersion> PartVersions { get; set; }
     }
 }

@@ -25,8 +25,17 @@ namespace CPECentral
 
             //EnsureThereIsAnAdminAccount();
             //AddMyAccount();
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += Application_ThreadException;
 
             Application.Run(new MainForm());
+        }
+
+        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            var msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+
+            MessageBox.Show(msg);
         }
 
         private static void EnsureThereIsAnAdminAccount()

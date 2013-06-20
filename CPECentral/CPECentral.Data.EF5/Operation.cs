@@ -27,12 +27,12 @@ namespace CPECentral.Data.EF5
         public Nullable<int> SetupTime { get; set; }
         public Nullable<double> CycleTime { get; set; }
         public int MethodId { get; set; }
-        public int MachineGroupId { get; set; }
+        public int MachineId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual MachineGroup MachineGroup { get; set; }
+        public virtual Machine Machine { get; set; }
         public virtual Method Method { get; set; }
         public virtual ICollection<OperationTool> OperationTools { get; set; }
     }

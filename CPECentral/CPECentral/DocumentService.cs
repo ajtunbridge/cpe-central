@@ -71,12 +71,12 @@ namespace CPECentral
             {
                 using (BusyCursor.Show())
                 {
+                    IEntity entity = null;
+
                     using (var uow = new UnitOfWork())
                     {
                         foreach (var document in documents)
                         {
-                            IEntity entity = null;
-
                             if (document.OperationId.HasValue)
                                 entity = uow.Operations.GetById(document.OperationId.Value);
                             else if (document.PartId.HasValue)
@@ -92,10 +92,10 @@ namespace CPECentral
                             uow.Documents.Delete(document);
 
                             uow.Commit();
-
-                            Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
                         }
                     }
+
+                    Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
                 }
             }
             catch (Exception ex)

@@ -31,11 +31,24 @@ namespace CPECentral.Views
             {
                 _presenter = new MainViewPresenter(this);
 
+                Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
+
                 Session.DocumentService.Error += DocumentService_Error;
                 Session.DocumentService.TransferStarted += DocumentService_TransferStarted;
                 Session.DocumentService.TransferProgress += DocumentService_TransferProgress;
                 Session.DocumentService.TransferComplete += DocumentService_TransferComplete;
             }
+        }
+
+        private void StatusUpdateMessage_Published(StatusUpdateMessage message)
+        {
+            if (InvokeRequired)
+            {
+                mainStatusStrip.InvokeEx(() => StatusUpdateMessage_Published(message));
+                return;
+            }
+
+            mainToolStripStatusLabel.Text = message.Status;
         }
 
         void DocumentService_Error(object sender, ExceptionEventArgs e)
@@ -112,9 +125,9 @@ namespace CPECentral.Views
         {
             Invoke((MethodInvoker)delegate
             {
-                toolStripProgressBar.Value = 0;
-                toolStripProgressBar.Visible = false;
-                toolStripStatusLabel.Text = "Upload complete";
+                documentTransferToolStripProgressBar.Value = 0;
+                documentTransferToolStripProgressBar.Visible = false;
+                documentTransferStatusLabel.Text = "No documents pending upload";
             });
         }
 
@@ -123,7 +136,7 @@ namespace CPECentral.Views
         {
             Invoke((MethodInvoker) delegate
                 {
-                    toolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete;
+                    documentTransferToolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete;
                 });
 
             return CopyFileCallbackAction.Continue;
@@ -133,8 +146,8 @@ namespace CPECentral.Views
         {
             Invoke((MethodInvoker) delegate
                 {
-                    toolStripProgressBar.Visible = true;
-                    toolStripStatusLabel.Text = "Uploading " + Path.GetFileName(e.FileName);
+                    documentTransferToolStripProgressBar.Visible = true;
+                    documentTransferStatusLabel.Text = "Uploading " + Path.GetFileName(e.FileName);
                 });
         }
 

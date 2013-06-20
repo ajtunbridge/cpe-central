@@ -44,11 +44,11 @@
             // 
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripButton,
-            this.printToolStripButton,
-            this.toolStripSeparator,
             this.toolStripLabel1,
             this.languageToolStripComboBox,
+            this.toolStripSeparator,
+            this.saveToolStripButton,
+            this.printToolStripButton,
             this.toolStripSeparator1,
             this.gotoNextToolCallToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);

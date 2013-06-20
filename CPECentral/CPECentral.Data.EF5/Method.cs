@@ -23,6 +23,8 @@ namespace CPECentral.Data.EF5
         public string Description { get; set; }
         public bool IsPreferred { get; set; }
         public int PartVersionId { get; set; }
+        public int CreatedBy { get; set; }
+        public int ModifiedBy { get; set; }
     
         public virtual PartVersion PartVersion { get; set; }
         public virtual ICollection<Operation> Operations { get; set; }

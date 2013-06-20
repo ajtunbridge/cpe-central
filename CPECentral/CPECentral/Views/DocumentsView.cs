@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
@@ -75,6 +76,11 @@ namespace CPECentral.Views
             }
 
             toolStrip.Enabled = true;
+
+            deleteDocumentsToolStripButton.Enabled = false;
+            openDocumentToolStripButton.Enabled = false;
+
+            OnSelectionChanged();
         }
 
         #endregion
@@ -184,6 +190,15 @@ namespace CPECentral.Views
                 case "openDocumentToolStripButton":
                     OnOpenDocument();
                     break;
+            }
+        }
+
+        private void filesListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (filesListView.SelectionCount > 0 && e.KeyCode == Keys.Delete)
+            {
+                OnDeleteSelectedDocuments();
+                return;
             }
         }
     }

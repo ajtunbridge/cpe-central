@@ -36,7 +36,7 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
-        private Part _partToSelect;
+        private int _idOfPartToSelect;
 
         public PartLibraryView()
         {
@@ -90,8 +90,8 @@ namespace CPECentral.Views
         {
             DisplayModel(viewModel, false);
 
-            if (_partToSelect != null)
-                SelectPart(_partToSelect);
+            if (_idOfPartToSelect != null)
+                SelectPart(_idOfPartToSelect);
         }
 
         public void DisplaySearchResults(PartLibraryViewModel viewModel)
@@ -115,6 +115,9 @@ namespace CPECentral.Views
         private void PartLibraryView_Load(object sender, EventArgs e)
         {
             searchFieldComboBox.SelectedIndex = 0;
+
+            if (Settings.Default.LastViewedPartId > 0)
+                _idOfPartToSelect = Settings.Default.LastViewedPartId;
 
             RefreshLibrary();
         }
@@ -141,6 +144,8 @@ namespace CPECentral.Views
                 return;
             }
 
+            int partCount = 0;
+
             foreach (var customer in viewModel.Customers.OrderBy(c => c.Name))
             {
                 var customerNode = enhancedTreeView.Nodes.Add(customer.Name);
@@ -153,6 +158,8 @@ namespace CPECentral.Views
 
                 foreach (var part in customerParts)
                 {
+                    partCount++;
+
                     string nodeText;
 
                     if (isSearchResult && SearchField == SearchField.Name)
@@ -167,6 +174,10 @@ namespace CPECentral.Views
                     partNode.Tag = part;
                 }
             }
+
+            var status = "Found " + partCount + " parts";
+
+            Session.MessageBus.Publish(new StatusUpdateMessage(status));
         }
 
         protected virtual void OnReloadData()
@@ -195,7 +206,7 @@ namespace CPECentral.Views
 
         private void PartAddedMessage_Published(PartAddedMessage message)
         {
-            _partToSelect = message.NewPart;
+            _idOfPartToSelect = message.NewPart.Id;
             OnReloadData();
         }
 
@@ -216,7 +227,8 @@ namespace CPECentral.Views
             if (e.Node.Tag is Part)
             {
                 SelectedPart = (Part) e.Node.Tag;
-                _partToSelect = (Part)e.Node.Tag;
+
+                _idOfPartToSelect = SelectedPart.Id;
 
                 OnPartSelected(new PartEventArgs(SelectedPart));
             }
@@ -227,7 +239,7 @@ namespace CPECentral.Views
             }
         }
     
-        private void SelectPart(Part part)
+        private void SelectPart(int partId)
         {
             foreach (TreeNode customerNode in enhancedTreeView.Nodes)
             {
@@ -235,7 +247,7 @@ namespace CPECentral.Views
                 {
                     var nodePart = (Part) partNode.Tag;
 
-                    if (!nodePart.Equals(part))
+                    if (nodePart.Id != partId)
                         continue;
 
                     enhancedTreeView.SelectedNode = partNode;

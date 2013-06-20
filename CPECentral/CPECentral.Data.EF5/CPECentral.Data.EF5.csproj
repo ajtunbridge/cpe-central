@@ -88,6 +88,9 @@
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IEntity.cs" />
+    <Compile Include="Machine.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MachineGroup.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -115,6 +118,7 @@
     <Compile Include="Repositories\HolderRepository.cs" />
     <Compile Include="Repositories\HolderToolRepository.cs" />
     <Compile Include="Repositories\MachineGroupRepository.cs" />
+    <Compile Include="Repositories\MachineRepository.cs" />
     <Compile Include="Repositories\MethodRepository.cs" />
     <Compile Include="Repositories\OperationRepository.cs" />
     <Compile Include="Repositories\OperationToolRepository.cs" />

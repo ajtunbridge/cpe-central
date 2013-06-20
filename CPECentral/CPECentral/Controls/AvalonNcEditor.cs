@@ -10,12 +10,14 @@ using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
+using CPECentral.Messages;
 using CPECentral.Properties;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using nGenLibrary;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 #endregion
 
@@ -46,12 +48,12 @@ namespace CPECentral.Controls
             _editor.FontFamily = new FontFamily("Courier New");
             _editor.FontSize = 16;
             _editor.TextChanged += Editor_TextChanged;
-            _editor.KeyDown += _editor_KeyDown;
+            _editor.KeyDown += Editor_KeyDown;
             _editor.HorizontalAlignment = HorizontalAlignment.Stretch;
             _editor.VerticalAlignment = VerticalAlignment.Stretch;
         }
 
-        void _editor_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Editor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.Modifiers == System.Windows.Input.ModifierKeys.Control
                 && e.KeyboardDevice.IsKeyDown(Key.S) && saveToolStripButton.Enabled)
@@ -196,6 +198,12 @@ namespace CPECentral.Controls
                 }
 
                 saveToolStripButton.Enabled = false;
+
+                var fileName = Path.GetFileName(_currentFileName);
+
+                var status = "Saved " + fileName + " successfully!";
+
+                Session.MessageBus.Publish(new StatusUpdateMessage(status));
             }
             catch (Exception ex)
             {

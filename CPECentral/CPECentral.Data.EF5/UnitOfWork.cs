@@ -24,6 +24,7 @@ namespace CPECentral.Data.EF5
         private HolderGroupRepository _holderGroups;
         private HolderToolRepository _holderTools;
         private HolderRepository _holders;
+        private MachineRepository _machines;
         private MachineGroupRepository _machineGroups;
         private MethodRepository _methods;
         private OperationToolRepository _operationTools;
@@ -70,6 +71,11 @@ namespace CPECentral.Data.EF5
         public HolderToolRepository HolderTools
         {
             get { return _holderTools ?? (_holderTools = new HolderToolRepository(this)); }
+        }
+
+        public MachineRepository Machines
+        {
+            get { return _machines ?? (_machines = new MachineRepository(this)); }
         }
 
         public MachineGroupRepository MachineGroups
@@ -144,11 +150,6 @@ namespace CPECentral.Data.EF5
             {
                 Entities.SaveChanges();
 
-                foreach (var entry in Entities.ChangeTracker.Entries())
-                {
-                    entry.State = EntityState.Detached;
-                }
-
                 Entities = new CPECentralEntities();
             }
             catch (Exception ex)
@@ -176,6 +177,9 @@ namespace CPECentral.Data.EF5
 
                 while (inner.GetType() != typeof (SqlException))
                 {
+                    if (inner == null)
+                        throw;
+
                     inner = inner.InnerException;
                 }
 

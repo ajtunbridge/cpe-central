@@ -12,18 +12,18 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class OperationTool
+    public partial class Machine
     {
-        public int Id { get; set; }
-        public int Position { get; set; }
-        public int Offset { get; set; }
-        public int UseOnePer { get; set; }
-        public string Holder { get; set; }
-        public string Notes { get; set; }
-        public int OperationId { get; set; }
-        public int ToolId { get; set; }
+        public Machine()
+        {
+            this.Operations = new HashSet<Operation>();
+        }
     
-        public virtual Tool Tool { get; set; }
-        public virtual Operation Operation { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int MachineGroupId { get; set; }
+    
+        public virtual MachineGroup MachineGroup { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
     }
 }

@@ -115,7 +115,7 @@
             // filesListView
             // 
             this.filesListView.AllowDrop = true;
-            this.filesListView.AlternateBackColor = System.Drawing.Color.WhiteSmoke;
+            this.filesListView.AlternateBackColor = System.Drawing.Color.Azure;
             this.filesListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesListView.EnsureSelection = false;
             this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,6 +136,7 @@
             this.filesListView.SelectedIndexChanged += new System.EventHandler(this.filesListView_SelectedIndexChanged);
             this.filesListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.filesListView_DragDrop);
             this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
+            this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
             // 
             // DocumentsView
             // 

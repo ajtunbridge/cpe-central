@@ -83,23 +83,13 @@ namespace CPECentral.Presenters
                         else if (entity is PartVersion)
                             documents = uow.Documents.GetByPartVersion(entity.Id);
 
-                        var documentsMissingFiles = new List<Document>();
 
-                        foreach (var document in documents)
+                        foreach (var document in documents.OrderBy(d => d.FileName))
                         {
                             var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
 
-                            if (!File.Exists(pathToFile))
-                            {
-                                documentsMissingFiles.Add(document);
-                                continue;
-                            }
-
                             modelItems.Add(new DocumentsViewModel(document, pathToFile));
                         }
-
-                        if (documentsMissingFiles.Count > 0)
-                            Session.DocumentService.DeleteDocuments(documentsMissingFiles);
 
                         e.Result = modelItems;
                     }

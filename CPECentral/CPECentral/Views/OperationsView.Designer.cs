@@ -34,12 +34,13 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.methodsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.methodsToolStrip = new System.Windows.Forms.ToolStrip();
-            this.addOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.editMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.operationsToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.addOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -52,7 +53,7 @@
             // 
             // operationsEnhancedListView
             // 
-            this.operationsEnhancedListView.AlternateBackColor = System.Drawing.Color.WhiteSmoke;
+            this.operationsEnhancedListView.AlternateBackColor = System.Drawing.Color.Azure;
             this.operationsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.sequenceColumnHeader,
             this.descriptionColumnHeader});
@@ -65,6 +66,7 @@
             this.operationsEnhancedListView.IndexOfColumnToResize = 1;
             this.operationsEnhancedListView.ItemContextMenuStrip = null;
             this.operationsEnhancedListView.Location = new System.Drawing.Point(0, 25);
+            this.operationsEnhancedListView.MultiSelect = false;
             this.operationsEnhancedListView.Name = "operationsEnhancedListView";
             this.operationsEnhancedListView.ResizeColumnToFill = true;
             this.operationsEnhancedListView.ShowItemToolTips = true;
@@ -108,9 +110,10 @@
             // 
             // methodsEnhancedListView
             // 
-            this.methodsEnhancedListView.AlternateBackColor = System.Drawing.Color.WhiteSmoke;
+            this.methodsEnhancedListView.AlternateBackColor = System.Drawing.Color.Azure;
             this.methodsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader2});
             this.methodsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.methodsEnhancedListView.EnsureSelection = true;
             this.methodsEnhancedListView.FullRowSelect = true;
@@ -118,6 +121,7 @@
             this.methodsEnhancedListView.IndexOfColumnToResize = 0;
             this.methodsEnhancedListView.ItemContextMenuStrip = null;
             this.methodsEnhancedListView.Location = new System.Drawing.Point(0, 25);
+            this.methodsEnhancedListView.MultiSelect = false;
             this.methodsEnhancedListView.Name = "methodsEnhancedListView";
             this.methodsEnhancedListView.ResizeColumnToFill = true;
             this.methodsEnhancedListView.ShowItemToolTips = true;
@@ -126,25 +130,76 @@
             this.methodsEnhancedListView.UseAlternatingBackColor = true;
             this.methodsEnhancedListView.UseCompatibleStateImageBehavior = false;
             this.methodsEnhancedListView.View = System.Windows.Forms.View.Details;
+            this.methodsEnhancedListView.ItemActivate += new System.EventHandler(this.methodsEnhancedListView_ItemActivate);
             this.methodsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.MethodsEnhancedListView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Method";
-            this.columnHeader1.Width = 324;
+            this.columnHeader1.Width = 244;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Preferred?";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 80;
             // 
             // methodsToolStrip
             // 
             this.methodsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.methodsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addOperationToolStripButton,
-            this.editOperationToolStripButton,
-            this.deleteOperationToolStripButton});
+            this.addMethodToolStripButton,
+            this.editMethodToolStripButton,
+            this.deleteMethodToolStripButton});
             this.methodsToolStrip.Location = new System.Drawing.Point(0, 0);
             this.methodsToolStrip.Name = "methodsToolStrip";
             this.methodsToolStrip.Size = new System.Drawing.Size(331, 25);
             this.methodsToolStrip.TabIndex = 1;
             this.methodsToolStrip.Text = "toolStrip1";
+            this.methodsToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.methodsToolStrip_ItemClicked);
+            // 
+            // addMethodToolStripButton
+            // 
+            this.addMethodToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addMethodToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addMethodToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addMethodToolStripButton.Name = "addMethodToolStripButton";
+            this.addMethodToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addMethodToolStripButton.Text = "Add method";
+            // 
+            // editMethodToolStripButton
+            // 
+            this.editMethodToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editMethodToolStripButton.Enabled = false;
+            this.editMethodToolStripButton.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
+            this.editMethodToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editMethodToolStripButton.Name = "editMethodToolStripButton";
+            this.editMethodToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.editMethodToolStripButton.Text = "Edit method";
+            // 
+            // deleteMethodToolStripButton
+            // 
+            this.deleteMethodToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteMethodToolStripButton.Enabled = false;
+            this.deleteMethodToolStripButton.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteMethodToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteMethodToolStripButton.Name = "deleteMethodToolStripButton";
+            this.deleteMethodToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteMethodToolStripButton.Text = "Delete method";
+            // 
+            // operationsToolStrip
+            // 
+            this.operationsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.operationsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addOperationToolStripButton,
+            this.toolStripButton2,
+            this.toolStripButton3});
+            this.operationsToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.operationsToolStrip.Name = "operationsToolStrip";
+            this.operationsToolStrip.Size = new System.Drawing.Size(331, 25);
+            this.operationsToolStrip.TabIndex = 5;
+            this.operationsToolStrip.Text = "toolStrip1";
+            this.operationsToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.operationsToolStrip_ItemClicked);
             // 
             // addOperationToolStripButton
             // 
@@ -154,49 +209,6 @@
             this.addOperationToolStripButton.Name = "addOperationToolStripButton";
             this.addOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addOperationToolStripButton.Text = "Add operation";
-            // 
-            // editOperationToolStripButton
-            // 
-            this.editOperationToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editOperationToolStripButton.Enabled = false;
-            this.editOperationToolStripButton.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
-            this.editOperationToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editOperationToolStripButton.Name = "editOperationToolStripButton";
-            this.editOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.editOperationToolStripButton.Text = "Edit operation";
-            // 
-            // deleteOperationToolStripButton
-            // 
-            this.deleteOperationToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteOperationToolStripButton.Enabled = false;
-            this.deleteOperationToolStripButton.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.deleteOperationToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteOperationToolStripButton.Name = "deleteOperationToolStripButton";
-            this.deleteOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteOperationToolStripButton.Text = "Delete operation";
-            // 
-            // operationsToolStrip
-            // 
-            this.operationsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.operationsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
-            this.operationsToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.operationsToolStrip.Name = "operationsToolStrip";
-            this.operationsToolStrip.Size = new System.Drawing.Size(331, 25);
-            this.operationsToolStrip.TabIndex = 5;
-            this.operationsToolStrip.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Enabled = false;
-            this.toolStripButton1.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "Add operation";
             // 
             // toolStripButton2
             // 
@@ -247,12 +259,13 @@
         private nGenLibrary.Controls.EnhancedListView methodsEnhancedListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ToolStrip methodsToolStrip;
-        private System.Windows.Forms.ToolStripButton addOperationToolStripButton;
-        private System.Windows.Forms.ToolStripButton editOperationToolStripButton;
-        private System.Windows.Forms.ToolStripButton deleteOperationToolStripButton;
+        private System.Windows.Forms.ToolStripButton addMethodToolStripButton;
+        private System.Windows.Forms.ToolStripButton editMethodToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteMethodToolStripButton;
         private System.Windows.Forms.ToolStrip operationsToolStrip;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton addOperationToolStripButton;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

@@ -103,11 +103,24 @@
     <Compile Include="Controls\FilePreviewPanel.Designer.cs">
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EditMethodDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditMethodDialog.Designer.cs">
+      <DependentUpon>EditMethodDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditOperationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditOperationDialog.Designer.cs">
+      <DependentUpon>EditOperationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="DocumentService.cs" />
     <Compile Include="IDialogService.cs" />
     <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
+    <Compile Include="Messages\StatusUpdateMessage.cs" />
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
@@ -202,6 +215,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditMethodDialog.resx">
+      <DependentUpon>EditMethodDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditOperationDialog.resx">
+      <DependentUpon>EditOperationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
