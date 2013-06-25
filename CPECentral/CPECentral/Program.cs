@@ -1,6 +1,8 @@
 ﻿#region Using directives
 
 using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
@@ -23,8 +25,10 @@ namespace CPECentral
 
             Session.Initialize();
 
-            //EnsureThereIsAnAdminAccount();
-            //AddMyAccount();
+#if DEBUG
+            EnsureThereIsAnAdminAccount();
+            AddMyAccount();
+#endif
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
 

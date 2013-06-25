@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
@@ -26,13 +25,18 @@ namespace CPECentral.Views
         event EventHandler RefreshDocuments;
         event EventHandler SelectionChanged;
         event EventHandler<FileDropEventArgs> FilesDropped;
+        event EventHandler NewTurningProgram;
+        event EventHandler NewFeatureCAMFile;
 
-        void DisplayDocuments(IEnumerable<DocumentsViewModel> documentModels);
+        void LoadDocuments(IEntity entity);
+        void DisplayDocuments(DocumentsViewModel model);
+        void ClearDocuments();
     }
 
     public partial class DocumentsView : ViewBase, IDocumentsView
     {
         private readonly DocumentsViewPresenter _presenter;
+        private OperationType _opType;
 
         public DocumentsView()
         {
@@ -65,14 +69,22 @@ namespace CPECentral.Views
         public event EventHandler RefreshDocuments;
         public event EventHandler SelectionChanged;
         public event EventHandler<FileDropEventArgs> FilesDropped;
+        public event EventHandler NewTurningProgram;
+        public event EventHandler NewFeatureCAMFile;
 
-        public void DisplayDocuments(IEnumerable<DocumentsViewModel> documentModels)
+        public void DisplayDocuments(DocumentsViewModel model)
         {
             filesListView.Items.Clear();
 
-            foreach (var model in documentModels)
+            _opType = model.OpType;
+
+            importMillingProgramToolStripButton.Visible = _opType == OperationType.Milling;
+            newTurningProgramToolStripButton.Visible = _opType == OperationType.Turning;
+            newFeatureCAMFileToolStripButton.Visible = _opType != OperationType.None;
+
+            foreach (var documentModel in model.DocumentModels)
             {
-                filesListView.AddFile(model.FileName, model.Document);
+                filesListView.AddFile(documentModel.FileName, documentModel.Document);
             }
 
             toolStrip.Enabled = true;
@@ -83,17 +95,35 @@ namespace CPECentral.Views
             OnSelectionChanged();
         }
 
+        public void ClearDocuments()
+        {
+            filesListView.Items.Clear();
+            toolStrip.Enabled = false;
+        }
+
+        public void LoadDocuments(IEntity entity)
+        {
+            CurrentEntity = entity;
+
+            toolStrip.Enabled = false;
+
+            filesListView.Items.Clear();
+            filesListView.Items.Add("retrieving...");
+
+            OnRefreshDocuments();
+        }
+
         #endregion
 
         protected virtual void OnDeleteSelectedDocuments()
         {
-            EventHandler handler = DeleteSelectedDocuments;
+            var handler = DeleteSelectedDocuments;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
         protected virtual void OnOpenDocument()
         {
-            EventHandler handler = OpenDocument;
+            var handler = OpenDocument;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
@@ -115,29 +145,16 @@ namespace CPECentral.Views
             if (handler != null) handler(this, e);
         }
 
-        public void LoadDocuments(IEntity entity)
+        protected virtual void OnNewTurningProgram()
         {
-            CurrentEntity = entity;
+            var handler = NewTurningProgram;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
 
-            if (entity is Operation)
-            {
-                importMillingProgramToolStripButton.Visible = true;
-                newTurningProgramToolStripButton.Visible = true;
-                newFeatureCAMFileToolStripButton.Visible = true;
-            }
-            else if (entity is Part || entity is PartVersion)
-            {
-                importMillingProgramToolStripButton.Visible = false;
-                newTurningProgramToolStripButton.Visible = false;
-                newFeatureCAMFileToolStripButton.Visible = false;
-            }
-
-            toolStrip.Enabled = false;
-
-            filesListView.Items.Clear();
-            filesListView.Items.Add("retrieving...");
-
-            OnRefreshDocuments();
+        protected virtual void OnNewFeatureCAMFile()
+        {
+            var handler = NewFeatureCAMFile;
+            if (handler != null) handler(this, EventArgs.Empty);
         }
 
         private void DocumentsChangedMessage_Published(DocumentsChangedMessage message)
@@ -148,8 +165,8 @@ namespace CPECentral.Views
                 return;
             }
 
-                if (message.Entity.Equals(CurrentEntity))
-                    OnRefreshDocuments();
+            if (message.Entity.Equals(CurrentEntity))
+                OnRefreshDocuments();
         }
 
         private void filesListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,6 +206,12 @@ namespace CPECentral.Views
                     break;
                 case "openDocumentToolStripButton":
                     OnOpenDocument();
+                    break;
+                case "newTurningProgramToolStripButton":
+                    OnNewTurningProgram();
+                    break;
+                case "newFeatureCAMFileToolStripButton":
+                    OnNewFeatureCAMFile();
                     break;
             }
         }

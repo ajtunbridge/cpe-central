@@ -110,8 +110,6 @@ namespace CPECentral.Views
             }
 
             operationsEnhancedListView.SelectFirstItem();
-
-            Invalidate();
         }
 
         #endregion

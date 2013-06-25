@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CPECentral.Data.EF5;
+using CPECentral.Properties;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
@@ -25,6 +26,54 @@ namespace CPECentral.Presenters
             _documentsView.OpenDocument += _documentsView_OpenDocument;
             _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments;
             _documentsView.FilesDropped += _documentsView_FilesDropped;
+
+            _documentsView.NewFeatureCAMFile += _documentsView_NewFeatureCAMFile;
+            _documentsView.NewTurningProgram += _documentsView_NewTurningProgram;
+        }
+
+        void _documentsView_NewFeatureCAMFile(object sender, EventArgs e)
+        {
+            using (var uow = new UnitOfWork())
+            {
+
+            }
+        }
+
+        void _documentsView_NewTurningProgram(object sender, EventArgs e)
+        {
+            using (var uow = new UnitOfWork())
+            {
+                var group = uow.MachineGroups.GetByName("CNC Lathes");
+
+                if (group == null)
+                    throw new InvalidOperationException("There isn't a machine group for lathes!");
+
+                var op = _documentsView.CurrentEntity as Operation;
+
+                var method = uow.Methods.GetById(op.MethodId);
+
+                var tempPath = Path.GetTempPath();
+
+                var tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
+
+                var header = new StringBuilder(Settings.Default.TurningProgramHeader);
+                header.Replace("{prog}", group.NextNumber.ToString("D4"));
+                header.Replace("{dwg}", method.PartVersion.Part.DrawingNumber);
+                header.Replace("{ver}", method.PartVersion.VersionNumber);
+                header.Replace("{op}", op.Sequence.ToString("D2"));
+                header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
+                header.Replace("{name}", method.PartVersion.Part.Name);
+
+                File.WriteAllText(tempFileName, header.ToString());
+
+                Session.DocumentService.QueueUpload(tempFileName, op);
+
+                group.NextNumber += 1;
+
+                uow.MachineGroups.Update(group);
+
+                uow.Commit();
+            }
         }
 
         void _documentsView_DeleteSelectedDocuments(object sender, EventArgs e)
@@ -68,30 +117,48 @@ namespace CPECentral.Presenters
 
                 try
                 {
-                    var modelItems = new List<DocumentsViewModel>();
-
                     using (var uow = new UnitOfWork())
                     {
                         uow.OpenConnection();
 
                         IEnumerable<Document> documents = null;
 
+                        var model = new DocumentsViewModel(OperationType.None);
+
                         if (entity is Operation)
-                            documents = uow.Documents.GetByOperation(entity.Id);
+                        {
+                            var op = entity as Operation;
+
+                            var machine = uow.Machines.GetById(op.MachineId);
+
+                            switch (machine.MachineGroup.Name.ToLower())
+                            {
+                                case "cnc mills":
+                                    model.OpType = OperationType.Milling;
+                                    break;
+                                case "cnc lathes":
+                                    model.OpType = OperationType.Turning;
+                                    break;
+                                default:
+                                    model.OpType = OperationType.None;
+                                    break;
+                            }
+
+                            documents = uow.Documents.GetByOperation(entity.Id);                      
+                        }
                         else if (entity is Part)
                             documents = uow.Documents.GetByPart(entity.Id);
                         else if (entity is PartVersion)
                             documents = uow.Documents.GetByPartVersion(entity.Id);
 
-
                         foreach (var document in documents.OrderBy(d => d.FileName))
                         {
                             var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
 
-                            modelItems.Add(new DocumentsViewModel(document, pathToFile));
+                            model.AddDocumentModel(document, pathToFile);
                         }
 
-                        e.Result = modelItems;
+                        e.Result = model;
                     }
                 }
                 catch (Exception ex)
@@ -116,7 +183,7 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var model = (IEnumerable<DocumentsViewModel>)e.Result;
+            var model = (DocumentsViewModel)e.Result;
 
             _documentsView.DisplayDocuments(model);
         }

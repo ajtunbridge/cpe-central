@@ -158,10 +158,10 @@ namespace CPECentral.Views
             this.partTabControl.Controls.Add(this.tabPage3);
             this.partTabControl.Controls.Add(this.tabPage4);
             this.partTabControl.ItemSize = new System.Drawing.Size(140, 22);
-            this.partTabControl.Location = new System.Drawing.Point(331, 53);
+            this.partTabControl.Location = new System.Drawing.Point(414, 53);
             this.partTabControl.Name = "partTabControl";
             this.partTabControl.SelectedIndex = 0;
-            this.partTabControl.Size = new System.Drawing.Size(570, 239);
+            this.partTabControl.Size = new System.Drawing.Size(487, 239);
             this.partTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.partTabControl.TabIndex = 5;
             // 
@@ -171,7 +171,7 @@ namespace CPECentral.Views
             this.tabPage3.Location = new System.Drawing.Point(4, 26);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(562, 209);
+            this.tabPage3.Size = new System.Drawing.Size(479, 209);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Version documents";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -184,7 +184,7 @@ namespace CPECentral.Views
             this.versionDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.versionDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.versionDocumentsView.Name = "versionDocumentsView";
-            this.versionDocumentsView.Size = new System.Drawing.Size(556, 203);
+            this.versionDocumentsView.Size = new System.Drawing.Size(473, 203);
             this.versionDocumentsView.TabIndex = 0;
             this.versionDocumentsView.SelectionChanged += new System.EventHandler(this.DocumentViews_SelectionChanged);
             // 
@@ -194,7 +194,7 @@ namespace CPECentral.Views
             this.tabPage4.Location = new System.Drawing.Point(4, 26);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(562, 209);
+            this.tabPage4.Size = new System.Drawing.Size(509, 209);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Part documents";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@ namespace CPECentral.Views
             this.partDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.partDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partDocumentsView.Name = "partDocumentsView";
-            this.partDocumentsView.Size = new System.Drawing.Size(556, 203);
+            this.partDocumentsView.Size = new System.Drawing.Size(503, 203);
             this.partDocumentsView.TabIndex = 1;
             this.partDocumentsView.SelectionChanged += new System.EventHandler(this.DocumentViews_SelectionChanged);
             // 
@@ -305,7 +305,7 @@ namespace CPECentral.Views
             this.partInformationView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.partInformationView.Location = new System.Drawing.Point(7, 53);
             this.partInformationView.Name = "partInformationView";
-            this.partInformationView.Size = new System.Drawing.Size(318, 239);
+            this.partInformationView.Size = new System.Drawing.Size(401, 239);
             this.partInformationView.TabIndex = 0;
             this.partInformationView.VersionSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartVersionEventArgs>(this.partInformationView_VersionSelected);
             // 

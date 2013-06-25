@@ -137,10 +137,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.drawingNumberTextBox.DisableDoubleSpace = true;
+            this.drawingNumberTextBox.DisableLeadingSpace = false;
             this.drawingNumberTextBox.Location = new System.Drawing.Point(0, 68);
             this.drawingNumberTextBox.MaxLength = 50;
             this.drawingNumberTextBox.Name = "drawingNumberTextBox";
             this.drawingNumberTextBox.Size = new System.Drawing.Size(282, 25);
+            this.drawingNumberTextBox.SuppressEnterKey = false;
             this.drawingNumberTextBox.TabIndex = 5;
             this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);
             // 
@@ -150,10 +152,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nameTextBox.DisableDoubleSpace = true;
+            this.nameTextBox.DisableLeadingSpace = false;
             this.nameTextBox.Location = new System.Drawing.Point(0, 116);
             this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(282, 25);
+            this.nameTextBox.SuppressEnterKey = false;
             this.nameTextBox.TabIndex = 5;
             this.nameTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);
             // 
@@ -163,10 +167,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolingLocationTextBox.DisableDoubleSpace = false;
+            this.toolingLocationTextBox.DisableLeadingSpace = false;
             this.toolingLocationTextBox.Location = new System.Drawing.Point(92, 165);
             this.toolingLocationTextBox.MaxLength = 50;
             this.toolingLocationTextBox.Name = "toolingLocationTextBox";
             this.toolingLocationTextBox.Size = new System.Drawing.Size(190, 25);
+            this.toolingLocationTextBox.SuppressEnterKey = false;
             this.toolingLocationTextBox.TabIndex = 5;
             this.toolingLocationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolingLocationTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);

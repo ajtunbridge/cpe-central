@@ -53,6 +53,7 @@ namespace CPECentral.Views
 
             partInformationView.LoadPart(Part);
             partDocumentsView.LoadDocuments(Part);
+            operationDocumentsView.ClearDocuments();
 
             using (BusyCursor.Show())
             {
@@ -131,6 +132,13 @@ namespace CPECentral.Views
 
         private void operationsView_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)
         {
+            if (e.Operation == null)
+            {
+                operationsTabControl.Enabled = false;
+                return;
+            }
+
+            operationsTabControl.Enabled = true;
             operationDocumentsView.LoadDocuments(e.Operation);
         }
     }
