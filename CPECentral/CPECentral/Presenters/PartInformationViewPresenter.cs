@@ -7,6 +7,7 @@ using System.Threading;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+using nGenLibrary;
 
 #endregion
 
@@ -26,40 +27,29 @@ namespace CPECentral.Presenters
 
         private void _partInformationView_SaveChanges(object sender, EventArgs e)
         {
-            var saveWorker = new BackgroundWorker();
-            saveWorker.DoWork += saveWorker_DoWork;
-            saveWorker.RunWorkerCompleted += saveWorker_RunWorkerCompleted;
-            saveWorker.RunWorkerAsync(_partInformationView.Part);
-        }
-
-        private void saveWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            var successful = e.Result == null;
-
-            if (!successful)
-            {
-                HandleException(e.Result as Exception);
-                return;
-            }
-
-            _partInformationView.SaveCompleted(successful);
-        }
-
-        private void saveWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
             try
             {
-                var part = (Part) e.Argument;
+                using (BusyCursor.Show())
+                {
+                    using (var uow = new UnitOfWork())
+                    {
+                        var part = _partInformationView.Part;
 
-                var uow = new UnitOfWork();
+                        part.ModifiedBy = Session.CurrentEmployee.Id;
 
-                uow.Parts.Update(part);
+                        uow.Parts.Update(part);
 
-                uow.Commit();
+                        uow.Commit();
+                    }
+                }
+
+                _partInformationView.SaveCompleted(true);
             }
             catch (Exception ex)
             {
-                e.Result = ex;
+                HandleException(ex);
+
+                _partInformationView.SaveCompleted(false);
             }
         }
 

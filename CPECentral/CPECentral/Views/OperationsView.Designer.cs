@@ -41,8 +41,8 @@
             this.deleteMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.operationsToolStrip = new System.Windows.Forms.ToolStrip();
             this.addOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.editOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,6 +75,7 @@
             this.operationsEnhancedListView.UseAlternatingBackColor = true;
             this.operationsEnhancedListView.UseCompatibleStateImageBehavior = false;
             this.operationsEnhancedListView.View = System.Windows.Forms.View.Details;
+            this.operationsEnhancedListView.ItemActivate += new System.EventHandler(this.operationsEnhancedListView_ItemActivate);
             this.operationsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.OperationsEnhancedListView_SelectedIndexChanged);
             // 
             // sequenceColumnHeader
@@ -192,8 +193,8 @@
             this.operationsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.operationsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addOperationToolStripButton,
-            this.toolStripButton2,
-            this.toolStripButton3});
+            this.editOperationToolStripButton,
+            this.deleteOperationToolStripButton});
             this.operationsToolStrip.Location = new System.Drawing.Point(0, 0);
             this.operationsToolStrip.Name = "operationsToolStrip";
             this.operationsToolStrip.Size = new System.Drawing.Size(331, 25);
@@ -210,25 +211,25 @@
             this.addOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addOperationToolStripButton.Text = "Add operation";
             // 
-            // toolStripButton2
+            // editOperationToolStripButton
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Enabled = false;
-            this.toolStripButton2.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "Edit operation";
+            this.editOperationToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editOperationToolStripButton.Enabled = false;
+            this.editOperationToolStripButton.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
+            this.editOperationToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editOperationToolStripButton.Name = "editOperationToolStripButton";
+            this.editOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.editOperationToolStripButton.Text = "Edit operation";
             // 
-            // toolStripButton3
+            // deleteOperationToolStripButton
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Enabled = false;
-            this.toolStripButton3.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "Delete operation";
+            this.deleteOperationToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteOperationToolStripButton.Enabled = false;
+            this.deleteOperationToolStripButton.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteOperationToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteOperationToolStripButton.Name = "deleteOperationToolStripButton";
+            this.deleteOperationToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.deleteOperationToolStripButton.Text = "Delete operation";
             // 
             // OperationsView
             // 
@@ -264,8 +265,8 @@
         private System.Windows.Forms.ToolStripButton deleteMethodToolStripButton;
         private System.Windows.Forms.ToolStrip operationsToolStrip;
         private System.Windows.Forms.ToolStripButton addOperationToolStripButton;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton editOperationToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteOperationToolStripButton;
         private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

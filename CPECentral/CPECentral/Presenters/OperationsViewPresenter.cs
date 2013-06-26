@@ -27,9 +27,52 @@ namespace CPECentral.Presenters
             _operationsView.EditMethod += OperationsView_EditMethod;
 
             _operationsView.AddOperation += _operationsView_AddOperation;
+            _operationsView.EditOperation += _operationsView_EditOperation;
 
             _operationsView.ReloadMethods += OperationsView_ReloadMethods;
             _operationsView.MethodSelected += OperationsView_MethodSelected;
+        }
+
+        void _operationsView_EditOperation(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageOperations))
+                return;
+
+            try
+            {
+                var parentForm = ((UserControl)_operationsView).ParentForm;
+
+                using (var operationDialog = new EditOperationDialog(_operationsView.SelectedOperation))
+                {
+                    if (operationDialog.ShowDialog(parentForm) != DialogResult.OK)
+                        return;
+
+                    using (BusyCursor.Show())
+                    {
+                        using (var uow = new UnitOfWork())
+                        {
+                            var opToEdit = uow.Operations.GetById(_operationsView.SelectedOperation.Id);
+
+                            opToEdit.CycleTime = operationDialog.CycleTime;
+                            opToEdit.Description = operationDialog.Description;
+                            opToEdit.MachineId = operationDialog.Machine.Id;
+                            opToEdit.ModifiedBy = Session.CurrentEmployee.Id;
+                            opToEdit.Sequence = operationDialog.Sequence;
+                            opToEdit.SetupTime = operationDialog.SetupTime;
+                            
+                            uow.Operations.Update(opToEdit);
+
+                            uow.Commit();
+
+                            ReloadOperations();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         void _operationsView_AddOperation(object sender, EventArgs e)
@@ -53,7 +96,7 @@ namespace CPECentral.Presenters
                     newOperation.Description = operationDialog.Description;
                     newOperation.Sequence = operationDialog.Sequence;
                     newOperation.SetupTime = operationDialog.SetupTime;
-                    newOperation.CycleTime = operationDialog.RunTime;
+                    newOperation.CycleTime = operationDialog.CycleTime;
                     newOperation.MachineId = operationDialog.Machine.Id;
                     newOperation.CreatedBy = Session.CurrentEmployee.Id;
                     newOperation.ModifiedBy = Session.CurrentEmployee.Id;
@@ -76,6 +119,7 @@ namespace CPECentral.Presenters
             }
         }
 
+        
         private void OperationsView_AddMethod(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageOperations))
@@ -129,7 +173,6 @@ namespace CPECentral.Presenters
             {
                 using (var methodDialog = new EditMethodDialog(_operationsView.SelectedMethod))
                 {
-
                     var parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (methodDialog.ShowDialog(parentForm) != DialogResult.OK)
@@ -277,7 +320,11 @@ namespace CPECentral.Presenters
 
             if (ex is DataProviderException)
             {
-                message = ex.Message;
+                var dataEx = ex as DataProviderException;
+
+                message = dataEx.Error == DataProviderError.UniqueConstraintViolation 
+                    ? "An operation already exists at this sequence!" 
+                    : ex.Message;
             }
             else
             {

@@ -1,27 +1,35 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.Properties;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
     public class DocumentsViewPresenter
     {
         private readonly IDocumentsView _documentsView;
-        private BackgroundWorker _refreshDocumentsWorker;
         private readonly object _refreshLocker = new object();
+        private BackgroundWorker _refreshDocumentsWorker;
 
         public DocumentsViewPresenter(IDocumentsView documentsView)
         {
             _documentsView = documentsView;
 
+            _documentsView.AddDocuments += _documentsView_AddDocuments;
             _documentsView.RefreshDocuments += _documentsView_RefreshDocuments;
             _documentsView.OpenDocument += _documentsView_OpenDocument;
             _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments;
@@ -29,54 +37,151 @@ namespace CPECentral.Presenters
 
             _documentsView.NewFeatureCAMFile += _documentsView_NewFeatureCAMFile;
             _documentsView.NewTurningProgram += _documentsView_NewTurningProgram;
+            _documentsView.ImportMillingFile += _documentsView_ImportMillingFile;
         }
 
-        void _documentsView_NewFeatureCAMFile(object sender, EventArgs e)
+        void _documentsView_ImportMillingFile(object sender, EventArgs e)
         {
-            using (var uow = new UnitOfWork())
+            var parentForm = ((UserControl)_documentsView).ParentForm;
+
+            using (var importDialog = new ImportMillingProgramDialog())
             {
+                if (importDialog.ShowDialog(parentForm) != DialogResult.OK)
+                    return;
+
 
             }
         }
 
-        void _documentsView_NewTurningProgram(object sender, EventArgs e)
+        private void _documentsView_AddDocuments(object sender, EventArgs e)
         {
-            using (var uow = new UnitOfWork())
+            if (!Directory.Exists(Settings.Default.SharedAppDir))
             {
-                var group = uow.MachineGroups.GetByName("CNC Lathes");
+                _documentsView.DialogService.ShowError("The shared application directory could not be located!");
+                return;
+            }
 
-                if (group == null)
-                    throw new InvalidOperationException("There isn't a machine group for lathes!");
+            using (var fileDialog = new OpenFileDialog())
+            {
+                var parentForm = ((UserControl) _documentsView).ParentForm;
 
-                var op = _documentsView.CurrentEntity as Operation;
+                fileDialog.Filter = "All files|*.*";
+                fileDialog.Title = "Please select documents to upload";
 
-                var method = uow.Methods.GetById(op.MethodId);
+                if (fileDialog.ShowDialog(parentForm) != DialogResult.OK)
+                    return;
 
-                var tempPath = Path.GetTempPath();
-
-                var tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
-
-                var header = new StringBuilder(Settings.Default.TurningProgramHeader);
-                header.Replace("{prog}", group.NextNumber.ToString("D4"));
-                header.Replace("{dwg}", method.PartVersion.Part.DrawingNumber);
-                header.Replace("{ver}", method.PartVersion.VersionNumber);
-                header.Replace("{op}", op.Sequence.ToString("D2"));
-                header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
-                header.Replace("{name}", method.PartVersion.Part.Name);
-
-                File.WriteAllText(tempFileName, header.ToString());
-
-                Session.DocumentService.QueueUpload(tempFileName, op);
-
-                group.NextNumber += 1;
-
-                uow.MachineGroups.Update(group);
-
-                uow.Commit();
+                foreach (var fileName in fileDialog.FileNames)
+                    Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
             }
         }
 
-        void _documentsView_DeleteSelectedDocuments(object sender, EventArgs e)
+        private void _documentsView_NewFeatureCAMFile(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Settings.Default.SharedAppDir))
+            {
+                _documentsView.DialogService.ShowError("The shared application directory could not be located!");
+                return;
+            }
+
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var uow = new UnitOfWork())
+                    {
+                        var op = _documentsView.CurrentEntity as Operation;
+
+                        var method = uow.Methods.GetById(op.MethodId);
+
+                        var drawingNo = method.PartVersion.Part.DrawingNumber;
+                        var version = method.PartVersion.VersionNumber;
+                        var opNumber = op.Sequence;
+
+                        var fileName = string.Format("{0} Version {1} Op {2:00}.fm", drawingNo, version, opNumber);
+
+                        var pathToFile = Path.Combine(Path.GetTempPath(), fileName);
+
+                        var machineGroup = uow.Machines.GetById(op.MachineId).MachineGroup.Name;
+
+                        byte[] data = null;
+
+                        switch (machineGroup.ToLower())
+                        {
+                            case "cnc mills":
+                                data = Resources.CAM_Template_Milling;
+                                break;
+                            case "cnc lathes":
+                                data = Resources.CAM_Template_Turning;
+                                break;
+                        }
+
+                        File.WriteAllBytes(pathToFile, data);
+
+                        Session.DocumentService.QueueUpload(pathToFile, op, true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void _documentsView_NewTurningProgram(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Settings.Default.SharedAppDir))
+            {
+                _documentsView.DialogService.ShowError("The shared application directory could not be located!");
+                return;
+            }
+
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var uow = new UnitOfWork())
+                    {
+                        var group = uow.MachineGroups.GetByName("CNC Lathes");
+
+                        if (group == null)
+                            throw new InvalidOperationException("There isn't a machine group for lathes!");
+
+                        var op = _documentsView.CurrentEntity as Operation;
+
+                        var method = uow.Methods.GetById(op.MethodId);
+
+                        var tempPath = Path.GetTempPath();
+
+                        var tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
+
+                        var header = new StringBuilder(Settings.Default.TurningProgramHeader);
+                        header.Replace("{prog}", group.NextNumber.ToString("D4"));
+                        header.Replace("{dwg}", method.PartVersion.Part.DrawingNumber);
+                        header.Replace("{ver}", method.PartVersion.VersionNumber);
+                        header.Replace("{op}", op.Sequence.ToString("D2"));
+                        header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
+                        header.Replace("{name}", method.PartVersion.Part.Name);
+
+                        File.WriteAllText(tempFileName, header.ToString());
+
+                        Session.DocumentService.QueueUpload(tempFileName, op);
+
+                        group.NextNumber += 1;
+
+                        uow.MachineGroups.Update(group);
+
+                        uow.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void _documentsView_DeleteSelectedDocuments(object sender, EventArgs e)
         {
             const string question = "Are you sure you want to delete these documents?\n\nThis cannot be undone!";
 
@@ -86,22 +191,28 @@ namespace CPECentral.Presenters
             Session.DocumentService.DeleteDocuments(_documentsView.SelectedDocuments);
         }
 
-        void _documentsView_OpenDocument(object sender, EventArgs e)
+        private void _documentsView_OpenDocument(object sender, EventArgs e)
         {
             var document = _documentsView.SelectedDocuments.First();
 
             Session.DocumentService.OpenDocument(document);
         }
 
-        void _documentsView_FilesDropped(object sender, CustomEventArgs.FileDropEventArgs e)
+        private void _documentsView_FilesDropped(object sender, FileDropEventArgs e)
         {
+            if (!Directory.Exists(Settings.Default.SharedAppDir))
+            {
+                _documentsView.DialogService.ShowError("The shared application directory could not be located!");
+                return;
+            }
+
             foreach (var file in e.DroppedFiles)
             {
                 Session.DocumentService.QueueUpload(file, _documentsView.CurrentEntity);
             }
         }
 
-        void _documentsView_RefreshDocuments(object sender, EventArgs e)
+        private void _documentsView_RefreshDocuments(object sender, EventArgs e)
         {
             _refreshDocumentsWorker = new BackgroundWorker();
             _refreshDocumentsWorker.DoWork += _refreshDocumentsWorker_DoWork;
@@ -109,7 +220,7 @@ namespace CPECentral.Presenters
             _refreshDocumentsWorker.RunWorkerAsync(_documentsView.CurrentEntity);
         }
 
-        void _refreshDocumentsWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void _refreshDocumentsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             lock (_refreshLocker)
             {
@@ -144,7 +255,7 @@ namespace CPECentral.Presenters
                                     break;
                             }
 
-                            documents = uow.Documents.GetByOperation(entity.Id);                      
+                            documents = uow.Documents.GetByOperation(entity.Id);
                         }
                         else if (entity is Part)
                             documents = uow.Documents.GetByPart(entity.Id);
@@ -168,14 +279,14 @@ namespace CPECentral.Presenters
             }
         }
 
-        void _refreshDocumentsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void _refreshDocumentsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // BUG: find out why this happens when refreshing the library!
             if (_refreshDocumentsWorker == null)
                 return;
 
             _refreshDocumentsWorker.Dispose();
-            _refreshDocumentsWorker = null; 
+            _refreshDocumentsWorker = null;
 
             if (e.Result is Exception)
             {
@@ -183,7 +294,7 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var model = (DocumentsViewModel)e.Result;
+            var model = (DocumentsViewModel) e.Result;
 
             _documentsView.DisplayDocuments(model);
         }

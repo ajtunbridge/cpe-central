@@ -71,16 +71,6 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon ApplicationIcon {
-            get {
-                object obj = ResourceManager.GetObject("ApplicationIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ApplicationIconImage_128x128 {
@@ -117,6 +107,16 @@ namespace CPECentral.Properties {
             get {
                 object obj = ResourceManager.GetObject("CompanyLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon CPECentralIcon {
+            get {
+                object obj = ResourceManager.GetObject("CPECentralIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -276,6 +276,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap ReloadIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("ReloadIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RenameIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("RenameIcon_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

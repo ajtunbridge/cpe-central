@@ -74,12 +74,12 @@ namespace CPECentral.Presenters
 
                             uow.Commit();
 
+                            Session.MessageBus.Publish(new PartAddedMessage(part));
+
                             foreach (var file in addPartDialog.FilesToImport)
                             {
                                 Session.DocumentService.QueueUpload(file, version);
                             }
-
-                            Session.MessageBus.Publish(new PartAddedMessage(part));
                         }
                     }
                 }

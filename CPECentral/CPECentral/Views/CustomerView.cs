@@ -27,7 +27,9 @@ namespace CPECentral.Views
 
         private void CustomerView_Load(object sender, EventArgs e)
         {
-            label1.Text = _customer.Name;
+            const string message = "{0}\n\nIf you can think of anything to show here, let me know.";
+
+            label1.Text = string.Format(message, _customer.Name);
         }
     }
 }

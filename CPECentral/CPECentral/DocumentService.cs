@@ -32,10 +32,21 @@ namespace CPECentral
 
         public void QueueUpload(string fileName, IEntity entity)
         {
+            QueueUpload(fileName, entity, false);
+        }
+
+        public void QueueUpload(string fileName, IEntity entity, bool deleteOriginal)
+        {
             if (!AppSecurity.Check(AppPermission.ManageDocuments))
                 return;
 
-            var uploadItem = new UploadQueueItem(fileName, entity);
+            if (!Directory.Exists(Settings.Default.SharedAppDir))
+            {
+                _dialogService.ShowError("The shared application directory could not be located!");
+                return;
+            }
+            
+            var uploadItem = new UploadQueueItem(fileName, entity, deleteOriginal);
 
             if (_queue.Contains(uploadItem))
                 return;
@@ -191,10 +202,13 @@ namespace CPECentral
 
                     uow.Commit();
                 }
-                
+
+                if (uploadItem.DeleteOriginal)
+                    File.Delete(uploadItem.SourceFile);
+
                 // this is for when creating a new part, it gives the view time
                 // to load before firing the message
-                Thread.Sleep(1000);
+                //Thread.Sleep(500);
 
                 Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
 
@@ -333,14 +347,16 @@ namespace CPECentral
 
         private class UploadQueueItem : IQueueItem, IEquatable<UploadQueueItem>
         {
-            public UploadQueueItem(string sourceFile, IEntity entity)
+            public UploadQueueItem(string sourceFile, IEntity entity, bool deleteOriginal)
             {
                 SourceFile = sourceFile;
                 Entity = entity;
+                DeleteOriginal = deleteOriginal;
             }
 
             public string SourceFile { get; set; }
             public IEntity Entity { get; set; }
+            public bool DeleteOriginal { get; set; }
 
             #region IEquatable<UploadQueueItem> Members
 

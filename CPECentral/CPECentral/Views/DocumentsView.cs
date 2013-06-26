@@ -19,7 +19,9 @@ namespace CPECentral.Views
         IEntity CurrentEntity { get; }
         IEnumerable<Document> SelectedDocuments { get; }
         int SelectionCount { get; }
+        OperationType OpType { get; }
 
+        event EventHandler AddDocuments;
         event EventHandler DeleteSelectedDocuments;
         event EventHandler OpenDocument;
         event EventHandler RefreshDocuments;
@@ -27,6 +29,7 @@ namespace CPECentral.Views
         event EventHandler<FileDropEventArgs> FilesDropped;
         event EventHandler NewTurningProgram;
         event EventHandler NewFeatureCAMFile;
+        event EventHandler ImportMillingFile;
 
         void LoadDocuments(IEntity entity);
         void DisplayDocuments(DocumentsViewModel model);
@@ -64,6 +67,12 @@ namespace CPECentral.Views
             get { return filesListView.SelectionCount; }
         }
 
+        public OperationType OpType
+        {
+            get { return _opType; }
+        }
+
+        public event EventHandler AddDocuments;
         public event EventHandler DeleteSelectedDocuments;
         public event EventHandler OpenDocument;
         public event EventHandler RefreshDocuments;
@@ -71,6 +80,7 @@ namespace CPECentral.Views
         public event EventHandler<FileDropEventArgs> FilesDropped;
         public event EventHandler NewTurningProgram;
         public event EventHandler NewFeatureCAMFile;
+        public event EventHandler ImportMillingFile;
 
         public void DisplayDocuments(DocumentsViewModel model)
         {
@@ -91,6 +101,7 @@ namespace CPECentral.Views
 
             deleteDocumentsToolStripButton.Enabled = false;
             openDocumentToolStripButton.Enabled = false;
+            renameToolStripButton.Enabled = false;
 
             OnSelectionChanged();
         }
@@ -114,6 +125,12 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnAddDocuments()
+        {
+            EventHandler handler = AddDocuments;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
 
         protected virtual void OnDeleteSelectedDocuments()
         {
@@ -157,6 +174,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected virtual void OnImportMillingFile()
+        {
+            EventHandler handler = ImportMillingFile;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         private void DocumentsChangedMessage_Published(DocumentsChangedMessage message)
         {
             if (InvokeRequired)
@@ -175,6 +198,7 @@ namespace CPECentral.Views
 
             openDocumentToolStripButton.Enabled = selectionCount == 1;
             deleteDocumentsToolStripButton.Enabled = selectionCount > 0;
+            renameToolStripButton.Enabled = selectionCount == 1;
 
             OnSelectionChanged();
         }
@@ -201,6 +225,9 @@ namespace CPECentral.Views
         {
             switch (e.ClickedItem.Name)
             {
+                case "addDocumentToolStripButton":
+                    OnAddDocuments();
+                    break;
                 case "deleteDocumentsToolStripButton":
                     OnDeleteSelectedDocuments();
                     break;
@@ -212,6 +239,12 @@ namespace CPECentral.Views
                     break;
                 case "newFeatureCAMFileToolStripButton":
                     OnNewFeatureCAMFile();
+                    break;
+                case "refreshToolStripMenuItem":
+                    OnRefreshDocuments();
+                    break;
+                case "importMillingProgramToolStripButton":
+                    OnImportMillingFile();
                     break;
             }
         }

@@ -629,8 +629,12 @@ namespace CPECentral.Data.EF5
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((PartVersion) obj);
+
+            var other = obj as PartVersion;
+
+            if (other == null) return false;
+
+            return Equals(other);
         }
 
         public override string ToString()

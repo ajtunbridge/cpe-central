@@ -33,17 +33,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.setupNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.runNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.cycleNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.descriptionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
-            this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.machineComboBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.machineGroupComboBox = new System.Windows.Forms.ComboBox();
+            this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             ((System.ComponentModel.ISupportInitialize)(this.sequenceNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.setupNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -100,20 +100,10 @@
             0,
             0,
             0});
-            this.setupNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.setupNumericUpDown.Name = "setupNumericUpDown";
             this.setupNumericUpDown.Size = new System.Drawing.Size(70, 25);
             this.setupNumericUpDown.TabIndex = 1;
             this.setupNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.setupNumericUpDown.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
             // 
             // label3
             // 
@@ -121,37 +111,27 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 17);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Run";
+            this.label3.Text = "Cycle";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // runNumericUpDown
+            // cycleNumericUpDown
             // 
-            this.runNumericUpDown.DecimalPlaces = 2;
-            this.runNumericUpDown.Increment = new decimal(new int[] {
+            this.cycleNumericUpDown.DecimalPlaces = 2;
+            this.cycleNumericUpDown.Increment = new decimal(new int[] {
             25,
             0,
             0,
             131072});
-            this.runNumericUpDown.Location = new System.Drawing.Point(15, 125);
-            this.runNumericUpDown.Maximum = new decimal(new int[] {
+            this.cycleNumericUpDown.Location = new System.Drawing.Point(15, 125);
+            this.cycleNumericUpDown.Maximum = new decimal(new int[] {
             1440,
             0,
             0,
             0});
-            this.runNumericUpDown.Minimum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            131072});
-            this.runNumericUpDown.Name = "runNumericUpDown";
-            this.runNumericUpDown.Size = new System.Drawing.Size(70, 25);
-            this.runNumericUpDown.TabIndex = 2;
-            this.runNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.runNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.cycleNumericUpDown.Name = "cycleNumericUpDown";
+            this.cycleNumericUpDown.Size = new System.Drawing.Size(70, 25);
+            this.cycleNumericUpDown.TabIndex = 2;
+            this.cycleNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -168,26 +148,13 @@
             this.descriptionTextBox.DisableDoubleSpace = true;
             this.descriptionTextBox.DisableLeadingSpace = true;
             this.descriptionTextBox.Location = new System.Drawing.Point(94, 29);
-            this.descriptionTextBox.MaxLength = 255;
+            this.descriptionTextBox.MaxLength = 30000;
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.descriptionTextBox.Size = new System.Drawing.Size(268, 73);
             this.descriptionTextBox.SuppressEnterKey = true;
             this.descriptionTextBox.TabIndex = 3;
-            // 
-            // okayCancelFooter
-            // 
-            this.okayCancelFooter.BackColor = System.Drawing.Color.White;
-            this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 212);
-            this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.okayCancelFooter.Name = "okayCancelFooter";
-            this.okayCancelFooter.Size = new System.Drawing.Size(376, 45);
-            this.okayCancelFooter.TabIndex = 6;
-            this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
-            this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
             // 
             // machineComboBox
             // 
@@ -226,6 +193,19 @@
             this.machineGroupComboBox.TabIndex = 4;
             this.machineGroupComboBox.SelectedIndexChanged += new System.EventHandler(this.machineGroupComboBox_SelectedIndexChanged);
             // 
+            // okayCancelFooter
+            // 
+            this.okayCancelFooter.BackColor = System.Drawing.Color.White;
+            this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 212);
+            this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.okayCancelFooter.Name = "okayCancelFooter";
+            this.okayCancelFooter.Size = new System.Drawing.Size(376, 45);
+            this.okayCancelFooter.TabIndex = 6;
+            this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
+            this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
+            // 
             // EditOperationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -238,7 +218,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.runNumericUpDown);
+            this.Controls.Add(this.cycleNumericUpDown);
             this.Controls.Add(this.setupNumericUpDown);
             this.Controls.Add(this.sequenceNumericUpDown);
             this.Controls.Add(this.label3);
@@ -257,7 +237,7 @@
             this.Load += new System.EventHandler(this.EditOperationDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sequenceNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.setupNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cycleNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,7 +250,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown setupNumericUpDown;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown runNumericUpDown;
+        private System.Windows.Forms.NumericUpDown cycleNumericUpDown;
         private System.Windows.Forms.Label label4;
         private nGenLibrary.Controls.EnhancedTextBox descriptionTextBox;
         private Controls.OkayCancelFooter okayCancelFooter;

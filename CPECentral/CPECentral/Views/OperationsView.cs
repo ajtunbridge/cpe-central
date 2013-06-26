@@ -21,6 +21,7 @@ namespace CPECentral.Views
         event EventHandler EditMethod;
 
         event EventHandler AddOperation;
+        event EventHandler EditOperation;
 
         event EventHandler ReloadMethods;
         event EventHandler<MethodEventArgs> MethodSelected;
@@ -55,6 +56,7 @@ namespace CPECentral.Views
         public event EventHandler AddMethod;
         public event EventHandler EditMethod;
         public event EventHandler AddOperation;
+        public event EventHandler EditOperation;
 
         public event EventHandler ReloadMethods;
         public event EventHandler<MethodEventArgs> MethodSelected;
@@ -132,6 +134,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected virtual void OnEditOperation()
+        {
+            EventHandler handler = EditOperation;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         protected virtual void OnRefreshViewData()
         {
             var handler = ReloadMethods;
@@ -178,6 +186,9 @@ namespace CPECentral.Views
 
         private void OperationsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            editOperationToolStripButton.Enabled = operationsEnhancedListView.SelectionCount == 1;
+            deleteOperationToolStripButton.Enabled = operationsEnhancedListView.SelectionCount == 1;
+
             if (operationsEnhancedListView.SelectionCount == 0)
                 SelectedOperation = null;
             else
@@ -204,12 +215,20 @@ namespace CPECentral.Views
             OnEditMethod();
         }
 
+        private void operationsEnhancedListView_ItemActivate(object sender, EventArgs e)
+        {
+            OnEditOperation();
+        }
+
         private void operationsToolStrip_ItemClicked(object sender, System.Windows.Forms.ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Name)
             {
                 case "addOperationToolStripButton":
                     OnAddOperation();
+                    break;
+                case "editOperationToolStripButton":
+                    OnEditOperation();
                     break;
             }
         }
