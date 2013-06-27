@@ -91,7 +91,7 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff")]
         public string DrawingFileExtensions {
             get {
                 return ((string)(this["DrawingFileExtensions"]));
@@ -146,6 +146,15 @@ namespace CPECentral.Properties {
         public string TurningProgramHeader {
             get {
                 return ((string)(this["TurningProgramHeader"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Milling")]
+        public string MillingProgramDirectory {
+            get {
+                return ((string)(this["MillingProgramDirectory"]));
             }
         }
     }

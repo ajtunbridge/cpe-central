@@ -40,7 +40,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(245, 25);
+            this.label1.Size = new System.Drawing.Size(279, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "The next program number is";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -49,10 +49,11 @@
             // 
             this.proceedButton.Location = new System.Drawing.Point(16, 217);
             this.proceedButton.Name = "proceedButton";
-            this.proceedButton.Size = new System.Drawing.Size(138, 44);
+            this.proceedButton.Size = new System.Drawing.Size(153, 38);
             this.proceedButton.TabIndex = 1;
             this.proceedButton.Text = "Proceed";
             this.proceedButton.UseVisualStyleBackColor = true;
+            this.proceedButton.Click += new System.EventHandler(this.proceedButton_Click);
             // 
             // nextProgramNumberLabel
             // 
@@ -60,7 +61,7 @@
             this.nextProgramNumberLabel.ForeColor = System.Drawing.Color.MediumSeaGreen;
             this.nextProgramNumberLabel.Location = new System.Drawing.Point(12, 44);
             this.nextProgramNumberLabel.Name = "nextProgramNumberLabel";
-            this.nextProgramNumberLabel.Size = new System.Drawing.Size(245, 80);
+            this.nextProgramNumberLabel.Size = new System.Drawing.Size(279, 80);
             this.nextProgramNumberLabel.TabIndex = 0;
             this.nextProgramNumberLabel.Text = "0000";
             this.nextProgramNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -68,27 +69,31 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 124);
+            this.label3.Location = new System.Drawing.Point(12, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(245, 68);
+            this.label3.Size = new System.Drawing.Size(279, 68);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Please export program to the milling directory and press proceed.";
+            this.label3.Text = "Please update your program with this number and export it to the milling director" +
+    "y before proceeding.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(160, 217);
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(175, 217);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(97, 44);
+            this.cancelButton.Size = new System.Drawing.Size(116, 38);
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // ImportMillingProgramDialog
             // 
+            this.AcceptButton = this.proceedButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(269, 277);
+            this.CancelButton = this.cancelButton;
+            this.ClientSize = new System.Drawing.Size(303, 277);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.proceedButton);
             this.Controls.Add(this.nextProgramNumberLabel);

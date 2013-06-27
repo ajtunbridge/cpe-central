@@ -30,17 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.filesListView = new CPECentral.Controls.FilesListView();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteDocumentsToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.renameToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.importMillingProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newTurningProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newFeatureCAMFileToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
-            this.renameToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.filesListView = new CPECentral.Controls.FilesListView();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,36 +65,28 @@
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
-            // toolStripSeparator
+            // refreshToolStripMenuItem
             // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            this.refreshToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
+            this.refreshToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
             // 
-            // filesListView
+            // toolStripSeparator1
             // 
-            this.filesListView.AllowDrop = true;
-            this.filesListView.AlternateBackColor = System.Drawing.Color.Azure;
-            this.filesListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesListView.EnsureSelection = false;
-            this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filesListView.FullRowSelect = true;
-            this.filesListView.IndexOfColumnToResize = 0;
-            this.filesListView.ItemContextMenuStrip = null;
-            this.filesListView.Location = new System.Drawing.Point(0, 25);
-            this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.filesListView.Name = "filesListView";
-            this.filesListView.ResizeColumnToFill = true;
-            this.filesListView.ShowItemToolTips = true;
-            this.filesListView.Size = new System.Drawing.Size(367, 173);
-            this.filesListView.TabIndex = 1;
-            this.filesListView.UseAlternatingBackColor = true;
-            this.filesListView.UseCompatibleStateImageBehavior = false;
-            this.filesListView.View = System.Windows.Forms.View.Details;
-            this.filesListView.ItemActivate += new System.EventHandler(this.filesListView_ItemActivate);
-            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.filesListView_SelectedIndexChanged);
-            this.filesListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.filesListView_DragDrop);
-            this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
-            this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // addDocumentToolStripButton
+            // 
+            this.addDocumentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addDocumentToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addDocumentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addDocumentToolStripButton.Name = "addDocumentToolStripButton";
+            this.addDocumentToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addDocumentToolStripButton.Text = "Add document";
             // 
             // openDocumentToolStripButton
             // 
@@ -115,6 +107,21 @@
             this.deleteDocumentsToolStripButton.Name = "deleteDocumentsToolStripButton";
             this.deleteDocumentsToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.deleteDocumentsToolStripButton.Text = "toolStripButton2";
+            // 
+            // renameToolStripButton
+            // 
+            this.renameToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.renameToolStripButton.Enabled = false;
+            this.renameToolStripButton.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
+            this.renameToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.renameToolStripButton.Name = "renameToolStripButton";
+            this.renameToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.renameToolStripButton.Text = "Rename";
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
             // importMillingProgramToolStripButton
             // 
@@ -146,38 +153,33 @@
             this.newFeatureCAMFileToolStripButton.Text = "New FeatureCAM file";
             this.newFeatureCAMFileToolStripButton.Visible = false;
             // 
-            // addDocumentToolStripButton
+            // filesListView
             // 
-            this.addDocumentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addDocumentToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.addDocumentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addDocumentToolStripButton.Name = "addDocumentToolStripButton";
-            this.addDocumentToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.addDocumentToolStripButton.Text = "Add document";
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            // 
-            // renameToolStripButton
-            // 
-            this.renameToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.renameToolStripButton.Enabled = false;
-            this.renameToolStripButton.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
-            this.renameToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.renameToolStripButton.Name = "renameToolStripButton";
-            this.renameToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.renameToolStripButton.Text = "Rename";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.filesListView.AllowDrop = true;
+            this.filesListView.AlternateBackColor = System.Drawing.Color.Azure;
+            this.filesListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesListView.EnsureSelection = false;
+            this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filesListView.FullRowSelect = true;
+            this.filesListView.IndexOfColumnToResize = 0;
+            this.filesListView.ItemContextMenuStrip = null;
+            this.filesListView.LabelEdit = true;
+            this.filesListView.Location = new System.Drawing.Point(0, 25);
+            this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filesListView.Name = "filesListView";
+            this.filesListView.ResizeColumnToFill = true;
+            this.filesListView.ShowItemToolTips = true;
+            this.filesListView.Size = new System.Drawing.Size(367, 173);
+            this.filesListView.TabIndex = 1;
+            this.filesListView.UseAlternatingBackColor = true;
+            this.filesListView.UseCompatibleStateImageBehavior = false;
+            this.filesListView.View = System.Windows.Forms.View.Details;
+            this.filesListView.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.filesListView_AfterLabelEdit);
+            this.filesListView.ItemActivate += new System.EventHandler(this.filesListView_ItemActivate);
+            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.filesListView_SelectedIndexChanged);
+            this.filesListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.filesListView_DragDrop);
+            this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
+            this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
             // 
             // DocumentsView
             // 

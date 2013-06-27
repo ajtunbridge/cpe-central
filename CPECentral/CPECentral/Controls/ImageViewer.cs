@@ -60,6 +60,10 @@ namespace CPECentral.Controls
                         saveToolStripButton.Enabled = false;
                     }
                     break;
+                case "previewToolStripButton":
+                    var previewForm = new PreviewPopoutForm(new ImageViewer(_fileName));
+                    previewForm.ShowDialog(ParentForm);
+                    break;
             }
         }
     }

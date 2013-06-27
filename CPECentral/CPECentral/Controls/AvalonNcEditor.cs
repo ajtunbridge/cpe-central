@@ -18,6 +18,7 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using nGenLibrary;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 #endregion
 
@@ -76,8 +77,6 @@ namespace CPECentral.Controls
 
             _editor.Text = "loading...";
             Enabled = false;
-
-            var ext = Path.GetExtension(fileName);
 
             ThreadPool.QueueUserWorkItem(delegate
                 {

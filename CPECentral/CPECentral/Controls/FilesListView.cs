@@ -68,8 +68,8 @@ namespace CPECentral.Controls
 
             var friendlySize = GetFriendlyFileSize(fileInfo.Length);
 
-            var item = Items.Add(fileInfo.Name);
-            item.SubItems.Add(extension);
+            var item = Items.Add(Path.GetFileNameWithoutExtension(fileInfo.FullName));
+            item.SubItems.Add(extension == "GenericFileIcon" ? "N/A" : extension);
             item.SubItems.Add(friendlySize);
             item.ImageKey = extension;
             item.Tag = tag;

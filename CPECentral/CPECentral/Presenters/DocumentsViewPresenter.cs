@@ -38,18 +38,45 @@ namespace CPECentral.Presenters
             _documentsView.NewFeatureCAMFile += _documentsView_NewFeatureCAMFile;
             _documentsView.NewTurningProgram += _documentsView_NewTurningProgram;
             _documentsView.ImportMillingFile += _documentsView_ImportMillingFile;
+
+            _documentsView.RenameDocument += _documentsView_RenameDocument;
         }
 
-        void _documentsView_ImportMillingFile(object sender, EventArgs e)
+        void _documentsView_RenameDocument(object sender, RenameDocumentEventArgs e)
         {
-            var parentForm = ((UserControl)_documentsView).ParentForm;
-
-            using (var importDialog = new ImportMillingProgramDialog())
+            if (string.IsNullOrWhiteSpace(e.NewFileName))
             {
-                if (importDialog.ShowDialog(parentForm) != DialogResult.OK)
-                    return;
+                _documentsView.DialogService.ShowError("A file name must be provided!");
+                return;
+            }
 
+            var invalidChars = Path.GetInvalidFileNameChars();
 
+            if (e.NewFileName.Any(invalidChars.Contains))
+            {
+                _documentsView.DialogService.ShowError("You entered illegal characters into the file name!");
+                return;
+            }
+
+            try
+            {
+                Session.DocumentService.RenameDocument(e.Document, e.NewFileName);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+        }
+
+        private void _documentsView_ImportMillingFile(object sender, EventArgs e)
+        {
+            var parentForm = ((UserControl) _documentsView).ParentForm;
+
+            var operation = _documentsView.CurrentEntity as Operation;
+
+            using (var importDialog = new ImportMillingProgramDialog(operation))
+            {
+                importDialog.ShowDialog(parentForm);
             }
         }
 
@@ -130,6 +157,9 @@ namespace CPECentral.Presenters
 
         private void _documentsView_NewTurningProgram(object sender, EventArgs e)
         {
+            if (!_documentsView.DialogService.AskQuestion("Are you sure you want to create a new turning program?"))
+                return;
+
             if (!Directory.Exists(Settings.Default.SharedAppDir))
             {
                 _documentsView.DialogService.ShowError("The shared application directory could not be located!");

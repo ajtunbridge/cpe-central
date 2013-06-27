@@ -27,7 +27,7 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -123,6 +123,7 @@
     <Compile Include="CustomEventArgs\CustomerEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationEventArgs.cs" />
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
+    <Compile Include="CustomEventArgs\RenameDocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\TransferStartedEventArgs.cs" />
     <Compile Include="Dialogs\AddPartDialog.cs">
       <SubType>Form</SubType>
@@ -168,6 +169,12 @@
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="PreviewPopoutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreviewPopoutForm.Designer.cs">
+      <DependentUpon>PreviewPopoutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StandardDialogService.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -266,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreviewPopoutForm.resx">
+      <DependentUpon>PreviewPopoutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

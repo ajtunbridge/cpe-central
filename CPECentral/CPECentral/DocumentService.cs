@@ -78,6 +78,9 @@ namespace CPECentral
 
         public void DeleteDocuments(IEnumerable<Document> documents)
         {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+                return;
+
             try
             {
                 using (BusyCursor.Show())
@@ -122,6 +125,53 @@ namespace CPECentral
             }
         }
 
+        public void RenameDocument(Document document, string newFileName)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+                return;
+
+            bool renamedOk = false;
+            string sourceFileName = null, destinationFileName = null;
+
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var uow = new UnitOfWork())
+                    {
+                        var documentToUpdate = uow.Documents.GetById(document.Id);
+
+                        sourceFileName = GetPathToDocument(documentToUpdate, uow);
+
+                        var lastIndexOfDot = documentToUpdate.FileName.LastIndexOf(".");
+
+                        if (lastIndexOfDot > -1)
+                        {
+                            var extension = documentToUpdate.FileName.Substring(lastIndexOfDot);
+                            documentToUpdate.FileName = newFileName + extension;
+                        }
+
+                        destinationFileName = GetPathToDocument(documentToUpdate, uow);
+
+                        File.Move(sourceFileName, destinationFileName);
+
+                        renamedOk = true;
+
+                        uow.Documents.Update(documentToUpdate);
+
+                        uow.Commit();
+                    }
+                }
+            }
+            catch
+            {
+                if (renamedOk) // must be a database error so un-rename
+                    File.Move(destinationFileName, sourceFileName);
+
+                throw;
+            }
+        }
+
         public string GetPathToDocument(Document document)
         {
             using (var uow = new UnitOfWork())
@@ -132,14 +182,7 @@ namespace CPECentral
 
         public string GetPathToDocument(Document document, UnitOfWork uow)
         {
-            IEntity entity = null;
-
-            if (document.OperationId.HasValue)
-                entity = uow.Operations.GetById(document.OperationId.Value);
-            else if (document.PartId.HasValue)
-                entity = uow.Parts.GetById(document.PartId.Value);
-            else if (document.PartVersionId.HasValue)
-                entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+            IEntity entity = GetDocumentEntity(document, uow);
 
             var storageDir = GetEntityStorageDirectory(entity, uow);
 
@@ -237,6 +280,20 @@ namespace CPECentral
             }
 
             return item;
+        }
+
+        private IEntity GetDocumentEntity(Document document, UnitOfWork uow)
+        {
+            IEntity entity = null;
+
+            if (document.OperationId.HasValue)
+                entity = uow.Operations.GetById(document.OperationId.Value);
+            else if (document.PartId.HasValue)
+                entity = uow.Parts.GetById(document.PartId.Value);
+            else if (document.PartVersionId.HasValue)
+                entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+
+            return entity;    
         }
 
         private string GetEntityStorageDirectory(IEntity entity, UnitOfWork uow)

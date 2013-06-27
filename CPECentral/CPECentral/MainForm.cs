@@ -99,9 +99,13 @@ namespace CPECentral
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.MainFormLocation = Location;
-            Settings.Default.MainFormSize = Size;
             Settings.Default.MainFormState = WindowState;
+
+            if (WindowState != FormWindowState.Maximized)
+            {
+                Settings.Default.MainFormLocation = Location;
+                Settings.Default.MainFormSize = Size;
+            }
 
             Settings.Default.Save();
         }

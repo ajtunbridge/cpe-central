@@ -21,7 +21,7 @@
       <Value Profile="(Default)">.txt|.h|.nc</Value>
     </Setting>
     <Setting Name="DrawingFileExtensions" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t</Value>
+      <Value Profile="(Default)">.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff</Value>
     </Setting>
     <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Heidenhain</Value>
@@ -43,6 +43,9 @@
 (NAME.{name})
 
 </Value>
+    </Setting>
+    <Setting Name="MillingProgramDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">I:\Milling</Value>
     </Setting>
   </Settings>
 </SettingsFile>

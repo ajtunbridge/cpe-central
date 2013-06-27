@@ -155,6 +155,9 @@ namespace CPECentral.Views
         {
             switch (e.ClickedItem.Name)
             {
+                case "addPartToolStripButton":
+                    OnAddPart();
+                    break;
                 case "logoutToolStripButton":
                     HandleLogout();
                     break;

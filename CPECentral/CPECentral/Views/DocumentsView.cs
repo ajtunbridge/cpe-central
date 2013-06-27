@@ -30,6 +30,7 @@ namespace CPECentral.Views
         event EventHandler NewTurningProgram;
         event EventHandler NewFeatureCAMFile;
         event EventHandler ImportMillingFile;
+        event EventHandler<RenameDocumentEventArgs> RenameDocument;
 
         void LoadDocuments(IEntity entity);
         void DisplayDocuments(DocumentsViewModel model);
@@ -81,6 +82,7 @@ namespace CPECentral.Views
         public event EventHandler NewTurningProgram;
         public event EventHandler NewFeatureCAMFile;
         public event EventHandler ImportMillingFile;
+        public event EventHandler<RenameDocumentEventArgs> RenameDocument;
 
         public void DisplayDocuments(DocumentsViewModel model)
         {
@@ -180,6 +182,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected virtual void OnRenameDocument(RenameDocumentEventArgs e)
+        {
+            EventHandler<RenameDocumentEventArgs> handler = RenameDocument;
+            if (handler != null) handler(this, e);
+        }
+
         private void DocumentsChangedMessage_Published(DocumentsChangedMessage message)
         {
             if (InvokeRequired)
@@ -246,6 +254,9 @@ namespace CPECentral.Views
                 case "importMillingProgramToolStripButton":
                     OnImportMillingFile();
                     break;
+                case "renameToolStripButton":
+                    filesListView.SelectedItems[0].BeginEdit();
+                    break;
             }
         }
 
@@ -256,6 +267,26 @@ namespace CPECentral.Views
                 OnDeleteSelectedDocuments();
                 return;
             }
+
+            if (filesListView.SelectionCount == 1 && e.KeyCode == Keys.F2)
+            {
+                filesListView.SelectedItems[0].BeginEdit();
+            }
+        }
+
+        private void filesListView_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Label))
+            {
+                e.CancelEdit = true;
+                return;
+            }
+
+            var document = filesListView.Items[e.Item].Tag as Document;
+
+            OnRenameDocument(new RenameDocumentEventArgs(document, e.Label));
+
+            OnRefreshDocuments();
         }
     }
 }

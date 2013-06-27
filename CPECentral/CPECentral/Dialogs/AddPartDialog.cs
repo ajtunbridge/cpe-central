@@ -226,9 +226,11 @@ namespace CPECentral.Dialogs
             var dirStack = new Stack<string>();
             dirStack.Push(scanDir);
 
+            var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] { "|" }, StringSplitOptions.None);
+
             while (dirStack.Count > 0)
             {
-                if (e.Cancel)
+                if (_scanServerWorker.CancellationPending)
                     return;
 
                 var currentDir = dirStack.Pop();
@@ -245,8 +247,6 @@ namespace CPECentral.Dialogs
 
                 if (_scanServerWorker.CancellationPending)
                     return;
-
-                var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
 
                 var matches = Directory.GetFiles(currentDir, searchPattern)
                     .Where(fileName =>
