@@ -275,6 +275,8 @@ namespace CPECentral.Dialogs
             scanServerButton.Text = "Scan server for drawings and models";
             scanServerButton.Enabled = true;
             progressBar.Style = ProgressBarStyle.Blocks;
+
+            filesListView.Sort();
         }
 
         private void FilesListView_SelectedIndexChanged(object sender, EventArgs e)

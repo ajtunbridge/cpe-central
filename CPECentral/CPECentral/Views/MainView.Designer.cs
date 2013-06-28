@@ -39,13 +39,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarySelectionPanel = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -64,7 +64,7 @@
             this.partLibraryView.Location = new System.Drawing.Point(0, 0);
             this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(186, 350);
+            this.partLibraryView.Size = new System.Drawing.Size(186, 362);
             this.partLibraryView.TabIndex = 0;
             this.partLibraryView.CustomerSelected += new System.EventHandler<CPECentral.CustomEventArgs.CustomerEventArgs>(this.partLibraryView_CustomerSelected);
             this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
@@ -79,7 +79,7 @@
             this.addPartToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 25);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(694, 25);
+            this.toolStrip.Size = new System.Drawing.Size(697, 25);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
@@ -112,9 +112,9 @@
             this.documentTransferStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentTransferStatusLabel,
             this.documentTransferToolStripProgressBar});
-            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 400);
+            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 412);
             this.documentTransferStatusStrip.Name = "documentTransferStatusStrip";
-            this.documentTransferStatusStrip.Size = new System.Drawing.Size(694, 22);
+            this.documentTransferStatusStrip.Size = new System.Drawing.Size(697, 22);
             this.documentTransferStatusStrip.SizingGrip = false;
             this.documentTransferStatusStrip.TabIndex = 3;
             this.documentTransferStatusStrip.Text = "statusStrip1";
@@ -139,7 +139,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(694, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(697, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -161,6 +161,18 @@
             this.addNewPartToolStripMenuItem.Text = "&Add new part";
             this.addNewPartToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -172,7 +184,7 @@
             this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.librarySelectionPanel.Location = new System.Drawing.Point(0, 0);
             this.librarySelectionPanel.Name = "librarySelectionPanel";
-            this.librarySelectionPanel.Size = new System.Drawing.Size(503, 350);
+            this.librarySelectionPanel.Size = new System.Drawing.Size(506, 362);
             this.librarySelectionPanel.TabIndex = 4;
             // 
             // splitContainer
@@ -188,7 +200,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.librarySelectionPanel);
-            this.splitContainer.Size = new System.Drawing.Size(694, 350);
+            this.splitContainer.Size = new System.Drawing.Size(697, 362);
             this.splitContainer.SplitterDistance = 186;
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 5;
@@ -198,9 +210,9 @@
             this.mainStatusStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripStatusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 422);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 434);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(694, 22);
+            this.mainStatusStrip.Size = new System.Drawing.Size(697, 22);
             this.mainStatusStrip.TabIndex = 6;
             this.mainStatusStrip.Text = "statusStrip2";
             // 
@@ -208,18 +220,6 @@
             // 
             this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
             this.mainToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
             // MainView
             // 
@@ -233,7 +233,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainView";
-            this.Size = new System.Drawing.Size(694, 444);
+            this.Size = new System.Drawing.Size(697, 456);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.documentTransferStatusStrip.ResumeLayout(false);

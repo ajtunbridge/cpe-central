@@ -104,10 +104,12 @@ namespace CPECentral.Dialogs
             // 
             this.versionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.versionTextBox.DisableDoubleSpace = true;
+            this.versionTextBox.DisableLeadingSpace = false;
             this.versionTextBox.Location = new System.Drawing.Point(271, 112);
             this.versionTextBox.MaxLength = 10;
             this.versionTextBox.Name = "versionTextBox";
             this.versionTextBox.Size = new System.Drawing.Size(74, 25);
+            this.versionTextBox.SuppressEnterKey = false;
             this.versionTextBox.TabIndex = 3;
             this.versionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -115,10 +117,12 @@ namespace CPECentral.Dialogs
             // 
             this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.drawingNumberTextBox.DisableDoubleSpace = true;
+            this.drawingNumberTextBox.DisableLeadingSpace = false;
             this.drawingNumberTextBox.Location = new System.Drawing.Point(12, 112);
             this.drawingNumberTextBox.MaxLength = 50;
             this.drawingNumberTextBox.Name = "drawingNumberTextBox";
             this.drawingNumberTextBox.Size = new System.Drawing.Size(253, 25);
+            this.drawingNumberTextBox.SuppressEnterKey = false;
             this.drawingNumberTextBox.TabIndex = 2;
             this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.DrawingNumberTextBox_TextChanged);
             // 
@@ -135,10 +139,12 @@ namespace CPECentral.Dialogs
             // 
             this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nameTextBox.DisableDoubleSpace = true;
+            this.nameTextBox.DisableLeadingSpace = false;
             this.nameTextBox.Location = new System.Drawing.Point(12, 160);
             this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(333, 25);
+            this.nameTextBox.SuppressEnterKey = false;
             this.nameTextBox.TabIndex = 4;
             // 
             // label5
@@ -154,10 +160,12 @@ namespace CPECentral.Dialogs
             // 
             this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolingLocationTextBox.DisableDoubleSpace = true;
+            this.toolingLocationTextBox.DisableLeadingSpace = false;
             this.toolingLocationTextBox.Location = new System.Drawing.Point(12, 208);
             this.toolingLocationTextBox.MaxLength = 50;
             this.toolingLocationTextBox.Name = "toolingLocationTextBox";
             this.toolingLocationTextBox.Size = new System.Drawing.Size(333, 25);
+            this.toolingLocationTextBox.SuppressEnterKey = false;
             this.toolingLocationTextBox.TabIndex = 5;
             // 
             // label6
@@ -193,10 +201,12 @@ namespace CPECentral.Dialogs
             // 
             this.newCustomerNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.newCustomerNameTextBox.DisableDoubleSpace = true;
+            this.newCustomerNameTextBox.DisableLeadingSpace = false;
             this.newCustomerNameTextBox.Location = new System.Drawing.Point(12, 29);
             this.newCustomerNameTextBox.MaxLength = 50;
             this.newCustomerNameTextBox.Name = "newCustomerNameTextBox";
             this.newCustomerNameTextBox.Size = new System.Drawing.Size(333, 25);
+            this.newCustomerNameTextBox.SuppressEnterKey = false;
             this.newCustomerNameTextBox.TabIndex = 5;
             // 
             // label7
@@ -212,10 +222,12 @@ namespace CPECentral.Dialogs
             // 
             this.searchTermTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.searchTermTextBox.DisableDoubleSpace = true;
+            this.searchTermTextBox.DisableLeadingSpace = false;
             this.searchTermTextBox.Location = new System.Drawing.Point(12, 343);
             this.searchTermTextBox.MaxLength = 50;
             this.searchTermTextBox.Name = "searchTermTextBox";
             this.searchTermTextBox.Size = new System.Drawing.Size(333, 25);
+            this.searchTermTextBox.SuppressEnterKey = false;
             this.searchTermTextBox.TabIndex = 7;
             // 
             // okayCancelFooter
@@ -260,10 +272,12 @@ namespace CPECentral.Dialogs
             this.filesListView.ItemContextMenuStrip = null;
             this.filesListView.Location = new System.Drawing.Point(12, 375);
             this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filesListView.MultiSelect = false;
             this.filesListView.Name = "filesListView";
             this.filesListView.ResizeColumnToFill = true;
             this.filesListView.ShowItemToolTips = true;
             this.filesListView.Size = new System.Drawing.Size(333, 144);
+            this.filesListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.filesListView.TabIndex = 8;
             this.filesListView.UseAlternatingBackColor = true;
             this.filesListView.UseCompatibleStateImageBehavior = false;

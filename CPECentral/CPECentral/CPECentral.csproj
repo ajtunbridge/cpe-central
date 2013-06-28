@@ -27,7 +27,7 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -114,6 +114,12 @@
     </Compile>
     <Compile Include="Controls\AvalonNcEditor.Designer.cs">
       <DependentUpon>AvalonNcEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PdfViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
     <Compile Include="CustomEventArgs\FileDropEventArgs.cs" />
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AvalonNcEditor.resx">
       <DependentUpon>AvalonNcEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\AddPartDialog.resx">
       <DependentUpon>AddPartDialog.cs</DependentUpon>
@@ -421,9 +430,6 @@
     <None Include="Resources\ApplicationIconImage_128x128.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ApplicationIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\DocumentPreviewBgTile.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +460,7 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\ExpandIcon_16x16.png" />
     <None Include="Resources\RenameIcon_16x16.png" />
     <None Include="Resources\CPECentralIcon.ico" />
   </ItemGroup>

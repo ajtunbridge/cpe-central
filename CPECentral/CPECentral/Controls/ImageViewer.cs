@@ -14,17 +14,24 @@ namespace CPECentral.Controls
 {
     public partial class ImageViewer : UserControl
     {
-        private readonly string _fileName;
+        private string _fileName;
 
-        public ImageViewer(string fileName)
+        public ImageViewer()
         {
             InitializeComponent();
-            _fileName = fileName;
+
             imageBox.BackgroundTile = Resources.DocumentPreviewBgTile;
         }
 
         private void ImageViewer_Load(object sender, EventArgs e)
         {
+            
+        }
+
+        public void LoadFile(string fileName)
+        {
+            _fileName = fileName;
+
             using (var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read))
             {
                 imageBox.Image = Image.FromStream(fs);
@@ -61,10 +68,42 @@ namespace CPECentral.Controls
                     }
                     break;
                 case "previewToolStripButton":
-                    var previewForm = new PreviewPopoutForm(new ImageViewer(_fileName));
-                    previewForm.ShowDialog(ParentForm);
+                    ShowPreviewWindow();
                     break;
             }
+        }
+
+        private void ShowPreviewWindow()
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                if (!(openForm is PreviewPopoutForm))
+                    continue;
+
+                var openPreviewForm = openForm as PreviewPopoutForm;
+
+                if (openPreviewForm.PreviewControl is ImageViewer)
+                {
+                    var viewer = openPreviewForm.PreviewControl as ImageViewer;
+                    viewer.LoadFile(_fileName);
+                    return;
+                }
+                else
+                {
+                    var viewer = new ImageViewer();
+                    viewer.Dock = DockStyle.Fill;
+                    openPreviewForm.PreviewControl = viewer;
+                    viewer.LoadFile(_fileName);
+                    return;
+                }
+            }
+
+            var imgViewer = new ImageViewer();
+            imgViewer.Dock = DockStyle.Fill;
+            imgViewer.LoadFile(_fileName);
+
+            var previewForm = new PreviewPopoutForm(imgViewer);
+            previewForm.Show(ParentForm);
         }
     }
 }

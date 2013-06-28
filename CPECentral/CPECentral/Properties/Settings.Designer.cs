@@ -157,5 +157,50 @@ namespace CPECentral.Properties {
                 return ((string)(this["MillingProgramDirectory"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
+        public global::System.Drawing.Point PreviewFormLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["PreviewFormLocation"]));
+            }
+            set {
+                this["PreviewFormLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("900, 650")]
+        public global::System.Drawing.Size PreviewFormSize {
+            get {
+                return ((global::System.Drawing.Size)(this["PreviewFormSize"]));
+            }
+            set {
+                this["PreviewFormSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.Forms.FormWindowState PreviewFormState {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["PreviewFormState"]));
+            }
+            set {
+                this["PreviewFormState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\")]
+        public string DefaultDirectory {
+            get {
+                return ((string)(this["DefaultDirectory"]));
+            }
+        }
     }
 }

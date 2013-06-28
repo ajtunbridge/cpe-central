@@ -30,7 +30,7 @@ namespace CPECentral.Controls
             if (indexOfLastDot == -1)
                 return;
 
-            var extension = fileName.Substring(indexOfLastDot);
+            var extension = fileName.Substring(indexOfLastDot).ToLower();
 
             if (extension == ".pdf")
             {
@@ -40,13 +40,10 @@ namespace CPECentral.Controls
 
                     File.Copy(fileName, tempFile, true);
 
-                    Enabled = false; // prevent focus being stolen
-
-                    var webBrowser = new WebBrowser();
-                    webBrowser.Dock = DockStyle.Fill;
-                    webBrowser.DocumentCompleted += browser_DocumentCompleted;
-                    Controls.Add(webBrowser);
-                    webBrowser.Navigate(tempFile);
+                    var pdfViewer = new PdfViewer();
+                    pdfViewer.Dock = DockStyle.Fill;
+                    Controls.Add(pdfViewer);
+                    pdfViewer.LoadFile(tempFile);
                 }
                 return;
             }
@@ -66,9 +63,10 @@ namespace CPECentral.Controls
 
             if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
             {
-                var imageViewer = new ImageViewer(fileName);
+                var imageViewer = new ImageViewer();
                 imageViewer.Dock = DockStyle.Fill;
                 Controls.Add(imageViewer);
+                imageViewer.LoadFile(fileName);
             }
         }
 

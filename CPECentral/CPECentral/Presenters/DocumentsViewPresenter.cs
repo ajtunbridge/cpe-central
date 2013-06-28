@@ -94,6 +94,7 @@ namespace CPECentral.Presenters
 
                 fileDialog.Filter = "All files|*.*";
                 fileDialog.Title = "Please select documents to upload";
+                fileDialog.InitialDirectory = Settings.Default.DefaultDirectory;
 
                 if (fileDialog.ShowDialog(parentForm) != DialogResult.OK)
                     return;

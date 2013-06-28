@@ -134,10 +134,12 @@ namespace CPECentral.Views
         {
             if (e.Operation == null)
             {
+                operationDescriptionLabel.Text = string.Empty;
                 operationsTabControl.Enabled = false;
                 return;
             }
 
+            operationDescriptionLabel.Text = e.Operation.Description;
             operationsTabControl.Enabled = true;
             operationDocumentsView.LoadDocuments(e.Operation);
         }

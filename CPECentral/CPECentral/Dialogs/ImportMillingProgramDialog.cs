@@ -41,7 +41,11 @@ namespace CPECentral.Dialogs
             var foundFile = false;
             using (BusyCursor.Show())
             {
-                foreach (var fileName in Directory.GetFiles(Settings.Default.MillingProgramDirectory))
+                var files = Directory.GetFiles(Settings.Default.MillingProgramDirectory,
+                                               "*" + _millingGroup.NextNumber + "*");
+
+
+                foreach (var fileName in files)
                 {
                     var ext = Path.GetExtension(fileName).ToLower();
 

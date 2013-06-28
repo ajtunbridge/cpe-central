@@ -47,5 +47,17 @@
     <Setting Name="MillingProgramDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\Milling</Value>
     </Setting>
+    <Setting Name="PreviewFormLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">100, 100</Value>
+    </Setting>
+    <Setting Name="PreviewFormSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">900, 650</Value>
+    </Setting>
+    <Setting Name="PreviewFormState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">I:\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

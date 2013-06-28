@@ -51,6 +51,7 @@ namespace CPECentral.Views
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.selectedDocumentPreviewPanel = new CPECentral.Controls.FilePreviewPanel();
             this.partInformationView = new CPECentral.Views.PartInformationView();
+            this.operationDescriptionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,6 +83,7 @@ namespace CPECentral.Views
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.operationsTabControl);
+            this.splitContainer1.Panel2.Controls.Add(this.operationDescriptionLabel);
             this.splitContainer1.Size = new System.Drawing.Size(403, 383);
             this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 7;
@@ -104,10 +106,10 @@ namespace CPECentral.Views
             this.operationsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.operationsTabControl.Enabled = false;
             this.operationsTabControl.ItemSize = new System.Drawing.Size(140, 22);
-            this.operationsTabControl.Location = new System.Drawing.Point(0, 0);
+            this.operationsTabControl.Location = new System.Drawing.Point(0, 50);
             this.operationsTabControl.Name = "operationsTabControl";
             this.operationsTabControl.SelectedIndex = 0;
-            this.operationsTabControl.Size = new System.Drawing.Size(403, 183);
+            this.operationsTabControl.Size = new System.Drawing.Size(403, 133);
             this.operationsTabControl.TabIndex = 4;
             // 
             // tabPage2
@@ -116,7 +118,7 @@ namespace CPECentral.Views
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(395, 153);
+            this.tabPage2.Size = new System.Drawing.Size(395, 103);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Operation documents";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -129,7 +131,7 @@ namespace CPECentral.Views
             this.operationDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.operationDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.operationDocumentsView.Name = "operationDocumentsView";
-            this.operationDocumentsView.Size = new System.Drawing.Size(389, 147);
+            this.operationDocumentsView.Size = new System.Drawing.Size(389, 97);
             this.operationDocumentsView.TabIndex = 1;
             this.operationDocumentsView.SelectionChanged += new System.EventHandler(this.DocumentViews_SelectionChanged);
             // 
@@ -137,7 +139,7 @@ namespace CPECentral.Views
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(395, 153);
+            this.tabPage1.Size = new System.Drawing.Size(395, 101);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Tool list";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -146,7 +148,7 @@ namespace CPECentral.Views
             // 
             this.tabPage5.Location = new System.Drawing.Point(4, 26);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(395, 153);
+            this.tabPage5.Size = new System.Drawing.Size(395, 101);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Notes";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -194,7 +196,7 @@ namespace CPECentral.Views
             this.tabPage4.Location = new System.Drawing.Point(4, 26);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(509, 209);
+            this.tabPage4.Size = new System.Drawing.Size(479, 209);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Part documents";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -207,7 +209,7 @@ namespace CPECentral.Views
             this.partDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.partDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partDocumentsView.Name = "partDocumentsView";
-            this.partDocumentsView.Size = new System.Drawing.Size(503, 203);
+            this.partDocumentsView.Size = new System.Drawing.Size(473, 203);
             this.partDocumentsView.TabIndex = 1;
             this.partDocumentsView.SelectionChanged += new System.EventHandler(this.DocumentViews_SelectionChanged);
             // 
@@ -309,6 +311,17 @@ namespace CPECentral.Views
             this.partInformationView.TabIndex = 0;
             this.partInformationView.VersionSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartVersionEventArgs>(this.partInformationView_VersionSelected);
             // 
+            // operationDescriptionLabel
+            // 
+            this.operationDescriptionLabel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.operationDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.operationDescriptionLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operationDescriptionLabel.ForeColor = System.Drawing.Color.White;
+            this.operationDescriptionLabel.Location = new System.Drawing.Point(0, 0);
+            this.operationDescriptionLabel.Name = "operationDescriptionLabel";
+            this.operationDescriptionLabel.Size = new System.Drawing.Size(403, 50);
+            this.operationDescriptionLabel.TabIndex = 6;
+            // 
             // PartView
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -363,6 +376,7 @@ namespace CPECentral.Views
         private DocumentsView operationDocumentsView;
         private DocumentsView versionDocumentsView;
         private DocumentsView partDocumentsView;
+        private System.Windows.Forms.Label operationDescriptionLabel;
 
 
     }
