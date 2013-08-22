@@ -16,6 +16,7 @@ namespace CPECentral.Data.EF5
     {
         public ToolGroup()
         {
+            this.ToolGroups1 = new HashSet<ToolGroup>();
             this.Tools = new HashSet<Tool>();
         }
     
@@ -23,6 +24,8 @@ namespace CPECentral.Data.EF5
         public string Name { get; set; }
         public Nullable<int> ParentGroupId { get; set; }
     
+        public virtual ICollection<ToolGroup> ToolGroups1 { get; set; }
+        public virtual ToolGroup ToolGroup1 { get; set; }
         public virtual ICollection<Tool> Tools { get; set; }
     }
 }

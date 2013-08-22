@@ -26,6 +26,7 @@ namespace CPECentral.Views
         event EventHandler ReloadData;
         event EventHandler<CustomerEventArgs> CustomerSelected;
         event EventHandler<PartEventArgs> PartSelected;
+        event EventHandler<PartEventArgs> DeletePart;
 
         void RefreshLibrary();
         void DisplayLibrary(PartLibraryViewModel viewModel);
@@ -85,6 +86,7 @@ namespace CPECentral.Views
         public event EventHandler ReloadData;
         public event EventHandler<CustomerEventArgs> CustomerSelected;
         public event EventHandler<PartEventArgs> PartSelected;
+        public event EventHandler<PartEventArgs> DeletePart;
 
         public void DisplayLibrary(PartLibraryViewModel viewModel)
         {
@@ -195,6 +197,12 @@ namespace CPECentral.Views
         protected virtual void OnPartSelected(PartEventArgs e)
         {
             var handler = PartSelected;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnDeletePart(PartEventArgs e)
+        {
+            EventHandler<PartEventArgs> handler = DeletePart;
             if (handler != null) handler(this, e);
         }
 

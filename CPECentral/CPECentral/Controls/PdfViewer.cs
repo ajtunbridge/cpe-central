@@ -54,6 +54,8 @@ namespace CPECentral.Controls
         void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Controls.Add(_browser);
+
+            _browser.BringToFront();
         }
 
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

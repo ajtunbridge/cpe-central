@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openDocumentToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -41,14 +41,23 @@
             this.newTurningProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newFeatureCAMFileToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.filesListView = new CPECentral.Controls.FilesListView();
+            this.listViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewItemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip.SuspendLayout();
+            this.listViewContextMenuStrip.SuspendLayout();
+            this.listViewItemContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
             // 
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem,
+            this.refreshToolStripButton,
             this.toolStripSeparator1,
             this.addDocumentToolStripButton,
             this.openDocumentToolStripButton,
@@ -65,14 +74,14 @@
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
-            // refreshToolStripMenuItem
+            // refreshToolStripButton
             // 
-            this.refreshToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshToolStripButton.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
+            this.refreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshToolStripButton.Name = "refreshToolStripButton";
+            this.refreshToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshToolStripButton.Text = "Refresh";
             // 
             // toolStripSeparator1
             // 
@@ -157,12 +166,13 @@
             // 
             this.filesListView.AllowDrop = true;
             this.filesListView.AlternateBackColor = System.Drawing.Color.Azure;
+            this.filesListView.ContextMenuStrip = this.listViewContextMenuStrip;
             this.filesListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesListView.EnsureSelection = false;
             this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filesListView.FullRowSelect = true;
             this.filesListView.IndexOfColumnToResize = 0;
-            this.filesListView.ItemContextMenuStrip = null;
+            this.filesListView.ItemContextMenuStrip = this.listViewItemContextMenuStrip;
             this.filesListView.LabelEdit = true;
             this.filesListView.Location = new System.Drawing.Point(0, 25);
             this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -181,6 +191,57 @@
             this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
             this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
             // 
+            // listViewContextMenuStrip
+            // 
+            this.listViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addDocumentsToolStripMenuItem,
+            this.refreshToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.pasteToolStripMenuItem});
+            this.listViewContextMenuStrip.Name = "listViewContextMenuStrip";
+            this.listViewContextMenuStrip.Size = new System.Drawing.Size(160, 76);
+            this.listViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.listViewContextMenuStrip_Opening);
+            this.listViewContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.pasteToolStripMenuItem.Text = "&Paste";
+            // 
+            // listViewItemContextMenuStrip
+            // 
+            this.listViewItemContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem});
+            this.listViewItemContextMenuStrip.Name = "listViewContextMenuStrip";
+            this.listViewItemContextMenuStrip.Size = new System.Drawing.Size(103, 26);
+            this.listViewItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            // 
+            // addDocumentsToolStripMenuItem
+            // 
+            this.addDocumentsToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addDocumentsToolStripMenuItem.Name = "addDocumentsToolStripMenuItem";
+            this.addDocumentsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.addDocumentsToolStripMenuItem.Text = "&Add documents";
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.refreshToolStripMenuItem.Text = "&Refresh";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(156, 6);
+            // 
             // DocumentsView
             // 
             this.AllowDrop = true;
@@ -194,6 +255,8 @@
             this.Size = new System.Drawing.Size(367, 198);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.listViewContextMenuStrip.ResumeLayout(false);
+            this.listViewItemContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,9 +272,16 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton openDocumentToolStripButton;
         private System.Windows.Forms.ToolStripButton deleteDocumentsToolStripButton;
-        private System.Windows.Forms.ToolStripButton refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton refreshToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton addDocumentToolStripButton;
         private System.Windows.Forms.ToolStripButton renameToolStripButton;
+        private System.Windows.Forms.ContextMenuStrip listViewContextMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip listViewItemContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addDocumentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
@@ -22,8 +23,10 @@ namespace CPECentral.Views
         OperationType OpType { get; }
 
         event EventHandler AddDocuments;
+        event EventHandler CopyDocuments;
         event EventHandler DeleteSelectedDocuments;
         event EventHandler OpenDocument;
+        event EventHandler PasteDocuments;
         event EventHandler RefreshDocuments;
         event EventHandler SelectionChanged;
         event EventHandler<FileDropEventArgs> FilesDropped;
@@ -76,7 +79,9 @@ namespace CPECentral.Views
         public event EventHandler AddDocuments;
         public event EventHandler DeleteSelectedDocuments;
         public event EventHandler OpenDocument;
+        public event EventHandler PasteDocuments;
         public event EventHandler RefreshDocuments;
+        public event EventHandler CopyDocuments;
         public event EventHandler SelectionChanged;
         public event EventHandler<FileDropEventArgs> FilesDropped;
         public event EventHandler NewTurningProgram;
@@ -134,6 +139,12 @@ namespace CPECentral.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected virtual void OnCopyDocuments()
+        {
+            EventHandler handler = CopyDocuments;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         protected virtual void OnDeleteSelectedDocuments()
         {
             var handler = DeleteSelectedDocuments;
@@ -143,6 +154,12 @@ namespace CPECentral.Views
         protected virtual void OnOpenDocument()
         {
             var handler = OpenDocument;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnPasteDocuments()
+        {
+            EventHandler handler = PasteDocuments;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
@@ -287,6 +304,26 @@ namespace CPECentral.Views
             OnRenameDocument(new RenameDocumentEventArgs(document, e.Label));
 
             OnRefreshDocuments();
+        }
+
+        private void ContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name)
+            {
+                case "pasteToolStripMenuItem":
+                    OnPasteDocuments();
+                    break;
+                case "copyToolStripMenuItem":
+                    OnCopyDocuments();
+                    break;
+            }
+        }
+
+        private void listViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            var fileNames = Clipboard.GetFileDropList();
+
+            pasteToolStripMenuItem.Enabled = fileNames.Count > 0;
         }
     }
 }

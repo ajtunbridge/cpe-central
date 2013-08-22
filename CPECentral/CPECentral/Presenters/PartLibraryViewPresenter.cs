@@ -26,7 +26,27 @@ namespace CPECentral.Presenters
             _libraryView = libraryView;
 
             _libraryView.ReloadData += LibraryViewReloadData;
+            _libraryView.DeletePart += _libraryView_DeletePart;
             _libraryView.Search += _libraryView_Search;
+        }
+
+        void _libraryView_DeletePart(object sender, PartEventArgs e)
+        {
+            const string warningMessage = "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
+
+            if (_libraryView.DialogService.AskQuestion(warningMessage))
+            {
+                return;
+            }
+
+            const string confirmationQuestion = "WARNING!\n\nAre you sure you want to proceed?";
+
+            if (!_libraryView.DialogService.AskQuestion(confirmationQuestion))
+            {
+                return;
+            }
+
+
         }
 
         void _libraryView_Search(object sender, PartSearchEventArgs e)

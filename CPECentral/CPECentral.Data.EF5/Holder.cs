@@ -17,6 +17,7 @@ namespace CPECentral.Data.EF5
         public Holder()
         {
             this.HolderTools = new HashSet<HolderTool>();
+            this.OperationTools = new HashSet<OperationTool>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,6 @@ namespace CPECentral.Data.EF5
     
         public virtual HolderGroup HolderGroup { get; set; }
         public virtual ICollection<HolderTool> HolderTools { get; set; }
+        public virtual ICollection<OperationTool> OperationTools { get; set; }
     }
 }

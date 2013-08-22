@@ -31,12 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.enhancedTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.enhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.searchFieldComboBox = new System.Windows.Forms.ComboBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.searchValueTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -55,6 +58,7 @@
             // 
             // enhancedTreeView
             // 
+            this.enhancedTreeView.ContextMenuStrip = this.contextMenuStrip;
             this.enhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.enhancedTreeView.HideSelection = false;
             this.enhancedTreeView.ImageIndex = 0;
@@ -66,6 +70,19 @@
             this.enhancedTreeView.Size = new System.Drawing.Size(215, 217);
             this.enhancedTreeView.TabIndex = 0;
             this.enhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.enhancedTreeView_AfterSelect);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 48);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "&Delete";
             // 
             // splitContainer1
             // 
@@ -172,6 +189,7 @@
             this.Name = "PartLibraryView";
             this.Size = new System.Drawing.Size(215, 280);
             this.Load += new System.EventHandler(this.PartLibraryView_Load);
+            this.contextMenuStrip.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -195,5 +213,7 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
         private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

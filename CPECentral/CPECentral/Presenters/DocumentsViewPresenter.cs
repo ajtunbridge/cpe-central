@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -30,16 +31,77 @@ namespace CPECentral.Presenters
             _documentsView = documentsView;
 
             _documentsView.AddDocuments += _documentsView_AddDocuments;
-            _documentsView.RefreshDocuments += _documentsView_RefreshDocuments;
-            _documentsView.OpenDocument += _documentsView_OpenDocument;
-            _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments;
+            _documentsView.CopyDocuments += _documentsView_CopyDocuments;
+            _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments; 
             _documentsView.FilesDropped += _documentsView_FilesDropped;
+            _documentsView.OpenDocument += _documentsView_OpenDocument;
+            _documentsView.PasteDocuments += _documentsView_PasteDocuments;
+            _documentsView.RefreshDocuments += _documentsView_RefreshDocuments;
 
             _documentsView.NewFeatureCAMFile += _documentsView_NewFeatureCAMFile;
             _documentsView.NewTurningProgram += _documentsView_NewTurningProgram;
             _documentsView.ImportMillingFile += _documentsView_ImportMillingFile;
 
             _documentsView.RenameDocument += _documentsView_RenameDocument;
+        }
+
+        void _documentsView_PasteDocuments(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+                return;
+
+            var filePaths = Clipboard.GetFileDropList();
+
+            if (filePaths.Count == 0) return;
+
+            IEnumerable<Document> docs = GetDocuments();
+
+            var existingDocuments = new List<Document>();
+
+            foreach (var path in filePaths)
+            {
+                var fileName = Path.GetFileName(path);
+
+                var existing = docs.FirstOrDefault(d => d.FileName == fileName);
+
+                if (existing == null) continue;
+
+                existingDocuments.Add(existing);
+            }
+
+            if (existingDocuments.Count > 0)
+            {
+                // TODO: improve the UI for overwriting 
+                var question = string.Format("Do you want to overwrite the following documents:\n\n");
+
+                var count = 1;
+
+                foreach (var doc in existingDocuments)
+                {
+                    question += string.Format("{0}) {1}\n", count, doc.FileName);
+                    count++;
+                }
+
+                if (_documentsView.DialogService.AskQuestion(question) == false)
+                    return;
+            }
+
+            foreach (var fileName in filePaths)
+            {
+                Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
+            }
+        }
+
+        void _documentsView_CopyDocuments(object sender, EventArgs e)
+        {
+            var fileNames = new StringCollection();
+
+            foreach (var document in _documentsView.SelectedDocuments)
+            {
+                fileNames.Add(Session.DocumentService.GetPathToDocument(document));
+            }
+
+            Clipboard.SetFileDropList(fileNames);
         }
 
         void _documentsView_RenameDocument(object sender, RenameDocumentEventArgs e)
@@ -328,6 +390,41 @@ namespace CPECentral.Presenters
             var model = (DocumentsViewModel) e.Result;
 
             _documentsView.DisplayDocuments(model);
+        }
+
+        private IEnumerable<Document> GetDocuments()
+        {
+            IEnumerable<Document> docs;
+
+            using (var uow = new UnitOfWork())
+            {
+                using (BusyCursor.Show())
+                {
+                    if (_documentsView.CurrentEntity is Operation)
+                        docs = uow.Documents.GetByOperation((Operation)_documentsView.CurrentEntity);
+                    else if (_documentsView.CurrentEntity is Part)
+                        docs = uow.Documents.GetByPart((Part)_documentsView.CurrentEntity);
+                    else // is IPartVersion
+                        docs = uow.Documents.GetByPartVersion((PartVersion)_documentsView.CurrentEntity);
+                }
+            }
+
+            var existingDocs = new List<Document>();
+
+            foreach (var doc in docs)
+            {
+                var pathToFile = Session.DocumentService.GetPathToDocument(doc);
+
+                if (!File.Exists(pathToFile))
+                {
+                    // TODO: Handle missing documents
+                    continue;
+                }
+
+                existingDocs.Add(doc);
+            }
+
+            return existingDocs;
         }
 
         private void HandleException(Exception exception)

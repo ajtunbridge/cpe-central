@@ -18,12 +18,13 @@ namespace CPECentral.Data.EF5
         public int Position { get; set; }
         public int Offset { get; set; }
         public int UseOnePer { get; set; }
-        public string Holder { get; set; }
         public string Notes { get; set; }
         public int OperationId { get; set; }
+        public Nullable<int> HolderId { get; set; }
         public int ToolId { get; set; }
     
-        public virtual Tool Tool { get; set; }
+        public virtual Holder Holder { get; set; }
         public virtual Operation Operation { get; set; }
+        public virtual Tool Tool { get; set; }
     }
 }
