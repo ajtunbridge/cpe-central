@@ -27,6 +27,9 @@ namespace CPECentral.Presenters
 
         private void _partInformationView_SaveChanges(object sender, EventArgs e)
         {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true))
+                return;
+
             try
             {
                 using (BusyCursor.Show())
@@ -93,6 +96,7 @@ namespace CPECentral.Presenters
                     model.DrawingNumber = part.DrawingNumber;
                     model.Name = part.Name;
                     model.ToolingLocation = part.ToolingLocation;
+                    model.ReadOnly = !AppSecurity.Check(AppPermission.ManageParts, false);
 
                     e.Result = model;
                 }

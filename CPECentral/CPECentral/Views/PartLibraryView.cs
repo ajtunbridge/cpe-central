@@ -234,6 +234,8 @@ namespace CPECentral.Views
         {
             if (e.Node.Tag is Part)
             {
+                contextMenuStrip.Enabled = true;
+
                 SelectedPart = (Part) e.Node.Tag;
 
                 _idOfPartToSelect = SelectedPart.Id;
@@ -242,6 +244,8 @@ namespace CPECentral.Views
             }
             else if (e.Node.Tag is Customer)
             {
+                contextMenuStrip.Enabled = false;
+
                 SelectedCustomer = (Customer) e.Node.Tag;
                 OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
             }
@@ -282,6 +286,18 @@ namespace CPECentral.Views
         private void searchValueTextBox_EnterKeyPressed(object sender, EventArgs e)
         {
             searchButton.PerformClick();
+        }
+
+        private void contextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            contextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name)
+            {
+                case "deleteToolStripMenuItem":
+                    OnDeletePart(new PartEventArgs(SelectedPart));
+                    break;
+            }
         }
     }
 

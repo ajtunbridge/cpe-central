@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.enhancedTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
-            this.enhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.searchFieldComboBox = new System.Windows.Forms.ComboBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.searchValueTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchButton = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
+            this.enhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -56,33 +56,32 @@
             this.enhancedTreeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.enhancedTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // enhancedTreeView
-            // 
-            this.enhancedTreeView.ContextMenuStrip = this.contextMenuStrip;
-            this.enhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.enhancedTreeView.HideSelection = false;
-            this.enhancedTreeView.ImageIndex = 0;
-            this.enhancedTreeView.ImageList = this.enhancedTreeViewImageList;
-            this.enhancedTreeView.Location = new System.Drawing.Point(0, 63);
-            this.enhancedTreeView.Name = "enhancedTreeView";
-            this.enhancedTreeView.SelectedImageIndex = 0;
-            this.enhancedTreeView.ShowNodeToolTips = true;
-            this.enhancedTreeView.Size = new System.Drawing.Size(215, 217);
-            this.enhancedTreeView.TabIndex = 0;
-            this.enhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.enhancedTreeView_AfterSelect);
-            // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(108, 26);
+            this.contextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_ItemClicked);
             // 
             // deleteToolStripMenuItem
             // 
+            this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.refreshButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refreshButton.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
+            this.refreshButton.Location = new System.Drawing.Point(0, 27);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(215, 36);
+            this.refreshButton.TabIndex = 6;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // splitContainer1
             // 
@@ -164,17 +163,20 @@
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // refreshButton
+            // enhancedTreeView
             // 
-            this.refreshButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.refreshButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshButton.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshButton.Location = new System.Drawing.Point(0, 27);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(215, 36);
-            this.refreshButton.TabIndex = 6;
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.enhancedTreeView.ContextMenuStrip = this.contextMenuStrip;
+            this.enhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.enhancedTreeView.HideSelection = false;
+            this.enhancedTreeView.ImageIndex = 0;
+            this.enhancedTreeView.ImageList = this.enhancedTreeViewImageList;
+            this.enhancedTreeView.Location = new System.Drawing.Point(0, 63);
+            this.enhancedTreeView.Name = "enhancedTreeView";
+            this.enhancedTreeView.SelectedImageIndex = 0;
+            this.enhancedTreeView.ShowNodeToolTips = true;
+            this.enhancedTreeView.Size = new System.Drawing.Size(215, 217);
+            this.enhancedTreeView.TabIndex = 0;
+            this.enhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.enhancedTreeView_AfterSelect);
             // 
             // PartLibraryView
             // 

@@ -10,6 +10,7 @@ using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+using nGenLibrary;
 
 #endregion
 
@@ -32,6 +33,17 @@ namespace CPECentral.Presenters
 
         void _libraryView_DeletePart(object sender, PartEventArgs e)
         {
+            if (e.Part == null)
+            {
+                _libraryView.DialogService.ShowError("No part selected!");
+                return;
+            }
+
+            if (!AppSecurity.Check(AppPermission.ManageParts, true))
+            {
+                return;
+            }
+
             const string warningMessage = "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
 
             if (_libraryView.DialogService.AskQuestion(warningMessage))
@@ -46,7 +58,48 @@ namespace CPECentral.Presenters
                 return;
             }
 
+            using (var uow = new UnitOfWork())
+            {
+                using (BusyCursor.Show())
+                {
+                    var documents = new List<Document>();
 
+                    var part = _libraryView.SelectedPart;
+
+                    documents.AddRange(uow.Documents.GetByPart(part));
+
+                    var versions = uow.PartVersions.GetByPart(part).ToList();
+
+                    var methods = new List<Method>();
+                    foreach (var version in versions)
+                    {
+                        methods.AddRange(uow.Methods.GetByPartVersion(version));
+                        documents.AddRange(uow.Documents.GetByPartVersion(version));
+                    }
+
+                    var operations = new List<Operation>();
+                    foreach (var method in methods)
+                    {
+                        operations.AddRange(uow.Operations.GetByMethod(method));
+                    }
+
+                    foreach (var operation in operations)
+                    {
+                        documents.AddRange(uow.Documents.GetByOperation(operation));
+                    }
+
+                    Session.DocumentService.DeleteDocuments(documents);
+
+                    operations.ForEach(op => uow.Operations.Delete(op));
+                    methods.ForEach(m => uow.Methods.Delete(m));
+                    versions.ForEach(v => uow.PartVersions.Delete(v));
+                    uow.Parts.Delete(part);
+
+                    uow.Commit();
+
+                    LibraryViewReloadData(sender, e);
+                }
+            }
         }
 
         void _libraryView_Search(object sender, PartSearchEventArgs e)

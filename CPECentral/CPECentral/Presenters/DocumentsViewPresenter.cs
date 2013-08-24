@@ -47,7 +47,7 @@ namespace CPECentral.Presenters
 
         void _documentsView_PasteDocuments(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
                 return;
 
             var filePaths = Clipboard.GetFileDropList();

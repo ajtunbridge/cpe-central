@@ -14,5 +14,6 @@ namespace CPECentral.ViewModels
         public string DrawingNumber { get; set; }
         public string Name { get; set; }
         public string ToolingLocation { get; set; }
+        public bool ReadOnly { get; set; }
     }
 }

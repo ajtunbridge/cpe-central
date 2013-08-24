@@ -37,7 +37,7 @@ namespace CPECentral
 
         public void QueueUpload(string fileName, IEntity entity, bool deleteOriginal)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
                 return;
 
             if (!Directory.Exists(Settings.Default.SharedAppDir))
@@ -78,7 +78,7 @@ namespace CPECentral
 
         public void DeleteDocuments(IEnumerable<Document> documents)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
                 return;
 
             try
@@ -127,7 +127,7 @@ namespace CPECentral
 
         public void RenameDocument(Document document, string newFileName)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
                 return;
 
             bool renamedOk = false;

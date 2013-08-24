@@ -35,7 +35,7 @@ namespace CPECentral.Presenters
 
         void _operationsView_EditOperation(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
                 return;
 
             try
@@ -77,7 +77,7 @@ namespace CPECentral.Presenters
 
         void _operationsView_AddOperation(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
                 return;
 
             try
@@ -122,7 +122,7 @@ namespace CPECentral.Presenters
         
         private void OperationsView_AddMethod(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
                 return;
 
             try
@@ -166,7 +166,7 @@ namespace CPECentral.Presenters
 
         private void OperationsView_EditMethod(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
                 return;
 
             try

@@ -49,6 +49,9 @@ namespace nGenLibrary.Controls
             if (clickedNode == null)
                 return;
 
+            if (SelectedNode != null && SelectedNode == clickedNode)
+                return;
+
             SelectedNode = clickedNode;
         }
     }

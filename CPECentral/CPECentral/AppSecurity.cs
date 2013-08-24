@@ -9,9 +9,27 @@ namespace CPECentral
 {
     internal static class AppSecurity
     {
-        private static readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private static readonly IDialogService DialogService = Session.GetInstanceOf<IDialogService>();
 
+        /// <summary>
+        /// Checks if the current user has the specified permission. If they don't, an error message
+        /// is show and false is returned. Otherwise, returns true
+        /// </summary>
+        /// <param name="permission">The permission to check for</param>
+        /// <returns></returns>
         internal static bool Check(AppPermission permission)
+        {
+            return Check(permission, false);
+        }
+
+        /// <summary>
+        /// Checks if the current user has the specified permission. If they don't, an error message
+        /// is show and false is returned. Otherwise, returns true
+        /// </summary>
+        /// <param name="permission">The permission to check for</param>
+        /// <param name="showErrorDialog">Whether or not to show an error dialog if the user doesn't have the permission</param>
+        /// <returns></returns>
+        internal static bool Check(AppPermission permission, bool showErrorDialog)
         {
             using (BusyCursor.Show())
             {
@@ -21,6 +39,9 @@ namespace CPECentral
 
                     if (group.HasPermission(AppPermission.Administrator) || group.HasPermission(permission))
                         return true;
+
+                    if (!showErrorDialog)
+                        return false;
 
                     var message = "Access denied!";
 
@@ -40,7 +61,7 @@ namespace CPECentral
                             break;
                     }
 
-                    _dialogService.ShowError(message);
+                    DialogService.ShowError(message);
 
                     return false;
                 }

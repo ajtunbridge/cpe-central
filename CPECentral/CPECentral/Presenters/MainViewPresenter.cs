@@ -23,6 +23,11 @@ namespace CPECentral.Presenters
 
         void _mainView_AddPart(object sender, EventArgs e)
         {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true))
+            {
+                return;
+            }
+
             using (var addPartDialog = new AddPartDialog())
             {
                 var parent = ((UserControl) _mainView).ParentForm;

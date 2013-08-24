@@ -76,6 +76,12 @@ namespace CPECentral.Views
             {
                 Enabled = true;
 
+                customerTextBox.ReadOnly = model.ReadOnly;
+                drawingNumberTextBox.ReadOnly = model.ReadOnly;
+                nameTextBox.ReadOnly = model.ReadOnly;
+                toolingLocationTextBox.ReadOnly = model.ReadOnly;
+                versionOptionsButton.Enabled = !model.ReadOnly;
+
                 customerTextBox.Text = model.Customer;
                 drawingNumberTextBox.Text = model.DrawingNumber;
                 nameTextBox.Text = model.Name;
