@@ -15,7 +15,6 @@ namespace CPECentral.Dialogs
     {
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
         private readonly Operation _operation;
-        private bool _isLoading;
 
         public EditOperationDialog()
         {
@@ -49,9 +48,9 @@ namespace CPECentral.Dialogs
             get { return descriptionTextBox.Text; }
         }
 
-        public Machine Machine
+        public MachineGroup SelectedMachineGroup
         {
-            get { return (Machine) machineComboBox.SelectedItem; }
+            get { return (MachineGroup) machineGroupComboBox.SelectedItem; }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -89,8 +88,6 @@ namespace CPECentral.Dialogs
 
         private void EditOperationDialog_Load(object sender, EventArgs e)
         {
-            _isLoading = true;
-
             try
             {
                 using (BusyCursor.Show())
@@ -101,13 +98,8 @@ namespace CPECentral.Dialogs
 
                         machineGroupComboBox.Items.AddRange(machineGroups.ToArray());
 
-                        if (machineGroupComboBox.Items.Count == 0)
-                            throw new InvalidOperationException(
-                                "Could not find any machines so cannot create an operation!");
-
                         if (_operation == null)
                         {
-                            _isLoading = false;
                             machineGroupComboBox.SelectedIndex = 0;
                             return;
                         }
@@ -116,55 +108,8 @@ namespace CPECentral.Dialogs
                         setupNumericUpDown.Value = _operation.SetupTime.HasValue ? _operation.SetupTime.Value : 0;
                         cycleNumericUpDown.Value = _operation.CycleTime.HasValue ? (decimal)_operation.CycleTime.Value : 0;
                         descriptionTextBox.Text = _operation.Description;
-
-                        var opMachine = uow.Machines.GetById(_operation.MachineId);
-
-                        machineGroupComboBox.SelectedItem = opMachine.MachineGroup;
-
-                        var machines = uow.Machines.GetByMachineGroup(opMachine.MachineGroup);
-
-                        machineComboBox.Items.AddRange(machines.ToArray());
-
-                        machineComboBox.SelectedItem = opMachine;
+                        machineGroupComboBox.SelectedItem = uow.MachineGroups.GetById(_operation.MachineGroupId);
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
-
-                _dialogService.ShowError(msg);
-
-                DialogResult = DialogResult.Cancel;
-            }
-
-            _isLoading = false;
-        }
-
-        private void machineGroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_isLoading)
-                return;
-
-            machineComboBox.Items.Clear();
-            machineComboBox.Enabled = false;
-
-            try
-            {
-                using (var uow = new UnitOfWork())
-                {
-                    var selectedGroup = (MachineGroup) machineGroupComboBox.SelectedItem;
-
-                    var machines = uow.Machines.GetByMachineGroup(selectedGroup).OrderBy(m => m.Name);
-
-                    machineComboBox.Items.AddRange(machines.ToArray());
-
-                    if (machineComboBox.Items.Count == 0)
-                        return;
-
-
-                    machineComboBox.SelectedIndex = 0;
-                    machineComboBox.Enabled = true;
                 }
             }
             catch (Exception ex)

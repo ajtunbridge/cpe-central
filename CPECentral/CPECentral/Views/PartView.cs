@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -115,7 +116,7 @@ namespace CPECentral.Views
 
         private void DocumentViews_SelectionChanged(object sender, EventArgs e)
         {
-            var documentsView = (DocumentsView)sender;
+            var documentsView = (DocumentsView) sender;
 
             if (documentsView.SelectionCount != 1)
             {
@@ -125,9 +126,12 @@ namespace CPECentral.Views
 
             var selectedDocument = documentsView.SelectedDocuments.First();
 
-            var pathToDocument = Session.DocumentService.GetPathToDocument(selectedDocument);
+            ThreadPool.QueueUserWorkItem(delegate
+                {
+                    var pathToDocument = Session.DocumentService.GetPathToDocument(selectedDocument);
 
-            selectedDocumentPreviewPanel.ShowFile(pathToDocument);
+                    selectedDocumentPreviewPanel.InvokeEx(() => selectedDocumentPreviewPanel.ShowFile(pathToDocument));
+                });
         }
 
         private void operationsView_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)

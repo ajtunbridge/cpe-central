@@ -36,8 +36,6 @@
             this.cycleNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.descriptionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
-            this.machineComboBox = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.machineGroupComboBox = new System.Windows.Forms.ComboBox();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
@@ -156,24 +154,6 @@
             this.descriptionTextBox.SuppressEnterKey = true;
             this.descriptionTextBox.TabIndex = 3;
             // 
-            // machineComboBox
-            // 
-            this.machineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.machineComboBox.FormattingEnabled = true;
-            this.machineComboBox.Location = new System.Drawing.Point(94, 173);
-            this.machineComboBox.Name = "machineComboBox";
-            this.machineComboBox.Size = new System.Drawing.Size(268, 25);
-            this.machineComboBox.TabIndex = 4;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(91, 153);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Machine";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -191,14 +171,13 @@
             this.machineGroupComboBox.Name = "machineGroupComboBox";
             this.machineGroupComboBox.Size = new System.Drawing.Size(268, 25);
             this.machineGroupComboBox.TabIndex = 4;
-            this.machineGroupComboBox.SelectedIndexChanged += new System.EventHandler(this.machineGroupComboBox_SelectedIndexChanged);
             // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
             this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 212);
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 165);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
             this.okayCancelFooter.Size = new System.Drawing.Size(376, 45);
@@ -210,13 +189,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 257);
+            this.ClientSize = new System.Drawing.Size(376, 210);
             this.Controls.Add(this.machineGroupComboBox);
-            this.Controls.Add(this.machineComboBox);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cycleNumericUpDown);
             this.Controls.Add(this.setupNumericUpDown);
@@ -254,8 +231,6 @@
         private System.Windows.Forms.Label label4;
         private nGenLibrary.Controls.EnhancedTextBox descriptionTextBox;
         private Controls.OkayCancelFooter okayCancelFooter;
-        private System.Windows.Forms.ComboBox machineComboBox;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox machineGroupComboBox;
     }

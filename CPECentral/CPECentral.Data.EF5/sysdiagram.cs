@@ -12,18 +12,12 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class Machine
+    public partial class sysdiagram
     {
-        public Machine()
-        {
-            this.Operations = new HashSet<Operation>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int MachineGroupId { get; set; }
-    
-        public virtual MachineGroup MachineGroup { get; set; }
-        public virtual ICollection<Operation> Operations { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

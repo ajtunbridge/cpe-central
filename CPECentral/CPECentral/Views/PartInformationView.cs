@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Input;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -169,6 +170,11 @@ namespace CPECentral.Views
             SelectedVersion = versionsComboBox.SelectedItem as PartVersion;
 
             OnVersionSelected(new PartVersionEventArgs(SelectedVersion));
+        }
+
+        private void versionOptionsButton_Click(object sender, EventArgs e)
+        {
+            versionOptionsContextMenuStrip.Show(System.Windows.Forms.Cursor.Position);
         }
     }
 }

@@ -16,13 +16,13 @@ namespace CPECentral.Data.EF5
     {
         public MachineGroup()
         {
-            this.Machines = new HashSet<Machine>();
+            this.Operations = new HashSet<Operation>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int NextNumber { get; set; }
     
-        public virtual ICollection<Machine> Machines { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
     }
 }

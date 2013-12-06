@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.customerTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,6 +41,10 @@
             this.drawingNumberTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.nameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.toolingLocationTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.versionOptionsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionOptionsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // customerTextBox
@@ -106,6 +111,7 @@
             this.versionOptionsButton.TabIndex = 3;
             this.versionOptionsButton.Text = "..";
             this.versionOptionsButton.UseVisualStyleBackColor = true;
+            this.versionOptionsButton.Click += new System.EventHandler(this.versionOptionsButton_Click);
             // 
             // label5
             // 
@@ -177,6 +183,26 @@
             this.toolingLocationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolingLocationTextBox.TextChanged += new System.EventHandler(this.TextBoxes_TextChanged);
             // 
+            // versionOptionsContextMenuStrip
+            // 
+            this.versionOptionsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newVersionToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.versionOptionsContextMenuStrip.Name = "versionOptionsContextMenuStrip";
+            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(140, 48);
+            // 
+            // newVersionToolStripMenuItem
+            // 
+            this.newVersionToolStripMenuItem.Name = "newVersionToolStripMenuItem";
+            this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newVersionToolStripMenuItem.Text = "&New version";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "&Delete";
+            // 
             // PartInformationView
             // 
             this.Controls.Add(this.toolingLocationTextBox);
@@ -195,6 +221,7 @@
             this.Name = "PartInformationView";
             this.Size = new System.Drawing.Size(285, 239);
             this.Load += new System.EventHandler(this.PartInformationView_Load);
+            this.versionOptionsContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,5 +241,8 @@
         private nGenLibrary.Controls.EnhancedTextBox drawingNumberTextBox;
         private nGenLibrary.Controls.EnhancedTextBox nameTextBox;
         private nGenLibrary.Controls.EnhancedTextBox toolingLocationTextBox;
+        private System.Windows.Forms.ContextMenuStrip versionOptionsContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem newVersionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

@@ -55,7 +55,7 @@ namespace CPECentral.Presenters
 
                             opToEdit.CycleTime = operationDialog.CycleTime;
                             opToEdit.Description = operationDialog.Description;
-                            opToEdit.MachineId = operationDialog.Machine.Id;
+                            opToEdit.MachineGroupId = operationDialog.SelectedMachineGroup.Id;
                             opToEdit.ModifiedBy = Session.CurrentEmployee.Id;
                             opToEdit.Sequence = operationDialog.Sequence;
                             opToEdit.SetupTime = operationDialog.SetupTime;
@@ -97,7 +97,7 @@ namespace CPECentral.Presenters
                     newOperation.Sequence = operationDialog.Sequence;
                     newOperation.SetupTime = operationDialog.SetupTime;
                     newOperation.CycleTime = operationDialog.CycleTime;
-                    newOperation.MachineId = operationDialog.Machine.Id;
+                    newOperation.MachineGroupId = operationDialog.SelectedMachineGroup.Id;
                     newOperation.CreatedBy = Session.CurrentEmployee.Id;
                     newOperation.ModifiedBy = Session.CurrentEmployee.Id;
                 }

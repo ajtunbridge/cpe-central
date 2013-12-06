@@ -29,6 +29,7 @@ namespace CPECentral
             EnsureThereIsAnAdminAccount();
             AddMyAccount();
 #endif
+
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
 

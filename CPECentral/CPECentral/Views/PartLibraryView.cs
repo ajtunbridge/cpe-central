@@ -37,7 +37,7 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
-        private int _idOfPartToSelect;
+        private int? _idOfPartToSelect;
 
         public PartLibraryView()
         {
@@ -92,8 +92,8 @@ namespace CPECentral.Views
         {
             DisplayModel(viewModel, false);
 
-            if (_idOfPartToSelect != null)
-                SelectPart(_idOfPartToSelect);
+            if (_idOfPartToSelect.HasValue)
+                SelectPart(_idOfPartToSelect.Value);
         }
 
         public void DisplaySearchResults(PartLibraryViewModel viewModel)

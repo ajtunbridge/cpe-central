@@ -192,7 +192,7 @@ namespace CPECentral.Presenters
 
                         var pathToFile = Path.Combine(Path.GetTempPath(), fileName);
 
-                        var machineGroup = uow.Machines.GetById(op.MachineId).MachineGroup.Name;
+                        var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId).Name;
 
                         byte[] data = null;
 
@@ -333,9 +333,9 @@ namespace CPECentral.Presenters
                         {
                             var op = entity as Operation;
 
-                            var machine = uow.Machines.GetById(op.MachineId);
+                            var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId);
 
-                            switch (machine.MachineGroup.Name.ToLower())
+                            switch (machineGroup.Name.ToLower())
                             {
                                 case "cnc mills":
                                     model.OpType = OperationType.Milling;

@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
-using CPECentral.Dialogs;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
@@ -16,7 +14,6 @@ using nGenLibrary;
 
 namespace CPECentral.Presenters
 {
-
     public sealed class PartLibraryViewPresenter
     {
         private readonly IPartLibraryView _libraryView;
@@ -31,7 +28,7 @@ namespace CPECentral.Presenters
             _libraryView.Search += _libraryView_Search;
         }
 
-        void _libraryView_DeletePart(object sender, PartEventArgs e)
+        private void _libraryView_DeletePart(object sender, PartEventArgs e)
         {
             if (e.Part == null)
             {
@@ -44,7 +41,8 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            const string warningMessage = "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
+            const string warningMessage =
+                "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
 
             if (_libraryView.DialogService.AskQuestion(warningMessage))
             {
@@ -102,7 +100,7 @@ namespace CPECentral.Presenters
             }
         }
 
-        void _libraryView_Search(object sender, PartSearchEventArgs e)
+        private void _libraryView_Search(object sender, PartSearchEventArgs e)
         {
             _searchWorker = new BackgroundWorker();
             _searchWorker.DoWork += _searchWorker_DoWork;
@@ -110,9 +108,9 @@ namespace CPECentral.Presenters
             _searchWorker.RunWorkerAsync(e.SearchArgs);
         }
 
-        void _searchWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void _searchWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var args = (PartSearchArgs)e.Argument;
+            var args = (PartSearchArgs) e.Argument;
 
             try
             {
@@ -148,8 +146,8 @@ namespace CPECentral.Presenters
             }
         }
 
-        void _searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {        
+        private void _searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             if (e.Result is Exception)
             {
                 HandleException(e.Result as Exception);
@@ -157,7 +155,7 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var viewModel = (PartLibraryViewModel)e.Result;
+            var viewModel = (PartLibraryViewModel) e.Result;
 
             _libraryView.DisplaySearchResults(viewModel);
         }

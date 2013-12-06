@@ -40,6 +40,12 @@ namespace CPECentral.Views
             }
         }
 
+        #region IMainView Members
+
+        public event EventHandler AddPart;
+
+        #endregion
+
         private void StatusUpdateMessage_Published(StatusUpdateMessage message)
         {
             if (InvokeRequired)
@@ -51,7 +57,7 @@ namespace CPECentral.Views
             mainToolStripStatusLabel.Text = message.Status;
         }
 
-        void DocumentService_Error(object sender, ExceptionEventArgs e)
+        private void DocumentService_Error(object sender, ExceptionEventArgs e)
         {
             string message;
 
@@ -62,12 +68,6 @@ namespace CPECentral.Views
 
             Invoke((MethodInvoker) (() => DialogService.ShowError(message)));
         }
-
-        #region IMainView Members
-
-        public event EventHandler AddPart;
-
-        #endregion
 
         protected virtual void OnAddPart()
         {
@@ -118,26 +118,28 @@ namespace CPECentral.Views
                 case "addNewPartToolStripMenuItem":
                     OnAddPart();
                     break;
+                case "logoutToolStripMenuItem":
+                    HandleLogout();
+                    break;
             }
         }
 
         private void DocumentService_TransferComplete(object sender, EventArgs e)
         {
-            Invoke((MethodInvoker)delegate
-            {
-                documentTransferToolStripProgressBar.Value = 0;
-                documentTransferToolStripProgressBar.Visible = false;
-                documentTransferStatusLabel.Text = "No documents pending upload";
-            });
+            Invoke((MethodInvoker) delegate
+                {
+                    documentTransferToolStripProgressBar.Value = 0;
+                    documentTransferToolStripProgressBar.Visible = false;
+                    documentTransferStatusLabel.Text = "No documents pending upload";
+                });
         }
 
         private CopyFileCallbackAction DocumentService_TransferProgress(string fileName, string destinationDirectory,
                                                                         int percentComplete)
         {
-            Invoke((MethodInvoker) delegate
-                {
-                    documentTransferToolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete;
-                });
+            Invoke(
+                (MethodInvoker)
+                delegate { documentTransferToolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete; });
 
             return CopyFileCallbackAction.Continue;
         }

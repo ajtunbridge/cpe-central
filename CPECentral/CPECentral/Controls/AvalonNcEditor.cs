@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,6 +16,7 @@ using CPECentral.Properties;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using NcCommunicator.Data;
 using nGenLibrary;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -82,7 +84,7 @@ namespace CPECentral.Controls
                 {
                     var text = File.ReadAllText(fileName);
 
-                    _host.InvokeEx(() =>
+                    _host.Invoke((MethodInvoker) delegate
                         {
                             _editor.Text = text;
                             _currentFileName = fileName;
@@ -120,6 +122,7 @@ namespace CPECentral.Controls
         private void AvalonNcEditor_Load(object sender, EventArgs e)
         {
             LoadLanguageList();
+            LoadMachineList();
         }
 
         private void LanguageToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -255,6 +258,19 @@ namespace CPECentral.Controls
             catch (Exception ex)
             {
                 _dialogService.ShowError(ex.Message);
+            }
+        }
+
+        private void LoadMachineList()
+        {
+            using (var machineUow = new UnitOfWork())
+            {
+                foreach (var machine in machineUow.Machines.GetAll())
+                {
+                    var button = new ToolStripButton(machine.Name);
+                    button.ToolTipText = machine.ComPort;
+                    sendToMachineToolStripButton.DropDownItems.Add(button);
+                }
             }
         }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Properties;
@@ -142,6 +143,23 @@ namespace CPECentral.Dialogs
                 if (!_dialogService.AskQuestion(question))
                     return;
             }
+
+            var message = new StringBuilder("Please confirm your information is correct:");
+            message.AppendLine();
+            message.AppendLine();
+
+            message.Append("Customer: ").AppendLine(customerComboBox.Text);          
+            message.Append("Drawing number: ").AppendLine(drawingNumberTextBox.Text);
+            message.Append("Version: ").AppendLine(versionTextBox.Text);
+            message.Append("Name: ").AppendLine(nameTextBox.Text);
+            message.Append("Tooling: ").AppendLine(toolingLocationTextBox.Text);
+
+            message.AppendLine();
+            message.AppendLine();
+            message.AppendLine("Is this information correct?");
+
+            if (!_dialogService.AskQuestion(message.ToString()))
+                return;
 
             DialogResult = DialogResult.OK;
         }
