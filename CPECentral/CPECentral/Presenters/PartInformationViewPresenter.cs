@@ -3,7 +3,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
@@ -27,15 +26,13 @@ namespace CPECentral.Presenters
 
         private void _partInformationView_SaveChanges(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageParts, true))
+            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
+            }
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         var part = _partInformationView.Part;
 
                         part.ModifiedBy = Session.CurrentEmployee.Id;
@@ -48,8 +45,7 @@ namespace CPECentral.Presenters
 
                 _partInformationView.SaveCompleted(true);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
 
                 _partInformationView.SaveCompleted(false);
@@ -67,8 +63,7 @@ namespace CPECentral.Presenters
 
         private void getDataWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _partInformationView.DisplayModel(null);
                 return;
@@ -81,12 +76,10 @@ namespace CPECentral.Presenters
 
         private void getDataWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
+            try {
                 var part = (Part) e.Argument;
 
-                using (var uow = new UnitOfWork())
-                {
+                using (var uow = new UnitOfWork()) {
                     var customer = uow.Customers.GetById(part.CustomerId);
                     var versions = uow.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
 
@@ -101,8 +94,7 @@ namespace CPECentral.Presenters
                     e.Result = model;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
@@ -111,12 +103,10 @@ namespace CPECentral.Presenters
         {
             string message;
 
-            if (ex is DataProviderException)
-            {
+            if (ex is DataProviderException) {
                 message = ex.Message;
             }
-            else
-            {
+            else {
                 message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
             }
 

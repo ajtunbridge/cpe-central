@@ -31,6 +31,10 @@ namespace nGenLibrary.Controls
         [Description("Set to true to stop the 'ding' when pressing enter key")]
         public bool SuppressEnterKey { get; set; }
 
+        [Category("Behavior")]
+        [Description("Set to true to enable only numeric characters to be entered")]
+        public bool NumericCharactersOnly { get; set; }
+
         private void EnhancedTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (DisableDoubleSpace)
@@ -41,6 +45,15 @@ namespace nGenLibrary.Controls
 
                     if (previousChar == 32 && e.KeyChar == 32)
                         e.Handled = true;
+                }
+            }
+
+            if (NumericCharactersOnly) {
+                if (e.KeyChar == 8 || char.IsDigit(e.KeyChar)) {
+                    // do nothing
+                }
+                else {
+                    e.Handled = true;
                 }
             }
 

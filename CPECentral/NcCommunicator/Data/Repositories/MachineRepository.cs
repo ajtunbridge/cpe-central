@@ -18,18 +18,19 @@ namespace NcCommunicator.Data.Repositories
         {
             Machine match = null;
 
-            foreach (MachinesDataSet.MachinesRow row in DataSet.Machines.Rows)
-            {
-                if (row.Id != id)
+            foreach (MachinesDataSet.MachinesRow row in DataSet.Machines.Rows) {
+                if (row.Id != id) {
                     continue;
+                }
 
-                match = new Machine
-                    {
-                        Id = row.Id,
-                        Name = row.Name,
-                        ComPort = row.ComPort,
-                        MachineControlId = row.MachineControlId
-                    };
+                match = new Machine {
+                    Id = row.Id,
+                    Name = row.Name,
+                    ComPort = row.ComPort,
+                    MachineControlId = row.MachineControlId
+                };
+
+                break;
             }
 
             return match;
@@ -39,15 +40,13 @@ namespace NcCommunicator.Data.Repositories
         {
             var machines = new List<Machine>();
 
-            foreach (MachinesDataSet.MachinesRow row in DataSet.Machines.Rows)
-            {
-                var mc = new Machine
-                    {
-                        Id = row.Id,
-                        Name = row.Name,
-                        ComPort = row.ComPort,
-                        MachineControlId = row.MachineControlId
-                    };
+            foreach (MachinesDataSet.MachinesRow row in DataSet.Machines.Rows) {
+                var mc = new Machine {
+                    Id = row.Id,
+                    Name = row.Name,
+                    ComPort = row.ComPort,
+                    MachineControlId = row.MachineControlId
+                };
 
                 machines.Add(mc);
             }
@@ -69,8 +68,9 @@ namespace NcCommunicator.Data.Repositories
         {
             var rowToDelete = DataSet.Machines.SingleOrDefault(m => m.Id == id);
 
-            if (rowToDelete == null)
+            if (rowToDelete == null) {
                 throw new KeyNotFoundException("Unable to find machine with an ID value of " + id);
+            }
 
             DataSet.Machines.RemoveMachinesRow(rowToDelete);
         }
@@ -79,8 +79,9 @@ namespace NcCommunicator.Data.Repositories
         {
             var rowToUpdate = DataSet.Machines.SingleOrDefault(m => m.Id == machine.Id);
 
-            if (rowToUpdate == null)
+            if (rowToUpdate == null) {
                 throw new KeyNotFoundException("Unable to find machine with an ID value of " + machine.Id);
+            }
 
             rowToUpdate.Name = machine.Name;
             rowToUpdate.ComPort = machine.ComPort;

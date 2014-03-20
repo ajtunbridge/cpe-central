@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿#region Using directives
+
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+
+#endregion
 
 namespace CPECentral.Controls
 {
     public partial class PdfViewer : UserControl
     {
         private readonly IDialogService _dialogService;
-        private string _fileName;
         private WebBrowser _browser;
+        private string _fileName;
 
         public PdfViewer()
         {
             InitializeComponent();
 
-            if (!DesignMode)
+            if (!DesignMode) {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
+            }
         }
 
         private void PdfViewer_Load(object sender, EventArgs e)
@@ -30,16 +29,14 @@ namespace CPECentral.Controls
 
         public void LoadFile(string fileName)
         {
-            if (!File.Exists(fileName))
-            {
+            if (!File.Exists(fileName)) {
                 _dialogService.ShowError("Could not locate " + fileName);
                 return;
             }
 
             _fileName = fileName;
 
-            if (_browser != null)
-            {
+            if (_browser != null) {
                 Controls.Remove(_browser);
                 _browser.Dispose();
                 _browser = null;
@@ -51,7 +48,7 @@ namespace CPECentral.Controls
             _browser.Navigate(_fileName);
         }
 
-        void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Controls.Add(_browser);
 
@@ -60,8 +57,7 @@ namespace CPECentral.Controls
 
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "previewToolStripButton":
                     ShowPreviewWindow();
                     break;
@@ -70,21 +66,19 @@ namespace CPECentral.Controls
 
         private void ShowPreviewWindow()
         {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                if (!(openForm is PreviewPopoutForm))
+            foreach (Form openForm in Application.OpenForms) {
+                if (!(openForm is PreviewPopoutForm)) {
                     continue;
+                }
 
                 var openPreviewForm = openForm as PreviewPopoutForm;
 
-                if (openPreviewForm.PreviewControl is PdfViewer)
-                {
+                if (openPreviewForm.PreviewControl is PdfViewer) {
                     var viewer = openPreviewForm.PreviewControl as PdfViewer;
                     viewer.LoadFile(_fileName);
                     return;
                 }
-                else
-                {
+                else {
                     var viewer = new PdfViewer();
                     viewer.Dock = DockStyle.Fill;
                     openPreviewForm.PreviewControl = viewer;

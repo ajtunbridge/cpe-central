@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NcCommunicator.Data.Model
+﻿namespace NcCommunicator.Data.Model
 {
     public class Machine
     {
@@ -12,5 +6,10 @@ namespace NcCommunicator.Data.Model
         public string Name { get; set; }
         public string ComPort { get; set; }
         public int MachineControlId { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Name, ComPort);
+        }
     }
 }

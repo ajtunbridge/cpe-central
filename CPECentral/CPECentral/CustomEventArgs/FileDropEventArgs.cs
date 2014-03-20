@@ -1,17 +1,19 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace CPECentral.CustomEventArgs
 {
     public class FileDropEventArgs : EventArgs
     {
-        public IEnumerable<string> DroppedFiles { get; private set; }
-
         public FileDropEventArgs(IEnumerable<string> droppedFiles)
         {
             DroppedFiles = droppedFiles;
         }
+
+        public IEnumerable<string> DroppedFiles { get; private set; }
     }
 }

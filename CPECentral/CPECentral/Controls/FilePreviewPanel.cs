@@ -1,11 +1,13 @@
-﻿using System;
-using System.Drawing;
+﻿#region Using directives
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Properties;
-using Cyotek.Windows.Forms;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Controls
 {
@@ -27,15 +29,14 @@ namespace CPECentral.Controls
 
             var indexOfLastDot = fileName.LastIndexOf(".");
 
-            if (indexOfLastDot == -1)
+            if (indexOfLastDot == -1) {
                 return;
+            }
 
             var extension = fileName.Substring(indexOfLastDot).ToLower();
 
-            if (extension == ".pdf")
-            {
-                using (BusyCursor.Show())
-                {
+            if (extension == ".pdf") {
+                using (BusyCursor.Show()) {
                     var tempFile = Path.GetTempFileName() + extension;
 
                     File.Copy(fileName, tempFile, true);
@@ -50,8 +51,7 @@ namespace CPECentral.Controls
 
             var validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
 
-            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
-            {
+            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var ncEditor = new AvalonNcEditor();
                 ncEditor.Dock = DockStyle.Fill;
                 Controls.Add(ncEditor);
@@ -59,10 +59,10 @@ namespace CPECentral.Controls
                 ncEditor.LoadFile(fileName);
             }
 
-            var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+            var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
+                                                                             StringSplitOptions.RemoveEmptyEntries);
 
-            if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase)))
-            {
+            if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var imageViewer = new ImageViewer();
                 imageViewer.Dock = DockStyle.Fill;
                 Controls.Add(imageViewer);
@@ -75,7 +75,7 @@ namespace CPECentral.Controls
             Controls.Clear();
         }
 
-        void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Enabled = true;
         }

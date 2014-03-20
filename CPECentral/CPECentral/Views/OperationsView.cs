@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Presenters;
@@ -42,8 +43,9 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            if (!IsInDesignMode)
+            if (!IsInDesignMode) {
                 _presenter = new OperationsViewPresenter(this);
+            }
         }
 
         #region IOperationsView Members
@@ -87,8 +89,7 @@ namespace CPECentral.Views
 
             methodsToolStrip.Enabled = true;
 
-            foreach (var method in methods)
-            {
+            foreach (var method in methods) {
                 var item = methodsEnhancedListView.Items.Add(method.Description);
                 item.SubItems.Add(method.IsPreferred ? "Yes" : "No");
                 item.Tag = method;
@@ -104,8 +105,7 @@ namespace CPECentral.Views
             operationsEnhancedListView.Items.Clear();
             operationsEnhancedListView.Enabled = true;
 
-            foreach (var operation in operations)
-            {
+            foreach (var operation in operations) {
                 var item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
                 item.SubItems.Add(operation.Description);
                 item.Tag = operation;
@@ -118,44 +118,58 @@ namespace CPECentral.Views
 
         protected virtual void OnAddMethod()
         {
-            EventHandler handler = AddMethod;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = AddMethod;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnEditMethod()
         {
-            EventHandler handler = EditMethod;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = EditMethod;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnAddOperation()
         {
-            EventHandler handler = AddOperation;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = AddOperation;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnEditOperation()
         {
-            EventHandler handler = EditOperation;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = EditOperation;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnRefreshViewData()
         {
             var handler = ReloadMethods;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnMethodSelected(MethodEventArgs e)
         {
             var handler = MethodSelected;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnOperationSelected(OperationEventArgs e)
         {
             var handler = OperationSelected;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         private void MethodsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,12 +178,11 @@ namespace CPECentral.Views
 
             operationsToolStrip.Enabled = false;
             operationsEnhancedListView.Enabled = false;
-            
+
             editMethodToolStripButton.Enabled = methodsEnhancedListView.SelectionCount == 1;
             deleteMethodToolStripButton.Enabled = methodsEnhancedListView.SelectionCount == 1;
 
-            if (methodsEnhancedListView.SelectionCount == 0)
-            {
+            if (methodsEnhancedListView.SelectionCount == 0) {
                 SelectedMethod = null;
                 return;
             }
@@ -189,18 +202,19 @@ namespace CPECentral.Views
             editOperationToolStripButton.Enabled = operationsEnhancedListView.SelectionCount == 1;
             deleteOperationToolStripButton.Enabled = operationsEnhancedListView.SelectionCount == 1;
 
-            if (operationsEnhancedListView.SelectionCount == 0)
+            if (operationsEnhancedListView.SelectionCount == 0) {
                 SelectedOperation = null;
-            else
+            }
+            else {
                 SelectedOperation = (Operation) operationsEnhancedListView.SelectedItems[0].Tag;
+            }
 
             OnOperationSelected(new OperationEventArgs(SelectedOperation));
         }
 
-        private void methodsToolStrip_ItemClicked(object sender, System.Windows.Forms.ToolStripItemClickedEventArgs e)
+        private void methodsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "addMethodToolStripButton":
                     OnAddMethod();
                     break;
@@ -220,10 +234,9 @@ namespace CPECentral.Views
             OnEditOperation();
         }
 
-        private void operationsToolStrip_ItemClicked(object sender, System.Windows.Forms.ToolStripItemClickedEventArgs e)
+        private void operationsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "addOperationToolStripButton":
                     OnAddOperation();
                     break;

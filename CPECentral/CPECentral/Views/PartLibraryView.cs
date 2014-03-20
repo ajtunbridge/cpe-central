@@ -46,8 +46,7 @@ namespace CPECentral.Views
             enhancedTreeViewImageList.Images.Add("CustomerIcon", Resources.CustomerIcon_16x16);
             enhancedTreeViewImageList.Images.Add("PartIcon", Resources.OpenIcon_16x16);
 
-            if (!IsInDesignMode)
-            {
+            if (!IsInDesignMode) {
                 _presenter = new PartLibraryViewPresenter(this);
 
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
@@ -64,8 +63,9 @@ namespace CPECentral.Views
         {
             get
             {
-                switch (searchFieldComboBox.Text)
-                {
+                switch (searchFieldComboBox.Text) {
+                    case "Works order number":
+                        return SearchField.WorksOrderNumber;
                     case "Drawing number":
                         return SearchField.DrawingNumber;
                     case "Name":
@@ -92,8 +92,9 @@ namespace CPECentral.Views
         {
             DisplayModel(viewModel, false);
 
-            if (_idOfPartToSelect.HasValue)
+            if (_idOfPartToSelect.HasValue) {
                 SelectPart(_idOfPartToSelect.Value);
+            }
         }
 
         public void DisplaySearchResults(PartLibraryViewModel viewModel)
@@ -102,8 +103,6 @@ namespace CPECentral.Views
 
             enhancedTreeView.ExpandAll();
         }
-
-        #endregion
 
         public void RefreshLibrary()
         {
@@ -114,12 +113,15 @@ namespace CPECentral.Views
             OnReloadData();
         }
 
+        #endregion
+
         private void PartLibraryView_Load(object sender, EventArgs e)
         {
             searchFieldComboBox.SelectedIndex = 0;
 
-            if (Settings.Default.LastViewedPartId > 0)
+            if (Settings.Default.LastViewedPartId > 0) {
                 _idOfPartToSelect = Settings.Default.LastViewedPartId;
+            }
 
             RefreshLibrary();
         }
@@ -130,26 +132,25 @@ namespace CPECentral.Views
 
             enhancedTreeView.Enabled = true;
 
-            if (viewModel == null)
-            {
+            if (viewModel == null) {
                 enhancedTreeView.Nodes.Add("Error loading library!");
                 return;
             }
 
-            if (!viewModel.Customers.Any())
-            {
-                if (isSearchResult)
+            if (!viewModel.Customers.Any()) {
+                if (isSearchResult) {
                     enhancedTreeView.Nodes.Add("The search returned no results!");
-                else
+                }
+                else {
                     enhancedTreeView.Nodes.Add("There are no parts in the library!");
+                }
 
                 return;
             }
 
-            int partCount = 0;
+            var partCount = 0;
 
-            foreach (var customer in viewModel.Customers.OrderBy(c => c.Name))
-            {
+            foreach (var customer in viewModel.Customers.OrderBy(c => c.Name)) {
                 var customerNode = enhancedTreeView.Nodes.Add(customer.Name);
                 customerNode.ImageKey = "CustomerIcon";
                 customerNode.SelectedImageKey = "CustomerIcon";
@@ -158,16 +159,17 @@ namespace CPECentral.Views
                 var customerParts = viewModel.Parts.Where(p => p.CustomerId == customer.Id)
                                              .OrderBy(p => p.DrawingNumber);
 
-                foreach (var part in customerParts)
-                {
+                foreach (var part in customerParts) {
                     partCount++;
 
                     string nodeText;
 
-                    if (isSearchResult && SearchField == SearchField.Name)
+                    if (isSearchResult && SearchField == SearchField.Name) {
                         nodeText = part.DrawingNumber + " (" + part.Name + ")";
-                    else
+                    }
+                    else {
                         nodeText = part.DrawingNumber;
+                    }
 
                     var partNode = customerNode.Nodes.Add(nodeText);
                     partNode.ImageKey = "PartIcon";
@@ -185,31 +187,41 @@ namespace CPECentral.Views
         protected virtual void OnReloadData()
         {
             var handler = ReloadData;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnCustomerSelected(CustomerEventArgs e)
         {
             var handler = CustomerSelected;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnPartSelected(PartEventArgs e)
         {
             var handler = PartSelected;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnDeletePart(PartEventArgs e)
         {
-            EventHandler<PartEventArgs> handler = DeletePart;
-            if (handler != null) handler(this, e);
+            var handler = DeletePart;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnSearch(PartSearchEventArgs e)
         {
-            EventHandler<PartSearchEventArgs> handler = Search;
-            if (handler != null) handler(this, e);
+            var handler = Search;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         private void PartAddedMessage_Published(PartAddedMessage message)
@@ -220,8 +232,7 @@ namespace CPECentral.Views
 
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
-            if (SelectedPart == message.EditedPart)
-            {
+            if (SelectedPart == message.EditedPart) {
                 var selectedNode = enhancedTreeView.SelectedNode;
 
                 selectedNode.Text = message.EditedPart.DrawingNumber;
@@ -232,8 +243,7 @@ namespace CPECentral.Views
 
         private void enhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Tag is Part)
-            {
+            if (e.Node.Tag is Part) {
                 contextMenuStrip.Enabled = true;
 
                 SelectedPart = (Part) e.Node.Tag;
@@ -242,25 +252,23 @@ namespace CPECentral.Views
 
                 OnPartSelected(new PartEventArgs(SelectedPart));
             }
-            else if (e.Node.Tag is Customer)
-            {
+            else if (e.Node.Tag is Customer) {
                 contextMenuStrip.Enabled = false;
 
                 SelectedCustomer = (Customer) e.Node.Tag;
                 OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
             }
         }
-    
+
         private void SelectPart(int partId)
         {
-            foreach (TreeNode customerNode in enhancedTreeView.Nodes)
-            {
-                foreach (TreeNode partNode in customerNode.Nodes)
-                {
+            foreach (TreeNode customerNode in enhancedTreeView.Nodes) {
+                foreach (TreeNode partNode in customerNode.Nodes) {
                     var nodePart = (Part) partNode.Tag;
 
-                    if (nodePart.Id != partId)
+                    if (nodePart.Id != partId) {
                         continue;
+                    }
 
                     enhancedTreeView.SelectedNode = partNode;
                     return;
@@ -292,8 +300,7 @@ namespace CPECentral.Views
         {
             contextMenuStrip.Hide();
 
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "deleteToolStripMenuItem":
                     OnDeletePart(new PartEventArgs(SelectedPart));
                     break;
@@ -303,19 +310,20 @@ namespace CPECentral.Views
 
     public class PartSearchArgs
     {
-        public SearchField Field { get; set; }
-        public string Value { get; set; }
-
         public PartSearchArgs(SearchField field, string value)
         {
             Field = field;
             Value = value;
         }
+
+        public SearchField Field { get; set; }
+        public string Value { get; set; }
     }
 
     public enum SearchField
     {
         DrawingNumber,
-        Name
+        Name,
+        WorksOrderNumber
     }
 }

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral", "CPECentral\CPECentral.csproj", "{F6E179D6-EC12-4918-BAC6-0A594E36B06F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral.Data.EF5", "CPECentral.Data.EF5\CPECentral.Data.EF5.csproj", "{502DEA6A-EA3E-4A9A-BC97-96097CC3C77C}"

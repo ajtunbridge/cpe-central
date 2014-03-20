@@ -107,6 +107,7 @@
             this.searchFieldComboBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchFieldComboBox.FormattingEnabled = true;
             this.searchFieldComboBox.Items.AddRange(new object[] {
+            "Works order number",
             "Drawing number",
             "Name"});
             this.searchFieldComboBox.Location = new System.Drawing.Point(0, 0);

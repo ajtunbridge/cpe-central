@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using directives
+
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -21,7 +21,7 @@ namespace CPECentral.Presenters
             _partView.ReloadData += _partView_ReloadData;
         }
 
-        void _partView_ReloadData(object sender, EventArgs e)
+        private void _partView_ReloadData(object sender, EventArgs e)
         {
             var getDataWorker = new BackgroundWorker();
             getDataWorker.DoWork += getDataWorker_DoWork;
@@ -29,10 +29,9 @@ namespace CPECentral.Presenters
             getDataWorker.RunWorkerAsync(_partView.Part);
         }
 
-        void getDataWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void getDataWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 return;
             }
@@ -42,14 +41,12 @@ namespace CPECentral.Presenters
             _partView.DisplayModel(model);
         }
 
-        void getDataWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void getDataWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
+            try {
                 var part = (Part) e.Argument;
 
-                using (var uow = new UnitOfWork())
-                {
+                using (var uow = new UnitOfWork()) {
                     var createdBy = uow.Employees.GetById(part.CreatedBy);
                     var modifiedBy = uow.Employees.GetById(part.ModifiedBy);
 
@@ -60,8 +57,7 @@ namespace CPECentral.Presenters
                     e.Result = model;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
@@ -70,12 +66,10 @@ namespace CPECentral.Presenters
         {
             string message;
 
-            if (ex is DataProviderException)
-            {
+            if (ex is DataProviderException) {
                 message = ex.Message;
             }
-            else
-            {
+            else {
                 message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
             }
 

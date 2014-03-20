@@ -49,8 +49,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            if (!IsInDesignMode)
-            {
+            if (!IsInDesignMode) {
                 _presenter = new DocumentsViewPresenter(this);
 
                 Session.MessageBus.Subscribe<DocumentsChangedMessage>(DocumentsChangedMessage_Published);
@@ -99,8 +98,7 @@ namespace CPECentral.Views
             newTurningProgramToolStripButton.Visible = _opType == OperationType.Turning;
             newFeatureCAMFileToolStripButton.Visible = _opType != OperationType.None;
 
-            foreach (var documentModel in model.DocumentModels)
-            {
+            foreach (var documentModel in model.DocumentModels) {
                 filesListView.AddFile(documentModel.FileName, documentModel.Document);
             }
 
@@ -135,86 +133,110 @@ namespace CPECentral.Views
 
         protected virtual void OnAddDocuments()
         {
-            EventHandler handler = AddDocuments;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = AddDocuments;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnCopyDocuments()
         {
-            EventHandler handler = CopyDocuments;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = CopyDocuments;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnDeleteSelectedDocuments()
         {
             var handler = DeleteSelectedDocuments;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnOpenDocument()
         {
             var handler = OpenDocument;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnPasteDocuments()
         {
-            EventHandler handler = PasteDocuments;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = PasteDocuments;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnRefreshDocuments()
         {
             var handler = RefreshDocuments;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnSelectionChanged()
         {
             var handler = SelectionChanged;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnFilesDropped(FileDropEventArgs e)
         {
             var handler = FilesDropped;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnNewTurningProgram()
         {
             var handler = NewTurningProgram;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnNewFeatureCAMFile()
         {
             var handler = NewFeatureCAMFile;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnImportMillingFile()
         {
-            EventHandler handler = ImportMillingFile;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = ImportMillingFile;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnRenameDocument(RenameDocumentEventArgs e)
         {
-            EventHandler<RenameDocumentEventArgs> handler = RenameDocument;
-            if (handler != null) handler(this, e);
+            var handler = RenameDocument;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         private void DocumentsChangedMessage_Published(DocumentsChangedMessage message)
         {
-            if (InvokeRequired)
-            {
+            if (InvokeRequired) {
                 Invoke((MethodInvoker) (() => DocumentsChangedMessage_Published(message)));
                 return;
             }
 
-            if (message.Entity.Equals(CurrentEntity))
+            if (message.Entity.Equals(CurrentEntity)) {
                 OnRefreshDocuments();
+            }
         }
 
         private void filesListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -230,8 +252,9 @@ namespace CPECentral.Views
 
         private void filesListView_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
                 e.Effect = DragDropEffects.Copy;
+            }
         }
 
         private void filesListView_DragDrop(object sender, DragEventArgs e)
@@ -248,8 +271,7 @@ namespace CPECentral.Views
 
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "addDocumentToolStripButton":
                     OnAddDocuments();
                     break;
@@ -279,22 +301,19 @@ namespace CPECentral.Views
 
         private void filesListView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (filesListView.SelectionCount > 0 && e.KeyCode == Keys.Delete)
-            {
+            if (filesListView.SelectionCount > 0 && e.KeyCode == Keys.Delete) {
                 OnDeleteSelectedDocuments();
                 return;
             }
 
-            if (filesListView.SelectionCount == 1 && e.KeyCode == Keys.F2)
-            {
+            if (filesListView.SelectionCount == 1 && e.KeyCode == Keys.F2) {
                 filesListView.SelectedItems[0].BeginEdit();
             }
         }
 
         private void filesListView_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(e.Label))
-            {
+            if (string.IsNullOrWhiteSpace(e.Label)) {
                 e.CancelEdit = true;
                 return;
             }
@@ -308,8 +327,7 @@ namespace CPECentral.Views
 
         private void ContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "pasteToolStripMenuItem":
                     OnPasteDocuments();
                     break;

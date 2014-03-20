@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿#region Using directives
+
+using System;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -30,7 +29,7 @@ namespace CPECentral.Dialogs
 
         public int Sequence
         {
-            get { return (int)sequenceNumericUpDown.Value; }
+            get { return (int) sequenceNumericUpDown.Value; }
         }
 
         public int SetupTime
@@ -55,12 +54,10 @@ namespace CPECentral.Dialogs
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
-            {
+            if (keyData == Keys.Enter) {
                 OkayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
             }
-            else if (keyData == Keys.Escape)
-            {
+            else if (keyData == Keys.Escape) {
                 OkayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
             }
 
@@ -69,8 +66,7 @@ namespace CPECentral.Dialogs
 
         private void OkayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(descriptionTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(descriptionTextBox.Text)) {
                 const string noDescriptionMessage = "You must provide a description of this operation!";
 
                 _dialogService.Notify(noDescriptionMessage);
@@ -88,32 +84,29 @@ namespace CPECentral.Dialogs
 
         private void EditOperationDialog_Load(object sender, EventArgs e)
         {
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         var machineGroups = uow.MachineGroups.GetAll().OrderBy(m => m.Name);
 
                         machineGroupComboBox.Items.AddRange(machineGroups.ToArray());
 
-                        if (_operation == null)
-                        {
+                        if (_operation == null) {
                             machineGroupComboBox.SelectedIndex = 0;
                             return;
                         }
 
                         sequenceNumericUpDown.Value = _operation.Sequence;
                         setupNumericUpDown.Value = _operation.SetupTime.HasValue ? _operation.SetupTime.Value : 0;
-                        cycleNumericUpDown.Value = _operation.CycleTime.HasValue ? (decimal)_operation.CycleTime.Value : 0;
+                        cycleNumericUpDown.Value = _operation.CycleTime.HasValue
+                                                       ? (decimal) _operation.CycleTime.Value
+                                                       : 0;
                         descriptionTextBox.Text = _operation.Description;
                         machineGroupComboBox.SelectedItem = uow.MachineGroups.GetById(_operation.MachineGroupId);
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 _dialogService.ShowError(msg);

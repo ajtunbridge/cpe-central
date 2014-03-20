@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿#region Using directives
+
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Properties;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -28,8 +27,7 @@ namespace CPECentral.Dialogs
 
         private void ImportMillingProgramDialog_Load(object sender, EventArgs e)
         {
-            using (var uow = new UnitOfWork())
-            {
+            using (var uow = new UnitOfWork()) {
                 _millingGroup = uow.MachineGroups.GetByName("CNC Mills");
 
                 nextProgramNumberLabel.Text = _millingGroup.NextNumber.ToString();
@@ -39,38 +37,39 @@ namespace CPECentral.Dialogs
         private void proceedButton_Click(object sender, EventArgs e)
         {
             var foundFile = false;
-            using (BusyCursor.Show())
-            {
+            using (BusyCursor.Show()) {
                 var files = Directory.GetFiles(Settings.Default.MillingProgramDirectory,
                                                "*" + _millingGroup.NextNumber + "*");
 
 
-                foreach (var fileName in files)
-                {
+                foreach (var fileName in files) {
                     var ext = Path.GetExtension(fileName).ToLower();
 
-                    if (ext != ".h" && ext != ".txt")
+                    if (ext != ".h" && ext != ".txt") {
                         continue;
+                    }
 
                     var lastIndexOfDot = fileName.LastIndexOf(".");
 
-                    if (lastIndexOfDot == -1)
+                    if (lastIndexOfDot == -1) {
                         continue;
+                    }
 
                     var withoutExt = Path.GetFileNameWithoutExtension(fileName);
 
-                    if (!withoutExt.All(char.IsNumber))
+                    if (!withoutExt.All(char.IsNumber)) {
                         continue;
+                    }
 
                     var fileNumber = Convert.ToInt32(withoutExt);
 
-                    if (fileNumber != _millingGroup.NextNumber)
+                    if (fileNumber != _millingGroup.NextNumber) {
                         continue;
+                    }
 
                     Session.DocumentService.QueueUpload(fileName, _operation);
 
-                    using (var uow = new UnitOfWork())
-                    {
+                    using (var uow = new UnitOfWork()) {
                         _millingGroup.NextNumber += 1;
 
                         uow.MachineGroups.Update(_millingGroup);
@@ -84,12 +83,10 @@ namespace CPECentral.Dialogs
                 }
             }
 
-            if (foundFile)
-            {
+            if (foundFile) {
                 Close();
             }
-            else
-            {
+            else {
                 _dialogService.Notify("Couldn't find program file in milling directory!");
             }
         }

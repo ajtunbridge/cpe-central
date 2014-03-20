@@ -33,24 +33,22 @@ namespace CPECentral.Presenters
             _operationsView.MethodSelected += OperationsView_MethodSelected;
         }
 
-        void _operationsView_EditOperation(object sender, EventArgs e)
+        private void _operationsView_EditOperation(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
                 return;
+            }
 
-            try
-            {
-                var parentForm = ((UserControl)_operationsView).ParentForm;
+            try {
+                var parentForm = ((UserControl) _operationsView).ParentForm;
 
-                using (var operationDialog = new EditOperationDialog(_operationsView.SelectedOperation))
-                {
-                    if (operationDialog.ShowDialog(parentForm) != DialogResult.OK)
+                using (var operationDialog = new EditOperationDialog(_operationsView.SelectedOperation)) {
+                    if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
+                    }
 
-                    using (BusyCursor.Show())
-                    {
-                        using (var uow = new UnitOfWork())
-                        {
+                    using (BusyCursor.Show()) {
+                        using (var uow = new UnitOfWork()) {
                             var opToEdit = uow.Operations.GetById(_operationsView.SelectedOperation.Id);
 
                             opToEdit.CycleTime = operationDialog.CycleTime;
@@ -59,7 +57,7 @@ namespace CPECentral.Presenters
                             opToEdit.ModifiedBy = Session.CurrentEmployee.Id;
                             opToEdit.Sequence = operationDialog.Sequence;
                             opToEdit.SetupTime = operationDialog.SetupTime;
-                            
+
                             uow.Operations.Update(opToEdit);
 
                             uow.Commit();
@@ -69,27 +67,26 @@ namespace CPECentral.Presenters
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
 
-        void _operationsView_AddOperation(object sender, EventArgs e)
+        private void _operationsView_AddOperation(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
                 return;
+            }
 
-            try
-            {
+            try {
                 Operation newOperation;
 
-                using (var operationDialog = new EditOperationDialog())
-                {
-                    var parentForm = ((UserControl)_operationsView).ParentForm;
+                using (var operationDialog = new EditOperationDialog()) {
+                    var parentForm = ((UserControl) _operationsView).ParentForm;
 
-                    if (operationDialog.ShowDialog(parentForm) != DialogResult.OK)
+                    if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
+                    }
 
                     newOperation = new Operation();
                     newOperation.MethodId = _operationsView.SelectedMethod.Id;
@@ -102,10 +99,8 @@ namespace CPECentral.Presenters
                     newOperation.ModifiedBy = Session.CurrentEmployee.Id;
                 }
 
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         uow.Operations.Add(newOperation);
                         uow.Commit();
                     }
@@ -113,28 +108,27 @@ namespace CPECentral.Presenters
 
                 ReloadOperations();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
 
-        
+
         private void OperationsView_AddMethod(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
                 return;
+            }
 
-            try
-            {
+            try {
                 Method newMethod;
 
-                using (var methodDialog = new EditMethodDialog())
-                {
-                    var parentForm = ((UserControl)_operationsView).ParentForm;
+                using (var methodDialog = new EditMethodDialog()) {
+                    var parentForm = ((UserControl) _operationsView).ParentForm;
 
-                    if (methodDialog.ShowDialog(parentForm) != DialogResult.OK)
+                    if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
+                    }
 
                     newMethod = new Method();
                     newMethod.Description = methodDialog.Description;
@@ -144,44 +138,40 @@ namespace CPECentral.Presenters
                     newMethod.ModifiedBy = Session.CurrentEmployee.Id;
                 }
 
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         uow.Methods.Add(newMethod);
                         uow.Commit();
 
-                        if (newMethod.IsPreferred)
+                        if (newMethod.IsPreferred) {
                             EnsureOnlyOnePreferredMethod(newMethod, uow);
+                        }
                     }
                 }
 
                 ReloadMethods();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
 
         private void OperationsView_EditMethod(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageOperations, true))
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
                 return;
+            }
 
-            try
-            {
-                using (var methodDialog = new EditMethodDialog(_operationsView.SelectedMethod))
-                {
+            try {
+                using (var methodDialog = new EditMethodDialog(_operationsView.SelectedMethod)) {
                     var parentForm = ((UserControl) _operationsView).ParentForm;
 
-                    if (methodDialog.ShowDialog(parentForm) != DialogResult.OK)
+                    if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
+                    }
 
-                    using (BusyCursor.Show())
-                    {
-                        using (var uow = new UnitOfWork())
-                        {
+                    using (BusyCursor.Show()) {
+                        using (var uow = new UnitOfWork()) {
                             var methodToEdit = uow.Methods.GetById(_operationsView.SelectedMethod.Id);
                             methodToEdit.Description = methodDialog.Description;
                             methodToEdit.IsPreferred = methodDialog.IsPreferred;
@@ -189,16 +179,16 @@ namespace CPECentral.Presenters
                             uow.Methods.Update(methodToEdit);
                             uow.Commit();
 
-                            if (methodToEdit.IsPreferred)
+                            if (methodToEdit.IsPreferred) {
                                 EnsureOnlyOnePreferredMethod(methodToEdit, uow);
+                            }
                         }
                     }
                 }
 
                 ReloadMethods();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
@@ -215,27 +205,23 @@ namespace CPECentral.Presenters
 
         private void GetOperationsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
+            try {
                 var method = (Method) e.Argument;
 
-                using (var uow = new UnitOfWork())
-                {
+                using (var uow = new UnitOfWork()) {
                     var ops = uow.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
 
                     e.Result = ops;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
 
         private void GetOperationsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _operationsView.DisplayOperations(null);
                 return;
@@ -248,28 +234,24 @@ namespace CPECentral.Presenters
 
         private void GetMethodsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
+            try {
                 var partVersion = (PartVersion) e.Argument;
 
-                using (var uow = new UnitOfWork())
-                {
+                using (var uow = new UnitOfWork()) {
                     var methods = uow.Methods.GetByPartVersion(partVersion)
                                      .OrderByDescending(method => method.IsPreferred);
 
                     e.Result = methods;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
 
         private void GetMethodsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _operationsView.DisplayMethods(null);
                 return;
@@ -285,8 +267,7 @@ namespace CPECentral.Presenters
             var otherMethods = uow.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
                                   .Where(m => m.Id != prefferedMethod.Id);
 
-            foreach (var method in otherMethods)
-            {
+            foreach (var method in otherMethods) {
                 method.IsPreferred = false;
                 uow.Methods.Update(method);
             }
@@ -318,16 +299,14 @@ namespace CPECentral.Presenters
         {
             string message;
 
-            if (ex is DataProviderException)
-            {
+            if (ex is DataProviderException) {
                 var dataEx = ex as DataProviderException;
 
-                message = dataEx.Error == DataProviderError.UniqueConstraintViolation 
-                    ? "An operation already exists at this sequence!" 
-                    : ex.Message;
+                message = dataEx.Error == DataProviderError.UniqueConstraintViolation
+                              ? "An operation already exists at this sequence!"
+                              : ex.Message;
             }
-            else
-            {
+            else {
                 message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
             }
 

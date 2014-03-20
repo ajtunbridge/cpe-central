@@ -32,7 +32,7 @@ namespace CPECentral.Presenters
 
             _documentsView.AddDocuments += _documentsView_AddDocuments;
             _documentsView.CopyDocuments += _documentsView_CopyDocuments;
-            _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments; 
+            _documentsView.DeleteSelectedDocuments += _documentsView_DeleteSelectedDocuments;
             _documentsView.FilesDropped += _documentsView_FilesDropped;
             _documentsView.OpenDocument += _documentsView_OpenDocument;
             _documentsView.PasteDocuments += _documentsView_PasteDocuments;
@@ -45,87 +45,84 @@ namespace CPECentral.Presenters
             _documentsView.RenameDocument += _documentsView_RenameDocument;
         }
 
-        void _documentsView_PasteDocuments(object sender, EventArgs e)
+        private void _documentsView_PasteDocuments(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true)) {
                 return;
+            }
 
             var filePaths = Clipboard.GetFileDropList();
 
-            if (filePaths.Count == 0) return;
+            if (filePaths.Count == 0) {
+                return;
+            }
 
-            IEnumerable<Document> docs = GetDocuments();
+            var docs = GetDocuments();
 
             var existingDocuments = new List<Document>();
 
-            foreach (var path in filePaths)
-            {
+            foreach (var path in filePaths) {
                 var fileName = Path.GetFileName(path);
 
                 var existing = docs.FirstOrDefault(d => d.FileName == fileName);
 
-                if (existing == null) continue;
+                if (existing == null) {
+                    continue;
+                }
 
                 existingDocuments.Add(existing);
             }
 
-            if (existingDocuments.Count > 0)
-            {
+            if (existingDocuments.Count > 0) {
                 // TODO: improve the UI for overwriting 
                 var question = string.Format("Do you want to overwrite the following documents:\n\n");
 
                 var count = 1;
 
-                foreach (var doc in existingDocuments)
-                {
+                foreach (var doc in existingDocuments) {
                     question += string.Format("{0}) {1}\n", count, doc.FileName);
                     count++;
                 }
 
-                if (_documentsView.DialogService.AskQuestion(question) == false)
+                if (_documentsView.DialogService.AskQuestion(question) == false) {
                     return;
+                }
             }
 
-            foreach (var fileName in filePaths)
-            {
+            foreach (var fileName in filePaths) {
                 Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
             }
         }
 
-        void _documentsView_CopyDocuments(object sender, EventArgs e)
+        private void _documentsView_CopyDocuments(object sender, EventArgs e)
         {
             var fileNames = new StringCollection();
 
-            foreach (var document in _documentsView.SelectedDocuments)
-            {
+            foreach (var document in _documentsView.SelectedDocuments) {
                 fileNames.Add(Session.DocumentService.GetPathToDocument(document));
             }
 
             Clipboard.SetFileDropList(fileNames);
         }
 
-        void _documentsView_RenameDocument(object sender, RenameDocumentEventArgs e)
+        private void _documentsView_RenameDocument(object sender, RenameDocumentEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(e.NewFileName))
-            {
+            if (string.IsNullOrWhiteSpace(e.NewFileName)) {
                 _documentsView.DialogService.ShowError("A file name must be provided!");
                 return;
             }
 
             var invalidChars = Path.GetInvalidFileNameChars();
 
-            if (e.NewFileName.Any(invalidChars.Contains))
-            {
+            if (e.NewFileName.Any(invalidChars.Contains)) {
                 _documentsView.DialogService.ShowError("You entered illegal characters into the file name!");
                 return;
             }
 
-            try
-            {
+            try {
                 Session.DocumentService.RenameDocument(e.Document, e.NewFileName);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
@@ -136,50 +133,45 @@ namespace CPECentral.Presenters
 
             var operation = _documentsView.CurrentEntity as Operation;
 
-            using (var importDialog = new ImportMillingProgramDialog(operation))
-            {
+            using (var importDialog = new ImportMillingProgramDialog(operation)) {
                 importDialog.ShowDialog(parentForm);
             }
         }
 
         private void _documentsView_AddDocuments(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Settings.Default.SharedAppDir))
-            {
+            if (!Directory.Exists(Settings.Default.SharedAppDir)) {
                 _documentsView.DialogService.ShowError("The shared application directory could not be located!");
                 return;
             }
 
-            using (var fileDialog = new OpenFileDialog())
-            {
+            using (var fileDialog = new OpenFileDialog()) {
                 var parentForm = ((UserControl) _documentsView).ParentForm;
 
                 fileDialog.Filter = "All files|*.*";
                 fileDialog.Title = "Please select documents to upload";
                 fileDialog.InitialDirectory = Settings.Default.DefaultDirectory;
 
-                if (fileDialog.ShowDialog(parentForm) != DialogResult.OK)
+                if (fileDialog.ShowDialog(parentForm) != DialogResult.OK) {
                     return;
+                }
 
-                foreach (var fileName in fileDialog.FileNames)
+                foreach (var fileName in fileDialog.FileNames) {
                     Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
+                }
             }
         }
 
         private void _documentsView_NewFeatureCAMFile(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Settings.Default.SharedAppDir))
-            {
+            if (!Directory.Exists(Settings.Default.SharedAppDir)) {
                 _documentsView.DialogService.ShowError("The shared application directory could not be located!");
                 return;
             }
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         var op = _documentsView.CurrentEntity as Operation;
 
                         var method = uow.Methods.GetById(op.MethodId);
@@ -196,8 +188,7 @@ namespace CPECentral.Presenters
 
                         byte[] data = null;
 
-                        switch (machineGroup.ToLower())
-                        {
+                        switch (machineGroup.ToLower()) {
                             case "cnc mills":
                                 data = Resources.CAM_Template_Milling;
                                 break;
@@ -212,33 +203,30 @@ namespace CPECentral.Presenters
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
 
         private void _documentsView_NewTurningProgram(object sender, EventArgs e)
         {
-            if (!_documentsView.DialogService.AskQuestion("Are you sure you want to create a new turning program?"))
+            if (!_documentsView.DialogService.AskQuestion("Are you sure you want to create a new turning program?")) {
                 return;
+            }
 
-            if (!Directory.Exists(Settings.Default.SharedAppDir))
-            {
+            if (!Directory.Exists(Settings.Default.SharedAppDir)) {
                 _documentsView.DialogService.ShowError("The shared application directory could not be located!");
                 return;
             }
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         var group = uow.MachineGroups.GetByName("CNC Lathes");
 
-                        if (group == null)
+                        if (group == null) {
                             throw new InvalidOperationException("There isn't a machine group for lathes!");
+                        }
 
                         var op = _documentsView.CurrentEntity as Operation;
 
@@ -268,8 +256,7 @@ namespace CPECentral.Presenters
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }
@@ -278,29 +265,28 @@ namespace CPECentral.Presenters
         {
             const string question = "Are you sure you want to delete these documents?\n\nThis cannot be undone!";
 
-            if (!_documentsView.DialogService.AskQuestion(question))
+            if (!_documentsView.DialogService.AskQuestion(question)) {
                 return;
+            }
 
             Session.DocumentService.DeleteDocuments(_documentsView.SelectedDocuments);
         }
 
         private void _documentsView_OpenDocument(object sender, EventArgs e)
         {
-            var document = _documentsView.SelectedDocuments.First();
+            //var document = _documentsView.SelectedDocuments.First();
 
-            Session.DocumentService.OpenDocument(document);
+            //Session.DocumentService.OpenDocument(document);
         }
 
         private void _documentsView_FilesDropped(object sender, FileDropEventArgs e)
         {
-            if (!Directory.Exists(Settings.Default.SharedAppDir))
-            {
+            if (!Directory.Exists(Settings.Default.SharedAppDir)) {
                 _documentsView.DialogService.ShowError("The shared application directory could not be located!");
                 return;
             }
 
-            foreach (var file in e.DroppedFiles)
-            {
+            foreach (var file in e.DroppedFiles) {
                 Session.DocumentService.QueueUpload(file, _documentsView.CurrentEntity);
             }
         }
@@ -315,28 +301,23 @@ namespace CPECentral.Presenters
 
         private void _refreshDocumentsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            lock (_refreshLocker)
-            {
+            lock (_refreshLocker) {
                 var entity = e.Argument as IEntity;
 
-                try
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+                try {
+                    using (var uow = new UnitOfWork()) {
                         uow.OpenConnection();
 
                         IEnumerable<Document> documents = null;
 
                         var model = new DocumentsViewModel(OperationType.None);
 
-                        if (entity is Operation)
-                        {
+                        if (entity is Operation) {
                             var op = entity as Operation;
 
                             var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId);
 
-                            switch (machineGroup.Name.ToLower())
-                            {
+                            switch (machineGroup.Name.ToLower()) {
                                 case "cnc mills":
                                     model.OpType = OperationType.Milling;
                                     break;
@@ -350,13 +331,14 @@ namespace CPECentral.Presenters
 
                             documents = uow.Documents.GetByOperation(entity.Id);
                         }
-                        else if (entity is Part)
+                        else if (entity is Part) {
                             documents = uow.Documents.GetByPart(entity.Id);
-                        else if (entity is PartVersion)
+                        }
+                        else if (entity is PartVersion) {
                             documents = uow.Documents.GetByPartVersion(entity.Id);
+                        }
 
-                        foreach (var document in documents.OrderBy(d => d.FileName))
-                        {
+                        foreach (var document in documents.OrderBy(d => d.FileName)) {
                             var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
 
                             model.AddDocumentModel(document, pathToFile);
@@ -365,8 +347,7 @@ namespace CPECentral.Presenters
                         e.Result = model;
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     e.Result = ex;
                 }
             }
@@ -375,14 +356,14 @@ namespace CPECentral.Presenters
         private void _refreshDocumentsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // BUG: find out why this happens when refreshing the library!
-            if (_refreshDocumentsWorker == null)
+            if (_refreshDocumentsWorker == null) {
                 return;
+            }
 
             _refreshDocumentsWorker.Dispose();
             _refreshDocumentsWorker = null;
 
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 return;
             }
@@ -396,27 +377,27 @@ namespace CPECentral.Presenters
         {
             IEnumerable<Document> docs;
 
-            using (var uow = new UnitOfWork())
-            {
-                using (BusyCursor.Show())
-                {
-                    if (_documentsView.CurrentEntity is Operation)
-                        docs = uow.Documents.GetByOperation((Operation)_documentsView.CurrentEntity);
-                    else if (_documentsView.CurrentEntity is Part)
-                        docs = uow.Documents.GetByPart((Part)_documentsView.CurrentEntity);
+            using (var uow = new UnitOfWork()) {
+                using (BusyCursor.Show()) {
+                    if (_documentsView.CurrentEntity is Operation) {
+                        docs = uow.Documents.GetByOperation((Operation) _documentsView.CurrentEntity);
+                    }
+                    else if (_documentsView.CurrentEntity is Part) {
+                        docs = uow.Documents.GetByPart((Part) _documentsView.CurrentEntity);
+                    }
                     else // is IPartVersion
-                        docs = uow.Documents.GetByPartVersion((PartVersion)_documentsView.CurrentEntity);
+                    {
+                        docs = uow.Documents.GetByPartVersion((PartVersion) _documentsView.CurrentEntity);
+                    }
                 }
             }
 
             var existingDocs = new List<Document>();
 
-            foreach (var doc in docs)
-            {
+            foreach (var doc in docs) {
                 var pathToFile = Session.DocumentService.GetPathToDocument(doc);
 
-                if (!File.Exists(pathToFile))
-                {
+                if (!File.Exists(pathToFile)) {
                     // TODO: Handle missing documents
                     continue;
                 }
@@ -431,10 +412,10 @@ namespace CPECentral.Presenters
         {
             string message;
 
-            if (exception is DataProviderException)
+            if (exception is DataProviderException) {
                 message = exception.Message;
-            else
-            {
+            }
+            else {
                 message = exception.InnerException == null
                               ? exception.Message
                               : exception.InnerException.Message;

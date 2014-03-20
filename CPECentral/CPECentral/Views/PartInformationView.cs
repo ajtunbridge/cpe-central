@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -37,8 +36,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            if (!IsInDesignMode)
-            {
+            if (!IsInDesignMode) {
                 _presenter = new PartInformationViewPresenter(this);
             }
         }
@@ -58,10 +56,8 @@ namespace CPECentral.Views
             Enabled = false;
             _isLoadingData = true;
 
-            foreach (var control in Controls)
-            {
-                if (control is TextBox)
-                {
+            foreach (var control in Controls) {
+                if (control is TextBox) {
                     (control as TextBox).Text = "retrieving...";
                 }
             }
@@ -73,8 +69,7 @@ namespace CPECentral.Views
 
         public void DisplayModel(PartInformationViewModel model)
         {
-            if (model != null)
-            {
+            if (model != null) {
                 Enabled = true;
 
                 customerTextBox.ReadOnly = model.ReadOnly;
@@ -103,8 +98,7 @@ namespace CPECentral.Views
             Enabled = true;
             _isLoadingData = false;
 
-            if (successful)
-            {
+            if (successful) {
                 saveChangesButton.Text = "No changes";
 
                 Session.MessageBus.Publish(new PartEditedMessage(Part));
@@ -113,8 +107,7 @@ namespace CPECentral.Views
 
                 Session.MessageBus.Publish(new StatusUpdateMessage(status));
             }
-            else
-            {
+            else {
                 saveChangesButton.Text = "Save changes";
             }
         }
@@ -124,19 +117,25 @@ namespace CPECentral.Views
         protected virtual void OnSaveChanges()
         {
             var handler = SaveChanges;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnReloadData()
         {
             var handler = ReloadData;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnVersionSelected(PartVersionEventArgs e)
         {
-            EventHandler<PartVersionEventArgs> handler = VersionSelected;
-            if (handler != null) handler(this, e);
+            var handler = VersionSelected;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         private void PartInformationView_Load(object sender, EventArgs e)
@@ -145,8 +144,9 @@ namespace CPECentral.Views
 
         private void TextBoxes_TextChanged(object sender, EventArgs e)
         {
-            if (_isLoadingData)
+            if (_isLoadingData) {
                 return;
+            }
 
             saveChangesButton.Text = "Save changes";
             saveChangesButton.Enabled = true;
@@ -174,7 +174,7 @@ namespace CPECentral.Views
 
         private void versionOptionsButton_Click(object sender, EventArgs e)
         {
-            versionOptionsContextMenuStrip.Show(System.Windows.Forms.Cursor.Position);
+            versionOptionsContextMenuStrip.Show(Cursor.Position);
         }
     }
 }

@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading;
 using CPECentral.Data.EF5;
 using CPECentral.Properties;
 using CPECentral.Views;
@@ -38,19 +37,17 @@ namespace CPECentral.Presenters
 
         private void LoginWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _loginView.LoginComplete(null);
                 return;
             }
-            
-            if (e.Result == null)
-            {
+
+            if (e.Result == null) {
                 _loginView.LoginComplete(null);
                 return;
             }
-            
+
             var employee = (Employee) e.Result;
 
             Settings.Default.LastUserName = employee.UserName;
@@ -63,14 +60,12 @@ namespace CPECentral.Presenters
         {
             var args = (LoginArgs) e.Argument;
 
-            try
-            {
+            try {
                 var uow = new UnitOfWork();
 
                 var employee = uow.Employees.GetByUserName(args.UserName);
 
-                if (employee == null)
-                {
+                if (employee == null) {
                     _loginView.DialogService.ShowError("There is no account associated with the user name you entered!");
                     return;
                 }
@@ -79,18 +74,30 @@ namespace CPECentral.Presenters
 
                 var passwordOk = passwordService.AreEqual(args.Password, employee.Password, employee.Salt);
 
-                if (!passwordOk)
-                {
+                if (!passwordOk) {
                     _loginView.DialogService.ShowError("The password you provided does not match the one on record!");
                     return;
                 }
 
                 e.Result = employee;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
+        }
+
+        private void HandleException(Exception ex)
+        {
+            string message;
+
+            if (ex is DataProviderException) {
+                message = ex.Message;
+            }
+            else {
+                message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+
+            _loginView.DialogService.ShowError(message);
         }
 
         #region Nested type: LoginArgs
@@ -108,22 +115,5 @@ namespace CPECentral.Presenters
         }
 
         #endregion
-
-        private void HandleException(Exception ex)
-        {
-            string message;
-
-            if (ex is DataProviderException)
-            {
-                message = ex.Message;
-            }
-            else
-            {
-                message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
-            }
-
-            _loginView.DialogService.ShowError(message);
-        }
     }
-
 }

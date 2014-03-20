@@ -30,8 +30,9 @@ namespace CPECentral.Views
             InitializeComponent();
             Dock = DockStyle.Fill;
 
-            if (!IsInDesignMode)
+            if (!IsInDesignMode) {
                 _presenter = new LoginViewPresenter(this);
+            }
         }
 
         #region ILoginView Members
@@ -51,8 +52,7 @@ namespace CPECentral.Views
 
         public void LoginComplete(Employee employee)
         {
-            if (employee == null)
-            {
+            if (employee == null) {
                 preloaderPictureBox.Visible = false;
                 verifyingLabel.Visible = false;
 
@@ -74,7 +74,9 @@ namespace CPECentral.Views
         protected virtual void OnLogin()
         {
             var handler = Login;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void LoginView_Resize(object sender, EventArgs e)
@@ -92,16 +94,16 @@ namespace CPECentral.Views
         {
             var lastUserName = Settings.Default.LastUserName;
 
-            if (string.IsNullOrWhiteSpace(lastUserName))
+            if (string.IsNullOrWhiteSpace(lastUserName)) {
                 return;
+            }
 
             userNameTextBox.Text = lastUserName;
         }
 
         private void TextBoxes_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
+            if (e.KeyCode == Keys.Enter) {
                 e.SuppressKeyPress = true;
                 DoLogin();
             }

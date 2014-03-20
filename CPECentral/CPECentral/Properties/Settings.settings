@@ -35,15 +35,6 @@
     <Setting Name="SharedAppDir" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\Central\</Value>
     </Setting>
-    <Setting Name="TurningProgramHeader" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">%
-:{prog}(DWG.{dwg} VER.{ver} OP.{op})
-
-(CUST.{cust})
-(NAME.{name})
-
-</Value>
-    </Setting>
     <Setting Name="MillingProgramDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\Milling</Value>
     </Setting>
@@ -58,6 +49,18 @@
     </Setting>
     <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\</Value>
+    </Setting>
+    <Setting Name="TurningProgramHeader" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%
+:{prog}(DWG.{dwg} VER.{ver} OP.{op})
+
+(CUST.{cust})
+(NAME.{name})
+
+</Value>
+    </Setting>
+    <Setting Name="TurningToolRegEx" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</Value>
     </Setting>
   </Settings>
 </SettingsFile>

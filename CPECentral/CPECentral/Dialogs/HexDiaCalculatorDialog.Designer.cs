@@ -78,7 +78,7 @@
             this.acrossFlatsNumericUpDown.TabIndex = 2;
             this.acrossFlatsNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.acrossFlatsNumericUpDown.Value = new decimal(new int[] {
-            15,
+            8,
             0,
             0,
             0});
@@ -101,7 +101,7 @@
             this.minimumDiameterLabel.Name = "minimumDiameterLabel";
             this.minimumDiameterLabel.Size = new System.Drawing.Size(115, 103);
             this.minimumDiameterLabel.TabIndex = 3;
-            this.minimumDiameterLabel.Text = "Ø22.500";
+            this.minimumDiameterLabel.Text = "Ø9.238";
             this.minimumDiameterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // okayButton

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -37,39 +36,38 @@ namespace CPECentral
 
         public void QueueUpload(string fileName, IEntity entity, bool deleteOriginal)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true)) {
                 return;
+            }
 
-            if (!Directory.Exists(Settings.Default.SharedAppDir))
-            {
+            if (!Directory.Exists(Settings.Default.SharedAppDir)) {
                 _dialogService.ShowError("The shared application directory could not be located!");
                 return;
             }
-            
+
             var uploadItem = new UploadQueueItem(fileName, entity, deleteOriginal);
 
-            if (_queue.Contains(uploadItem))
+            if (_queue.Contains(uploadItem)) {
                 return;
+            }
 
-            lock (_locker)
-            {
+            lock (_locker) {
                 _queue.Add(uploadItem);
             }
 
-            if (_worker == null)
+            if (_worker == null) {
                 StartWorker();
+            }
         }
 
         public void OpenDocument(Document document)
         {
             var fileName = GetPathToDocument(document);
 
-            try
-            {
+            try {
                 Process.Start(fileName);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 _dialogService.ShowError(msg);
@@ -78,30 +76,31 @@ namespace CPECentral
 
         public void DeleteDocuments(IEnumerable<Document> documents)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true)) {
                 return;
+            }
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
+            try {
+                using (BusyCursor.Show()) {
                     IEntity entity = null;
 
-                    using (var uow = new UnitOfWork())
-                    {
-                        foreach (var document in documents)
-                        {
-                            if (document.OperationId.HasValue)
+                    using (var uow = new UnitOfWork()) {
+                        foreach (var document in documents) {
+                            if (document.OperationId.HasValue) {
                                 entity = uow.Operations.GetById(document.OperationId.Value);
-                            else if (document.PartId.HasValue)
+                            }
+                            else if (document.PartId.HasValue) {
                                 entity = uow.Parts.GetById(document.PartId.Value);
-                            else if (document.PartVersionId.HasValue)
+                            }
+                            else if (document.PartVersionId.HasValue) {
                                 entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+                            }
 
                             var fileName = GetPathToDocument(document, uow);
 
-                            if (File.Exists(fileName))
+                            if (File.Exists(fileName)) {
                                 File.Delete(fileName);
+                            }
 
                             uow.Documents.Delete(document);
 
@@ -112,14 +111,15 @@ namespace CPECentral
                     Session.MessageBus.Publish(new DocumentsChangedMessage(entity));
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 string message;
 
-                if (ex is DataProviderException)
+                if (ex is DataProviderException) {
                     message = ex.Message;
-                else
+                }
+                else {
                     message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                }
 
                 _dialogService.ShowError(message);
             }
@@ -127,26 +127,23 @@ namespace CPECentral
 
         public void RenameDocument(Document document, string newFileName)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true)) {
                 return;
+            }
 
-            bool renamedOk = false;
+            var renamedOk = false;
             string sourceFileName = null, destinationFileName = null;
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var uow = new UnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
                         var documentToUpdate = uow.Documents.GetById(document.Id);
 
                         sourceFileName = GetPathToDocument(documentToUpdate, uow);
 
                         var lastIndexOfDot = documentToUpdate.FileName.LastIndexOf(".");
 
-                        if (lastIndexOfDot > -1)
-                        {
+                        if (lastIndexOfDot > -1) {
                             var extension = documentToUpdate.FileName.Substring(lastIndexOfDot);
                             documentToUpdate.FileName = newFileName + extension;
                         }
@@ -163,10 +160,11 @@ namespace CPECentral
                     }
                 }
             }
-            catch
-            {
+            catch {
                 if (renamedOk) // must be a database error so un-rename
+                {
                     File.Move(destinationFileName, sourceFileName);
+                }
 
                 throw;
             }
@@ -174,15 +172,14 @@ namespace CPECentral
 
         public string GetPathToDocument(Document document)
         {
-            using (var uow = new UnitOfWork())
-            {
+            using (var uow = new UnitOfWork()) {
                 return GetPathToDocument(document, uow);
             }
         }
 
         public string GetPathToDocument(Document document, UnitOfWork uow)
         {
-            IEntity entity = GetDocumentEntity(document, uow);
+            var entity = GetDocumentEntity(document, uow);
 
             var storageDir = GetEntityStorageDirectory(entity, uow);
 
@@ -206,12 +203,12 @@ namespace CPECentral
 
             string destinationFile = null;
 
-            try
-            {
+            try {
                 var storageDir = GetEntityStorageDirectory(uploadItem.Entity, uow);
 
-                if (!Directory.Exists(storageDir))
+                if (!Directory.Exists(storageDir)) {
                     Directory.CreateDirectory(storageDir);
+                }
 
                 // convert all extensions to lower case
                 var extension = Path.GetExtension(uploadItem.SourceFile);
@@ -227,27 +224,30 @@ namespace CPECentral
 
                 var entity = uploadItem.Entity;
 
-                if (!overwriting)
-                {
+                if (!overwriting) {
                     var newDoc = new Document();
                     newDoc.FileName = fileName;
                     newDoc.CreatedBy = Session.CurrentEmployee.Id;
                     newDoc.ModifiedBy = Session.CurrentEmployee.Id;
 
-                    if (entity is Operation)
+                    if (entity is Operation) {
                         newDoc.OperationId = entity.Id;
-                    else if (entity is Part)
+                    }
+                    else if (entity is Part) {
                         newDoc.PartId = entity.Id;
-                    else if (entity is PartVersion)
+                    }
+                    else if (entity is PartVersion) {
                         newDoc.PartVersionId = entity.Id;
+                    }
 
                     uow.Documents.Add(newDoc);
 
                     uow.Commit();
                 }
 
-                if (uploadItem.DeleteOriginal)
+                if (uploadItem.DeleteOriginal) {
                     File.Delete(uploadItem.SourceFile);
+                }
 
                 // this is for when creating a new part, it gives the view time
                 // to load before firing the message
@@ -257,12 +257,11 @@ namespace CPECentral
 
                 OnTransferComplete();
             }
-            catch (Exception ex)
-            {
-                if (destinationFile != null)
-                {
-                    if (File.Exists(destinationFile))
+            catch (Exception ex) {
+                if (destinationFile != null) {
+                    if (File.Exists(destinationFile)) {
                         File.Delete(destinationFile);
+                    }
                 }
 
                 OnError(new ExceptionEventArgs(ex));
@@ -273,8 +272,7 @@ namespace CPECentral
         {
             IQueueItem item;
 
-            lock (_locker)
-            {
+            lock (_locker) {
                 item = _queue[0];
                 _queue.RemoveAt(0);
             }
@@ -286,27 +284,28 @@ namespace CPECentral
         {
             IEntity entity = null;
 
-            if (document.OperationId.HasValue)
+            if (document.OperationId.HasValue) {
                 entity = uow.Operations.GetById(document.OperationId.Value);
-            else if (document.PartId.HasValue)
+            }
+            else if (document.PartId.HasValue) {
                 entity = uow.Parts.GetById(document.PartId.Value);
-            else if (document.PartVersionId.HasValue)
+            }
+            else if (document.PartVersionId.HasValue) {
                 entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+            }
 
-            return entity;    
+            return entity;
         }
 
         private string GetEntityStorageDirectory(IEntity entity, UnitOfWork uow)
         {
-            if (entity is Part)
-            {
+            if (entity is Part) {
                 var appDir = Settings.Default.SharedAppDir;
 
                 return string.Format("{0}\\Documents\\PID{1}", appDir, entity.Id);
             }
 
-            if (entity is PartVersion)
-            {
+            if (entity is PartVersion) {
                 var version = entity as PartVersion;
 
                 var part = uow.Parts.GetById(version.PartId);
@@ -316,8 +315,7 @@ namespace CPECentral
                 return string.Format("{0}\\VER{1}", partDir, entity.Id);
             }
 
-            if (entity is Operation)
-            {
+            if (entity is Operation) {
                 var op = entity as Operation;
 
                 var method = uow.Methods.GetById(op.MethodId);
@@ -334,14 +332,13 @@ namespace CPECentral
         {
             IsBusy = true;
 
-            using (var uow = new UnitOfWork())
-            {
-                while (_queue.Count > 0)
-                {
+            using (var uow = new UnitOfWork()) {
+                while (_queue.Count > 0) {
                     var item = DequeueItem();
 
-                    if (item is UploadQueueItem)
+                    if (item is UploadQueueItem) {
                         DoUpload(item as UploadQueueItem, uow);
+                    }
                 }
             }
         }
@@ -364,19 +361,25 @@ namespace CPECentral
         protected virtual void OnError(ExceptionEventArgs e)
         {
             var handler = Error;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnTransferStarted(TransferStartedEventArgs e)
         {
             var handler = TransferStarted;
-            if (handler != null) handler(this, e);
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnTransferComplete()
         {
             var handler = TransferComplete;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual CopyFileCallbackAction OnTransferProgress(string filename, string destinationdirectory,
@@ -384,8 +387,9 @@ namespace CPECentral
         {
             var handler = TransferProgress;
 
-            if (handler != null)
+            if (handler != null) {
                 return handler(filename, destinationdirectory, percentcomplete);
+            }
 
             return CopyFileCallbackAction.Continue;
         }
@@ -419,8 +423,12 @@ namespace CPECentral
 
             public bool Equals(UploadQueueItem other)
             {
-                if (ReferenceEquals(null, other)) return false;
-                if (ReferenceEquals(this, other)) return true;
+                if (ReferenceEquals(null, other)) {
+                    return false;
+                }
+                if (ReferenceEquals(this, other)) {
+                    return true;
+                }
                 return string.Equals(SourceFile, other.SourceFile) && Equals(Entity, other.Entity);
             }
 
@@ -428,8 +436,7 @@ namespace CPECentral
 
             public override int GetHashCode()
             {
-                unchecked
-                {
+                unchecked {
                     return ((SourceFile != null ? SourceFile.GetHashCode() : 0)*397) ^
                            (Entity != null ? Entity.GetHashCode() : 0);
                 }
@@ -447,9 +454,15 @@ namespace CPECentral
 
             public override bool Equals(object obj)
             {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
+                if (ReferenceEquals(null, obj)) {
+                    return false;
+                }
+                if (ReferenceEquals(this, obj)) {
+                    return true;
+                }
+                if (obj.GetType() != GetType()) {
+                    return false;
+                }
                 return Equals((UploadQueueItem) obj);
             }
         }

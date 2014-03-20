@@ -9,6 +9,8 @@ using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
+using Tricorn;
+using Part = CPECentral.Data.EF5.Part;
 
 #endregion
 
@@ -30,36 +32,30 @@ namespace CPECentral.Presenters
 
         private void _libraryView_DeletePart(object sender, PartEventArgs e)
         {
-            if (e.Part == null)
-            {
+            if (e.Part == null) {
                 _libraryView.DialogService.ShowError("No part selected!");
                 return;
             }
 
-            if (!AppSecurity.Check(AppPermission.ManageParts, true))
-            {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
             }
 
             const string warningMessage =
                 "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
 
-            if (_libraryView.DialogService.AskQuestion(warningMessage))
-            {
+            if (_libraryView.DialogService.AskQuestion(warningMessage)) {
                 return;
             }
 
             const string confirmationQuestion = "WARNING!\n\nAre you sure you want to proceed?";
 
-            if (!_libraryView.DialogService.AskQuestion(confirmationQuestion))
-            {
+            if (!_libraryView.DialogService.AskQuestion(confirmationQuestion)) {
                 return;
             }
 
-            using (var uow = new UnitOfWork())
-            {
-                using (BusyCursor.Show())
-                {
+            using (var uow = new UnitOfWork()) {
+                using (BusyCursor.Show()) {
                     var documents = new List<Document>();
 
                     var part = _libraryView.SelectedPart;
@@ -69,20 +65,17 @@ namespace CPECentral.Presenters
                     var versions = uow.PartVersions.GetByPart(part).ToList();
 
                     var methods = new List<Method>();
-                    foreach (var version in versions)
-                    {
+                    foreach (var version in versions) {
                         methods.AddRange(uow.Methods.GetByPartVersion(version));
                         documents.AddRange(uow.Documents.GetByPartVersion(version));
                     }
 
                     var operations = new List<Operation>();
-                    foreach (var method in methods)
-                    {
+                    foreach (var method in methods) {
                         operations.AddRange(uow.Operations.GetByMethod(method));
                     }
 
-                    foreach (var operation in operations)
-                    {
+                    foreach (var operation in operations) {
                         documents.AddRange(uow.Documents.GetByOperation(operation));
                     }
 
@@ -112,14 +105,22 @@ namespace CPECentral.Presenters
         {
             var args = (PartSearchArgs) e.Argument;
 
-            try
-            {
-                using (var uow = new UnitOfWork())
-                {
+            try {
+                using (var uow = new UnitOfWork()) {
                     IEnumerable<Part> matchingParts;
 
-                    switch (args.Field)
-                    {
+                    switch (args.Field) {
+                        case SearchField.WorksOrderNumber:
+                            using (var tricorn = new TricornDataProvider())
+                            {
+                                var drawingNumbers = tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
+                                var parts = new List<Part>();
+                                foreach (var drawingNumber in drawingNumbers) {
+                                    parts.AddRange(uow.Parts.GetWhereDrawingNumberContains(drawingNumber));
+                                }
+                                matchingParts = parts;
+                            }
+                            break;
                         case SearchField.DrawingNumber:
                             matchingParts = uow.Parts.GetWhereDrawingNumberContains(args.Value);
                             break;
@@ -140,16 +141,14 @@ namespace CPECentral.Presenters
                     e.Result = model;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
 
         private void _searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _libraryView.RefreshLibrary();
                 return;
@@ -170,8 +169,7 @@ namespace CPECentral.Presenters
 
         private void GetPartsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 _libraryView.RefreshLibrary();
                 return;
@@ -184,10 +182,8 @@ namespace CPECentral.Presenters
 
         private void GetPartsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
-                using (var uow = new UnitOfWork())
-                {
+            try {
+                using (var uow = new UnitOfWork()) {
                     var customers = uow.Customers.GetAll();
                     var parts = uow.Parts.GetAll();
 
@@ -196,8 +192,7 @@ namespace CPECentral.Presenters
                     e.Result = viewModel;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 e.Result = ex;
             }
         }
@@ -206,12 +201,10 @@ namespace CPECentral.Presenters
         {
             string message;
 
-            if (ex is DataProviderException)
-            {
+            if (ex is DataProviderException) {
                 message = ex.Message;
             }
-            else
-            {
+            else {
                 message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
             }
 

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using directives
+
+using System;
 using System.Drawing;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CPECentral.Properties;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Controls
 {
@@ -25,28 +25,31 @@ namespace CPECentral.Controls
 
         private void ImageViewer_Load(object sender, EventArgs e)
         {
-            
         }
 
         public void LoadFile(string fileName)
         {
+            Enabled = false;
+
             _fileName = fileName;
 
-            using (var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read))
-            {
-                imageBox.Image = Image.FromStream(fs);
-            }
+            Task.Factory.StartNew(() => {
+                using (var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read)) {
+                    var img = Image.FromStream(fs);
 
-            imageBox.ZoomToFit();
-
-            imageBox.ZoomIn();
-            imageBox.ZoomIn();
+                    imageBox.InvokeEx(() => {
+                        imageBox.Image = img;
+                        imageBox.ZoomToFit();
+                        progressBar.Visible = false;
+                        Enabled = true;
+                    });
+                }
+            });
         }
 
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "zoomInToolStripButton":
                     imageBox.ZoomIn();
                     break;
@@ -54,15 +57,13 @@ namespace CPECentral.Controls
                     imageBox.ZoomOut();
                     break;
                 case "rotateToolStripButton":
-                    using (BusyCursor.Show())
-                    {
+                    using (BusyCursor.Show()) {
                         imageBox.Rotate();
                         saveToolStripButton.Enabled = true;
                     }
                     break;
                 case "saveToolStripButton":
-                    using (BusyCursor.Show())
-                    {
+                    using (BusyCursor.Show()) {
                         imageBox.Image.Save(_fileName);
                         saveToolStripButton.Enabled = false;
                     }
@@ -75,21 +76,19 @@ namespace CPECentral.Controls
 
         private void ShowPreviewWindow()
         {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                if (!(openForm is PreviewPopoutForm))
+            foreach (Form openForm in Application.OpenForms) {
+                if (!(openForm is PreviewPopoutForm)) {
                     continue;
+                }
 
                 var openPreviewForm = openForm as PreviewPopoutForm;
 
-                if (openPreviewForm.PreviewControl is ImageViewer)
-                {
+                if (openPreviewForm.PreviewControl is ImageViewer) {
                     var viewer = openPreviewForm.PreviewControl as ImageViewer;
                     viewer.LoadFile(_fileName);
                     return;
                 }
-                else
-                {
+                else {
                     var viewer = new ImageViewer();
                     viewer.Dock = DockStyle.Fill;
                     openPreviewForm.PreviewControl = viewer;
@@ -104,6 +103,14 @@ namespace CPECentral.Controls
 
             var previewForm = new PreviewPopoutForm(imgViewer);
             previewForm.Show(ParentForm);
+        }
+
+        private void imageBox_Resize(object sender, EventArgs e)
+        {
+            if (!progressBar.Visible) return;
+
+            progressBar.Left = (imageBox.Width - progressBar.Width)/2;
+            progressBar.Top = (imageBox.Height - progressBar.Height)/2;
         }
     }
 }

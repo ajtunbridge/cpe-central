@@ -1,7 +1,6 @@
 ﻿#region Using directives
 
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 #endregion
@@ -14,8 +13,9 @@ namespace CPECentral.Views
 
         public ViewBase()
         {
-            if (!IsInDesignMode)
+            if (!IsInDesignMode) {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
+            }
         }
 
         protected bool IsInDesignMode
@@ -23,9 +23,13 @@ namespace CPECentral.Views
             get { return LicenseManager.UsageMode == LicenseUsageMode.Designtime; }
         }
 
+        #region IView Members
+
         public IDialogService DialogService
         {
             get { return _dialogService; }
         }
+
+        #endregion
     }
 }

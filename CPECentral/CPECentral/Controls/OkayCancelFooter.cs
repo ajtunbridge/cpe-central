@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using directives
+
+using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+
+#endregion
 
 namespace CPECentral.Controls
 {
     [DefaultEvent("OkayClicked")]
     public partial class OkayCancelFooter : UserControl
     {
-        public event EventHandler OkayClicked;
-
-        public event EventHandler CancelClicked;
-
         public OkayCancelFooter()
         {
             InitializeComponent();
@@ -23,16 +18,24 @@ namespace CPECentral.Controls
             base.Dock = DockStyle.Bottom;
         }
 
+        public event EventHandler OkayClicked;
+
+        public event EventHandler CancelClicked;
+
         protected virtual void OnOkayClicked()
         {
-            EventHandler handler = OkayClicked;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = OkayClicked;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnCancelClicked()
         {
-            EventHandler handler = CancelClicked;
-            if (handler != null) handler(this, EventArgs.Empty);
+            var handler = CancelClicked;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void okayButton_Click(object sender, EventArgs e)

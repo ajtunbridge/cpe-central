@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -18,7 +16,6 @@ namespace CPECentral.Dialogs
 
         private void HexDiaCalculatorDialog_Load(object sender, EventArgs e)
         {
-
         }
 
         private void okayButton_Click(object sender, EventArgs e)
@@ -28,11 +25,11 @@ namespace CPECentral.Dialogs
 
         private void acrossFlatsNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            var figure = Math.Sin(60);
+            const double sin60 = 0.866;
 
-            var dia = (double)acrossFlatsNumericUpDown.Value * figure;
+            var dia = (double)acrossFlatsNumericUpDown.Value / sin60;
 
-            minimumDiameterLabel.Text = dia.ToString("0:0.000");
+            minimumDiameterLabel.Text = dia.ToString("Ø##0.000");
         }
     }
 }

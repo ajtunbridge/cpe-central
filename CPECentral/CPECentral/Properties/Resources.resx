@@ -169,17 +169,11 @@
   <data name="EditIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EditIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CPECentralIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CPECentralIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CustomerIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CustomerIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PreloaderImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PreloaderImage.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GenericFileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GenericFileIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,7 +202,19 @@
   <data name="DocumentPreviewBgTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocumentPreviewBgTile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UploadIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UploadIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AppIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DownloadIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DownloadIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UploadIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UploadIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Beep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GenericFileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NcFileIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

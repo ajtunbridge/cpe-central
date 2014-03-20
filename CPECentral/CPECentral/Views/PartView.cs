@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Presenters;
@@ -35,8 +36,7 @@ namespace CPECentral.Views
 
             base.Dock = DockStyle.Fill;
 
-            if (!IsInDesignMode)
-            {
+            if (!IsInDesignMode) {
                 _presenter = new PartViewPresenter(this);
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
             }
@@ -50,14 +50,15 @@ namespace CPECentral.Views
 
         public void LoadPart(Part part)
         {
+            filePreviewTabControl.Clear();
+
             Part = part;
 
             partInformationView.LoadPart(Part);
             partDocumentsView.LoadDocuments(Part);
             operationDocumentsView.ClearDocuments();
 
-            using (BusyCursor.Show())
-            {
+            using (BusyCursor.Show()) {
                 Settings.Default.LastViewedPartId = part.Id;
                 Settings.Default.Save();
             }
@@ -78,21 +79,24 @@ namespace CPECentral.Views
         protected virtual void OnReloadData()
         {
             var handler = ReloadData;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
-            if (!Equals(Part, message.EditedPart))
+            if (!Equals(Part, message.EditedPart)) {
                 return;
+            }
 
             RefreshData();
         }
 
         private void RefreshData()
         {
-            selectedDocumentPreviewPanel.ClearPreview();
-            
+            filePreviewTabControl.Clear();
+
             createdByLabel.Text = "Created by: N/A";
             modifiedByLabel.Text = "Modified by: N/A";
 
@@ -107,37 +111,16 @@ namespace CPECentral.Views
             modifiedByLabel.Left = Right - modifiedByLabel.Width - 3;
         }
 
-        private void partInformationView_VersionSelected(object sender, CustomEventArgs.PartVersionEventArgs e)
+        private void partInformationView_VersionSelected(object sender, PartVersionEventArgs e)
         {
             operationsView.LoadMethods(e.PartVersion);
 
             versionDocumentsView.LoadDocuments(e.PartVersion);
         }
 
-        private void DocumentViews_SelectionChanged(object sender, EventArgs e)
+        private void operationsView_OperationSelected(object sender, OperationEventArgs e)
         {
-            var documentsView = (DocumentsView) sender;
-
-            if (documentsView.SelectionCount != 1)
-            {
-                selectedDocumentPreviewPanel.ClearPreview();
-                return;
-            }
-
-            var selectedDocument = documentsView.SelectedDocuments.First();
-
-            ThreadPool.QueueUserWorkItem(delegate
-                {
-                    var pathToDocument = Session.DocumentService.GetPathToDocument(selectedDocument);
-
-                    selectedDocumentPreviewPanel.InvokeEx(() => selectedDocumentPreviewPanel.ShowFile(pathToDocument));
-                });
-        }
-
-        private void operationsView_OperationSelected(object sender, CustomEventArgs.OperationEventArgs e)
-        {
-            if (e.Operation == null)
-            {
+            if (e.Operation == null) {
                 operationDescriptionLabel.Text = string.Empty;
                 operationsTabControl.Enabled = false;
                 return;
@@ -146,6 +129,19 @@ namespace CPECentral.Views
             operationDescriptionLabel.Text = e.Operation.Description;
             operationsTabControl.Enabled = true;
             operationDocumentsView.LoadDocuments(e.Operation);
+        }
+
+        private void documentsView_OpenDocument(object sender, EventArgs e)
+        {
+            var view = (DocumentsView) sender;
+
+            var doc = view.SelectedDocuments.First();
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                var pathToDocument = Session.DocumentService.GetPathToDocument(doc);
+
+                filePreviewTabControl.InvokeEx(() => filePreviewTabControl.ShowFile(pathToDocument));
+            });
         }
     }
 }

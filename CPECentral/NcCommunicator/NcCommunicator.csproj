@@ -51,10 +51,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MachinesDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\Repositories\MachineControlRepository.cs" />
     <Compile Include="Data\Repositories\MachineRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceiveProgressEventArgs.cs" />
+    <Compile Include="SerialConnectionFailedException.cs" />
+    <Compile Include="SerialLink.cs" />
+    <Compile Include="TransmitProgressEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Model\MachinesDataSet.xsc">

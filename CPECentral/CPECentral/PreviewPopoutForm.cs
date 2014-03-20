@@ -40,8 +40,7 @@ namespace CPECentral
 
         private void PreviewPopoutForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (WindowState != FormWindowState.Maximized)
-            {
+            if (WindowState != FormWindowState.Maximized) {
                 Settings.Default.PreviewFormLocation = Location;
                 Settings.Default.PreviewFormSize = Size;
             }

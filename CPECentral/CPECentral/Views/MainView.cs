@@ -16,6 +16,7 @@ namespace CPECentral.Views
     public interface IMainView : IView
     {
         event EventHandler AddPart;
+        event EventHandler LoadHexagonCalculator;
     }
 
     public partial class MainView : ViewBase, IMainView
@@ -27,8 +28,7 @@ namespace CPECentral.Views
             InitializeComponent();
             base.Dock = DockStyle.Fill;
 
-            if (!DesignMode)
-            {
+            if (!DesignMode) {
                 _presenter = new MainViewPresenter(this);
 
                 Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
@@ -43,13 +43,13 @@ namespace CPECentral.Views
         #region IMainView Members
 
         public event EventHandler AddPart;
+        public event EventHandler LoadHexagonCalculator;
 
         #endregion
 
         private void StatusUpdateMessage_Published(StatusUpdateMessage message)
         {
-            if (InvokeRequired)
-            {
+            if (InvokeRequired) {
                 mainStatusStrip.InvokeEx(() => StatusUpdateMessage_Published(message));
                 return;
             }
@@ -61,10 +61,12 @@ namespace CPECentral.Views
         {
             string message;
 
-            if (e.Exception is DataProviderException)
+            if (e.Exception is DataProviderException) {
                 message = e.Exception.Message;
-            else
+            }
+            else {
                 message = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+            }
 
             Invoke((MethodInvoker) (() => DialogService.ShowError(message)));
         }
@@ -72,15 +74,24 @@ namespace CPECentral.Views
         protected virtual void OnAddPart()
         {
             var handler = AddPart;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnLoadHexagonCalculator()
+        {
+            EventHandler handler = LoadHexagonCalculator;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void partLibraryView_PartSelected(object sender, PartEventArgs e)
         {
-            if (librarySelectionPanel.Controls.Count == 1)
-            {
-                if (librarySelectionPanel.Controls[0].GetType() == typeof (PartView))
-                {
+            if (librarySelectionPanel.Controls.Count == 1) {
+                if (librarySelectionPanel.Controls[0].GetType() == typeof (PartView)) {
                     var existingView = (PartView) librarySelectionPanel.Controls[0];
                     existingView.LoadPart(e.Part);
                     return;
@@ -89,8 +100,7 @@ namespace CPECentral.Views
 
             var partView = new PartView();
 
-            using (NoFlicker.On(librarySelectionPanel))
-            {
+            using (NoFlicker.On(librarySelectionPanel)) {
                 librarySelectionPanel.Controls.Clear();
                 librarySelectionPanel.Controls.Add(partView);
             }
@@ -102,8 +112,7 @@ namespace CPECentral.Views
         {
             var customerView = new CustomerView(e.Customer);
 
-            using (NoFlicker.On(librarySelectionPanel))
-            {
+            using (NoFlicker.On(librarySelectionPanel)) {
                 librarySelectionPanel.Controls.Clear();
                 librarySelectionPanel.Controls.Add(customerView);
             }
@@ -113,10 +122,12 @@ namespace CPECentral.Views
         {
             var menuItem = (ToolStripMenuItem) sender;
 
-            switch (menuItem.Name)
-            {
+            switch (menuItem.Name) {
                 case "addNewPartToolStripMenuItem":
                     OnAddPart();
+                    break;
+                case "hexagonCalculatorToolStripMenuItem":
+                    OnLoadHexagonCalculator();
                     break;
                 case "logoutToolStripMenuItem":
                     HandleLogout();
@@ -126,12 +137,11 @@ namespace CPECentral.Views
 
         private void DocumentService_TransferComplete(object sender, EventArgs e)
         {
-            Invoke((MethodInvoker) delegate
-                {
-                    documentTransferToolStripProgressBar.Value = 0;
-                    documentTransferToolStripProgressBar.Visible = false;
-                    documentTransferStatusLabel.Text = "No documents pending upload";
-                });
+            Invoke((MethodInvoker) delegate {
+                documentTransferToolStripProgressBar.Value = 0;
+                documentTransferToolStripProgressBar.Visible = false;
+                documentTransferStatusLabel.Text = "No documents pending upload";
+            });
         }
 
         private CopyFileCallbackAction DocumentService_TransferProgress(string fileName, string destinationDirectory,
@@ -146,17 +156,15 @@ namespace CPECentral.Views
 
         private void DocumentService_TransferStarted(object sender, TransferStartedEventArgs e)
         {
-            Invoke((MethodInvoker) delegate
-                {
-                    documentTransferToolStripProgressBar.Visible = true;
-                    documentTransferStatusLabel.Text = "Uploading " + Path.GetFileName(e.FileName);
-                });
+            Invoke((MethodInvoker) delegate {
+                documentTransferToolStripProgressBar.Visible = true;
+                documentTransferStatusLabel.Text = "Uploading " + Path.GetFileName(e.FileName);
+            });
         }
 
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "addPartToolStripButton":
                     OnAddPart();
                     break;
@@ -168,8 +176,9 @@ namespace CPECentral.Views
 
         private void HandleLogout()
         {
-            if (!DialogService.AskQuestion("Are you sure you want to logout?"))
+            if (!DialogService.AskQuestion("Are you sure you want to logout?")) {
                 return;
+            }
 
             Session.CurrentEmployee = null;
 

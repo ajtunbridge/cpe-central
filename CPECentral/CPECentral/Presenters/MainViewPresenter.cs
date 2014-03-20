@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Views;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -19,34 +20,37 @@ namespace CPECentral.Presenters
         {
             _mainView = mainView;
             _mainView.AddPart += _mainView_AddPart;
+            mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
         }
 
-        void _mainView_AddPart(object sender, EventArgs e)
+        void mainView_LoadHexagonCalculator(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageParts, true))
-            {
+            using (var dialog = new HexDiaCalculatorDialog()) {
+                dialog.ShowDialog();
+            }
+        }
+
+        private void _mainView_AddPart(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
             }
 
-            using (var addPartDialog = new AddPartDialog())
-            {
+            using (var addPartDialog = new AddPartDialog()) {
                 var parent = ((UserControl) _mainView).ParentForm;
 
-                if (addPartDialog.ShowDialog(parent) != DialogResult.OK)
+                if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
                     return;
+                }
 
-                try
-                {
-                    using (BusyCursor.Show())
-                    {
-                        using (var uow = new UnitOfWork())
-                        {
+                try {
+                    using (BusyCursor.Show()) {
+                        using (var uow = new UnitOfWork()) {
                             uow.BeginTransaction();
 
                             var part = new Part();
 
-                            if (addPartDialog.IsNewCustomer)
-                            {
+                            if (addPartDialog.IsNewCustomer) {
                                 var customer = new Customer();
                                 customer.Name = addPartDialog.NewCustomerName;
                                 customer.CreatedBy = Session.CurrentEmployee.Id;
@@ -56,8 +60,7 @@ namespace CPECentral.Presenters
 
                                 part.Customer = customer;
                             }
-                            else
-                            {
+                            else {
                                 part.CustomerId = addPartDialog.SelectedCustomer.Id;
                             }
 
@@ -81,21 +84,21 @@ namespace CPECentral.Presenters
 
                             Session.MessageBus.Publish(new PartAddedMessage(part));
 
-                            foreach (var file in addPartDialog.FilesToImport)
-                            {
+                            foreach (var file in addPartDialog.FilesToImport) {
                                 Session.DocumentService.QueueUpload(file, version);
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     string message;
 
-                    if (ex is DataProviderException)
+                    if (ex is DataProviderException) {
                         message = ex.Message;
-                    else
+                    }
+                    else {
                         message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    }
 
                     _mainView.DialogService.ShowError(message);
                 }

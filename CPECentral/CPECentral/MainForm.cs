@@ -29,8 +29,7 @@ namespace CPECentral
 
         private void ShowLoginView()
         {
-            using (NoFlicker.On(this))
-            {
+            using (NoFlicker.On(this)) {
                 Controls.Clear();
 
                 var loginView = new LoginView();
@@ -43,8 +42,7 @@ namespace CPECentral
 
         private void ShowMainView()
         {
-            using (NoFlicker.On(this))
-            {
+            using (NoFlicker.On(this)) {
                 Controls.Clear();
 
                 var mainView = new MainView();
@@ -57,8 +55,7 @@ namespace CPECentral
 
         private void EmployeeLoggedInMessage_Published(EmployeeLoggedInMessage message)
         {
-            if (InvokeRequired)
-            {
+            if (InvokeRequired) {
                 Invoke((MethodInvoker) (() => EmployeeLoggedInMessage_Published(message)));
                 return;
             }
@@ -72,8 +69,7 @@ namespace CPECentral
 
         private void EmployeeLoggedOutMessage_Published(EmployeeLoggedOutMessage message)
         {
-            if (InvokeRequired)
-            {
+            if (InvokeRequired) {
                 Invoke((MethodInvoker) (() => EmployeeLoggedOutMessage_Published(message)));
                 return;
             }
@@ -101,8 +97,7 @@ namespace CPECentral
         {
             Settings.Default.MainFormState = WindowState;
 
-            if (WindowState != FormWindowState.Maximized)
-            {
+            if (WindowState != FormWindowState.Maximized) {
                 Settings.Default.MainFormLocation = Location;
                 Settings.Default.MainFormSize = Size;
             }

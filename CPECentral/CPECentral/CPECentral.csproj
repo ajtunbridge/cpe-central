@@ -21,13 +21,14 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\SJCSRV1\Data\Central\ClickOnce\</InstallUrl>
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <ApplicationRevision>19</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.28</MinimumRequiredVersion>
+    <ApplicationRevision>29</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -54,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\CPECentralIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E39141BC63617D2D105A305088864631B3E76A61</ManifestCertificateThumbprint>
@@ -76,6 +77,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -91,6 +94,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSecurity.cs" />
+    <Compile Include="Controls\FilePreviewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FilePreviewPanel.designer.cs">
+      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FilePreviewTabControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +117,12 @@
     </Compile>
     <Compile Include="Controls\ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModelViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ModelViewer.Designer.cs">
+      <DependentUpon>ModelViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OkayCancelFooter.cs">
       <SubType>UserControl</SubType>
@@ -143,12 +158,6 @@
     <Compile Include="Dialogs\AddPartDialog.Designer.cs">
       <DependentUpon>AddPartDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FilePreviewPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FilePreviewPanel.Designer.cs">
-      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\EditMethodDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +187,24 @@
     </Compile>
     <Compile Include="Dialogs\ImportMillingProgramDialog.Designer.cs">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MachineConfigurationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MachineConfigurationDialog.Designer.cs">
+      <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveProgramDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
+      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TransmitProgramDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TransmitProgramDialog.Designer.cs">
+      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="DocumentService.cs" />
     <Compile Include="IDialogService.cs" />
@@ -268,6 +295,9 @@
     <Compile Include="Views\ViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
+      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\FilePreviewTabControl.resx">
       <DependentUpon>FilePreviewTabControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ModelViewer.resx">
+      <DependentUpon>ModelViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
@@ -289,9 +322,6 @@
     <EmbeddedResource Include="Dialogs\AddPartDialog.resx">
       <DependentUpon>AddPartDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
-      <DependentUpon>FilePreviewPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditMethodDialog.resx">
       <DependentUpon>EditMethodDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -303,6 +333,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ImportMillingProgramDialog.resx">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MachineConfigurationDialog.resx">
+      <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
+      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
+      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -466,9 +505,6 @@
     <None Include="Resources\DocumentPreviewBgTile.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GenericFileIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\NewTurningProgramIcon_16x16.png" />
   </ItemGroup>
   <ItemGroup>
@@ -493,6 +529,13 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\NcFileIcon.ico" />
+    <None Include="Resources\beep.wav" />
+    <None Include="Resources\DownloadIcon_16x16.png" />
+    <None Include="Resources\UploadIcon_16x16.png" />
+    <None Include="Resources\DownloadIcon.ico" />
+    <None Include="Resources\UploadIcon.ico" />
+    <None Include="Resources\AppIcon.ico" />
     <None Include="Resources\UploadIcon.png" />
     <None Include="Resources\ExpandIcon_16x16.png" />
     <None Include="Resources\RenameIcon_16x16.png" />

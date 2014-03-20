@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using directives
+
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace NcCommunicator.Data.Model
 {
@@ -18,10 +17,12 @@ namespace NcCommunicator.Data.Model
         public int BaudRate { get; set; }
         public bool DtrEnable { get; set; }
         public bool RtsEnable { get; set; }
-        public byte XonChar { get; set; }
-        public byte XoffChar { get; set; }
-        public byte ProgramStartChar { get; set; }
-        public byte ProgramEndChar { get; set; }
+        public char XOnChar { get; set; }
+        public char XOffChar { get; set; }
+        public char XOnChar2 { get; set; }
+        public char XOffChar2 { get; set; }
+        public char ProgramStartChar { get; set; }
+        public char ProgramEndChar { get; set; }
         public string NewLine { get; set; }
     }
 }

@@ -1,11 +1,9 @@
 ﻿#region Using directives
 
 using System;
-using System.IO;
-using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
-using CPECentral.Dialogs;
 using nGenLibrary.Security;
 
 #endregion
@@ -36,7 +34,7 @@ namespace CPECentral
             Application.Run(new MainForm());
         }
 
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             var msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
 
@@ -45,25 +43,21 @@ namespace CPECentral
 
         private static void EnsureThereIsAnAdminAccount()
         {
-            try
-            {
-                using (var uow = new UnitOfWork())
-                {
+            try {
+                using (var uow = new UnitOfWork()) {
                     var adminGroup = uow.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
 
-                    if (adminGroup == null)
-                    {
+                    if (adminGroup == null) {
                         adminGroup = new EmployeeGroup();
                         adminGroup.Name = "BUILTIN_ADMIN_GROUP";
-                        adminGroup.GrantPermission(Data.EF5.AppPermission.Administrator);
+                        adminGroup.GrantPermission(AppPermission.Administrator);
                         uow.EmployeeGroups.Add(adminGroup);
                         uow.Commit();
                     }
 
                     var adminEmployee = uow.Employees.GetByUserName("admin");
 
-                    if (adminEmployee == null)
-                    {
+                    if (adminEmployee == null) {
                         adminEmployee = new Employee();
                         adminEmployee.FirstName = "System";
                         adminEmployee.LastName = "Administrator";
@@ -81,8 +75,7 @@ namespace CPECentral
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
@@ -91,14 +84,11 @@ namespace CPECentral
 
         private static void AddMyAccount()
         {
-            try
-            {
-                using (var uow = new UnitOfWork())
-                {
+            try {
+                using (var uow = new UnitOfWork()) {
                     var myGroup = uow.EmployeeGroups.GetByName("Power users");
 
-                    if (myGroup == null)
-                    {
+                    if (myGroup == null) {
                         myGroup = new EmployeeGroup();
                         myGroup.Name = "Power users";
                         myGroup.GrantPermission(AppPermission.ManageDocuments);
@@ -113,8 +103,7 @@ namespace CPECentral
 
                     var myEmployee = uow.Employees.GetByUserName("adam");
 
-                    if (myEmployee == null)
-                    {
+                    if (myEmployee == null) {
                         myEmployee = new Employee();
                         myEmployee.FirstName = "Adam";
                         myEmployee.LastName = "Tunbridge";
@@ -132,8 +121,7 @@ namespace CPECentral
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);

@@ -1,7 +1,5 @@
 ﻿#region Using directives
 
-using System.Data;
-using System.IO;
 using NcCommunicator.Data.Model;
 
 #endregion

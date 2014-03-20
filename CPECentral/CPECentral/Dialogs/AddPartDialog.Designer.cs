@@ -37,18 +37,21 @@ namespace CPECentral.Dialogs
             this.scanServerButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.versionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
-            this.drawingNumberTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.nameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.toolingLocationTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.isNewCustomerCheckBox = new System.Windows.Forms.CheckBox();
-            this.newCustomerNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.importFromTricornButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.worksOrderEnhancedTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.toolingLocationTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.nameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchTermTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.drawingNumberTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.versionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.newCustomerNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.filePreviewPanel = new CPECentral.Controls.FilePreviewPanel();
             this.filesListView = new CPECentral.Controls.FilesListView();
@@ -57,7 +60,7 @@ namespace CPECentral.Dialogs
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Location = new System.Drawing.Point(6, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 0;
@@ -67,17 +70,17 @@ namespace CPECentral.Dialogs
             // 
             this.customerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.customerComboBox.FormattingEnabled = true;
-            this.customerComboBox.Location = new System.Drawing.Point(12, 29);
+            this.customerComboBox.Location = new System.Drawing.Point(9, 79);
             this.customerComboBox.Name = "customerComboBox";
             this.customerComboBox.Size = new System.Drawing.Size(333, 25);
-            this.customerComboBox.TabIndex = 0;
+            this.customerComboBox.TabIndex = 2;
             // 
             // scanServerButton
             // 
-            this.scanServerButton.Location = new System.Drawing.Point(12, 239);
+            this.scanServerButton.Location = new System.Drawing.Point(12, 279);
             this.scanServerButton.Name = "scanServerButton";
             this.scanServerButton.Size = new System.Drawing.Size(333, 52);
-            this.scanServerButton.TabIndex = 6;
+            this.scanServerButton.TabIndex = 8;
             this.scanServerButton.Text = "Scan server for drawings and models";
             this.scanServerButton.UseVisualStyleBackColor = true;
             this.scanServerButton.Click += new System.EventHandler(this.ScanServerButton_Click);
@@ -85,7 +88,7 @@ namespace CPECentral.Dialogs
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 92);
+            this.label2.Location = new System.Drawing.Point(9, 132);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 17);
             this.label2.TabIndex = 0;
@@ -93,80 +96,30 @@ namespace CPECentral.Dialogs
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(271, 92);
+            this.label3.Location = new System.Drawing.Point(271, 132);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Version";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // versionTextBox
-            // 
-            this.versionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.versionTextBox.DisableDoubleSpace = true;
-            this.versionTextBox.DisableLeadingSpace = false;
-            this.versionTextBox.Location = new System.Drawing.Point(271, 112);
-            this.versionTextBox.MaxLength = 10;
-            this.versionTextBox.Name = "versionTextBox";
-            this.versionTextBox.Size = new System.Drawing.Size(74, 25);
-            this.versionTextBox.SuppressEnterKey = false;
-            this.versionTextBox.TabIndex = 3;
-            this.versionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // drawingNumberTextBox
-            // 
-            this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.drawingNumberTextBox.DisableDoubleSpace = true;
-            this.drawingNumberTextBox.DisableLeadingSpace = false;
-            this.drawingNumberTextBox.Location = new System.Drawing.Point(12, 112);
-            this.drawingNumberTextBox.MaxLength = 50;
-            this.drawingNumberTextBox.Name = "drawingNumberTextBox";
-            this.drawingNumberTextBox.Size = new System.Drawing.Size(253, 25);
-            this.drawingNumberTextBox.SuppressEnterKey = false;
-            this.drawingNumberTextBox.TabIndex = 2;
-            this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.DrawingNumberTextBox_TextChanged);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 140);
+            this.label4.Location = new System.Drawing.Point(9, 180);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 17);
             this.label4.TabIndex = 0;
             this.label4.Text = "Name";
             // 
-            // nameTextBox
-            // 
-            this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.nameTextBox.DisableDoubleSpace = true;
-            this.nameTextBox.DisableLeadingSpace = false;
-            this.nameTextBox.Location = new System.Drawing.Point(12, 160);
-            this.nameTextBox.MaxLength = 50;
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(333, 25);
-            this.nameTextBox.SuppressEnterKey = false;
-            this.nameTextBox.TabIndex = 4;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 188);
+            this.label5.Location = new System.Drawing.Point(9, 228);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(102, 17);
             this.label5.TabIndex = 0;
             this.label5.Text = "Tooling location";
-            // 
-            // toolingLocationTextBox
-            // 
-            this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.toolingLocationTextBox.DisableDoubleSpace = true;
-            this.toolingLocationTextBox.DisableLeadingSpace = false;
-            this.toolingLocationTextBox.Location = new System.Drawing.Point(12, 208);
-            this.toolingLocationTextBox.MaxLength = 50;
-            this.toolingLocationTextBox.Name = "toolingLocationTextBox";
-            this.toolingLocationTextBox.Size = new System.Drawing.Size(333, 25);
-            this.toolingLocationTextBox.SuppressEnterKey = false;
-            this.toolingLocationTextBox.TabIndex = 5;
             // 
             // label6
             // 
@@ -179,7 +132,7 @@ namespace CPECentral.Dialogs
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 297);
+            this.progressBar.Location = new System.Drawing.Point(12, 337);
             this.progressBar.MarqueeAnimationSpeed = 25;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(333, 23);
@@ -188,59 +141,150 @@ namespace CPECentral.Dialogs
             // isNewCustomerCheckBox
             // 
             this.isNewCustomerCheckBox.AutoSize = true;
-            this.isNewCustomerCheckBox.Location = new System.Drawing.Point(221, 60);
+            this.isNewCustomerCheckBox.Location = new System.Drawing.Point(218, 108);
             this.isNewCustomerCheckBox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.isNewCustomerCheckBox.Name = "isNewCustomerCheckBox";
             this.isNewCustomerCheckBox.Size = new System.Drawing.Size(127, 21);
-            this.isNewCustomerCheckBox.TabIndex = 1;
+            this.isNewCustomerCheckBox.TabIndex = 3;
             this.isNewCustomerCheckBox.Text = "Is new customer?";
             this.isNewCustomerCheckBox.UseVisualStyleBackColor = true;
             this.isNewCustomerCheckBox.CheckedChanged += new System.EventHandler(this.IsNewCustomerCheckBox_CheckedChanged);
             // 
-            // newCustomerNameTextBox
-            // 
-            this.newCustomerNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.newCustomerNameTextBox.DisableDoubleSpace = true;
-            this.newCustomerNameTextBox.DisableLeadingSpace = false;
-            this.newCustomerNameTextBox.Location = new System.Drawing.Point(12, 29);
-            this.newCustomerNameTextBox.MaxLength = 50;
-            this.newCustomerNameTextBox.Name = "newCustomerNameTextBox";
-            this.newCustomerNameTextBox.Size = new System.Drawing.Size(333, 25);
-            this.newCustomerNameTextBox.SuppressEnterKey = false;
-            this.newCustomerNameTextBox.TabIndex = 5;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 323);
+            this.label7.Location = new System.Drawing.Point(9, 363);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 17);
             this.label7.TabIndex = 0;
             this.label7.Text = "Search term";
+            // 
+            // importFromTricornButton
+            // 
+            this.importFromTricornButton.Enabled = false;
+            this.importFromTricornButton.Location = new System.Drawing.Point(143, 12);
+            this.importFromTricornButton.Name = "importFromTricornButton";
+            this.importFromTricornButton.Size = new System.Drawing.Size(199, 42);
+            this.importFromTricornButton.TabIndex = 1;
+            this.importFromTricornButton.Text = "Import from Tricorn";
+            this.importFromTricornButton.UseVisualStyleBackColor = true;
+            this.importFromTricornButton.Click += new System.EventHandler(this.importFromTricornButton_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(131, 17);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Works order number";
+            // 
+            // worksOrderEnhancedTextBox
+            // 
+            this.worksOrderEnhancedTextBox.DisableDoubleSpace = false;
+            this.worksOrderEnhancedTextBox.DisableLeadingSpace = false;
+            this.worksOrderEnhancedTextBox.Location = new System.Drawing.Point(9, 29);
+            this.worksOrderEnhancedTextBox.MaxLength = 5;
+            this.worksOrderEnhancedTextBox.Name = "worksOrderEnhancedTextBox";
+            this.worksOrderEnhancedTextBox.NumericCharactersOnly = true;
+            this.worksOrderEnhancedTextBox.Size = new System.Drawing.Size(128, 25);
+            this.worksOrderEnhancedTextBox.SuppressEnterKey = false;
+            this.worksOrderEnhancedTextBox.TabIndex = 0;
+            this.worksOrderEnhancedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.worksOrderEnhancedTextBox.EnterKeyPressed += new System.EventHandler(this.worksOrderEnhancedTextBox_EnterKeyPressed);
+            this.worksOrderEnhancedTextBox.TextChanged += new System.EventHandler(this.worksOrderEnhancedTextBox_TextChanged);
+            // 
+            // toolingLocationTextBox
+            // 
+            this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.toolingLocationTextBox.DisableDoubleSpace = true;
+            this.toolingLocationTextBox.DisableLeadingSpace = false;
+            this.toolingLocationTextBox.Location = new System.Drawing.Point(12, 248);
+            this.toolingLocationTextBox.MaxLength = 50;
+            this.toolingLocationTextBox.Name = "toolingLocationTextBox";
+            this.toolingLocationTextBox.NumericCharactersOnly = false;
+            this.toolingLocationTextBox.Size = new System.Drawing.Size(333, 25);
+            this.toolingLocationTextBox.SuppressEnterKey = false;
+            this.toolingLocationTextBox.TabIndex = 7;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.nameTextBox.DisableDoubleSpace = true;
+            this.nameTextBox.DisableLeadingSpace = false;
+            this.nameTextBox.Location = new System.Drawing.Point(12, 200);
+            this.nameTextBox.MaxLength = 50;
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.NumericCharactersOnly = false;
+            this.nameTextBox.Size = new System.Drawing.Size(333, 25);
+            this.nameTextBox.SuppressEnterKey = false;
+            this.nameTextBox.TabIndex = 6;
             // 
             // searchTermTextBox
             // 
             this.searchTermTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.searchTermTextBox.DisableDoubleSpace = true;
             this.searchTermTextBox.DisableLeadingSpace = false;
-            this.searchTermTextBox.Location = new System.Drawing.Point(12, 343);
+            this.searchTermTextBox.Location = new System.Drawing.Point(12, 383);
             this.searchTermTextBox.MaxLength = 50;
             this.searchTermTextBox.Name = "searchTermTextBox";
+            this.searchTermTextBox.NumericCharactersOnly = false;
             this.searchTermTextBox.Size = new System.Drawing.Size(333, 25);
             this.searchTermTextBox.SuppressEnterKey = false;
-            this.searchTermTextBox.TabIndex = 7;
+            this.searchTermTextBox.TabIndex = 9;
+            // 
+            // drawingNumberTextBox
+            // 
+            this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.drawingNumberTextBox.DisableDoubleSpace = true;
+            this.drawingNumberTextBox.DisableLeadingSpace = false;
+            this.drawingNumberTextBox.Location = new System.Drawing.Point(12, 152);
+            this.drawingNumberTextBox.MaxLength = 50;
+            this.drawingNumberTextBox.Name = "drawingNumberTextBox";
+            this.drawingNumberTextBox.NumericCharactersOnly = false;
+            this.drawingNumberTextBox.Size = new System.Drawing.Size(253, 25);
+            this.drawingNumberTextBox.SuppressEnterKey = false;
+            this.drawingNumberTextBox.TabIndex = 4;
+            this.drawingNumberTextBox.TextChanged += new System.EventHandler(this.DrawingNumberTextBox_TextChanged);
+            // 
+            // versionTextBox
+            // 
+            this.versionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.versionTextBox.DisableDoubleSpace = true;
+            this.versionTextBox.DisableLeadingSpace = false;
+            this.versionTextBox.Location = new System.Drawing.Point(271, 152);
+            this.versionTextBox.MaxLength = 10;
+            this.versionTextBox.Name = "versionTextBox";
+            this.versionTextBox.NumericCharactersOnly = false;
+            this.versionTextBox.Size = new System.Drawing.Size(74, 25);
+            this.versionTextBox.SuppressEnterKey = false;
+            this.versionTextBox.TabIndex = 5;
+            this.versionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // newCustomerNameTextBox
+            // 
+            this.newCustomerNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.newCustomerNameTextBox.DisableDoubleSpace = true;
+            this.newCustomerNameTextBox.DisableLeadingSpace = false;
+            this.newCustomerNameTextBox.Location = new System.Drawing.Point(9, 79);
+            this.newCustomerNameTextBox.MaxLength = 50;
+            this.newCustomerNameTextBox.Name = "newCustomerNameTextBox";
+            this.newCustomerNameTextBox.NumericCharactersOnly = false;
+            this.newCustomerNameTextBox.Size = new System.Drawing.Size(333, 25);
+            this.newCustomerNameTextBox.SuppressEnterKey = false;
+            this.newCustomerNameTextBox.TabIndex = 5;
             // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
             this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 527);
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 577);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
             this.okayCancelFooter.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.okayCancelFooter.Size = new System.Drawing.Size(811, 45);
-            this.okayCancelFooter.TabIndex = 9;
+            this.okayCancelFooter.Size = new System.Drawing.Size(831, 45);
+            this.okayCancelFooter.TabIndex = 12;
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
             // 
@@ -255,8 +299,8 @@ namespace CPECentral.Dialogs
             this.filePreviewPanel.Location = new System.Drawing.Point(351, 29);
             this.filePreviewPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filePreviewPanel.Name = "filePreviewPanel";
-            this.filePreviewPanel.Size = new System.Drawing.Size(448, 490);
-            this.filePreviewPanel.TabIndex = 6;
+            this.filePreviewPanel.Size = new System.Drawing.Size(468, 540);
+            this.filePreviewPanel.TabIndex = 11;
             // 
             // filesListView
             // 
@@ -270,15 +314,15 @@ namespace CPECentral.Dialogs
             this.filesListView.HideSelection = false;
             this.filesListView.IndexOfColumnToResize = 0;
             this.filesListView.ItemContextMenuStrip = null;
-            this.filesListView.Location = new System.Drawing.Point(12, 375);
+            this.filesListView.Location = new System.Drawing.Point(12, 415);
             this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filesListView.MultiSelect = false;
             this.filesListView.Name = "filesListView";
             this.filesListView.ResizeColumnToFill = true;
             this.filesListView.ShowItemToolTips = true;
-            this.filesListView.Size = new System.Drawing.Size(333, 144);
+            this.filesListView.Size = new System.Drawing.Size(333, 154);
             this.filesListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.filesListView.TabIndex = 8;
+            this.filesListView.TabIndex = 10;
             this.filesListView.UseAlternatingBackColor = true;
             this.filesListView.UseCompatibleStateImageBehavior = false;
             this.filesListView.View = System.Windows.Forms.View.Details;
@@ -288,7 +332,10 @@ namespace CPECentral.Dialogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 572);
+            this.ClientSize = new System.Drawing.Size(831, 622);
+            this.Controls.Add(this.worksOrderEnhancedTextBox);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.importFromTricornButton);
             this.Controls.Add(this.isNewCustomerCheckBox);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.progressBar);
@@ -346,5 +393,8 @@ namespace CPECentral.Dialogs
         private nGenLibrary.Controls.EnhancedTextBox newCustomerNameTextBox;
         private System.Windows.Forms.Label label7;
         private nGenLibrary.Controls.EnhancedTextBox searchTermTextBox;
+        private System.Windows.Forms.Button importFromTricornButton;
+        private System.Windows.Forms.Label label8;
+        private nGenLibrary.Controls.EnhancedTextBox worksOrderEnhancedTextBox;
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -39,12 +37,10 @@ namespace CPECentral.Dialogs
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
-            {
+            if (keyData == Keys.Enter) {
                 OkayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
             }
-            else if (keyData == Keys.Escape)
-            {
+            else if (keyData == Keys.Escape) {
                 OkayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
             }
 
@@ -53,8 +49,7 @@ namespace CPECentral.Dialogs
 
         private void OkayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(descriptionTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(descriptionTextBox.Text)) {
                 const string noDescriptionMessage = "You must provide a description of this method!";
 
                 _dialogService.Notify(noDescriptionMessage);

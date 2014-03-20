@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
+
+#endregion
 
 namespace CPECentral.CustomEventArgs
 {
     public class TransferStartedEventArgs : EventArgs
     {
-        public string FileName { get; private set; }
-
         public TransferStartedEventArgs(string fileName)
         {
             FileName = fileName;
         }
+
+        public string FileName { get; private set; }
     }
 }

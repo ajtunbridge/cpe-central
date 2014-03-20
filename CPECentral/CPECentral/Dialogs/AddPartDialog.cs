@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Properties;
 using nGenLibrary;
+using Tricorn;
+using Customer = CPECentral.Data.EF5.Customer;
 
 #endregion
 
@@ -25,8 +27,9 @@ namespace CPECentral.Dialogs
         {
             InitializeComponent();
 
-            if (!DesignMode)
+            if (!DesignMode) {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
+            }
         }
 
         public bool IsNewCustomer
@@ -38,8 +41,9 @@ namespace CPECentral.Dialogs
         {
             get
             {
-                if (isNewCustomerCheckBox.Checked)
+                if (isNewCustomerCheckBox.Checked) {
                     return null;
+                }
 
                 return (Customer) customerComboBox.SelectedItem;
             }
@@ -77,30 +81,24 @@ namespace CPECentral.Dialogs
 
         private void LoadCustomers()
         {
-            using (var uow = new UnitOfWork())
-            {
-                try
-                {
-                    using (BusyCursor.Show())
-                    {
+            using (var uow = new UnitOfWork()) {
+                try {
+                    using (BusyCursor.Show()) {
                         var customers = uow.Customers.GetAll().OrderBy(c => c.Name);
 
                         customerComboBox.Items.AddRange(customers.ToArray());
 
-                        if (customerComboBox.Items.Count == 0)
-                        {
+                        if (customerComboBox.Items.Count == 0) {
                             isNewCustomerCheckBox.Checked = true;
                             isNewCustomerCheckBox.Enabled = false;
                         }
-                        else
-                        {
+                        else {
                             customerComboBox.SelectedIndex = 0;
                             drawingNumberTextBox.Focus();
                         }
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                     _dialogService.ShowError(msg);
@@ -112,43 +110,39 @@ namespace CPECentral.Dialogs
 
         private void OkayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
-            if (IsNewCustomer && string.IsNullOrWhiteSpace(NewCustomerName))
-            {
+            if (IsNewCustomer && string.IsNullOrWhiteSpace(NewCustomerName)) {
                 _dialogService.ShowError("The name of the customer must be provided!");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(DrawingNumber))
-            {
+            if (string.IsNullOrWhiteSpace(DrawingNumber)) {
                 _dialogService.ShowError("A drawing number must be provided!");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(PartName))
-            {
+            if (string.IsNullOrWhiteSpace(PartName)) {
                 _dialogService.ShowError("The name of this part must be provided!");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(VersionNumber))
-            {
+            if (string.IsNullOrWhiteSpace(VersionNumber)) {
                 _dialogService.ShowError("A version number must be provided!");
                 return;
             }
 
-            if (filesListView.CheckedCount > 0)
-            {
+            if (filesListView.CheckedCount > 0) {
                 const string question = "Have you verified these files are the correct version?";
 
-                if (!_dialogService.AskQuestion(question))
+                if (!_dialogService.AskQuestion(question)) {
                     return;
+                }
             }
 
             var message = new StringBuilder("Please confirm your information is correct:");
             message.AppendLine();
             message.AppendLine();
 
-            message.Append("Customer: ").AppendLine(customerComboBox.Text);          
+            message.Append("Customer: ").AppendLine(customerComboBox.Text);
             message.Append("Drawing number: ").AppendLine(drawingNumberTextBox.Text);
             message.Append("Version: ").AppendLine(versionTextBox.Text);
             message.Append("Name: ").AppendLine(nameTextBox.Text);
@@ -158,8 +152,9 @@ namespace CPECentral.Dialogs
             message.AppendLine();
             message.AppendLine("Is this information correct?");
 
-            if (!_dialogService.AskQuestion(message.ToString()))
+            if (!_dialogService.AskQuestion(message.ToString())) {
                 return;
+            }
 
             DialogResult = DialogResult.OK;
         }
@@ -171,12 +166,10 @@ namespace CPECentral.Dialogs
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
-            {
-                OkayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
+            if (keyData == Keys.Enter) {
+                // OkayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
             }
-            else if (keyData == Keys.Escape)
-            {
+            else if (keyData == Keys.Escape) {
                 OkayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
             }
 
@@ -190,13 +183,11 @@ namespace CPECentral.Dialogs
 
         private void IsNewCustomerCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (isNewCustomerCheckBox.Checked)
-            {
+            if (isNewCustomerCheckBox.Checked) {
                 newCustomerNameTextBox.BringToFront();
                 newCustomerNameTextBox.Focus();
             }
-            else
-            {
+            else {
                 customerComboBox.BringToFront();
                 drawingNumberTextBox.Focus();
             }
@@ -204,8 +195,7 @@ namespace CPECentral.Dialogs
 
         private void ScanServerButton_Click(object sender, EventArgs e)
         {
-            if (_isScanningForFiles)
-            {
+            if (_isScanningForFiles) {
                 _scanServerWorker.CancelAsync();
                 scanServerButton.Text = "Cancelling...";
                 scanServerButton.Enabled = false;
@@ -215,8 +205,7 @@ namespace CPECentral.Dialogs
 
             _isScanningForFiles = true;
 
-            if (string.IsNullOrWhiteSpace(drawingNumberTextBox.Text))
-            {
+            if (string.IsNullOrWhiteSpace(drawingNumberTextBox.Text)) {
                 _dialogService.Notify("You need to enter a drawing number before scanning for files!");
                 return;
             }
@@ -244,45 +233,46 @@ namespace CPECentral.Dialogs
             var dirStack = new Stack<string>();
             dirStack.Push(scanDir);
 
-            var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] { "|" }, StringSplitOptions.None);
+            var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
 
-            while (dirStack.Count > 0)
-            {
-                if (_scanServerWorker.CancellationPending)
+            while (dirStack.Count > 0) {
+                if (_scanServerWorker.CancellationPending) {
                     return;
+                }
 
                 var currentDir = dirStack.Pop();
 
                 var subDirs = Directory.GetDirectories(currentDir);
 
-                if (_scanServerWorker.CancellationPending)
+                if (_scanServerWorker.CancellationPending) {
                     return;
+                }
 
-                foreach (var subDir in subDirs)
-                {
+                foreach (var subDir in subDirs) {
                     dirStack.Push(subDir);
                 }
 
-                if (_scanServerWorker.CancellationPending)
+                if (_scanServerWorker.CancellationPending) {
                     return;
+                }
 
                 var matches = Directory.GetFiles(currentDir, searchPattern)
-                    .Where(fileName =>
-                        {
-                            var ext = Path.GetExtension(fileName);
-                            return validExtensions.Any(validExt => validExt.Equals(ext, StringComparison.OrdinalIgnoreCase));
-                        });
-
-                filesListView.Invoke((MethodInvoker) delegate
-                    {
-                        foreach (var match in matches)
-                        {
-                            filesListView.AddFile(match, match);
-                        }
+                    .Where(fileName => {
+                        var ext = Path.GetExtension(fileName);
+                        return
+                            validExtensions.Any(
+                                validExt => validExt.Equals(ext, StringComparison.OrdinalIgnoreCase));
                     });
 
-                if (_scanServerWorker.CancellationPending)
+                filesListView.Invoke((MethodInvoker) delegate {
+                    foreach (var match in matches) {
+                        filesListView.AddFile(match, match);
+                    }
+                });
+
+                if (_scanServerWorker.CancellationPending) {
                     return;
+                }
             }
         }
 
@@ -299,14 +289,12 @@ namespace CPECentral.Dialogs
 
         private void FilesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (filesListView.SelectionCount == 0)
-            {
+            if (filesListView.SelectionCount == 0) {
                 filePreviewPanel.Clear();
                 return;
             }
 
-            if (filesListView.SelectionCount == 1)
-            {
+            if (filesListView.SelectionCount == 1) {
                 var fileName = (string) filesListView.SelectedItems[0].Tag;
                 filePreviewPanel.ShowFile(fileName);
             }
@@ -315,6 +303,56 @@ namespace CPECentral.Dialogs
         private void DrawingNumberTextBox_TextChanged(object sender, EventArgs e)
         {
             searchTermTextBox.Text = drawingNumberTextBox.Text;
+        }
+
+        private void worksOrderEnhancedTextBox_EnterKeyPressed(object sender, EventArgs e)
+        {
+            importFromTricornButton.PerformClick();
+        }
+
+        private void importFromTricornButton_Click(object sender, EventArgs e)
+        {
+            using (BusyCursor.Show()) {
+                using (var tricorn = new TricornDataProvider()) {
+                    var worksOrder = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text).FirstOrDefault();
+
+                    if (worksOrder == null) {
+                        _dialogService.Notify("The works order number you entered does not exist!");
+                        return;
+                    }
+                    var customer = tricorn.GetCustomer(worksOrder.Customer_Reference.Value);
+
+                    bool isNewCustomer = true;
+
+                    foreach (var obj in customerComboBox.Items) {
+                        var c = obj as Customer;
+                        if (c.Name.Equals(customer.Name, StringComparison.OrdinalIgnoreCase)) {
+                            customerComboBox.SelectedItem = c;
+                            isNewCustomer = false;
+                            break;
+                        }
+                    }
+
+                    if (isNewCustomer) {
+                        isNewCustomerCheckBox.Checked = true;
+                        newCustomerNameTextBox.Text = customer.Name;
+                    }
+                    else {
+                        isNewCustomerCheckBox.Checked = false;
+                    }
+
+                    toolingLocationTextBox.Text = tricorn.GetFixtureLocation(worksOrder.Drawing_Number);
+
+                    drawingNumberTextBox.Text = worksOrder.Drawing_Number;
+                    versionTextBox.Text = worksOrder.Drawing_Issue;
+                    nameTextBox.Text = worksOrder.Description;
+                }
+            }
+        }
+
+        private void worksOrderEnhancedTextBox_TextChanged(object sender, EventArgs e)
+        {
+            importFromTricornButton.Enabled = worksOrderEnhancedTextBox.Text.Length > 4;
         }
     }
 }
