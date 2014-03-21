@@ -37,7 +37,6 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
-        private int? _idOfPartToSelect;
 
         public PartLibraryView()
         {
@@ -92,8 +91,8 @@ namespace CPECentral.Views
         {
             DisplayModel(viewModel, false);
 
-            if (_idOfPartToSelect.HasValue) {
-                SelectPart(_idOfPartToSelect.Value);
+            if (viewModel.LastViewedPartId.HasValue) {
+                SelectPart(viewModel.LastViewedPartId.Value);
             }
         }
 
@@ -118,10 +117,6 @@ namespace CPECentral.Views
         private void PartLibraryView_Load(object sender, EventArgs e)
         {
             searchFieldComboBox.SelectedIndex = 0;
-
-            if (Settings.Default.LastViewedPartId > 0) {
-                _idOfPartToSelect = Settings.Default.LastViewedPartId;
-            }
 
             RefreshLibrary();
         }
@@ -226,7 +221,6 @@ namespace CPECentral.Views
 
         private void PartAddedMessage_Published(PartAddedMessage message)
         {
-            _idOfPartToSelect = message.NewPart.Id;
             OnReloadData();
         }
 
@@ -247,8 +241,6 @@ namespace CPECentral.Views
                 contextMenuStrip.Enabled = true;
 
                 SelectedPart = (Part) e.Node.Tag;
-
-                _idOfPartToSelect = SelectedPart.Id;
 
                 OnPartSelected(new PartEventArgs(SelectedPart));
             }

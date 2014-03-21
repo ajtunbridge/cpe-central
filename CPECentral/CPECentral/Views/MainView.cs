@@ -81,9 +81,8 @@ namespace CPECentral.Views
 
         protected virtual void OnLoadHexagonCalculator()
         {
-            EventHandler handler = LoadHexagonCalculator;
-            if (handler != null)
-            {
+            var handler = LoadHexagonCalculator;
+            if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
         }
@@ -145,11 +144,13 @@ namespace CPECentral.Views
         }
 
         private CopyFileCallbackAction DocumentService_TransferProgress(string fileName, string destinationDirectory,
-                                                                        int percentComplete)
+            int percentComplete)
         {
             Invoke(
                 (MethodInvoker)
-                delegate { documentTransferToolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete; });
+                    delegate {
+                        documentTransferToolStripProgressBar.Value = percentComplete > 100 ? 100 : percentComplete;
+                    });
 
             return CopyFileCallbackAction.Continue;
         }

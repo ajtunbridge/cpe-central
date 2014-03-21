@@ -26,9 +26,6 @@
     <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Heidenhain</Value>
     </Setting>
-    <Setting Name="LastViewedPartId" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="ServerScanDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\Drawing Files</Value>
     </Setting>

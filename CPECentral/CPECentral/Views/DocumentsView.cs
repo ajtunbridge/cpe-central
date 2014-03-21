@@ -26,6 +26,7 @@ namespace CPECentral.Views
         event EventHandler CopyDocuments;
         event EventHandler DeleteSelectedDocuments;
         event EventHandler OpenDocument;
+        event EventHandler OpenDocumentExternally;
         event EventHandler PasteDocuments;
         event EventHandler RefreshDocuments;
         event EventHandler SelectionChanged;
@@ -78,6 +79,7 @@ namespace CPECentral.Views
         public event EventHandler AddDocuments;
         public event EventHandler DeleteSelectedDocuments;
         public event EventHandler OpenDocument;
+        public event EventHandler OpenDocumentExternally;
         public event EventHandler PasteDocuments;
         public event EventHandler RefreshDocuments;
         public event EventHandler CopyDocuments;
@@ -158,6 +160,14 @@ namespace CPECentral.Views
         protected virtual void OnOpenDocument()
         {
             var handler = OpenDocument;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnOpenDocumentExternally()
+        {
+            var handler = OpenDocumentExternally;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -328,6 +338,12 @@ namespace CPECentral.Views
         private void ContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Name) {
+                case "openToolStripMenuItem":
+                    OnOpenDocument();
+                    break;
+                case "openExternallyToolStripMenuItem":
+                    OnOpenDocumentExternally();
+                    break;
                 case "pasteToolStripMenuItem":
                     OnPasteDocuments();
                     break;

@@ -71,10 +71,12 @@
             // 
             this.passwordTextBox.AcceptsReturn = true;
             this.passwordTextBox.DisableDoubleSpace = true;
+            this.passwordTextBox.DisableLeadingSpace = false;
             this.passwordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordTextBox.Location = new System.Drawing.Point(58, 210);
             this.passwordTextBox.MaxLength = 30;
             this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.NumericCharactersOnly = false;
             this.passwordTextBox.Size = new System.Drawing.Size(220, 29);
             this.passwordTextBox.SuppressEnterKey = true;
             this.passwordTextBox.TabIndex = 0;
@@ -85,11 +87,15 @@
             // userNameTextBox
             // 
             this.userNameTextBox.AcceptsReturn = true;
+            this.userNameTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.userNameTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.userNameTextBox.DisableDoubleSpace = true;
+            this.userNameTextBox.DisableLeadingSpace = false;
             this.userNameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userNameTextBox.Location = new System.Drawing.Point(58, 143);
             this.userNameTextBox.MaxLength = 30;
             this.userNameTextBox.Name = "userNameTextBox";
+            this.userNameTextBox.NumericCharactersOnly = false;
             this.userNameTextBox.Size = new System.Drawing.Size(220, 29);
             this.userNameTextBox.SuppressEnterKey = true;
             this.userNameTextBox.TabIndex = 2;

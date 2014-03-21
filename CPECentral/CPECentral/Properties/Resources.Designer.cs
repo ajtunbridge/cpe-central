@@ -100,26 +100,6 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] CAM_Template_Milling {
-            get {
-                object obj = ResourceManager.GetObject("CAM_Template_Milling", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] CAM_Template_Turning {
-            get {
-                object obj = ResourceManager.GetObject("CAM_Template_Turning", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap CompanyLogo {

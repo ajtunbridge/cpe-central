@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>1.0.0.28</MinimumRequiredVersion>
-    <ApplicationRevision>29</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>1.1.0.2</MinimumRequiredVersion>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -414,8 +414,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CAM_Template_Milling.fm" />
-    <None Include="Resources\CAM_Template_Turning.fm" />
+    <None Include="CAM_Template_Milling.fm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CAM_Template_Turning.fm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\CustomerIcon_16x16.png" />
   </ItemGroup>
   <ItemGroup>

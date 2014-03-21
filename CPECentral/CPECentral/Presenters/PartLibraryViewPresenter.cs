@@ -27,7 +27,25 @@ namespace CPECentral.Presenters
 
             _libraryView.ReloadData += LibraryViewReloadData;
             _libraryView.DeletePart += _libraryView_DeletePart;
+            _libraryView.PartSelected += _libraryView_PartSelected;
             _libraryView.Search += _libraryView_Search;
+        }
+
+        private void _libraryView_PartSelected(object sender, PartEventArgs e)
+        {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var uow = new UnitOfWork()) {
+                        var emp = uow.Employees.GetById(Session.CurrentEmployee.Id);
+                        emp.LastViewedPartId = e.Part.Id;
+                        uow.Employees.Update(emp);
+                        uow.Commit();
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex);
+            }
         }
 
         private void _libraryView_DeletePart(object sender, PartEventArgs e)
@@ -111,9 +129,9 @@ namespace CPECentral.Presenters
 
                     switch (args.Field) {
                         case SearchField.WorksOrderNumber:
-                            using (var tricorn = new TricornDataProvider())
-                            {
-                                var drawingNumbers = tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
+                            using (var tricorn = new TricornDataProvider()) {
+                                var drawingNumbers =
+                                    tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
                                 var parts = new List<Part>();
                                 foreach (var drawingNumber in drawingNumbers) {
                                     parts.AddRange(uow.Parts.GetWhereDrawingNumberContains(drawingNumber));
@@ -186,8 +204,13 @@ namespace CPECentral.Presenters
                 using (var uow = new UnitOfWork()) {
                     var customers = uow.Customers.GetAll();
                     var parts = uow.Parts.GetAll();
+                    var lastViewedPartId = uow.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
 
-                    var viewModel = new PartLibraryViewModel {Customers = customers, Parts = parts};
+                    var viewModel = new PartLibraryViewModel {
+                        Customers = customers,
+                        Parts = parts,
+                        LastViewedPartId = lastViewedPartId
+                    };
 
                     e.Result = viewModel;
                 }

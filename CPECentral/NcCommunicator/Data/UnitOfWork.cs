@@ -69,13 +69,12 @@ namespace NcCommunicator.Data
 
         private static string GetDataFileName()
         {
-            var appPath = Assembly.GetExecutingAssembly().Location;
-            var dataFileDir = Path.GetDirectoryName(appPath) + "\\Data";
+            var commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\CPECentral\\";
 
-            if (!Directory.Exists(dataFileDir))
-                Directory.CreateDirectory(dataFileDir);
+            if (!Directory.Exists(commonAppDir))
+                Directory.CreateDirectory(commonAppDir);
 
-            return string.Format("{0}\\machines.xml", dataFileDir);
+            return string.Format("{0}\\machines.xml", commonAppDir);
         }
     }
 }

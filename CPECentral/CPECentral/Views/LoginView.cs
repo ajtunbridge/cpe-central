@@ -101,14 +101,6 @@ namespace CPECentral.Views
             userNameTextBox.Text = lastUserName;
         }
 
-        private void TextBoxes_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) {
-                e.SuppressKeyPress = true;
-                DoLogin();
-            }
-        }
-
         private void DoLogin()
         {
             preloaderPictureBox.Visible = true;

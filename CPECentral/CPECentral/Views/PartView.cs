@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
@@ -29,6 +30,7 @@ namespace CPECentral.Views
     public partial class PartView : ViewBase, IPartView
     {
         private readonly PartViewPresenter _presenter;
+        private IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
         public PartView()
         {
@@ -57,11 +59,6 @@ namespace CPECentral.Views
             partInformationView.LoadPart(Part);
             partDocumentsView.LoadDocuments(Part);
             operationDocumentsView.ClearDocuments();
-
-            using (BusyCursor.Show()) {
-                Settings.Default.LastViewedPartId = part.Id;
-                Settings.Default.Save();
-            }
 
             RefreshData();
         }
@@ -142,6 +139,20 @@ namespace CPECentral.Views
 
                 filePreviewTabControl.InvokeEx(() => filePreviewTabControl.ShowFile(pathToDocument));
             });
+        }
+
+        private void documentsView_OpenDocumentExternally(object sender, EventArgs e)
+        {
+            try {
+                    var view = (DocumentsView)sender;
+
+                    var doc = view.SelectedDocuments.First();
+
+                    Task.Factory.StartNew(() => Session.DocumentService.OpenDocument(doc));
+            }
+            catch (Exception ex) {
+                _dialogService.ShowError(ex.Message);
+            }
         }
     }
 }

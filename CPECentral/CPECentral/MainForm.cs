@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Messages;
 using CPECentral.Properties;
@@ -36,6 +37,7 @@ namespace CPECentral
 
                 Controls.Add(loginView);
 
+                loginView.Select();
                 loginView.Focus();
             }
         }
@@ -49,6 +51,7 @@ namespace CPECentral
 
                 Controls.Add(mainView);
 
+                mainView.Select();
                 mainView.Focus();
             }
         }
@@ -83,6 +86,9 @@ namespace CPECentral
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // set SynchronizationContext to allow document service to show dialogs on main UI thread
+            Session.DocumentService.SyncContext = SynchronizationContext.Current;
+
             ShowLoginView();
 
             Location = Settings.Default.MainFormLocation;

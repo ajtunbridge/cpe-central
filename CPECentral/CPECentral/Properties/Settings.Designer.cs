@@ -110,18 +110,6 @@ namespace CPECentral.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastViewedPartId {
-            get {
-                return ((int)(this["LastViewedPartId"]));
-            }
-            set {
-                this["LastViewedPartId"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("I:\\Drawing Files")]

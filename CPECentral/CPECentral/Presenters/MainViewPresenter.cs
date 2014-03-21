@@ -23,7 +23,7 @@ namespace CPECentral.Presenters
             mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
         }
 
-        void mainView_LoadHexagonCalculator(object sender, EventArgs e)
+        private void mainView_LoadHexagonCalculator(object sender, EventArgs e)
         {
             using (var dialog = new HexDiaCalculatorDialog()) {
                 dialog.ShowDialog();
@@ -90,17 +90,15 @@ namespace CPECentral.Presenters
                         }
                     }
                 }
+                catch (DataProviderException dataEx) {
+                    var msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
+                        ? "A part with these details already exists in the system!"
+                        : dataEx.Message;
+                    _mainView.DialogService.ShowError(msg);
+                }
                 catch (Exception ex) {
-                    string message;
-
-                    if (ex is DataProviderException) {
-                        message = ex.Message;
-                    }
-                    else {
-                        message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
-                    }
-
-                    _mainView.DialogService.ShowError(message);
+                    var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    _mainView.DialogService.ShowError(msg);
                 }
             }
         }

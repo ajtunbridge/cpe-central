@@ -22,6 +22,9 @@ namespace CPECentral.Presenters
 {
     public class DocumentsViewPresenter
     {
+        private const string MillingCamTemplateFileName = "CAM_Template_Milling.fm";
+        private const string TurningCamTemplateFileName = "CAM_Template_Turning.fm";
+
         private readonly IDocumentsView _documentsView;
         private readonly object _refreshLocker = new object();
         private BackgroundWorker _refreshDocumentsWorker;
@@ -186,16 +189,23 @@ namespace CPECentral.Presenters
 
                         var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId).Name;
 
-                        byte[] data = null;
+                        string templateFileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\CPECentral\\";
 
                         switch (machineGroup.ToLower()) {
-                            case "cnc mills":
-                                data = Resources.CAM_Template_Milling;
+                            case "milling":
+                                templateFileName += MillingCamTemplateFileName;
                                 break;
-                            case "cnc lathes":
-                                data = Resources.CAM_Template_Turning;
+                            case "turning":
+                                templateFileName += TurningCamTemplateFileName;
                                 break;
                         }
+
+                        if (!File.Exists(templateFileName)) {
+                            _documentsView.DialogService.ShowError("The CAM template file could not be found!");
+                            return;    
+                        }
+
+                        var data = File.ReadAllBytes(templateFileName);
 
                         File.WriteAllBytes(pathToFile, data);
 
@@ -222,7 +232,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var uow = new UnitOfWork()) {
-                        var group = uow.MachineGroups.GetByName("CNC Lathes");
+                        var group = uow.MachineGroups.GetByName("Turning");
 
                         if (group == null) {
                             throw new InvalidOperationException("There isn't a machine group for lathes!");
@@ -318,10 +328,10 @@ namespace CPECentral.Presenters
                             var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId);
 
                             switch (machineGroup.Name.ToLower()) {
-                                case "cnc mills":
+                                case "milling":
                                     model.OpType = OperationType.Milling;
                                     break;
-                                case "cnc lathes":
+                                case "turning":
                                     model.OpType = OperationType.Turning;
                                     break;
                                 default:

@@ -133,6 +133,7 @@ namespace CPECentral.Views
             this.operationDocumentsView.Size = new System.Drawing.Size(389, 97);
             this.operationDocumentsView.TabIndex = 1;
             this.operationDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
+            this.operationDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
             // 
             // tabPage1
             // 
@@ -201,6 +202,7 @@ namespace CPECentral.Views
             this.versionDocumentsView.Size = new System.Drawing.Size(473, 203);
             this.versionDocumentsView.TabIndex = 0;
             this.versionDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
+            this.versionDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
             // 
             // tabPage4
             // 
@@ -225,6 +227,7 @@ namespace CPECentral.Views
             this.partDocumentsView.Size = new System.Drawing.Size(473, 203);
             this.partDocumentsView.TabIndex = 1;
             this.partDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
+            this.partDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
             // 
             // label3
             // 

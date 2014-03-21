@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -23,7 +24,7 @@ namespace CPECentral
         private readonly List<IQueueItem> _queue = new List<IQueueItem>();
         private BackgroundWorker _worker;
         public bool IsBusy { get; private set; }
-
+        public SynchronizationContext SyncContext { get; set; }
         public event EventHandler<ExceptionEventArgs> Error;
         public event EventHandler<TransferStartedEventArgs> TransferStarted;
         public event CopyFileCallback TransferProgress;
@@ -195,6 +196,14 @@ namespace CPECentral
             _worker.RunWorkerAsync();
         }
 
+        private void ConfirmOverwriteOnMainThread(object confirmOverwriteResult)
+        {
+            var result = confirmOverwriteResult as ConfirmOverwriteArgs;
+
+            result.OkToOverwrite =
+                _dialogService.AskQuestion(result.FileName + "\n\nDo you want to overwrite this file?");
+        }
+
         private void DoUpload(UploadQueueItem uploadItem, UnitOfWork uow)
         {
             var fileName = Path.GetFileName(uploadItem.SourceFile);
@@ -219,6 +228,16 @@ namespace CPECentral
                 destinationFile = Path.Combine(storageDir, fileName);
 
                 var overwriting = File.Exists(destinationFile);
+
+                if (overwriting) {
+                    var args = new ConfirmOverwriteArgs();
+                    args.FileName = fileName;
+                    SyncContext.Send(ConfirmOverwriteOnMainThread, args);
+                    if (!args.OkToOverwrite) {
+                        OnTransferComplete();
+                        return;
+                    }
+                }
 
                 FileCopier.Copy(uploadItem.SourceFile, destinationFile, FileCopyCallback);
 
@@ -383,7 +402,7 @@ namespace CPECentral
         }
 
         protected virtual CopyFileCallbackAction OnTransferProgress(string filename, string destinationdirectory,
-                                                                    int percentcomplete)
+            int percentcomplete)
         {
             var handler = TransferProgress;
 
@@ -392,6 +411,16 @@ namespace CPECentral
             }
 
             return CopyFileCallbackAction.Continue;
+        }
+
+        #endregion
+
+        #region Nested type: ConfirmOverwriteArgs
+
+        private class ConfirmOverwriteArgs
+        {
+            public string FileName { get; set; }
+            public bool OkToOverwrite { get; set; }
         }
 
         #endregion

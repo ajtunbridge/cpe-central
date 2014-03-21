@@ -142,13 +142,12 @@ namespace CPECentral.Dialogs
             message.AppendLine();
             message.AppendLine();
 
-            message.Append("Customer: ").AppendLine(customerComboBox.Text);
-            message.Append("Drawing number: ").AppendLine(drawingNumberTextBox.Text);
-            message.Append("Version: ").AppendLine(versionTextBox.Text);
-            message.Append("Name: ").AppendLine(nameTextBox.Text);
-            message.Append("Tooling: ").AppendLine(toolingLocationTextBox.Text);
+            message.Append("Customer:\t\t").AppendLine(customerComboBox.Text);
+            message.Append("Drawing number:\t").AppendLine(drawingNumberTextBox.Text);
+            message.Append("Version:\t\t").AppendLine(versionTextBox.Text);
+            message.Append("Name:\t\t").AppendLine(nameTextBox.Text);
+            message.Append("Tooling:\t\t").AppendLine(toolingLocationTextBox.Text);
 
-            message.AppendLine();
             message.AppendLine();
             message.AppendLine("Is this information correct?");
 
