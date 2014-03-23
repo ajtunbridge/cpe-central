@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="ExtensionMethods\ControlExtensions.cs" />
     <Compile Include="ExtensionMethods\EnumExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="IO\FileCopier.cs" />
     <Compile Include="IO\Serialization.cs" />
     <Compile Include="Messaging\ActionReference.cs" />

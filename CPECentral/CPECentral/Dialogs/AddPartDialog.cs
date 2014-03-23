@@ -196,8 +196,8 @@ namespace CPECentral.Dialogs
         {
             if (_isScanningForFiles) {
                 _scanServerWorker.CancelAsync();
-                scanServerButton.Text = "Cancelling...";
-                scanServerButton.Enabled = false;
+                searchButton.Text = "Cancelling...";
+                searchButton.Enabled = false;
 
                 return;
             }
@@ -211,7 +211,7 @@ namespace CPECentral.Dialogs
 
             filesListView.Items.Clear();
 
-            scanServerButton.Text = "Cancel";
+            searchButton.Text = "Cancel";
 
             progressBar.Style = ProgressBarStyle.Marquee;
 
@@ -225,7 +225,12 @@ namespace CPECentral.Dialogs
 
         private void ScanServerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var scanDir = Settings.Default.ServerScanDirectory;
+            var scanDir = Settings.Default.DrawingFileDirectory;
+
+            if (!Directory.Exists(scanDir)) {
+                _dialogService.ShowError("The drawing file directory could not be located!");
+                return;
+            }
 
             var searchPattern = "*" + (string) e.Argument + "*";
 
@@ -279,9 +284,15 @@ namespace CPECentral.Dialogs
         {
             _isScanningForFiles = false;
 
-            scanServerButton.Text = "Scan server for drawings and models";
-            scanServerButton.Enabled = true;
+            searchButton.Text = "Scan server for drawings and models";
+            searchButton.Enabled = true;
             progressBar.Style = ProgressBarStyle.Blocks;
+
+            // if no drawing files were found
+            if (filesListView.Items.Count == 0) {
+                _dialogService.Notify("Could not find any matching files in the drawing directory!\n\nTry modifying the search term and scan again.");
+                return;
+            }
 
             filesListView.Sort();
         }

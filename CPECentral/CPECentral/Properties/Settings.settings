@@ -26,14 +26,14 @@
     <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Heidenhain</Value>
     </Setting>
-    <Setting Name="ServerScanDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">I:\Drawing Files</Value>
+    <Setting Name="DrawingFileDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\Adam\CPE Central\Drawing files\</Value>
     </Setting>
-    <Setting Name="SharedAppDir" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">I:\Central\</Value>
+    <Setting Name="SharedAppDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\Adam\CPE Central\Data\</Value>
     </Setting>
-    <Setting Name="MillingProgramDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">I:\Milling</Value>
+    <Setting Name="MillingProgramDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">S:\Adam\CPE Central\Milling programs\</Value>
     </Setting>
     <Setting Name="PreviewFormLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
@@ -45,7 +45,7 @@
       <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">I:\</Value>
+      <Value Profile="(Default)">S:\</Value>
     </Setting>
     <Setting Name="TurningProgramHeader" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%
@@ -58,6 +58,12 @@
     </Setting>
     <Setting Name="TurningToolRegEx" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</Value>
+    </Setting>
+    <Setting Name="CamTemplateMilling" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CamTemplateTurning" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

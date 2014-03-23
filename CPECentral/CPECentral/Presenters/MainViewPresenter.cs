@@ -19,18 +19,31 @@ namespace CPECentral.Presenters
         public MainViewPresenter(IMainView mainView)
         {
             _mainView = mainView;
-            _mainView.AddPart += _mainView_AddPart;
-            mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
+
+            _mainView.AddPart += mainView_AddPart;
+            _mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
+            _mainView.LoadSettingsDialog += mainView_LoadSettingsDialog;
+        }
+
+        private void mainView_LoadSettingsDialog(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.EditSettings, true)) {
+                return;
+            }
+
+            using (var settingsDialog = new SettingsDialog()) {
+                settingsDialog.ShowDialog(_mainView.ParentForm);
+            }
         }
 
         private void mainView_LoadHexagonCalculator(object sender, EventArgs e)
         {
             using (var dialog = new HexDiaCalculatorDialog()) {
-                dialog.ShowDialog();
+                dialog.ShowDialog(_mainView.ParentForm);
             }
         }
 
-        private void _mainView_AddPart(object sender, EventArgs e)
+        private void mainView_AddPart(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;

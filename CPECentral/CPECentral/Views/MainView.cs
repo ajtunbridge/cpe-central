@@ -17,6 +17,7 @@ namespace CPECentral.Views
     {
         event EventHandler AddPart;
         event EventHandler LoadHexagonCalculator;
+        event EventHandler LoadSettingsDialog;
     }
 
     public partial class MainView : ViewBase, IMainView
@@ -44,6 +45,7 @@ namespace CPECentral.Views
 
         public event EventHandler AddPart;
         public event EventHandler LoadHexagonCalculator;
+        public event EventHandler LoadSettingsDialog;
 
         #endregion
 
@@ -83,6 +85,15 @@ namespace CPECentral.Views
         {
             var handler = LoadHexagonCalculator;
             if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnLoadSettingsDialog()
+        {
+            EventHandler handler = LoadSettingsDialog;
+            if (handler != null)
+            {
                 handler(this, EventArgs.Empty);
             }
         }
@@ -127,6 +138,9 @@ namespace CPECentral.Views
                     break;
                 case "hexagonCalculatorToolStripMenuItem":
                     OnLoadHexagonCalculator();
+                    break;
+                case "settingsToolStripMenuItem":
+                    OnLoadSettingsDialog();
                     break;
                 case "logoutToolStripMenuItem":
                     HandleLogout();

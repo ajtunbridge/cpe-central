@@ -97,6 +97,7 @@ namespace CPECentral
                         myGroup.GrantPermission(AppPermission.ManageEmployees);
                         myGroup.GrantPermission(AppPermission.ManageOperations);
                         myGroup.GrantPermission(AppPermission.ManageParts);
+                        myGroup.GrantPermission(AppPermission.EditSettings);
 
                         uow.EmployeeGroups.Add(myGroup);
 
@@ -112,7 +113,7 @@ namespace CPECentral
                         myEmployee.UserName = "adam";
                         myEmployee.EmployeeGroupId = myGroup.Id;
 
-                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("hA7p6p0Y13");
+                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("password");
 
                         myEmployee.Password = securedPassword.Hash;
                         myEmployee.Salt = securedPassword.Salt;

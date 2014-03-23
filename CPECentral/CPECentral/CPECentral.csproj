@@ -136,11 +136,23 @@
     <Compile Include="Controls\AvalonNcEditor.Designer.cs">
       <DependentUpon>AvalonNcEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingsPathsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SettingsPathsUserControl.Designer.cs">
+      <DependentUpon>SettingsPathsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PdfViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\PdfViewer.Designer.cs">
       <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SettingsEmployeesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SettingsEmployeesUserControl.Designer.cs">
+      <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
     <Compile Include="CustomEventArgs\FileDropEventArgs.cs" />
@@ -199,6 +211,12 @@
     </Compile>
     <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TransmitProgramDialog.cs">
       <SubType>Form</SubType>
@@ -316,6 +334,12 @@
     <EmbeddedResource Include="Controls\AvalonNcEditor.resx">
       <DependentUpon>AvalonNcEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SettingsEmployeesUserControl.resx">
+      <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SettingsPathsUserControl.resx">
+      <DependentUpon>SettingsPathsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -339,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
       <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
@@ -386,14 +413,14 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.dev">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\fanuc_syntax.xshd" />
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CPECentral_TemporaryKey.pfx" />
@@ -407,11 +434,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config.home">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="CAM_Template_Milling.fm">
@@ -533,6 +555,9 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\SettingsIcon_16x16.png" />
+    <None Include="Resources\HexagonIcon_16x16.png" />
+    <None Include="Resources\HexagonIcon_16x16.jpg" />
     <None Include="Resources\NcFileIcon.ico" />
     <None Include="Resources\beep.wav" />
     <None Include="Resources\DownloadIcon_16x16.png" />

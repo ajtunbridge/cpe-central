@@ -58,6 +58,9 @@ namespace CPECentral
                         case AppPermission.ManageOperations:
                             message = "You do not have permission to edit operation information!";
                             break;
+                            case AppPermission.EditSettings:
+                            message = "You do not have permission to edit application settings!";
+                            break;
                     }
 
                     DialogService.ShowError(message);

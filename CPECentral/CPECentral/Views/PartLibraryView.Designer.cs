@@ -76,10 +76,12 @@
             this.refreshButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.refreshButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refreshButton.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshButton.Location = new System.Drawing.Point(0, 27);
+            this.refreshButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.refreshButton.Location = new System.Drawing.Point(0, 25);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(215, 36);
             this.refreshButton.TabIndex = 6;
+            this.refreshButton.Text = "Reload library";
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -96,13 +98,13 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(215, 27);
+            this.splitContainer1.Size = new System.Drawing.Size(215, 25);
             this.splitContainer1.SplitterDistance = 105;
             this.splitContainer1.TabIndex = 5;
             // 
             // searchFieldComboBox
             // 
-            this.searchFieldComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchFieldComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchFieldComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.searchFieldComboBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchFieldComboBox.FormattingEnabled = true;
@@ -130,7 +132,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.searchButton);
-            this.splitContainer2.Size = new System.Drawing.Size(106, 27);
+            this.splitContainer2.Size = new System.Drawing.Size(106, 25);
             this.splitContainer2.SplitterDistance = 80;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 5;
@@ -142,10 +144,12 @@
             this.searchValueTextBox.DisableDoubleSpace = true;
             this.searchValueTextBox.DisableLeadingSpace = false;
             this.searchValueTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchValueTextBox.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.searchValueTextBox.Location = new System.Drawing.Point(0, 0);
             this.searchValueTextBox.MaxLength = 50;
             this.searchValueTextBox.Name = "searchValueTextBox";
+            this.searchValueTextBox.NumericCharactersOnly = false;
             this.searchValueTextBox.Size = new System.Drawing.Size(80, 25);
             this.searchValueTextBox.SuppressEnterKey = true;
             this.searchValueTextBox.TabIndex = 5;
@@ -154,7 +158,7 @@
             // 
             // searchButton
             // 
-            this.searchButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchButton.Image = global::CPECentral.Properties.Resources.SearchIcon_16x16;
             this.searchButton.Location = new System.Drawing.Point(0, 0);
@@ -171,11 +175,11 @@
             this.enhancedTreeView.HideSelection = false;
             this.enhancedTreeView.ImageIndex = 0;
             this.enhancedTreeView.ImageList = this.enhancedTreeViewImageList;
-            this.enhancedTreeView.Location = new System.Drawing.Point(0, 63);
+            this.enhancedTreeView.Location = new System.Drawing.Point(0, 61);
             this.enhancedTreeView.Name = "enhancedTreeView";
             this.enhancedTreeView.SelectedImageIndex = 0;
             this.enhancedTreeView.ShowNodeToolTips = true;
-            this.enhancedTreeView.Size = new System.Drawing.Size(215, 217);
+            this.enhancedTreeView.Size = new System.Drawing.Size(215, 219);
             this.enhancedTreeView.TabIndex = 0;
             this.enhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.enhancedTreeView_AfterSelect);
             // 

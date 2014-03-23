@@ -35,6 +35,11 @@ namespace CPECentral.Data.EF5
         /// <summary>
         ///     Can create, edit & delete operations and operation tooling
         /// </summary>
-        ManageOperations = 1 << 4
+        ManageOperations = 1 << 4,
+
+        /// <summary>
+        ///     Can edit application settings including employee accounts
+        /// </summary>
+        EditSettings = 1 << 5
     }
 }

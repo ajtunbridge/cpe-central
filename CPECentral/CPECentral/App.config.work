@@ -8,8 +8,11 @@
                type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                allowExeDefinition="MachineToLocalUser" requirePermission="false" />
     </sectionGroup>
-    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
-      <section name="CPECentral.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    <sectionGroup name="applicationSettings"
+                  type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="CPECentral.Properties.Settings"
+               type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+               requirePermission="false" />
     </sectionGroup>
   </configSections>
   <startup>
@@ -32,9 +35,6 @@
       <setting name="PreferredNcLanguage" serializeAs="String">
         <value>Heidenhain</value>
       </setting>
-      <setting name="LastViewedPartId" serializeAs="String">
-        <value>0</value>
-      </setting>
       <setting name="PreviewFormLocation" serializeAs="String">
         <value>100, 100</value>
       </setting>
@@ -44,11 +44,20 @@
       <setting name="PreviewFormState" serializeAs="String">
         <value>Normal</value>
       </setting>
+      <setting name="CamTemplateMilling" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="CamTemplateTurning" serializeAs="String">
+        <value />
+      </setting>
     </CPECentral.Properties.Settings>
   </userSettings>
   <connectionStrings>
+    <add name="TricornEntities"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>
@@ -62,11 +71,17 @@
       <setting name="DrawingFileExtensions" serializeAs="String">
         <value>.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff</value>
       </setting>
-      <setting name="ServerScanDirectory" serializeAs="String">
+      <setting name="DrawingFileDirectory" serializeAs="String">
         <value>I:\Drawing Files</value>
       </setting>
       <setting name="SharedAppDir" serializeAs="String">
-        <value>I:\Central\Development</value>
+        <value>I:\Central\</value>
+      </setting>
+      <setting name="MillingProgramDirectory" serializeAs="String">
+        <value>I:\Milling</value>
+      </setting>
+      <setting name="DefaultDirectory" serializeAs="String">
+        <value>I:\</value>
       </setting>
       <setting name="TurningProgramHeader" serializeAs="String">
         <value>%
@@ -77,11 +92,8 @@
 
 </value>
       </setting>
-      <setting name="MillingProgramDirectory" serializeAs="String">
-        <value>I:\Milling</value>
-      </setting>
-      <setting name="DefaultDirectory" serializeAs="String">
-        <value>I:\</value>
+      <setting name="TurningToolRegEx" serializeAs="String">
+        <value>\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</value>
       </setting>
     </CPECentral.Properties.Settings>
   </applicationSettings>
