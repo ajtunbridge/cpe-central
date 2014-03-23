@@ -35,6 +35,15 @@
       <setting name="PreferredNcLanguage" serializeAs="String">
         <value>Heidenhain</value>
       </setting>
+      <setting name="DrawingFileDirectory" serializeAs="String">
+        <value>S:\Adam\CPE Central\Drawing files\</value>
+      </setting>
+      <setting name="SharedAppDir" serializeAs="String">
+        <value>S:\Adam\CPE Central\Data\</value>
+      </setting>
+      <setting name="MillingProgramDirectory" serializeAs="String">
+        <value>S:\Adam\CPE Central\Milling programs\</value>
+      </setting>
       <setting name="PreviewFormLocation" serializeAs="String">
         <value>100, 100</value>
       </setting>
@@ -54,10 +63,10 @@
   </userSettings>
   <connectionStrings>
     <add name="TricornEntities"
-         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>
@@ -71,17 +80,8 @@
       <setting name="DrawingFileExtensions" serializeAs="String">
         <value>.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff</value>
       </setting>
-      <setting name="DrawingFileDirectory" serializeAs="String">
-        <value>I:\Drawing Files</value>
-      </setting>
-      <setting name="SharedAppDir" serializeAs="String">
-        <value>I:\Central\</value>
-      </setting>
-      <setting name="MillingProgramDirectory" serializeAs="String">
-        <value>I:\Milling</value>
-      </setting>
       <setting name="DefaultDirectory" serializeAs="String">
-        <value>I:\</value>
+        <value>S:\</value>
       </setting>
       <setting name="TurningProgramHeader" serializeAs="String">
         <value>%

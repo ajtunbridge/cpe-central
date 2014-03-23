@@ -341,6 +341,9 @@ namespace CPECentral.Views
                 case "openToolStripMenuItem":
                     OnOpenDocument();
                     break;
+                case "deleteToolStripMenuItem":
+                    OnDeleteSelectedDocuments();
+                    break;
                 case "openExternallyToolStripMenuItem":
                     OnOpenDocumentExternally();
                     break;

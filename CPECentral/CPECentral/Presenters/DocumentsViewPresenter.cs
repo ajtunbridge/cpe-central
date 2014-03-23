@@ -22,9 +22,6 @@ namespace CPECentral.Presenters
 {
     public class DocumentsViewPresenter
     {
-        private const string MillingCamTemplateFileName = "CAM_Template_Milling.fm";
-        private const string TurningCamTemplateFileName = "CAM_Template_Turning.fm";
-
         private readonly IDocumentsView _documentsView;
         private readonly object _refreshLocker = new object();
         private BackgroundWorker _refreshDocumentsWorker;
@@ -189,14 +186,14 @@ namespace CPECentral.Presenters
 
                         var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId).Name;
 
-                        string templateFileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\CPECentral\\";
+                        string templateFileName = null;
 
                         switch (machineGroup.ToLower()) {
                             case "milling":
-                                templateFileName += MillingCamTemplateFileName;
+                                templateFileName = Settings.Default.CamTemplateMilling;
                                 break;
                             case "turning":
-                                templateFileName += TurningCamTemplateFileName;
+                                templateFileName = Settings.Default.CamTemplateTurning;
                                 break;
                         }
 
@@ -205,9 +202,17 @@ namespace CPECentral.Presenters
                             return;    
                         }
 
-                        var data = File.ReadAllBytes(templateFileName);
+                        try {
+                            using (BusyCursor.Show()) {
+                                var data = File.ReadAllBytes(templateFileName);
 
-                        File.WriteAllBytes(pathToFile, data);
+                                File.WriteAllBytes(pathToFile, data);
+                            }
+                        }
+                        catch (Exception ex) {
+                            HandleException(ex);
+                            return;
+                        }
 
                         Session.DocumentService.QueueUpload(pathToFile, op, true);
                     }

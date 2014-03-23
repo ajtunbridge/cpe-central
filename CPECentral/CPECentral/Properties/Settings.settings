@@ -24,16 +24,16 @@
       <Value Profile="(Default)">.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff</Value>
     </Setting>
     <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Heidenhain</Value>
+      <Value Profile="(Default)">Fanuc</Value>
     </Setting>
     <Setting Name="DrawingFileDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Adam\CPE Central\Drawing files\</Value>
+      <Value Profile="(Default)">I:\Drawing Files\</Value>
     </Setting>
     <Setting Name="SharedAppDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Adam\CPE Central\Data\</Value>
+      <Value Profile="(Default)">I:\Central\</Value>
     </Setting>
     <Setting Name="MillingProgramDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Adam\CPE Central\Milling programs\</Value>
+      <Value Profile="(Default)">I:\Milling\</Value>
     </Setting>
     <Setting Name="PreviewFormLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
@@ -45,7 +45,7 @@
       <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">S:\</Value>
+      <Value Profile="(Default)">I:\</Value>
     </Setting>
     <Setting Name="TurningProgramHeader" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%
@@ -64,6 +64,9 @@
     </Setting>
     <Setting Name="CamTemplateTurning" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ViewInternallyFileExtensions" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>

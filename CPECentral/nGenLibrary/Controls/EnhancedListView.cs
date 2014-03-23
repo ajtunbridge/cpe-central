@@ -15,7 +15,7 @@ namespace nGenLibrary.Controls
     public partial class EnhancedListView : ListView
     {
         private const int SWP_NOSIZE = 1;
-        private Color _alternateBackgroundColor = Color.WhiteSmoke;
+        private Color _alternateBackgroundColor = Color.LightYellow;
         private int _lastSelectedIndex;
 
         public EnhancedListView()
@@ -140,6 +140,10 @@ namespace nGenLibrary.Controls
                     menuStrip = ItemContextMenuStrip;
                 else
                     menuStrip = ContextMenuStrip;
+
+                if (menuStrip == null) {
+                    return;
+                }
 
                 menuStrip.Show(this, e.X, e.Y);
             }

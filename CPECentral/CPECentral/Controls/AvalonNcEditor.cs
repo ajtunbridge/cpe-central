@@ -13,18 +13,19 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Xml;
+using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Properties;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using NcCommunicator.Data;
 using NcCommunicator.Data.Model;
 using nGenLibrary;
 using FontFamily = System.Windows.Media.FontFamily;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using UnitOfWork = NcCommunicator.Data.UnitOfWork;
 
 #endregion
 
@@ -127,6 +128,10 @@ namespace CPECentral.Controls
 
         private void AvalonNcEditor_Load(object sender, EventArgs e)
         {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, false)) {
+                _editor.IsReadOnly = true;
+            }
+
             LoadLanguageList();
             LoadMachineList();
         }

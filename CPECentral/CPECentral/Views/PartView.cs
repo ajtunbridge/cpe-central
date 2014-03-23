@@ -30,7 +30,7 @@ namespace CPECentral.Views
     public partial class PartView : ViewBase, IPartView
     {
         private readonly PartViewPresenter _presenter;
-        private IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
         public PartView()
         {
@@ -133,6 +133,15 @@ namespace CPECentral.Views
             var view = (DocumentsView) sender;
 
             var doc = view.SelectedDocuments.First();
+
+            var viewInternallyFileExtensions = Settings.Default.ViewInternallyFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+
+            var docExt = doc.FileName.Substring(doc.FileName.LastIndexOf("."));
+
+            if (!viewInternallyFileExtensions.Any(ext => ext.Equals(docExt, StringComparison.OrdinalIgnoreCase))) {
+                documentsView_OpenDocumentExternally(sender, e);
+                return;
+            }
 
             ThreadPool.QueueUserWorkItem(delegate {
                 var pathToDocument = Session.DocumentService.GetPathToDocument(doc);

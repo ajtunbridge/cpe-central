@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.centralPanel = new System.Windows.Forms.Panel();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.verifyingLabel = new System.Windows.Forms.Label();
             this.passwordTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.userNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
@@ -44,6 +45,7 @@
             // 
             // centralPanel
             // 
+            this.centralPanel.Controls.Add(this.versionLabel);
             this.centralPanel.Controls.Add(this.verifyingLabel);
             this.centralPanel.Controls.Add(this.passwordTextBox);
             this.centralPanel.Controls.Add(this.userNameTextBox);
@@ -52,16 +54,29 @@
             this.centralPanel.Controls.Add(this.label2);
             this.centralPanel.Controls.Add(this.label1);
             this.centralPanel.Controls.Add(this.pictureBox1);
-            this.centralPanel.Location = new System.Drawing.Point(195, 26);
+            this.centralPanel.Location = new System.Drawing.Point(149, 61);
             this.centralPanel.Name = "centralPanel";
-            this.centralPanel.Size = new System.Drawing.Size(336, 375);
+            this.centralPanel.Size = new System.Drawing.Size(368, 440);
             this.centralPanel.TabIndex = 0;
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionLabel.ForeColor = System.Drawing.Color.Gray;
+            this.versionLabel.Location = new System.Drawing.Point(41, 338);
+            this.versionLabel.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(287, 15);
+            this.versionLabel.TabIndex = 5;
+            this.versionLabel.Text = "version number";
+            this.versionLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // verifyingLabel
             // 
-            this.verifyingLabel.Location = new System.Drawing.Point(55, 345);
+            this.verifyingLabel.Location = new System.Drawing.Point(3, 417);
+            this.verifyingLabel.Margin = new System.Windows.Forms.Padding(3);
             this.verifyingLabel.Name = "verifyingLabel";
-            this.verifyingLabel.Size = new System.Drawing.Size(223, 20);
+            this.verifyingLabel.Size = new System.Drawing.Size(362, 20);
             this.verifyingLabel.TabIndex = 4;
             this.verifyingLabel.Text = "verifying credentials...";
             this.verifyingLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -73,11 +88,11 @@
             this.passwordTextBox.DisableDoubleSpace = true;
             this.passwordTextBox.DisableLeadingSpace = false;
             this.passwordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordTextBox.Location = new System.Drawing.Point(58, 210);
+            this.passwordTextBox.Location = new System.Drawing.Point(41, 231);
             this.passwordTextBox.MaxLength = 30;
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.NumericCharactersOnly = false;
-            this.passwordTextBox.Size = new System.Drawing.Size(220, 29);
+            this.passwordTextBox.Size = new System.Drawing.Size(287, 29);
             this.passwordTextBox.SuppressEnterKey = true;
             this.passwordTextBox.TabIndex = 0;
             this.passwordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -92,11 +107,11 @@
             this.userNameTextBox.DisableDoubleSpace = true;
             this.userNameTextBox.DisableLeadingSpace = false;
             this.userNameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userNameTextBox.Location = new System.Drawing.Point(58, 143);
+            this.userNameTextBox.Location = new System.Drawing.Point(41, 164);
             this.userNameTextBox.MaxLength = 30;
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.NumericCharactersOnly = false;
-            this.userNameTextBox.Size = new System.Drawing.Size(220, 29);
+            this.userNameTextBox.Size = new System.Drawing.Size(287, 29);
             this.userNameTextBox.SuppressEnterKey = true;
             this.userNameTextBox.TabIndex = 2;
             this.userNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -105,7 +120,7 @@
             // preloaderPictureBox
             // 
             this.preloaderPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage;
-            this.preloaderPictureBox.Location = new System.Drawing.Point(58, 322);
+            this.preloaderPictureBox.Location = new System.Drawing.Point(74, 391);
             this.preloaderPictureBox.Name = "preloaderPictureBox";
             this.preloaderPictureBox.Size = new System.Drawing.Size(220, 20);
             this.preloaderPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -116,9 +131,9 @@
             // loginButton
             // 
             this.loginButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginButton.Location = new System.Drawing.Point(58, 254);
+            this.loginButton.Location = new System.Drawing.Point(41, 275);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(220, 50);
+            this.loginButton.Size = new System.Drawing.Size(287, 50);
             this.loginButton.TabIndex = 1;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -127,9 +142,9 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 185);
+            this.label2.Location = new System.Drawing.Point(41, 206);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(330, 22);
+            this.label2.Size = new System.Drawing.Size(287, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -137,19 +152,19 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 118);
+            this.label1.Location = new System.Drawing.Point(39, 139);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(330, 22);
+            this.label1.Size = new System.Drawing.Size(291, 22);
             this.label1.TabIndex = 1;
             this.label1.Text = "User name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::CPECentral.Properties.Resources.CompanyLogo;
+            this.pictureBox1.Image = global::CPECentral.Properties.Resources.LoginHeaderImage;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(330, 77);
+            this.pictureBox1.Size = new System.Drawing.Size(362, 77);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -163,7 +178,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LoginView";
-            this.Size = new System.Drawing.Size(726, 436);
+            this.Size = new System.Drawing.Size(628, 544);
             this.Load += new System.EventHandler(this.LoginView_Load);
             this.Resize += new System.EventHandler(this.LoginView_Resize);
             this.centralPanel.ResumeLayout(false);
@@ -185,6 +200,7 @@
         private nGenLibrary.Controls.EnhancedTextBox passwordTextBox;
         private nGenLibrary.Controls.EnhancedTextBox userNameTextBox;
         private System.Windows.Forms.Label verifyingLabel;
+        private System.Windows.Forms.Label versionLabel;
 
     }
 }

@@ -142,11 +142,17 @@ namespace CPECentral.Dialogs
             message.AppendLine();
             message.AppendLine();
 
-            message.Append("Customer:\t\t").AppendLine(customerComboBox.Text);
+            var customerName = IsNewCustomer ? newCustomerNameTextBox.Text : customerComboBox.Text;
+           
+            var toolingLocation = toolingLocationTextBox.Text.IsNullOrWhitespace()
+                ? "N/A"
+                : toolingLocationTextBox.Text;
+
+            message.Append("Customer:\t\t").AppendLine(customerName);
             message.Append("Drawing number:\t").AppendLine(drawingNumberTextBox.Text);
             message.Append("Version:\t\t").AppendLine(versionTextBox.Text);
             message.Append("Name:\t\t").AppendLine(nameTextBox.Text);
-            message.Append("Tooling:\t\t").AppendLine(toolingLocationTextBox.Text);
+            message.Append("Tooling:\t\t").AppendLine(toolingLocation);
 
             message.AppendLine();
             message.AppendLine("Is this information correct?");
