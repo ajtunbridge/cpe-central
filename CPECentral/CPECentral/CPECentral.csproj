@@ -154,6 +154,8 @@
     <Compile Include="Controls\SettingsEmployeesUserControl.Designer.cs">
       <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
+    <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
     <Compile Include="CustomEventArgs\FileDropEventArgs.cs" />
     <Compile Include="CustomEventArgs\PartSearchEventArgs.cs" />
@@ -218,6 +220,12 @@
     <Compile Include="Dialogs\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ToolManagementDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ToolManagementDialog.Designer.cs">
+      <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\TransmitProgramDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +246,7 @@
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="Presenters\ToolLibraryViewPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +269,7 @@
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
+    <Compile Include="ViewModels\ToolLibraryViewModel.cs" />
     <Compile Include="Views\CustomerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,6 +319,12 @@
     </Compile>
     <Compile Include="Views\PartView.Designer.cs">
       <DependentUpon>PartView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ToolLibraryView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ToolLibraryView.Designer.cs">
+      <DependentUpon>ToolLibraryView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewBase.cs">
       <SubType>UserControl</SubType>
@@ -367,6 +383,9 @@
     <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
+      <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
       <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -409,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartView.resx">
       <DependentUpon>PartView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ToolLibraryView.resx">
+      <DependentUpon>ToolLibraryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
@@ -548,6 +570,8 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\ToolIcon_16x16.png" />
+    <None Include="Resources\StockIcon_16x16.png" />
     <None Include="Resources\LoginHeaderImage.png" />
     <None Include="Resources\ApplicationIcon.ico" />
     <None Include="Resources\ReplaceTextIcon_16x16.png" />

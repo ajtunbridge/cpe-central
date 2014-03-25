@@ -18,6 +18,7 @@ namespace CPECentral.Views
         event EventHandler AddPart;
         event EventHandler LoadHexagonCalculator;
         event EventHandler LoadSettingsDialog;
+        event EventHandler LoadToolManagementDialog;
     }
 
     public partial class MainView : ViewBase, IMainView
@@ -46,6 +47,7 @@ namespace CPECentral.Views
         public event EventHandler AddPart;
         public event EventHandler LoadHexagonCalculator;
         public event EventHandler LoadSettingsDialog;
+        public event EventHandler LoadToolManagementDialog;
 
         #endregion
 
@@ -98,6 +100,15 @@ namespace CPECentral.Views
             }
         }
 
+        protected virtual void OnLoadToolManagementDialog()
+        {
+            EventHandler handler = LoadToolManagementDialog;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
         private void partLibraryView_PartSelected(object sender, PartEventArgs e)
         {
             if (librarySelectionPanel.Controls.Count == 1) {
@@ -135,6 +146,9 @@ namespace CPECentral.Views
             switch (menuItem.Name) {
                 case "addNewPartToolStripMenuItem":
                     OnAddPart();
+                    break;
+                case "toolManagementToolStripMenuItem":
+                    OnLoadToolManagementDialog();
                     break;
                 case "hexagonCalculatorToolStripMenuItem":
                     OnLoadHexagonCalculator();

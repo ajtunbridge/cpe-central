@@ -28,6 +28,8 @@ namespace nGenLibrary.Controls
             }
         }
 
+        public ContextMenuStrip NodeContextMenuStrip { get; set; }
+
         [DebuggerStepThrough]
         protected override void WndProc(ref Message m)
         {
@@ -46,8 +48,13 @@ namespace nGenLibrary.Controls
 
             var clickedNode = GetNodeAt(e.X, e.Y);
 
-            if (clickedNode == null)
+            var contextMenu = (clickedNode == null) ? ContextMenuStrip : NodeContextMenuStrip;
+
+            contextMenu.Show(this, e.X, e.Y);
+
+            if (clickedNode == null) {
                 return;
+            }
 
             if (SelectedNode != null && SelectedNode == clickedNode)
                 return;

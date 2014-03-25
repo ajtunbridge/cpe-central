@@ -372,6 +372,26 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StockIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("StockIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ToolIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("ToolIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UploadIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("UploadIcon_16x16", resourceCulture);

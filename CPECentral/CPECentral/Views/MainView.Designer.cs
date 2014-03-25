@@ -30,13 +30,17 @@
         {
             this.partLibraryView = new CPECentral.Views.PartLibraryView();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.documentTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.documentTransferStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.documentTransferToolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,11 +50,10 @@
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addNewPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.utilitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -85,10 +88,28 @@
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
+            // addPartToolStripButton
+            // 
+            this.addPartToolStripButton.AutoToolTip = false;
+            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addPartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addPartToolStripButton.Name = "addPartToolStripButton";
+            this.addPartToolStripButton.Size = new System.Drawing.Size(82, 22);
+            this.addPartToolStripButton.Text = "New part";
+            this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // logoutToolStripButton
+            // 
+            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_16x16;
+            this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.logoutToolStripButton.Name = "logoutToolStripButton";
+            this.logoutToolStripButton.Size = new System.Drawing.Size(69, 22);
+            this.logoutToolStripButton.Text = "Logout";
             // 
             // documentTransferStatusStrip
             // 
@@ -139,27 +160,47 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // addNewPartToolStripMenuItem
+            // 
+            this.addNewPartToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addNewPartToolStripMenuItem.Name = "addNewPartToolStripMenuItem";
+            this.addNewPartToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.addNewPartToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.addNewPartToolStripMenuItem.Text = "&Add new part";
+            this.addNewPartToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(199, 6);
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Image = global::CPECentral.Properties.Resources.LogoutIcon_16x16;
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.logoutToolStripMenuItem.Text = "&Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(199, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hexagonCalculatorToolStripMenuItem,
+            this.toolManagementToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.utilitiesToolStripMenuItem,
             this.toolStripMenuItem2,
             this.settingsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -169,13 +210,13 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(185, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::CPECentral.Properties.Resources.SettingsIcon_16x16;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
@@ -211,50 +252,34 @@
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
-            // addPartToolStripButton
+            // toolManagementToolStripMenuItem
             // 
-            this.addPartToolStripButton.AutoToolTip = false;
-            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.addPartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addPartToolStripButton.Name = "addPartToolStripButton";
-            this.addPartToolStripButton.Size = new System.Drawing.Size(82, 22);
-            this.addPartToolStripButton.Text = "New part";
-            this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
+            this.toolManagementToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ToolIcon_16x16;
+            this.toolManagementToolStripMenuItem.Name = "toolManagementToolStripMenuItem";
+            this.toolManagementToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.toolManagementToolStripMenuItem.Text = "&Tool management";
+            this.toolManagementToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
-            // logoutToolStripButton
+            // utilitiesToolStripMenuItem
             // 
-            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_16x16;
-            this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.logoutToolStripButton.Name = "logoutToolStripButton";
-            this.logoutToolStripButton.Size = new System.Drawing.Size(69, 22);
-            this.logoutToolStripButton.Text = "Logout";
-            // 
-            // addNewPartToolStripMenuItem
-            // 
-            this.addNewPartToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.addNewPartToolStripMenuItem.Name = "addNewPartToolStripMenuItem";
-            this.addNewPartToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addNewPartToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.addNewPartToolStripMenuItem.Text = "&Add new part";
-            this.addNewPartToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
-            // 
-            // logoutToolStripMenuItem
-            // 
-            this.logoutToolStripMenuItem.Image = global::CPECentral.Properties.Resources.LogoutIcon_16x16;
-            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.logoutToolStripMenuItem.Text = "&Logout";
-            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            this.utilitiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hexagonCalculatorToolStripMenuItem});
+            this.utilitiesToolStripMenuItem.Name = "utilitiesToolStripMenuItem";
+            this.utilitiesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.utilitiesToolStripMenuItem.Text = "&Utilities";
             // 
             // hexagonCalculatorToolStripMenuItem
             // 
             this.hexagonCalculatorToolStripMenuItem.Image = global::CPECentral.Properties.Resources.HexagonIcon_16x16;
             this.hexagonCalculatorToolStripMenuItem.Name = "hexagonCalculatorToolStripMenuItem";
-            this.hexagonCalculatorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.hexagonCalculatorToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.hexagonCalculatorToolStripMenuItem.Text = "Hexagon calculator";
+            this.hexagonCalculatorToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.hexagonCalculatorToolStripMenuItem.Text = "&Hexagon calculator";
             this.hexagonCalculatorToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(179, 6);
             // 
             // MainView
             // 
@@ -305,9 +330,12 @@
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hexagonCalculatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.ToolStripMenuItem toolManagementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem utilitiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hexagonCalculatorToolStripMenuItem;
     }
 }

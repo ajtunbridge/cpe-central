@@ -23,6 +23,14 @@ namespace CPECentral.Presenters
             _mainView.AddPart += mainView_AddPart;
             _mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
             _mainView.LoadSettingsDialog += mainView_LoadSettingsDialog;
+            _mainView.LoadToolManagementDialog += _mainView_LoadToolManagementDialog;
+        }
+
+        void _mainView_LoadToolManagementDialog(object sender, EventArgs e)
+        {
+            using (var toolManagementDialog = new ToolManagementDialog()) {
+                toolManagementDialog.ShowDialog(_mainView.ParentForm);
+            }
         }
 
         private void mainView_LoadSettingsDialog(object sender, EventArgs e)

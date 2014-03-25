@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using NcCommunicator.Data.Model;
 using nGenLibrary.Security;
 
