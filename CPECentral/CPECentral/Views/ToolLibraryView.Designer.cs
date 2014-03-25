@@ -57,16 +57,25 @@
             // 
             // toolGroupsEnhancedTreeView
             // 
+            this.toolGroupsEnhancedTreeView.AllowDrop = true;
             this.toolGroupsEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolGroupsEnhancedTreeView.HideSelection = false;
             this.toolGroupsEnhancedTreeView.Location = new System.Drawing.Point(0, 0);
             this.toolGroupsEnhancedTreeView.Name = "toolGroupsEnhancedTreeView";
+            this.toolGroupsEnhancedTreeView.NodeContextMenuStrip = null;
             this.toolGroupsEnhancedTreeView.Size = new System.Drawing.Size(200, 367);
             this.toolGroupsEnhancedTreeView.TabIndex = 0;
-            this.toolGroupsEnhancedTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.toolGroupsEnhancedTreeView_BeforeExpand);
+            this.toolGroupsEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.toolGroupsEnhancedTreeView_AfterLabelEdit);
             this.toolGroupsEnhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.toolGroupsEnhancedTreeView_AfterSelect);
+            this.toolGroupsEnhancedTreeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.toolGroupsEnhancedTreeView_DragDrop);
+            this.toolGroupsEnhancedTreeView.DragEnter += new System.Windows.Forms.DragEventHandler(this.toolGroupsEnhancedTreeView_DragEnter);
+            this.toolGroupsEnhancedTreeView.DragOver += new System.Windows.Forms.DragEventHandler(this.toolGroupsEnhancedTreeView_DragOver);
+            this.toolGroupsEnhancedTreeView.DragLeave += new System.EventHandler(this.toolGroupsEnhancedTreeView_DragLeave);
+            this.toolGroupsEnhancedTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolGroupsEnhancedTreeView_KeyDown);
             // 
             // toolsEnhancedListView
             // 
+            this.toolsEnhancedListView.AllowDrop = true;
             this.toolsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
             this.toolsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
@@ -78,19 +87,22 @@
             this.toolsEnhancedListView.IndexOfColumnToResize = 0;
             this.toolsEnhancedListView.ItemContextMenuStrip = null;
             this.toolsEnhancedListView.Location = new System.Drawing.Point(0, 0);
+            this.toolsEnhancedListView.MultiSelect = false;
             this.toolsEnhancedListView.Name = "toolsEnhancedListView";
             this.toolsEnhancedListView.ResizeColumnToFill = true;
+            this.toolsEnhancedListView.ShowItemToolTips = true;
             this.toolsEnhancedListView.Size = new System.Drawing.Size(488, 367);
             this.toolsEnhancedListView.TabIndex = 0;
             this.toolsEnhancedListView.UseAlternatingBackColor = true;
             this.toolsEnhancedListView.UseCompatibleStateImageBehavior = false;
             this.toolsEnhancedListView.View = System.Windows.Forms.View.Details;
+            this.toolsEnhancedListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.toolsEnhancedListView_ItemDrag);
             this.toolsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.toolsEnhancedListView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Description";
-            this.columnHeader1.Width = 336;
+            this.columnHeader1.Width = 481;
             // 
             // ToolLibraryView
             // 

@@ -36,6 +36,9 @@ namespace CPECentral.Data.EF5.Repositories
         public virtual void Update(T entity)
         {
             Attach(entity, EntityState.Modified);
+
+            // add to list of entities to detach to enable future updates
+            UnitOfWork.EntitiesToDetach.Add(entity);
         }
 
         public virtual void Delete(T entity)

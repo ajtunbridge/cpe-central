@@ -233,6 +233,7 @@
       <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="DocumentService.cs" />
+    <Compile Include="Delegates\UpdateResultCallbackDelegate.cs" />
     <Compile Include="IDialogService.cs" />
     <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
@@ -435,10 +436,10 @@
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

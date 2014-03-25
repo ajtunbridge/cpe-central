@@ -18,28 +18,39 @@ namespace CPECentral.Dialogs
         {
             InitializeComponent();
 
-            toolLibraryView1.LibraryRefreshStarted += toolLibraryView1_LibraryRefreshStarted;
-            toolLibraryView1.LibraryRefreshFinished += toolLibraryView1_LibraryRefreshFinished;
+            toolLibraryView.LibraryRefreshStarted += toolLibraryView_LibraryRefreshStarted;
+            toolLibraryView.LibraryRefreshFinished += toolLibraryView_LibraryRefreshFinished;
         }
 
-        void toolLibraryView1_LibraryRefreshStarted(object sender, EventArgs e)
+        void toolLibraryView_LibraryRefreshStarted(object sender, EventArgs e)
         {
             toolStripStatusLabel.Text = "reloading library...";
             toolStripProgressBar.Visible = true;
         }
 
-        private void toolLibraryView1_LibraryRefreshFinished(object sender, EventArgs e)
+        private void toolLibraryView_LibraryRefreshFinished(object sender, EventArgs e)
         {
             toolStripStatusLabel.Text = "library loaded ok!";
             toolStripProgressBar.Visible = false;
 
             if (_toolToSelect != null) {
-                toolLibraryView1.SelectTool(_toolToSelect);
+                toolLibraryView.SelectTool(_toolToSelect);
             }
         }
 
         private void ToolManagementDialog_Load(object sender, EventArgs e)
         {
+        }
+
+
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "refreshLibraryToolStripButton":
+                    toolLibraryView.RefreshLibrary();
+                    break;
+            }
         }
 
     }

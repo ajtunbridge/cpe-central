@@ -1,7 +1,9 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Text;
@@ -16,6 +18,7 @@ namespace CPECentral.Data.EF5
         #region Members
 
         internal CPECentralEntities Entities = new CPECentralEntities();
+        internal List<object> EntitiesToDetach = new List<object>();
 
         private CustomerRepository _customers;
         private DocumentRepository _documents;
@@ -143,6 +146,11 @@ namespace CPECentral.Data.EF5
             try
             {
                 Entities.SaveChanges();
+
+                // ensure we detach any entities to enable future changes to them
+                foreach (var entity in EntitiesToDetach) {
+                    Entities.Entry(entity).State = EntityState.Detached;
+                }
 
                 Entities = new CPECentralEntities();
             }
