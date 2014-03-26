@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
 using System.Linq;
 
 #endregion
@@ -14,24 +15,24 @@ namespace CPECentral.Data.EF5.Repositories
         {
         }
 
-        public IEnumerable<Part> GetWhereDrawingNumberStartsWith(string value)
-        {
-            return GetSet().Where(p => p.DrawingNumber.StartsWith(value, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
-
         public IEnumerable<Part> GetWhereDrawingNumberContains(string value)
         {
             return GetSet().Where(p => p.DrawingNumber.Contains(value)).ToList();
         }
 
-        public IEnumerable<Part> GetWhereNameStartsWith(string value)
+        public IEnumerable<Part> GetWhereDrawingNumberMatches(string wildcardQuery)
         {
-            return GetSet().Where(p => p.Name.StartsWith(value, StringComparison.OrdinalIgnoreCase)).ToList();
+            return GetSet().Where(p => SqlFunctions.PatIndex(wildcardQuery, p.DrawingNumber) > 0).ToList();
         }
 
         public IEnumerable<Part> GetWhereNameContains(string value)
         {
             return GetSet().Where(p => p.Name.Contains(value)).ToList();
+        }
+
+        public IEnumerable<Part> GetWhereNameMatches(string wildcardQuery)
+        {
+            return GetSet().Where(p => SqlFunctions.PatIndex(wildcardQuery, p.Name) > 0).ToList();
         }
 
         public IEnumerable<Part> GetByCustomer(Customer customer)

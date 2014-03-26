@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Text;
@@ -35,6 +34,7 @@ namespace CPECentral.Data.EF5
         private PartRepository _parts;
         private ToolGroupRepository _toolGroups;
         private ToolRepository _tools;
+        private TricornToolRepository _tricornTools;
 
         #endregion
 
@@ -115,6 +115,11 @@ namespace CPECentral.Data.EF5
             get { return _tools ?? (_tools = new ToolRepository(this)); }
         }
 
+        public TricornToolRepository TricornTools
+        {
+            get { return _tricornTools ?? (_tricornTools = new TricornToolRepository(this)); }
+        }
+
         #endregion
 
         #region IDisposable Members
@@ -143,31 +148,17 @@ namespace CPECentral.Data.EF5
 
         public void Commit()
         {
-            try
-            {
+            try {
                 Entities.SaveChanges();
-
-                // ensure we detach any entities to enable future changes to them
-                foreach (var entity in EntitiesToDetach) {
-                    Entities.Entry(entity).State = EntityState.Detached;
-                }
-
-                Entities = new CPECentralEntities();
             }
-            catch (Exception ex)
-            {
-                Rollback();
-
-                if (ex is DbEntityValidationException)
-                {
+            catch (Exception ex) {
+                if (ex is DbEntityValidationException) {
                     var validationEx = (DbEntityValidationException) ex;
 
                     var errors = new StringBuilder();
 
-                    foreach (var validationError in validationEx.EntityValidationErrors)
-                    {
-                        foreach (var err in validationError.ValidationErrors)
-                        {
+                    foreach (var validationError in validationEx.EntityValidationErrors) {
+                        foreach (var err in validationError.ValidationErrors) {
                             errors.AppendLine(err.ErrorMessage);
                         }
                     }
@@ -177,10 +168,10 @@ namespace CPECentral.Data.EF5
 
                 var inner = ex.InnerException;
 
-                while (inner.GetType() != typeof (SqlException))
-                {
-                    if (inner == null)
+                while (inner.GetType() != typeof (SqlException)) {
+                    if (inner == null) {
                         throw;
+                    }
 
                     inner = inner.InnerException;
                 }
@@ -190,39 +181,37 @@ namespace CPECentral.Data.EF5
                 string message;
                 DataProviderError error;
 
-                if (sqlEx.Number == -2)
-                {
+                if (sqlEx.Number == -2) {
                     message = "Unable to save: Connection timed out!";
                     error = DataProviderError.ConnectionTimedOut;
                 }
-                else if (sqlEx.Number == 547)
-                {
+                else if (sqlEx.Number == 547) {
                     message = "Unable to save: Would violate foreign key constraint!";
                     error = DataProviderError.RelationshipViolation;
                 }
-                else if (sqlEx.Number == 2627)
-                {
+                else if (sqlEx.Number == 2627) {
                     message = "Unable to save: Duplicate value was provided!";
                     error = DataProviderError.UniqueConstraintViolation;
                 }
-                else if (sqlEx.Number == 53 || sqlEx.Number == 4060)
-                {
+                else if (sqlEx.Number == 53 || sqlEx.Number == 4060) {
                     message = "Unable to save: Unable to connect to data store!";
                     error = DataProviderError.ConnectionFailed;
                 }
-                else
-                {
+                else {
                     message = "Unable to save: Unknown error. See an administrator!";
                     error = DataProviderError.Unknown;
                 }
 
                 throw new DataProviderException(message, error, ex);
             }
-        }
+            finally {
+                // ensure we detach any entities to enable future changes to them
+                foreach (var entity in EntitiesToDetach) {
+                    Entities.Entry(entity).State = EntityState.Detached;
+                }
 
-        public void Rollback()
-        {
-            Entities = new CPECentralEntities();
+                Entities = new CPECentralEntities();
+            }
         }
     }
 }

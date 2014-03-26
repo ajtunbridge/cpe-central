@@ -12,8 +12,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Customer other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name);
         }
 
@@ -36,9 +40,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Customer) obj);
         }
 
@@ -54,8 +64,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Document other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(FileName, other.FileName) && PartId == other.PartId &&
                    PartVersionId == other.PartVersionId && OperationId == other.OperationId;
         }
@@ -64,8 +78,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 var hashCode = (FileName != null ? FileName.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ PartId.GetHashCode();
                 hashCode = (hashCode*397) ^ PartVersionId.GetHashCode();
@@ -86,9 +99,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Document) obj);
         }
 
@@ -104,8 +123,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Employee other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(UserName, other.UserName);
         }
 
@@ -128,9 +151,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Employee) obj);
         }
 
@@ -146,8 +175,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(EmployeeGroup other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name);
         }
 
@@ -175,7 +208,9 @@ namespace CPECentral.Data.EF5
         {
             var p = (AppPermission) Permissions;
 
-            if (p == AppPermission.Administrator) return true;
+            if (p == AppPermission.Administrator) {
+                return true;
+            }
 
             return (p & permission) == permission;
         }
@@ -197,9 +232,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((EmployeeGroup) obj);
         }
 
@@ -215,8 +256,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Holder other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name) && HolderGroupId == other.HolderGroupId;
         }
 
@@ -224,8 +269,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((Name != null ? Name.GetHashCode() : 0)*397) ^ HolderGroupId;
             }
         }
@@ -242,9 +286,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Holder) obj);
         }
 
@@ -260,8 +310,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(HolderGroup other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name);
         }
 
@@ -284,9 +338,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((HolderGroup) obj);
         }
 
@@ -302,8 +362,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(HolderTool other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return HolderId == other.HolderId && ToolId == other.ToolId;
         }
 
@@ -311,8 +375,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return (HolderId*397) ^ ToolId;
             }
         }
@@ -329,9 +392,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((HolderTool) obj);
         }
     }
@@ -342,8 +411,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(MachineGroup other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name);
         }
 
@@ -366,9 +439,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((MachineGroup) obj);
         }
 
@@ -384,8 +463,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Method other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Description, other.Description) && PartVersionId == other.PartVersionId;
         }
 
@@ -393,8 +476,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((Description != null ? Description.GetHashCode() : 0)*397) ^ PartVersionId;
             }
         }
@@ -411,9 +493,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Method) obj);
         }
 
@@ -429,8 +517,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Operation other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return MethodId == other.MethodId && Sequence == other.Sequence;
         }
 
@@ -438,8 +530,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return (MethodId*397) ^ Sequence;
             }
         }
@@ -456,9 +547,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Operation) obj);
         }
 
@@ -474,8 +571,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(OperationTool other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return Position == other.Position && Offset == other.Offset && OperationId == other.OperationId;
         }
 
@@ -483,8 +584,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 var hashCode = Position;
                 hashCode = (hashCode*397) ^ Offset;
                 hashCode = (hashCode*397) ^ OperationId;
@@ -504,9 +604,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((OperationTool) obj);
         }
     }
@@ -517,8 +623,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Part other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(DrawingNumber, other.DrawingNumber) && CustomerId == other.CustomerId;
         }
 
@@ -526,8 +636,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((DrawingNumber != null ? DrawingNumber.GetHashCode() : 0)*397) ^ CustomerId;
             }
         }
@@ -544,9 +653,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Part) obj);
         }
 
@@ -562,8 +677,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(PartVersion other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(VersionNumber, other.VersionNumber) && PartId == other.PartId;
         }
 
@@ -571,8 +690,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((VersionNumber != null ? VersionNumber.GetHashCode() : 0)*397) ^ PartId;
             }
         }
@@ -589,12 +707,18 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
 
             var other = obj as PartVersion;
 
-            if (other == null) return false;
+            if (other == null) {
+                return false;
+            }
 
             return Equals(other);
         }
@@ -611,8 +735,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(Tool other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Description, other.Description) && ToolGroupId == other.ToolGroupId;
         }
 
@@ -620,8 +748,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((Description != null ? Description.GetHashCode() : 0)*397) ^ ToolGroupId;
             }
         }
@@ -638,9 +765,15 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((Tool) obj);
         }
 
@@ -656,8 +789,12 @@ namespace CPECentral.Data.EF5
 
         public bool Equals(ToolGroup other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
             return string.Equals(Name, other.Name) && ParentGroupId == other.ParentGroupId;
         }
 
@@ -665,8 +802,7 @@ namespace CPECentral.Data.EF5
 
         public override int GetHashCode()
         {
-            unchecked
-            {
+            unchecked {
                 return ((Name != null ? Name.GetHashCode() : 0)*397) ^ ParentGroupId.GetHashCode();
             }
         }
@@ -683,15 +819,70 @@ namespace CPECentral.Data.EF5
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
             return Equals((ToolGroup) obj);
         }
 
         public override string ToString()
         {
             return Name;
+        }
+    }
+
+    public partial class TricornTool : IEntity, IEquatable<TricornTool>
+    {
+        #region IEquatable<TricornTool> Members
+
+        public bool Equals(TricornTool other)
+        {
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
+            return ToolId == other.ToolId && TricornReference == other.TricornReference;
+        }
+
+        #endregion
+
+        public override int GetHashCode()
+        {
+            unchecked {
+                return (ToolId*397) ^ TricornReference;
+            }
+        }
+
+        public static bool operator ==(TricornTool left, TricornTool right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(TricornTool left, TricornTool right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
+            return Equals((TricornTool) obj);
         }
     }
 }

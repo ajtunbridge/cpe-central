@@ -18,6 +18,7 @@ namespace CPECentral.Data.EF5
         {
             this.HolderTools = new HashSet<HolderTool>();
             this.OperationTools = new HashSet<OperationTool>();
+            this.TricornTools = new HashSet<TricornTool>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace CPECentral.Data.EF5
         public virtual ICollection<HolderTool> HolderTools { get; set; }
         public virtual ICollection<OperationTool> OperationTools { get; set; }
         public virtual ToolGroup ToolGroup { get; set; }
+        public virtual ICollection<TricornTool> TricornTools { get; set; }
     }
 }

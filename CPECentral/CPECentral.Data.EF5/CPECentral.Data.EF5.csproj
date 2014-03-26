@@ -123,6 +123,7 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\ToolGroupRepository.cs" />
     <Compile Include="Repositories\ToolRepository.cs" />
+    <Compile Include="Repositories\TricornToolRepository.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -130,6 +131,9 @@
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ToolGroup.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TricornTool.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork.cs" />

@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>2.1.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -184,6 +184,12 @@
     <Compile Include="Dialogs\EditOperationDialog.Designer.cs">
       <DependentUpon>EditOperationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EditToolDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditToolDialog.Designer.cs">
+      <DependentUpon>EditToolDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\HexagonPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,11 +220,23 @@
     <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectTricornMaterialDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectTricornMaterialDialog.Designer.cs">
+      <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
@@ -247,6 +265,7 @@
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
     <Compile Include="Presenters\ToolLibraryViewPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
@@ -270,6 +289,8 @@
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
+    <Compile Include="ViewModels\StockLevelsViewModel.cs" />
+    <Compile Include="ViewModels\ToolGroupsViewModel.cs" />
     <Compile Include="ViewModels\ToolLibraryViewModel.cs" />
     <Compile Include="Views\CustomerView.cs">
       <SubType>UserControl</SubType>
@@ -321,6 +342,12 @@
     <Compile Include="Views\PartView.Designer.cs">
       <DependentUpon>PartView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ToolGroupsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ToolGroupsView.Designer.cs">
+      <DependentUpon>ToolGroupsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolLibraryView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -369,6 +396,9 @@
     <EmbeddedResource Include="Dialogs\EditOperationDialog.resx">
       <DependentUpon>EditOperationDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditToolDialog.resx">
+      <DependentUpon>EditToolDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\HexDiaCalculatorDialog.resx">
       <DependentUpon>HexDiaCalculatorDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -381,8 +411,14 @@
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectTricornMaterialDialog.resx">
+      <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
@@ -430,16 +466,19 @@
     <EmbeddedResource Include="Views\PartView.resx">
       <DependentUpon>PartView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ToolGroupsView.resx">
+      <DependentUpon>ToolGroupsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolLibraryView.resx">
       <DependentUpon>ToolLibraryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

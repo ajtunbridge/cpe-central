@@ -140,13 +140,13 @@ namespace CPECentral.Presenters
                             }
                             break;
                         case SearchField.DrawingNumber:
-                            matchingParts = uow.Parts.GetWhereDrawingNumberContains(args.Value);
+                            matchingParts = uow.Parts.GetWhereDrawingNumberMatches(args.Value);
                             break;
                         case SearchField.Name:
-                            matchingParts = uow.Parts.GetWhereNameContains(args.Value);
+                            matchingParts = uow.Parts.GetWhereNameMatches(args.Value);
                             break;
                         default:
-                            matchingParts = uow.Parts.GetWhereDrawingNumberContains(args.Value);
+                            matchingParts = uow.Parts.GetWhereDrawingNumberMatches(args.Value);
                             break;
                     }
 

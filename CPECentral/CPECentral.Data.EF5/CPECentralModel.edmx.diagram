@@ -38,6 +38,8 @@
         <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
         <AssociationConnector Association="CPECentralModel.FK_ToolGroups_ToolGroups" />
         <AssociationConnector Association="CPECentralModel.FK_Tools_ToolGroups" />
+        <EntityTypeShape EntityType="CPECentralModel.TricornTool" Width="1.5" PointX="12" PointY="14.875" />
+        <AssociationConnector Association="CPECentralModel.FK_TricornTools_Tools" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

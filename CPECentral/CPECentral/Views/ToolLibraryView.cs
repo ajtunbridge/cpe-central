@@ -27,12 +27,33 @@ namespace CPECentral.Views
         event EventHandler LibraryRefreshFinished;
         event EventHandler<ToolEventArgs> ToolSelected;
         event EventHandler<ToolEventArgs> ToolActivated;
-        event EventHandler<ToolEventArgs> UpdateTool;
+        event EventHandler<ToolEventArgs> ChangedToolsGroup;
         event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
+        event UpdateResultCallbackDelegate<Tool> ToolRenamed;
 
-        void DisplayModel(ToolLibraryViewModel model);
+        void DisplayToolGroupsAndTools(ToolLibraryViewModel model);
+
+        void DisplayStockLevels(StockLevelsViewModel model);
+
+        /// <summary>
+        /// Refreshes the library
+        /// </summary>
         void RefreshLibrary();
+        /// <summary>
+        /// Refreshes the library and automatically selects the provided tool when finished
+        /// </summary>
+        /// <param name="toolToSelect">The tool to select after refreshing</param>
+        void RefreshLibrary(Tool toolToSelect);
+        /// <summary>
+        /// Refreshes the library and automatically selects the provided tool group when finished
+        /// </summary>
+        /// <param name="toolGroupToSelect">The tool group to select after refreshing</param>
+        void RefreshLibrary(ToolGroup toolGroupToSelect);
+
         void SelectTool(Tool toolToSelect);
+        void SelectToolGroup(ToolGroup toolGroupToSelect);
+
+        void SelectToolGroup(int toolGroupId);
 
         void RenameSelectedGroup();
     }
@@ -44,6 +65,7 @@ namespace CPECentral.Views
         private readonly ToolLibraryViewPresenter _presenter;
         private bool _enableEditing;
         private Tool _lastSelectedTool;
+        private ToolGroup _lastSelectedToolGroup;
         private ToolLibraryViewModel _model;
 
         public ToolLibraryView()
@@ -54,14 +76,39 @@ namespace CPECentral.Views
             }
         }
 
+        public ContextMenuStrip SelectedToolContextMenuStrip
+        {
+            get { return toolsEnhancedListView.ItemContextMenuStrip; }
+            set { toolsEnhancedListView.ItemContextMenuStrip = value; }
+        }
+
+        public ContextMenuStrip ToolListContextMenuStrip
+        {
+            get { return toolsEnhancedListView.ContextMenuStrip; }
+            set { toolsEnhancedListView.ContextMenuStrip = value; }
+        }
+
+        public ContextMenuStrip SelectedGroupContextMenuStrip
+        {
+            get { return toolGroupsEnhancedTreeView.NodeContextMenuStrip; }
+            set { toolGroupsEnhancedTreeView.NodeContextMenuStrip = value; }
+        }
+
+        public ContextMenuStrip GroupTreeContextMenuStrip
+        {
+            get { return toolGroupsEnhancedTreeView.ContextMenuStrip; }
+            set { toolGroupsEnhancedTreeView.ContextMenuStrip = value; }
+        }
+
         #region IToolLibraryView Members
 
         public event EventHandler LibraryRefreshStarted;
         public event EventHandler LibraryRefreshFinished;
         public event EventHandler<ToolEventArgs> ToolSelected;
         public event EventHandler<ToolEventArgs> ToolActivated;
-        public event EventHandler<ToolEventArgs> UpdateTool;
+        public event EventHandler<ToolEventArgs> ChangedToolsGroup;
         public event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
+        public event UpdateResultCallbackDelegate<Tool> ToolRenamed;
 
         public ToolGroup SelectedToolGroup
         {
@@ -96,16 +143,16 @@ namespace CPECentral.Views
             }
         }
 
-        public void DisplayModel(ToolLibraryViewModel model)
+        public void DisplayToolGroupsAndTools(ToolLibraryViewModel model)
         {
             _model = model;
 
             toolGroupsEnhancedTreeView.Nodes.Clear();
 
-            IEnumerable<ToolGroup> rootGroups = _model.ToolGroups.Where(t => !t.ParentGroupId.HasValue);
+            var rootGroups = _model.ToolGroups.Where(t => !t.ParentGroupId.HasValue);
 
-            foreach (ToolGroup rootGroup in rootGroups) {
-                TreeNode rootGroupNode = toolGroupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
+            foreach (var rootGroup in rootGroups) {
+                var rootGroupNode = toolGroupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
                 rootGroupNode.Tag = rootGroup;
                 RecursivelyAddChildGroups(rootGroupNode);
             }
@@ -123,6 +170,22 @@ namespace CPECentral.Views
             OnLibraryRefreshFinished();
         }
 
+        public void DisplayStockLevels(StockLevelsViewModel model)
+        {
+            stockLevelsEnhancedListView.Items.Clear();
+
+            if (model == null || model.StockLevels == null || !model.StockLevels.Any()) {
+                stockLevelsEnhancedListView.Items.Add("None");
+                return;
+            }
+
+            foreach (var batch in model.StockLevels) {
+                ListViewItem item = stockLevelsEnhancedListView.Items.Add(batch.BatchNumber);
+                item.SubItems.Add(batch.Quantity.ToString("00"));
+                item.SubItems.Add(batch.Location);
+            }
+        }
+
         public void RefreshLibrary()
         {
             Enabled = false;
@@ -135,31 +198,22 @@ namespace CPECentral.Views
             OnReloadLibrary();
         }
 
-        public void SelectTool(Tool toolToSelect)
+        public void RefreshLibrary(Tool toolToSelect)
         {
-            // recursively search TreeNodes to find the group the tool belongs to
-            var nodeStack = new Stack<TreeNode>();
-            foreach (TreeNode treeNode in toolGroupsEnhancedTreeView.Nodes) {
-                nodeStack.Push(treeNode);
-            }
-            TreeNode groupNodeToSelect = null;
+            _lastSelectedTool = toolToSelect;
+            RefreshLibrary();
+        }
 
-            while (nodeStack.Count > 0) {
-                TreeNode currentNode = nodeStack.Pop();
+        public void RefreshLibrary(ToolGroup toolGroupToSelect)
+        {
+            RefreshLibrary();
 
-                foreach (TreeNode subNode in currentNode.Nodes) {
-                    nodeStack.Push(subNode);
-                }
-                var group = currentNode.Tag as ToolGroup;
-                if (group.Id != toolToSelect.ToolGroupId) {
-                    continue;
-                }
-                groupNodeToSelect = currentNode;
-                break;
-            }
+        }
 
+        public void SelectTool(Tool toolToSelect)
+        {   
             // selecting the node also populates the tools ListView
-            toolGroupsEnhancedTreeView.SelectedNode = groupNodeToSelect;
+            SelectToolGroup(toolToSelect.ToolGroupId);
 
             // find the tool in the ListView and select it
             foreach (ListViewItem item in toolsEnhancedListView.Items) {
@@ -175,6 +229,41 @@ namespace CPECentral.Views
             toolsEnhancedListView.Select();
         }
 
+        public void SelectToolGroup(ToolGroup toolGroupToSelect)
+        {
+            SelectToolGroup(toolGroupToSelect.Id);
+        }
+
+        public void SelectToolGroup(int toolGroupId)
+        {
+            // recursively search TreeNodes to find the group
+            var nodeStack = new Stack<TreeNode>();
+            foreach (TreeNode treeNode in toolGroupsEnhancedTreeView.Nodes)
+            {
+                nodeStack.Push(treeNode);
+            }
+            TreeNode groupNodeToSelect = null;
+
+            while (nodeStack.Count > 0)
+            {
+                var currentNode = nodeStack.Pop();
+
+                foreach (TreeNode subNode in currentNode.Nodes)
+                {
+                    nodeStack.Push(subNode);
+                }
+                var group = currentNode.Tag as ToolGroup;
+                if (group.Id != toolGroupId)
+                {
+                    continue;
+                }
+                groupNodeToSelect = currentNode;
+                break;
+            }            
+            
+            toolGroupsEnhancedTreeView.SelectedNode = groupNodeToSelect;
+        }
+
         public void RenameSelectedGroup()
         {
             toolGroupsEnhancedTreeView.SelectedNode.BeginEdit();
@@ -182,36 +271,24 @@ namespace CPECentral.Views
 
         #endregion
 
-        public ContextMenuStrip SelectedToolContextMenuStrip
+        protected virtual bool OnToolRenamed(Tool entity)
         {
-            get { return toolsEnhancedListView.ItemContextMenuStrip; }
-            set { toolsEnhancedListView.ItemContextMenuStrip = value; }
-        }
+            var updatedOk = false;
 
-        public ContextMenuStrip ToolListContextMenuStrip
-        {
-            get { return toolsEnhancedListView.ContextMenuStrip; }
-            set { toolsEnhancedListView.ContextMenuStrip = value; }
-        }
+            var handler = ToolRenamed;
+            if (handler != null) {
+                updatedOk = handler(entity);
+            }
 
-        public ContextMenuStrip SelectedGroupContextMenuStrip
-        {
-            get { return toolGroupsEnhancedTreeView.NodeContextMenuStrip; }
-            set { toolGroupsEnhancedTreeView.NodeContextMenuStrip = value; }
-        }
-
-        public ContextMenuStrip GroupTreeContextMenuStrip
-        {
-            get { return toolGroupsEnhancedTreeView.ContextMenuStrip; }
-            set { toolGroupsEnhancedTreeView.ContextMenuStrip = value; }
+            return updatedOk;
         }
 
         private void RecursivelyAddChildGroups(TreeNode parentNode)
         {
             var parentGroup = parentNode.Tag as ToolGroup;
 
-            foreach (ToolGroup childGroup in _model.ToolGroups.Where(g => g.ParentGroupId == parentGroup.Id)) {
-                TreeNode childGroupNode = parentNode.Nodes.Add(childGroup.Name);
+            foreach (var childGroup in _model.ToolGroups.Where(g => g.ParentGroupId == parentGroup.Id)) {
+                var childGroupNode = parentNode.Nodes.Add(childGroup.Name);
                 childGroupNode.Tag = childGroup;
                 RecursivelyAddChildGroups(childGroupNode);
             }
@@ -219,7 +296,7 @@ namespace CPECentral.Views
 
         protected virtual void OnReloadLibrary()
         {
-            EventHandler handler = LibraryRefreshStarted;
+            var handler = LibraryRefreshStarted;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -227,7 +304,7 @@ namespace CPECentral.Views
 
         protected virtual void OnToolSelected(ToolEventArgs e)
         {
-            EventHandler<ToolEventArgs> handler = ToolSelected;
+            var handler = ToolSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -235,7 +312,7 @@ namespace CPECentral.Views
 
         protected virtual void OnLibraryRefreshFinished()
         {
-            EventHandler handler = LibraryRefreshFinished;
+            var handler = LibraryRefreshFinished;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -243,9 +320,9 @@ namespace CPECentral.Views
 
         protected virtual bool OnToolGroupRenamed(ToolGroup toolGroup)
         {
-            bool updateSuccessful = false;
+            var updateSuccessful = false;
 
-            UpdateResultCallbackDelegate<ToolGroup> handler = ToolGroupRenamed;
+            var handler = ToolGroupRenamed;
             if (handler != null) {
                 updateSuccessful = handler(toolGroup);
             }
@@ -255,7 +332,7 @@ namespace CPECentral.Views
 
         protected virtual void OnToolActivated(ToolEventArgs e)
         {
-            EventHandler<ToolEventArgs> handler = ToolActivated;
+            var handler = ToolActivated;
             if (handler != null) {
                 handler(this, e);
             }
@@ -263,7 +340,7 @@ namespace CPECentral.Views
 
         protected virtual void OnUpdateTool(ToolEventArgs e)
         {
-            EventHandler<ToolEventArgs> handler = UpdateTool;
+            var handler = ChangedToolsGroup;
             if (handler != null) {
                 handler(this, e);
             }
@@ -277,6 +354,7 @@ namespace CPECentral.Views
         private void toolGroupsEnhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             toolsEnhancedListView.Items.Clear();
+            stockLevelsEnhancedListView.Items.Clear();
 
             var selectedGroup = e.Node.Tag as ToolGroup;
 
@@ -287,21 +365,21 @@ namespace CPECentral.Views
             using (BusyCursor.Show()) {
                 var tools = new List<Tool>();
 
+                // recursively retrieve all tools in the selected group and all child groups
                 var groupStack = new Stack<ToolGroup>();
                 groupStack.Push(selectedGroup);
-
                 while (groupStack.Count > 0) {
-                    ToolGroup currentGroup = groupStack.Pop();
-                    IEnumerable<Tool> groupTools = _model.Tools.Where(t => t.ToolGroupId == currentGroup.Id);
+                    var currentGroup = groupStack.Pop();
+                    var groupTools = _model.Tools.Where(t => t.ToolGroupId == currentGroup.Id);
                     tools.AddRange(groupTools);
 
-                    foreach (ToolGroup childGroup in _model.ToolGroups.Where(g => g.ParentGroupId == currentGroup.Id)) {
+                    foreach (var childGroup in _model.ToolGroups.Where(g => g.ParentGroupId == currentGroup.Id)) {
                         groupStack.Push(childGroup);
                     }
                 }
 
-                foreach (Tool tool in tools.OrderBy(t => t.Description)) {
-                    ListViewItem item = toolsEnhancedListView.Items.Add(tool.Description);
+                foreach (var tool in tools.OrderBy(t => t.Description)) {
+                    var item = toolsEnhancedListView.Items.Add(tool.Description);
                     item.Tag = tool;
                 }
             }
@@ -314,6 +392,9 @@ namespace CPECentral.Views
                 return;
             }
 
+            stockLevelsEnhancedListView.Items.Clear();
+            stockLevelsEnhancedListView.Items.Add("querying...");
+
             _lastSelectedTool = toolsEnhancedListView.SelectedItems[0].Tag as Tool;
 
             OnToolSelected(new ToolEventArgs(_lastSelectedTool));
@@ -321,14 +402,14 @@ namespace CPECentral.Views
 
         private void toolGroupsEnhancedTreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            var groupToRename = e.Node.Tag as ToolGroup;
-
             if (e.Label == null) {
                 e.CancelEdit = true;
                 return;
             }
 
-            string newName = e.Label.ToUpper().Trim();
+            var groupToRename = e.Node.Tag as ToolGroup;
+
+            var newName = e.Label.ToUpper().Trim();
 
             if (groupToRename.Name.Equals(newName, StringComparison.OrdinalIgnoreCase)) {
                 e.CancelEdit = true;
@@ -337,7 +418,30 @@ namespace CPECentral.Views
 
             groupToRename.Name = newName;
 
-            bool updatedOk = OnToolGroupRenamed(groupToRename);
+            var updatedOk = OnToolGroupRenamed(groupToRename);
+
+            e.CancelEdit = !updatedOk;
+        }
+
+        private void toolsEnhancedListView_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            var toolToRename = toolsEnhancedListView.Items[e.Item].Tag as Tool;
+
+            if (e.Label == null) {
+                e.CancelEdit = true;
+                return;
+            }
+
+            var newName = e.Label.ToUpper().Trim();
+
+            if (toolToRename.Description.Equals(newName, StringComparison.OrdinalIgnoreCase)) {
+                e.CancelEdit = true;
+                return;
+            }
+
+            toolToRename.Description = newName;
+
+            var updatedOk = OnToolRenamed(toolToRename);
 
             e.CancelEdit = !updatedOk;
         }
@@ -376,9 +480,9 @@ namespace CPECentral.Views
                 return;
             }
 
-            Point pointToClient = toolGroupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
+            var pointToClient = toolGroupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
 
-            TreeNode node = toolGroupsEnhancedTreeView.GetNodeAt(pointToClient);
+            var node = toolGroupsEnhancedTreeView.GetNodeAt(pointToClient);
 
             if (node == null) {
                 e.Effect = DragDropEffects.None;
@@ -393,15 +497,15 @@ namespace CPECentral.Views
             }
 
             node.BackColor = Color.LightYellow;
-
+            node.Expand();
             e.Effect = DragDropEffects.Move;
         }
 
         private void toolGroupsEnhancedTreeView_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof (ListViewItem))) {
-                Point pointToClient = toolGroupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
-                TreeNode node = toolGroupsEnhancedTreeView.GetNodeAt(pointToClient);
+                var pointToClient = toolGroupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
+                var node = toolGroupsEnhancedTreeView.GetNodeAt(pointToClient);
 
                 if (node == null) {
                     return;
@@ -409,7 +513,7 @@ namespace CPECentral.Views
 
                 // if this group has sub-groups, confirm move
                 if (node.Nodes.Count > 0) {
-                    bool ok =
+                    var ok =
                         DialogService.AskQuestion(
                             "This group has child groups!\n\nAre you sure you're moving it to the correct group?");
                     if (!ok) {
@@ -448,12 +552,19 @@ namespace CPECentral.Views
             }
 
             while (nodeStack.Count > 0) {
-                TreeNode currentNode = nodeStack.Pop();
+                var currentNode = nodeStack.Pop();
                 action(currentNode);
                 foreach (TreeNode childNode in currentNode.Nodes) {
                     nodeStack.Push(childNode);
                 }
             }
         }
+
+        private void toolsEnhancedListView_ItemActivate(object sender, EventArgs e)
+        {
+            var tool = toolsEnhancedListView.SelectedItems[0].Tag as Tool;
+            OnToolActivated(new ToolEventArgs(tool));
+        }
+
     }
 }

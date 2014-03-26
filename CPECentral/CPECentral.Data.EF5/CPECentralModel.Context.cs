@@ -41,5 +41,6 @@ namespace CPECentral.Data.EF5
         public DbSet<ToolGroup> ToolGroups { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<TricornTool> TricornTools { get; set; }
     }
 }

@@ -12,13 +12,12 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class HolderTool
+    public partial class TricornTool
     {
         public int Id { get; set; }
-        public int HolderId { get; set; }
         public int ToolId { get; set; }
+        public int TricornReference { get; set; }
     
-        public virtual Holder Holder { get; set; }
         public virtual Tool Tool { get; set; }
     }
 }
