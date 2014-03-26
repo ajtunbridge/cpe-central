@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.enhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
+            this.groupsEnhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addRootGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nodeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addChildGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -44,24 +42,24 @@
             this.nodeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // enhancedTreeView
+            // groupsEnhancedTreeView
             // 
-            this.enhancedTreeView.ContextMenuStrip = this.mainContextMenuStrip;
-            this.enhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.enhancedTreeView.Location = new System.Drawing.Point(0, 0);
-            this.enhancedTreeView.Name = "enhancedTreeView";
-            this.enhancedTreeView.NodeContextMenuStrip = this.nodeContextMenuStrip;
-            this.enhancedTreeView.Size = new System.Drawing.Size(215, 253);
-            this.enhancedTreeView.TabIndex = 0;
+            this.groupsEnhancedTreeView.ContextMenuStrip = this.mainContextMenuStrip;
+            this.groupsEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupsEnhancedTreeView.Location = new System.Drawing.Point(0, 0);
+            this.groupsEnhancedTreeView.Name = "groupsEnhancedTreeView";
+            this.groupsEnhancedTreeView.NodeContextMenuStrip = this.nodeContextMenuStrip;
+            this.groupsEnhancedTreeView.Size = new System.Drawing.Size(215, 253);
+            this.groupsEnhancedTreeView.TabIndex = 0;
+            this.groupsEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.enhancedTreeView_AfterLabelEdit);
+            this.groupsEnhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.groupsEnhancedTreeView_AfterSelect);
             // 
             // mainContextMenuStrip
             // 
             this.mainContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addRootGroupToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.refreshToolStripMenuItem});
+            this.addRootGroupToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
-            this.mainContextMenuStrip.Size = new System.Drawing.Size(157, 54);
+            this.mainContextMenuStrip.Size = new System.Drawing.Size(157, 26);
             this.mainContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainContextMenuStrip_ItemClicked);
             // 
             // addRootGroupToolStripMenuItem
@@ -70,18 +68,6 @@
             this.addRootGroupToolStripMenuItem.Name = "addRootGroupToolStripMenuItem";
             this.addRootGroupToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.addRootGroupToolStripMenuItem.Text = "&Add root group";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(153, 6);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.refreshToolStripMenuItem.Text = "&Refresh";
             // 
             // nodeContextMenuStrip
             // 
@@ -92,7 +78,7 @@
             this.toolStripMenuItem2,
             this.deleteToolStripMenuItem});
             this.nodeContextMenuStrip.Name = "nodeContextMenuStrip";
-            this.nodeContextMenuStrip.Size = new System.Drawing.Size(161, 104);
+            this.nodeContextMenuStrip.Size = new System.Drawing.Size(161, 82);
             this.nodeContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.nodeContextMenuStrip_ItemClicked);
             // 
             // addChildGroupToolStripMenuItem
@@ -130,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.enhancedTreeView);
+            this.Controls.Add(this.groupsEnhancedTreeView);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ToolGroupsView";
@@ -144,7 +130,7 @@
 
         #endregion
 
-        private nGenLibrary.Controls.EnhancedTreeView enhancedTreeView;
+        private nGenLibrary.Controls.EnhancedTreeView groupsEnhancedTreeView;
         private System.Windows.Forms.ContextMenuStrip nodeContextMenuStrip;
         private System.Windows.Forms.ContextMenuStrip mainContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addChildGroupToolStripMenuItem;
@@ -153,7 +139,5 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addRootGroupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

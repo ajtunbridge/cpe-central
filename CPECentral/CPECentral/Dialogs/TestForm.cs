@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 
 namespace CPECentral.Dialogs
 {
@@ -14,6 +15,11 @@ namespace CPECentral.Dialogs
         public TestForm()
         {
             InitializeComponent();
+        }
+
+        private void toolGroupsView1_ToolGroupSelected(object sender, ToolGroupEventArgs e)
+        {
+            toolsView1.LoadGroupTools(e.ToolGroup);
         }
     }
 }
