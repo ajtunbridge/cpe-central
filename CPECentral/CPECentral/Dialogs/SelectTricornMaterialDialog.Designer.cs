@@ -119,6 +119,7 @@
             this.resultsEnhancedListView.IndexOfColumnToResize = 0;
             this.resultsEnhancedListView.ItemContextMenuStrip = null;
             this.resultsEnhancedListView.Location = new System.Drawing.Point(3, 21);
+            this.resultsEnhancedListView.MultiSelect = false;
             this.resultsEnhancedListView.Name = "resultsEnhancedListView";
             this.resultsEnhancedListView.ResizeColumnToFill = true;
             this.resultsEnhancedListView.Size = new System.Drawing.Size(480, 180);

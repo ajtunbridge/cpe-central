@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -28,6 +29,8 @@ namespace nGenLibrary.Controls
             }
         }
 
+        [Category("Behavior")]
+        [Description("The context menu to show when a node is right-mouse clicked.")]
         public ContextMenuStrip NodeContextMenuStrip { get; set; }
 
         [DebuggerStepThrough]
@@ -43,23 +46,25 @@ namespace nGenLibrary.Controls
 
         private void EnhancedTreeView_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Right)
-                return;
+            if (e.Button == MouseButtons.Right) {
 
-            var clickedNode = GetNodeAt(e.X, e.Y);
+                var clickedNode = GetNodeAt(e.X, e.Y);
 
-            var contextMenu = (clickedNode == null) ? ContextMenuStrip : NodeContextMenuStrip;
+                var contextMenu = (clickedNode == null) ? ContextMenuStrip : NodeContextMenuStrip;
 
-            contextMenu.Show(this, e.X, e.Y);
+                if (contextMenu != null) {
+                    contextMenu.Show(this, e.X, e.Y);
+                }
 
-            if (clickedNode == null) {
-                return;
+                if (clickedNode == null) {
+                    return;
+                }
+
+                if (SelectedNode != null && SelectedNode == clickedNode)
+                    return;
+
+                SelectedNode = clickedNode;
             }
-
-            if (SelectedNode != null && SelectedNode == clickedNode)
-                return;
-
-            SelectedNode = clickedNode;
         }
     }
 }

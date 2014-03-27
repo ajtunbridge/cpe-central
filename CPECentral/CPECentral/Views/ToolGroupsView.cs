@@ -2,14 +2,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Delegates;
 using CPECentral.Presenters;
-using CPECentral.ViewModels;
 
 #endregion
 
@@ -18,7 +17,7 @@ namespace CPECentral.Views
     public interface IToolGroupsView : IView
     {
         ToolGroup SelectedToolGroup { get; }
-        bool EnableEditing { get; set; }
+        bool EditMode { get; set; }
 
         event EventHandler RefreshGroups;
         event EventHandler AddRootGroup;
@@ -27,15 +26,17 @@ namespace CPECentral.Views
         event EventHandler<ToolGroupEventArgs> ToolGroupSelected;
         event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
 
-        void DisplayModel(ToolGroupsViewModel model);
+        void DisplayGroups(IEnumerable<ToolGroup> groups);
 
         void SelectToolGroup(ToolGroup groupToSelect, bool inEditMode);
     }
 
+    [DefaultEvent("ToolGroupSelected")]
     public partial class ToolGroupsView : ViewBase, IToolGroupsView
     {
         private readonly ToolGroupsViewPresenter _presenter;
-        private bool _enableEditing = false;
+        private bool _editMode;
+        private bool _isDisplayingGroups;
 
         public ToolGroupsView()
         {
@@ -50,6 +51,7 @@ namespace CPECentral.Views
 
         public event EventHandler RefreshGroups;
         public event EventHandler<ToolGroupEventArgs> DeleteGroup;
+
         public event EventHandler<ToolGroupEventArgs> ToolGroupSelected;
         public event EventHandler AddRootGroup;
 
@@ -67,53 +69,51 @@ namespace CPECentral.Views
             }
         }
 
-        public bool EnableEditing
+        public bool EditMode
         {
-            get { return _enableEditing; }
+            get { return _editMode; }
             set
             {
                 groupsEnhancedTreeView.NodeContextMenuStrip = value ? nodeContextMenuStrip : null;
                 groupsEnhancedTreeView.ContextMenuStrip = value ? mainContextMenuStrip : null;
                 groupsEnhancedTreeView.LabelEdit = value;
-                _enableEditing = value;
+                _editMode = value;
             }
         }
 
-        public void DisplayModel(ToolGroupsViewModel model)
+        public void DisplayGroups(IEnumerable<ToolGroup> groups)
         {
+            _isDisplayingGroups = true;
+
             groupsEnhancedTreeView.Nodes.Clear();
 
-            var rootGroups = model.ToolGroups.Where(t => !t.ParentGroupId.HasValue);
+            var rootGroups = groups.Where(t => !t.ParentGroupId.HasValue);
 
             foreach (var rootGroup in rootGroups) {
                 var rootGroupNode = groupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
                 rootGroupNode.Tag = rootGroup;
-                RecursivelyAddChildGroups(rootGroupNode, model);
+                RecursivelyAddChildGroups(rootGroupNode, groups);
             }
 
-            if (groupsEnhancedTreeView.Nodes.Count > 0) {
-                groupsEnhancedTreeView.SelectedNode = groupsEnhancedTreeView.Nodes[0];
-            }
+            groupsEnhancedTreeView.Sort();
+
+            _isDisplayingGroups = false;
         }
 
         public void SelectToolGroup(ToolGroup groupToSelect, bool inEditMode)
         {
             var nodeStack = new Stack<TreeNode>();
-            foreach (TreeNode node in groupsEnhancedTreeView.Nodes)
-            {
+            foreach (TreeNode node in groupsEnhancedTreeView.Nodes) {
                 nodeStack.Push(node);
             }
 
-            while (nodeStack.Count > 0)
-            {
+            while (nodeStack.Count > 0) {
                 var currentNode = nodeStack.Pop();
-                foreach (TreeNode childNode in currentNode.Nodes)
-                {
+                foreach (TreeNode childNode in currentNode.Nodes) {
                     nodeStack.Push(childNode);
                 }
                 var currentGroup = currentNode.Tag as ToolGroup;
-                if (currentGroup.Equals(groupToSelect))
-                {
+                if (currentGroup.Equals(groupToSelect)) {
                     groupsEnhancedTreeView.SelectedNode = currentNode;
                     if (inEditMode) {
                         groupsEnhancedTreeView.SelectedNode.BeginEdit();
@@ -137,11 +137,10 @@ namespace CPECentral.Views
 
         protected virtual bool OnToolGroupRenamed(ToolGroup entity)
         {
-            bool result = false;
+            var result = false;
 
-            UpdateResultCallbackDelegate<ToolGroup> handler = ToolGroupRenamed;
-            if (handler != null)
-            {
+            var handler = ToolGroupRenamed;
+            if (handler != null) {
                 result = handler(entity);
             }
 
@@ -174,23 +173,22 @@ namespace CPECentral.Views
 
         protected virtual void OnDeleteGroup(ToolGroupEventArgs e)
         {
-            EventHandler<ToolGroupEventArgs> handler = DeleteGroup;
-            if (handler != null)
-            {
+            var handler = DeleteGroup;
+            if (handler != null) {
                 handler(this, e);
             }
         }
 
         #endregion
 
-        private void RecursivelyAddChildGroups(TreeNode parentNode, ToolGroupsViewModel model)
+        private void RecursivelyAddChildGroups(TreeNode parentNode, IEnumerable<ToolGroup> groups)
         {
             var parentGroup = parentNode.Tag as ToolGroup;
 
-            foreach (var childGroup in model.ToolGroups.Where(g => g.ParentGroupId == parentGroup.Id)) {
+            foreach (var childGroup in groups.Where(g => g.ParentGroupId == parentGroup.Id)) {
                 var childGroupNode = parentNode.Nodes.Add(childGroup.Name);
                 childGroupNode.Tag = childGroup;
-                RecursivelyAddChildGroups(childGroupNode, model);
+                RecursivelyAddChildGroups(childGroupNode, groups);
             }
         }
 
@@ -216,8 +214,7 @@ namespace CPECentral.Views
         {
             nodeContextMenuStrip.Hide();
 
-            switch (e.ClickedItem.Name)
-            {
+            switch (e.ClickedItem.Name) {
                 case "addChildGroupToolStripMenuItem":
                     OnAddChildGroup(new ToolGroupEventArgs(SelectedToolGroup));
                     break;
@@ -239,8 +236,7 @@ namespace CPECentral.Views
 
             var nodesAtSameLevel = e.Node.Parent == null ? groupsEnhancedTreeView.Nodes : e.Node.Parent.Nodes;
 
-            foreach (TreeNode node in nodesAtSameLevel)
-            {
+            foreach (TreeNode node in nodesAtSameLevel) {
                 if (node == e.Node) {
                     continue;
                 }
@@ -253,7 +249,7 @@ namespace CPECentral.Views
 
             var group = groupsEnhancedTreeView.SelectedNode.Tag as ToolGroup;
             group.Name = e.Label.ToUpper();
-            
+
             var updatedOk = OnToolGroupRenamed(group);
 
             e.CancelEdit = !updatedOk;
@@ -261,6 +257,10 @@ namespace CPECentral.Views
 
         private void groupsEnhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (_isDisplayingGroups) {
+                return;
+            }
+
             var selectedGroup = e.Node.Tag as ToolGroup;
 
             OnToolGroupSelected(new ToolGroupEventArgs(selectedGroup));

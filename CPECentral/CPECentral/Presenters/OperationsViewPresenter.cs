@@ -48,8 +48,8 @@ namespace CPECentral.Presenters
                     }
 
                     using (BusyCursor.Show()) {
-                        using (var uow = new UnitOfWork()) {
-                            var opToEdit = uow.Operations.GetById(_operationsView.SelectedOperation.Id);
+                        using (var cpe = new CPEUnitOfWork()) {
+                            var opToEdit = cpe.Operations.GetById(_operationsView.SelectedOperation.Id);
 
                             opToEdit.CycleTime = operationDialog.CycleTime;
                             opToEdit.Description = operationDialog.Description;
@@ -58,9 +58,9 @@ namespace CPECentral.Presenters
                             opToEdit.Sequence = operationDialog.Sequence;
                             opToEdit.SetupTime = operationDialog.SetupTime;
 
-                            uow.Operations.Update(opToEdit);
+                            cpe.Operations.Update(opToEdit);
 
-                            uow.Commit();
+                            cpe.Commit();
 
                             ReloadOperations();
                         }
@@ -100,9 +100,9 @@ namespace CPECentral.Presenters
                 }
 
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        uow.Operations.Add(newOperation);
-                        uow.Commit();
+                    using (var cpe = new CPEUnitOfWork()) {
+                        cpe.Operations.Add(newOperation);
+                        cpe.Commit();
                     }
                 }
 
@@ -139,12 +139,12 @@ namespace CPECentral.Presenters
                 }
 
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        uow.Methods.Add(newMethod);
-                        uow.Commit();
+                    using (var cpe = new CPEUnitOfWork()) {
+                        cpe.Methods.Add(newMethod);
+                        cpe.Commit();
 
                         if (newMethod.IsPreferred) {
-                            EnsureOnlyOnePreferredMethod(newMethod, uow);
+                            EnsureOnlyOnePreferredMethod(newMethod, cpe);
                         }
                     }
                 }
@@ -171,16 +171,16 @@ namespace CPECentral.Presenters
                     }
 
                     using (BusyCursor.Show()) {
-                        using (var uow = new UnitOfWork()) {
-                            var methodToEdit = uow.Methods.GetById(_operationsView.SelectedMethod.Id);
+                        using (var cpe = new CPEUnitOfWork()) {
+                            var methodToEdit = cpe.Methods.GetById(_operationsView.SelectedMethod.Id);
                             methodToEdit.Description = methodDialog.Description;
                             methodToEdit.IsPreferred = methodDialog.IsPreferred;
 
-                            uow.Methods.Update(methodToEdit);
-                            uow.Commit();
+                            cpe.Methods.Update(methodToEdit);
+                            cpe.Commit();
 
                             if (methodToEdit.IsPreferred) {
-                                EnsureOnlyOnePreferredMethod(methodToEdit, uow);
+                                EnsureOnlyOnePreferredMethod(methodToEdit, cpe);
                             }
                         }
                     }
@@ -208,8 +208,8 @@ namespace CPECentral.Presenters
             try {
                 var method = (Method) e.Argument;
 
-                using (var uow = new UnitOfWork()) {
-                    var ops = uow.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
+                using (var cpe = new CPEUnitOfWork()) {
+                    var ops = cpe.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
 
                     e.Result = ops;
                 }
@@ -237,8 +237,8 @@ namespace CPECentral.Presenters
             try {
                 var partVersion = (PartVersion) e.Argument;
 
-                using (var uow = new UnitOfWork()) {
-                    var methods = uow.Methods.GetByPartVersion(partVersion)
+                using (var cpe = new CPEUnitOfWork()) {
+                    var methods = cpe.Methods.GetByPartVersion(partVersion)
                                      .OrderByDescending(method => method.IsPreferred);
 
                     e.Result = methods;
@@ -262,17 +262,17 @@ namespace CPECentral.Presenters
             _operationsView.DisplayMethods(methods);
         }
 
-        private void EnsureOnlyOnePreferredMethod(Method prefferedMethod, UnitOfWork uow)
+        private void EnsureOnlyOnePreferredMethod(Method prefferedMethod, CPEUnitOfWork cpe)
         {
-            var otherMethods = uow.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
+            var otherMethods = cpe.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
                                   .Where(m => m.Id != prefferedMethod.Id);
 
             foreach (var method in otherMethods) {
                 method.IsPreferred = false;
-                uow.Methods.Update(method);
+                cpe.Methods.Update(method);
             }
 
-            uow.Commit();
+            cpe.Commit();
         }
 
         private void ReloadMethods()

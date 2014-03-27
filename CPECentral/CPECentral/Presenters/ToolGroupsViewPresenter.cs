@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
-using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
 
@@ -26,14 +25,22 @@ namespace CPECentral.Presenters
             _view.AddRootGroup += View_AddRootGroup;
             _view.AddChildGroup += View_AddChildGroup;
             _view.ToolGroupRenamed += View_ToolGroupRenamed;
-            _view.DeleteGroup += _view_DeleteGroup;
+            _view.DeleteGroup += View_DeleteGroup;
         }
 
-        void _view_DeleteGroup(object sender, ToolGroupEventArgs e)
+        private void View_DeleteGroup(object sender, ToolGroupEventArgs e)
         {
+            if (!_view.DialogService.AskQuestion("Are you sure you want to delete this group?")) {
+                return;
+            }
+
             try {
                 using (BusyCursor.Show()) {
-                    using (var cpe = new UnitOfWork()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        if (cpe.Tools.GetDependentToolCount(e.ToolGroup) > 0) {
+                            _view.DialogService.ShowError("Unable to delete this group as it contains tools!");
+                            return;
+                        }
                         cpe.ToolGroups.Delete(e.ToolGroup);
                         cpe.Commit();
                         RefreshGroups();
@@ -47,11 +54,11 @@ namespace CPECentral.Presenters
 
         private bool View_ToolGroupRenamed(ToolGroup entity)
         {
-            bool result = true;
+            var result = true;
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var cpe = new UnitOfWork()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         entity.Name = entity.Name.ToUpper().Trim();
                         cpe.ToolGroups.Update(entity);
                         cpe.Commit();
@@ -83,22 +90,20 @@ namespace CPECentral.Presenters
 
         private void AddGroup(ToolGroup parentGroup)
         {
-            ToolGroup newGroup = null;
-
             try {
                 using (BusyCursor.Show()) {
-                    using (var cpe = new UnitOfWork()) {
-                        IEnumerable<ToolGroup> groupsAtSameLevel = (parentGroup == null)
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var groupsAtSameLevel = (parentGroup == null)
                             ? cpe.ToolGroups.GetRootGroups()
                             : cpe.ToolGroups.GetChildGroups(parentGroup);
 
-                        string newName = NewGroupName + "01";
-                        int count = 1;
+                        var newName = NewGroupName + "01";
+                        var count = 1;
                         while (groupsAtSameLevel.Any(g => g.Name.Equals(newName, StringComparison.OrdinalIgnoreCase))) {
                             count++;
                             newName = NewGroupName + count.ToString("00");
                         }
-                        newGroup = new ToolGroup {Name = newName};
+                        var newGroup = new ToolGroup {Name = newName};
                         if (parentGroup != null) {
                             newGroup.ParentGroupId = parentGroup.Id;
                         }
@@ -116,12 +121,12 @@ namespace CPECentral.Presenters
 
         private void RefreshGroups()
         {
-            var model = new ToolGroupsViewModel();
+            IEnumerable<ToolGroup> groups = null;
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var cpe = new UnitOfWork()) {
-                        model.ToolGroups = cpe.ToolGroups.GetAll();
+                    using (var cpe = new CPEUnitOfWork()) {
+                        groups = cpe.ToolGroups.GetAll().ToList();
                     }
                 }
             }
@@ -129,7 +134,7 @@ namespace CPECentral.Presenters
                 HandleException(ex);
             }
 
-            _view.DisplayModel(model);
+            _view.DisplayGroups(groups);
         }
 
         private void HandleException(Exception ex)

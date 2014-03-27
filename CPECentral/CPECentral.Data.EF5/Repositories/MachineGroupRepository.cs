@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class MachineGroupRepository : RepositoryBase<MachineGroup>
     {
-        public MachineGroupRepository(UnitOfWork unitOfWork)
+        public MachineGroupRepository(CPEUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

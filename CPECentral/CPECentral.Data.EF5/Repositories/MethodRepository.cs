@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class MethodRepository : RepositoryBase<Method>
     {
-        public MethodRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public MethodRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

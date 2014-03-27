@@ -46,9 +46,9 @@ namespace CPECentral.Presenters
             try {
                 var part = (Part) e.Argument;
 
-                using (var uow = new UnitOfWork()) {
-                    var createdBy = uow.Employees.GetById(part.CreatedBy);
-                    var modifiedBy = uow.Employees.GetById(part.ModifiedBy);
+                using (var cpe = new CPEUnitOfWork()) {
+                    var createdBy = cpe.Employees.GetById(part.CreatedBy);
+                    var modifiedBy = cpe.Employees.GetById(part.ModifiedBy);
 
                     var model = new PartViewModel();
                     model.CreatedBy = createdBy.ToString();

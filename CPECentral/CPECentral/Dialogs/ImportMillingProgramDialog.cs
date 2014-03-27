@@ -27,8 +27,8 @@ namespace CPECentral.Dialogs
 
         private void ImportMillingProgramDialog_Load(object sender, EventArgs e)
         {
-            using (var uow = new UnitOfWork()) {
-                _millingGroup = uow.MachineGroups.GetByName("CNC Mills");
+            using (var cpe = new CPEUnitOfWork()) {
+                _millingGroup = cpe.MachineGroups.GetByName("CNC Mills");
 
                 nextProgramNumberLabel.Text = _millingGroup.NextNumber.ToString();
             }
@@ -69,12 +69,12 @@ namespace CPECentral.Dialogs
 
                     Session.DocumentService.QueueUpload(fileName, _operation);
 
-                    using (var uow = new UnitOfWork()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         _millingGroup.NextNumber += 1;
 
-                        uow.MachineGroups.Update(_millingGroup);
+                        cpe.MachineGroups.Update(_millingGroup);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
 
                     foundFile = true;

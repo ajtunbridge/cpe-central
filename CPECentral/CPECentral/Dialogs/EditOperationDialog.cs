@@ -86,13 +86,24 @@ namespace CPECentral.Dialogs
         {
             try {
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        var machineGroups = uow.MachineGroups.GetAll().OrderBy(m => m.Name);
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var machineGroups = cpe.MachineGroups.GetAll().OrderBy(m => m.Name);
 
                         machineGroupComboBox.Items.AddRange(machineGroups.ToArray());
 
                         if (_operation == null) {
-                            machineGroupComboBox.SelectedIndex = 0;
+                            var preferredMachineGroupId = Session.CurrentEmployee.PreferredMachineGroup;
+                            if (!preferredMachineGroupId.HasValue) {
+                                machineGroupComboBox.SelectedIndex = 0;
+                            }
+                            else {
+                                foreach (var group in machineGroups) {
+                                    if (group.Id == preferredMachineGroupId) {
+                                        machineGroupComboBox.SelectedItem = group;
+                                        break;
+                                    }
+                                }
+                            }
                             return;
                         }
 
@@ -102,7 +113,7 @@ namespace CPECentral.Dialogs
                                                        ? (decimal) _operation.CycleTime.Value
                                                        : 0;
                         descriptionTextBox.Text = _operation.Description;
-                        machineGroupComboBox.SelectedItem = uow.MachineGroups.GetById(_operation.MachineGroupId);
+                        machineGroupComboBox.SelectedItem = cpe.MachineGroups.GetById(_operation.MachineGroupId);
                     }
                 }
             }

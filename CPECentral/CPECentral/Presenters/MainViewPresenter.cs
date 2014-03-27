@@ -66,8 +66,8 @@ namespace CPECentral.Presenters
 
                 try {
                     using (BusyCursor.Show()) {
-                        using (var uow = new UnitOfWork()) {
-                            uow.BeginTransaction();
+                        using (var cpe = new CPEUnitOfWork()) {
+                            cpe.BeginTransaction();
 
                             var part = new Part();
 
@@ -77,7 +77,7 @@ namespace CPECentral.Presenters
                                 customer.CreatedBy = Session.CurrentEmployee.Id;
                                 customer.ModifiedBy = Session.CurrentEmployee.Id;
 
-                                uow.Customers.Add(customer);
+                                cpe.Customers.Add(customer);
 
                                 part.Customer = customer;
                             }
@@ -91,7 +91,7 @@ namespace CPECentral.Presenters
                             part.CreatedBy = Session.CurrentEmployee.Id;
                             part.ModifiedBy = Session.CurrentEmployee.Id;
 
-                            uow.Parts.Add(part);
+                            cpe.Parts.Add(part);
 
                             var version = new PartVersion();
                             version.Part = part;
@@ -99,9 +99,9 @@ namespace CPECentral.Presenters
                             version.CreatedBy = Session.CurrentEmployee.Id;
                             version.ModifiedBy = Session.CurrentEmployee.Id;
 
-                            uow.PartVersions.Add(version);
+                            cpe.PartVersions.Add(version);
 
-                            uow.Commit();
+                            cpe.Commit();
 
                             Session.MessageBus.Publish(new PartAddedMessage(part));
 

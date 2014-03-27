@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class OperationRepository : RepositoryBase<Operation>
     {
-        public OperationRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public OperationRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

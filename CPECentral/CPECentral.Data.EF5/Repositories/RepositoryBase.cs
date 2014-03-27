@@ -11,9 +11,9 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public abstract class RepositoryBase<T> where T : class, IEntity
     {
-        protected readonly UnitOfWork UnitOfWork;
+        protected readonly CPEUnitOfWork UnitOfWork;
 
-        protected RepositoryBase(UnitOfWork unitOfWork)
+        protected RepositoryBase(CPEUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
         }

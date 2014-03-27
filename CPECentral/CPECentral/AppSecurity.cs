@@ -32,8 +32,8 @@ namespace CPECentral
         internal static bool Check(AppPermission permission, bool showErrorDialog)
         {
             using (BusyCursor.Show()) {
-                using (var uow = new UnitOfWork()) {
-                    var group = uow.EmployeeGroups.GetById(Session.CurrentEmployee.EmployeeGroupId);
+                using (var cpe = new CPEUnitOfWork()) {
+                    var group = cpe.EmployeeGroups.GetById(Session.CurrentEmployee.EmployeeGroupId);
 
                     if (group.HasPermission(AppPermission.Administrator) || group.HasPermission(permission)) {
                         return true;

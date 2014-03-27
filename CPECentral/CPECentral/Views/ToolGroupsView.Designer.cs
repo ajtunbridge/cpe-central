@@ -44,11 +44,11 @@
             // 
             // groupsEnhancedTreeView
             // 
-            this.groupsEnhancedTreeView.ContextMenuStrip = this.mainContextMenuStrip;
             this.groupsEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupsEnhancedTreeView.HideSelection = false;
             this.groupsEnhancedTreeView.Location = new System.Drawing.Point(0, 0);
             this.groupsEnhancedTreeView.Name = "groupsEnhancedTreeView";
-            this.groupsEnhancedTreeView.NodeContextMenuStrip = this.nodeContextMenuStrip;
+            this.groupsEnhancedTreeView.NodeContextMenuStrip = null;
             this.groupsEnhancedTreeView.Size = new System.Drawing.Size(215, 253);
             this.groupsEnhancedTreeView.TabIndex = 0;
             this.groupsEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.enhancedTreeView_AfterLabelEdit);

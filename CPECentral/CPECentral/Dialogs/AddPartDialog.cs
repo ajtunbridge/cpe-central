@@ -81,10 +81,10 @@ namespace CPECentral.Dialogs
 
         private void LoadCustomers()
         {
-            using (var uow = new UnitOfWork()) {
+            using (var cpe = new CPEUnitOfWork()) {
                 try {
                     using (BusyCursor.Show()) {
-                        var customers = uow.Customers.GetAll().OrderBy(c => c.Name);
+                        var customers = cpe.Customers.GetAll().OrderBy(c => c.Name);
 
                         customerComboBox.Items.AddRange(customers.ToArray());
 

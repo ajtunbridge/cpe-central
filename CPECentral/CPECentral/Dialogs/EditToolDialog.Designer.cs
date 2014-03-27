@@ -70,6 +70,7 @@
             this.deleteButton.Size = new System.Drawing.Size(32, 32);
             this.deleteButton.TabIndex = 3;
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // tricornLinksEnhancedListView
             // 
@@ -82,6 +83,7 @@
             this.tricornLinksEnhancedListView.IndexOfColumnToResize = 0;
             this.tricornLinksEnhancedListView.ItemContextMenuStrip = null;
             this.tricornLinksEnhancedListView.Location = new System.Drawing.Point(6, 24);
+            this.tricornLinksEnhancedListView.MultiSelect = false;
             this.tricornLinksEnhancedListView.Name = "tricornLinksEnhancedListView";
             this.tricornLinksEnhancedListView.ResizeColumnToFill = true;
             this.tricornLinksEnhancedListView.Size = new System.Drawing.Size(425, 185);
@@ -89,6 +91,7 @@
             this.tricornLinksEnhancedListView.UseAlternatingBackColor = true;
             this.tricornLinksEnhancedListView.UseCompatibleStateImageBehavior = false;
             this.tricornLinksEnhancedListView.View = System.Windows.Forms.View.Details;
+            this.tricornLinksEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.tricornLinksEnhancedListView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 

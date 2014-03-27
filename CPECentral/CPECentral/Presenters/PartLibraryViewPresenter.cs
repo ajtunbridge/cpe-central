@@ -35,11 +35,11 @@ namespace CPECentral.Presenters
         {
             try {
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        var emp = uow.Employees.GetById(Session.CurrentEmployee.Id);
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var emp = cpe.Employees.GetById(Session.CurrentEmployee.Id);
                         emp.LastViewedPartId = e.Part.Id;
-                        uow.Employees.Update(emp);
-                        uow.Commit();
+                        cpe.Employees.Update(emp);
+                        cpe.Commit();
                     }
                 }
             }
@@ -72,39 +72,39 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            using (var uow = new UnitOfWork()) {
+            using (var cpe = new CPEUnitOfWork()) {
                 using (BusyCursor.Show()) {
                     var documents = new List<Document>();
 
                     var part = _libraryView.SelectedPart;
 
-                    documents.AddRange(uow.Documents.GetByPart(part));
+                    documents.AddRange(cpe.Documents.GetByPart(part));
 
-                    var versions = uow.PartVersions.GetByPart(part).ToList();
+                    var versions = cpe.PartVersions.GetByPart(part).ToList();
 
                     var methods = new List<Method>();
                     foreach (var version in versions) {
-                        methods.AddRange(uow.Methods.GetByPartVersion(version));
-                        documents.AddRange(uow.Documents.GetByPartVersion(version));
+                        methods.AddRange(cpe.Methods.GetByPartVersion(version));
+                        documents.AddRange(cpe.Documents.GetByPartVersion(version));
                     }
 
                     var operations = new List<Operation>();
                     foreach (var method in methods) {
-                        operations.AddRange(uow.Operations.GetByMethod(method));
+                        operations.AddRange(cpe.Operations.GetByMethod(method));
                     }
 
                     foreach (var operation in operations) {
-                        documents.AddRange(uow.Documents.GetByOperation(operation));
+                        documents.AddRange(cpe.Documents.GetByOperation(operation));
                     }
 
                     Session.DocumentService.DeleteDocuments(documents);
 
-                    operations.ForEach(op => uow.Operations.Delete(op));
-                    methods.ForEach(m => uow.Methods.Delete(m));
-                    versions.ForEach(v => uow.PartVersions.Delete(v));
-                    uow.Parts.Delete(part);
+                    operations.ForEach(op => cpe.Operations.Delete(op));
+                    methods.ForEach(m => cpe.Methods.Delete(m));
+                    versions.ForEach(v => cpe.PartVersions.Delete(v));
+                    cpe.Parts.Delete(part);
 
-                    uow.Commit();
+                    cpe.Commit();
 
                     LibraryViewReloadData(sender, e);
                 }
@@ -124,7 +124,7 @@ namespace CPECentral.Presenters
             var args = (PartSearchArgs) e.Argument;
 
             try {
-                using (var uow = new UnitOfWork()) {
+                using (var cpe = new CPEUnitOfWork()) {
                     IEnumerable<Part> matchingParts;
 
                     switch (args.Field) {
@@ -134,19 +134,19 @@ namespace CPECentral.Presenters
                                     tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
                                 var parts = new List<Part>();
                                 foreach (var drawingNumber in drawingNumbers) {
-                                    parts.AddRange(uow.Parts.GetWhereDrawingNumberContains(drawingNumber));
+                                    parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(drawingNumber));
                                 }
                                 matchingParts = parts;
                             }
                             break;
                         case SearchField.DrawingNumber:
-                            matchingParts = uow.Parts.GetWhereDrawingNumberMatches(args.Value);
+                            matchingParts = cpe.Parts.GetWhereDrawingNumberMatches(args.Value);
                             break;
                         case SearchField.Name:
-                            matchingParts = uow.Parts.GetWhereNameMatches(args.Value);
+                            matchingParts = cpe.Parts.GetWhereNameMatches(args.Value);
                             break;
                         default:
-                            matchingParts = uow.Parts.GetWhereDrawingNumberMatches(args.Value);
+                            matchingParts = cpe.Parts.GetWhereDrawingNumberMatches(args.Value);
                             break;
                     }
 
@@ -201,10 +201,10 @@ namespace CPECentral.Presenters
         private void GetPartsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try {
-                using (var uow = new UnitOfWork()) {
-                    var customers = uow.Customers.GetAll();
-                    var parts = uow.Parts.GetAll();
-                    var lastViewedPartId = uow.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
+                using (var cpe = new CPEUnitOfWork()) {
+                    var customers = cpe.Customers.GetAll();
+                    var parts = cpe.Parts.GetAll();
+                    var lastViewedPartId = cpe.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
 
                     var viewModel = new PartLibraryViewModel {
                         Customers = customers,

@@ -22,6 +22,7 @@ namespace CPECentral.Data.EF5
         public string Salt { get; set; }
         public int EmployeeGroupId { get; set; }
         public Nullable<int> LastViewedPartId { get; set; }
+        public Nullable<int> PreferredMachineGroup { get; set; }
     
         public virtual EmployeeGroup EmployeeGroup { get; set; }
     }

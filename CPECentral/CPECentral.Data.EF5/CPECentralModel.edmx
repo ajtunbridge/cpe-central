@@ -49,6 +49,7 @@
           <Property Name="Salt" Type="char" MaxLength="24" Nullable="false" />
           <Property Name="EmployeeGroupId" Type="int" Nullable="false" />
           <Property Name="LastViewedPartId" Type="int" />
+          <Property Name="PreferredMachineGroup" Type="int" />
         </EntityType>
         <EntityType Name="HolderGroups">
           <Key>
@@ -633,6 +634,7 @@
           <Property Type="Int32" Name="EmployeeGroupId" Nullable="false" />
           <Property Type="Int32" Name="LastViewedPartId" />
           <NavigationProperty Name="EmployeeGroup" Relationship="CPECentralModel.FK_Employees_EmployeeGroups" FromRole="Employee" ToRole="EmployeeGroup" />
+          <Property Name="PreferredMachineGroup" Type="Int32" />
         </EntityType>
         <EntityType Name="HolderGroup">
           <Key>
@@ -1053,6 +1055,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="CPECentralModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="PreferredMachineGroup" ColumnName="PreferredMachineGroup" />
                 <ScalarProperty Name="LastViewedPartId" ColumnName="LastViewedPartId" />
                 <ScalarProperty Name="EmployeeGroupId" ColumnName="EmployeeGroupId" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />

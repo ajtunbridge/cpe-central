@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class OperationToolRepository : RepositoryBase<OperationTool>
     {
-        public OperationToolRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public OperationToolRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

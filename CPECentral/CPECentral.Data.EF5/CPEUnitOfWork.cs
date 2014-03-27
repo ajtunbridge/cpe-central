@@ -12,7 +12,7 @@ using CPECentral.Data.EF5.Repositories;
 
 namespace CPECentral.Data.EF5
 {
-    public sealed class UnitOfWork : IDisposable
+    public sealed class CPEUnitOfWork : IDisposable
     {
         #region Members
 

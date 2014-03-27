@@ -8,7 +8,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public class TricornToolRepository : RepositoryBase<TricornTool>
     {
-        public TricornToolRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public TricornToolRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

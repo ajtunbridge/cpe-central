@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public class DocumentRepository : RepositoryBase<Document>
     {
-        public DocumentRepository(UnitOfWork unitOfWork)
+        public DocumentRepository(CPEUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

@@ -85,27 +85,27 @@ namespace CPECentral
                 using (BusyCursor.Show()) {
                     IEntity entity = null;
 
-                    using (var uow = new UnitOfWork()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         foreach (var document in documents) {
                             if (document.OperationId.HasValue) {
-                                entity = uow.Operations.GetById(document.OperationId.Value);
+                                entity = cpe.Operations.GetById(document.OperationId.Value);
                             }
                             else if (document.PartId.HasValue) {
-                                entity = uow.Parts.GetById(document.PartId.Value);
+                                entity = cpe.Parts.GetById(document.PartId.Value);
                             }
                             else if (document.PartVersionId.HasValue) {
-                                entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+                                entity = cpe.PartVersions.GetById(document.PartVersionId.Value);
                             }
 
-                            var fileName = GetPathToDocument(document, uow);
+                            var fileName = GetPathToDocument(document, cpe);
 
                             if (File.Exists(fileName)) {
                                 File.Delete(fileName);
                             }
 
-                            uow.Documents.Delete(document);
+                            cpe.Documents.Delete(document);
 
-                            uow.Commit();
+                            cpe.Commit();
                         }
                     }
 
@@ -137,10 +137,10 @@ namespace CPECentral
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        var documentToUpdate = uow.Documents.GetById(document.Id);
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var documentToUpdate = cpe.Documents.GetById(document.Id);
 
-                        sourceFileName = GetPathToDocument(documentToUpdate, uow);
+                        sourceFileName = GetPathToDocument(documentToUpdate, cpe);
 
                         var lastIndexOfDot = documentToUpdate.FileName.LastIndexOf(".");
 
@@ -149,15 +149,15 @@ namespace CPECentral
                             documentToUpdate.FileName = newFileName + extension;
                         }
 
-                        destinationFileName = GetPathToDocument(documentToUpdate, uow);
+                        destinationFileName = GetPathToDocument(documentToUpdate, cpe);
 
                         File.Move(sourceFileName, destinationFileName);
 
                         renamedOk = true;
 
-                        uow.Documents.Update(documentToUpdate);
+                        cpe.Documents.Update(documentToUpdate);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
                 }
             }
@@ -173,16 +173,16 @@ namespace CPECentral
 
         public string GetPathToDocument(Document document)
         {
-            using (var uow = new UnitOfWork()) {
-                return GetPathToDocument(document, uow);
+            using (var cpe = new CPEUnitOfWork()) {
+                return GetPathToDocument(document, cpe);
             }
         }
 
-        public string GetPathToDocument(Document document, UnitOfWork uow)
+        public string GetPathToDocument(Document document, CPEUnitOfWork cpe)
         {
-            var entity = GetDocumentEntity(document, uow);
+            var entity = GetDocumentEntity(document, cpe);
 
-            var storageDir = GetEntityStorageDirectory(entity, uow);
+            var storageDir = GetEntityStorageDirectory(entity, cpe);
 
             return Path.Combine(storageDir, document.FileName);
         }
@@ -204,7 +204,7 @@ namespace CPECentral
                 _dialogService.AskQuestion(result.FileName + "\n\nDo you want to overwrite this file?");
         }
 
-        private void DoUpload(UploadQueueItem uploadItem, UnitOfWork uow)
+        private void DoUpload(UploadQueueItem uploadItem, CPEUnitOfWork cpe)
         {
             var fileName = Path.GetFileName(uploadItem.SourceFile);
 
@@ -213,7 +213,7 @@ namespace CPECentral
             string destinationFile = null;
 
             try {
-                var storageDir = GetEntityStorageDirectory(uploadItem.Entity, uow);
+                var storageDir = GetEntityStorageDirectory(uploadItem.Entity, cpe);
 
                 if (!Directory.Exists(storageDir)) {
                     Directory.CreateDirectory(storageDir);
@@ -259,9 +259,9 @@ namespace CPECentral
                         newDoc.PartVersionId = entity.Id;
                     }
 
-                    uow.Documents.Add(newDoc);
+                    cpe.Documents.Add(newDoc);
 
-                    uow.Commit();
+                    cpe.Commit();
                 }
 
                 if (uploadItem.DeleteOriginal) {
@@ -299,24 +299,24 @@ namespace CPECentral
             return item;
         }
 
-        private IEntity GetDocumentEntity(Document document, UnitOfWork uow)
+        private IEntity GetDocumentEntity(Document document, CPEUnitOfWork cpe)
         {
             IEntity entity = null;
 
             if (document.OperationId.HasValue) {
-                entity = uow.Operations.GetById(document.OperationId.Value);
+                entity = cpe.Operations.GetById(document.OperationId.Value);
             }
             else if (document.PartId.HasValue) {
-                entity = uow.Parts.GetById(document.PartId.Value);
+                entity = cpe.Parts.GetById(document.PartId.Value);
             }
             else if (document.PartVersionId.HasValue) {
-                entity = uow.PartVersions.GetById(document.PartVersionId.Value);
+                entity = cpe.PartVersions.GetById(document.PartVersionId.Value);
             }
 
             return entity;
         }
 
-        private string GetEntityStorageDirectory(IEntity entity, UnitOfWork uow)
+        private string GetEntityStorageDirectory(IEntity entity, CPEUnitOfWork cpe)
         {
             if (entity is Part) {
                 var appDir = Settings.Default.SharedAppDir;
@@ -327,9 +327,9 @@ namespace CPECentral
             if (entity is PartVersion) {
                 var version = entity as PartVersion;
 
-                var part = uow.Parts.GetById(version.PartId);
+                var part = cpe.Parts.GetById(version.PartId);
 
-                var partDir = GetEntityStorageDirectory(part, uow);
+                var partDir = GetEntityStorageDirectory(part, cpe);
 
                 return string.Format("{0}\\VER{1}", partDir, entity.Id);
             }
@@ -337,9 +337,9 @@ namespace CPECentral
             if (entity is Operation) {
                 var op = entity as Operation;
 
-                var method = uow.Methods.GetById(op.MethodId);
+                var method = cpe.Methods.GetById(op.MethodId);
 
-                var versionDir = GetEntityStorageDirectory(method.PartVersion, uow);
+                var versionDir = GetEntityStorageDirectory(method.PartVersion, cpe);
 
                 return string.Format("{0}\\OP{1}", versionDir, entity.Id);
             }
@@ -351,12 +351,12 @@ namespace CPECentral
         {
             IsBusy = true;
 
-            using (var uow = new UnitOfWork()) {
+            using (var cpe = new CPEUnitOfWork()) {
                 while (_queue.Count > 0) {
                     var item = DequeueItem();
 
                     if (item is UploadQueueItem) {
-                        DoUpload(item as UploadQueueItem, uow);
+                        DoUpload(item as UploadQueueItem, cpe);
                     }
                 }
             }

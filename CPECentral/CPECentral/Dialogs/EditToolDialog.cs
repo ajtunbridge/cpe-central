@@ -15,6 +15,7 @@ namespace CPECentral.Dialogs
     public partial class EditToolDialog : Form
     {
         private readonly Tool _tool;
+        private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
         public Tool Tool
         {
@@ -23,7 +24,7 @@ namespace CPECentral.Dialogs
 
         public IEnumerable<Material> TricornLinks
         {
-            get { return (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material); }
+            get { return (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material).ToList(); }
         }
 
         public EditToolDialog() : this(new Tool())
@@ -42,8 +43,8 @@ namespace CPECentral.Dialogs
         private void EditToolDialog_Load(object sender, EventArgs e)
         {
             using (BusyCursor.Show()) {
-                using (var uow = new UnitOfWork()) {
-                    var tricornTools = uow.TricornTools.GetByTool(_tool);
+                using (var cpe = new CPEUnitOfWork()) {
+                    var tricornTools = cpe.TricornTools.GetByTool(_tool);
                     if (!tricornTools.Any()) {
                         return;
                     }
@@ -88,6 +89,23 @@ namespace CPECentral.Dialogs
                     item.Tag = material;
                 }
             }
+        }
+
+        private void tricornLinksEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            deleteButton.Enabled = tricornLinksEnhancedListView.SelectionCount == 1;
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            var question = string.Format("Are you sure you want to remove the link to this material?\n\n{0}",
+                tricornLinksEnhancedListView.SelectedItems[0].Text);
+
+            if (!_dialogService.AskQuestion(question)) {
+                return;
+            }
+
+            tricornLinksEnhancedListView.Items.RemoveAt(tricornLinksEnhancedListView.SelectedIndices[0]);
         }
     }
 }

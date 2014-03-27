@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class PartVersionRepository : RepositoryBase<PartVersion>
     {
-        public PartVersionRepository(UnitOfWork unitOfWork)
+        public PartVersionRepository(CPEUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

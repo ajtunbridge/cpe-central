@@ -34,7 +34,7 @@ namespace CPECentral
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
 
-            Application.Run(new TestForm());
+            Application.Run(new ToolSelectorDialog());
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
@@ -47,18 +47,18 @@ namespace CPECentral
         private static void EnsureThereIsAnAdminAccount()
         {
             try {
-                using (var uow = new UnitOfWork()) {
-                    var adminGroup = uow.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
+                using (var cpe = new CPEUnitOfWork()) {
+                    var adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
 
                     if (adminGroup == null) {
                         adminGroup = new EmployeeGroup();
                         adminGroup.Name = "BUILTIN_ADMIN_GROUP";
                         adminGroup.GrantPermission(AppPermission.Administrator);
-                        uow.EmployeeGroups.Add(adminGroup);
-                        uow.Commit();
+                        cpe.EmployeeGroups.Add(adminGroup);
+                        cpe.Commit();
                     }
 
-                    var adminEmployee = uow.Employees.GetByUserName("admin");
+                    var adminEmployee = cpe.Employees.GetByUserName("admin");
 
                     if (adminEmployee == null) {
                         adminEmployee = new Employee();
@@ -72,9 +72,9 @@ namespace CPECentral
                         adminEmployee.Password = securedPassword.Hash;
                         adminEmployee.Salt = securedPassword.Salt;
 
-                        uow.Employees.Add(adminEmployee);
+                        cpe.Employees.Add(adminEmployee);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
                 }
             }
@@ -88,8 +88,8 @@ namespace CPECentral
         private static void AddMyAccount()
         {
             try {
-                using (var uow = new UnitOfWork()) {
-                    var myGroup = uow.EmployeeGroups.GetByName("Power users");
+                using (var cpe = new CPEUnitOfWork()) {
+                    var myGroup = cpe.EmployeeGroups.GetByName("Power users");
 
                     if (myGroup == null) {
                         myGroup = new EmployeeGroup();
@@ -100,12 +100,12 @@ namespace CPECentral
                         myGroup.GrantPermission(AppPermission.ManageParts);
                         myGroup.GrantPermission(AppPermission.EditSettings);
 
-                        uow.EmployeeGroups.Add(myGroup);
+                        cpe.EmployeeGroups.Add(myGroup);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
 
-                    var myEmployee = uow.Employees.GetByUserName("adam");
+                    var myEmployee = cpe.Employees.GetByUserName("adam");
 
                     if (myEmployee == null) {
                         myEmployee = new Employee();
@@ -119,9 +119,9 @@ namespace CPECentral
                         myEmployee.Password = securedPassword.Hash;
                         myEmployee.Salt = securedPassword.Salt;
 
-                        uow.Employees.Add(myEmployee);
+                        cpe.Employees.Add(myEmployee);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
                 }
             }

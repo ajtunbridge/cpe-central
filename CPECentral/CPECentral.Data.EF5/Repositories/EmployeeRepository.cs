@@ -10,7 +10,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class EmployeeRepository : RepositoryBase<Employee>
     {
-        public EmployeeRepository(UnitOfWork unitOfWork)
+        public EmployeeRepository(CPEUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

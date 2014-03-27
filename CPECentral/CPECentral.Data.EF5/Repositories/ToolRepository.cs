@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class ToolRepository : RepositoryBase<Tool>
     {
-        public ToolRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public ToolRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -64,6 +64,16 @@ namespace CPECentral.Data.EF5.Repositories
             var operation = UnitOfWork.Entities.Operations.Single(op => op.Id == operationId);
 
             return operation.OperationTools.Select(opTool => opTool.Tool).ToList();
+        }
+
+        /// <summary>
+        /// Gets the number of tools dependent on this group existing
+        /// </summary>
+        /// <param name="rootGroup">The root group</param>
+        /// <returns></returns>
+        public int GetDependentToolCount(ToolGroup rootGroup)
+        {
+            return GetSet().Count(t => t.ToolGroupId == rootGroup.Id);
         }
     }
 }

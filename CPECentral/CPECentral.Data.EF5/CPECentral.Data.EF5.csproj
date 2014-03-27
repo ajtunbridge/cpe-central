@@ -136,7 +136,7 @@
     <Compile Include="TricornTool.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="CPEUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CPECentralModel.Partials.cs" />

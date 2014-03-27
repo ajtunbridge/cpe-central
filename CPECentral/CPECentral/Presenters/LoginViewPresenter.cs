@@ -61,9 +61,9 @@ namespace CPECentral.Presenters
             var args = (LoginArgs) e.Argument;
 
             try {
-                var uow = new UnitOfWork();
+                var cpe = new CPEUnitOfWork();
 
-                var employee = uow.Employees.GetByUserName(args.UserName);
+                var employee = cpe.Employees.GetByUserName(args.UserName);
 
                 if (employee == null) {
                     _loginView.DialogService.ShowError("There is no account associated with the user name you entered!");

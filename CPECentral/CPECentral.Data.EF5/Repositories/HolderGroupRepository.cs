@@ -2,7 +2,7 @@
 {
     public sealed class HolderGroupRepository : RepositoryBase<HolderGroup>
     {
-        public HolderGroupRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public HolderGroupRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
     }

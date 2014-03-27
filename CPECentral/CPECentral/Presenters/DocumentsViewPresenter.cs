@@ -171,10 +171,10 @@ namespace CPECentral.Presenters
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         var op = _documentsView.CurrentEntity as Operation;
 
-                        var method = uow.Methods.GetById(op.MethodId);
+                        var method = cpe.Methods.GetById(op.MethodId);
 
                         var drawingNo = method.PartVersion.Part.DrawingNumber;
                         var version = method.PartVersion.VersionNumber;
@@ -184,7 +184,7 @@ namespace CPECentral.Presenters
 
                         var pathToFile = Path.Combine(Path.GetTempPath(), fileName);
 
-                        var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId).Name;
+                        var machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId).Name;
 
                         string templateFileName = null;
 
@@ -236,8 +236,8 @@ namespace CPECentral.Presenters
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var uow = new UnitOfWork()) {
-                        var group = uow.MachineGroups.GetByName("Turning");
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var group = cpe.MachineGroups.GetByName("Turning");
 
                         if (group == null) {
                             throw new InvalidOperationException("There isn't a machine group for lathes!");
@@ -245,7 +245,7 @@ namespace CPECentral.Presenters
 
                         var op = _documentsView.CurrentEntity as Operation;
 
-                        var method = uow.Methods.GetById(op.MethodId);
+                        var method = cpe.Methods.GetById(op.MethodId);
 
                         var tempPath = Path.GetTempPath();
 
@@ -265,9 +265,9 @@ namespace CPECentral.Presenters
 
                         group.NextNumber += 1;
 
-                        uow.MachineGroups.Update(group);
+                        cpe.MachineGroups.Update(group);
 
-                        uow.Commit();
+                        cpe.Commit();
                     }
                 }
             }
@@ -320,8 +320,8 @@ namespace CPECentral.Presenters
                 var entity = e.Argument as IEntity;
 
                 try {
-                    using (var uow = new UnitOfWork()) {
-                        uow.OpenConnection();
+                    using (var cpe = new CPEUnitOfWork()) {
+                        cpe.OpenConnection();
 
                         IEnumerable<Document> documents = null;
 
@@ -330,7 +330,7 @@ namespace CPECentral.Presenters
                         if (entity is Operation) {
                             var op = entity as Operation;
 
-                            var machineGroup = uow.MachineGroups.GetById(op.MachineGroupId);
+                            var machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId);
 
                             switch (machineGroup.Name.ToLower()) {
                                 case "milling":
@@ -344,17 +344,17 @@ namespace CPECentral.Presenters
                                     break;
                             }
 
-                            documents = uow.Documents.GetByOperation(entity.Id);
+                            documents = cpe.Documents.GetByOperation(entity.Id);
                         }
                         else if (entity is Part) {
-                            documents = uow.Documents.GetByPart(entity.Id);
+                            documents = cpe.Documents.GetByPart(entity.Id);
                         }
                         else if (entity is PartVersion) {
-                            documents = uow.Documents.GetByPartVersion(entity.Id);
+                            documents = cpe.Documents.GetByPartVersion(entity.Id);
                         }
 
                         foreach (var document in documents.OrderBy(d => d.FileName)) {
-                            var pathToFile = Session.DocumentService.GetPathToDocument(document, uow);
+                            var pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
 
                             model.AddDocumentModel(document, pathToFile);
                         }
@@ -392,17 +392,17 @@ namespace CPECentral.Presenters
         {
             IEnumerable<Document> docs;
 
-            using (var uow = new UnitOfWork()) {
+            using (var cpe = new CPEUnitOfWork()) {
                 using (BusyCursor.Show()) {
                     if (_documentsView.CurrentEntity is Operation) {
-                        docs = uow.Documents.GetByOperation((Operation) _documentsView.CurrentEntity);
+                        docs = cpe.Documents.GetByOperation((Operation) _documentsView.CurrentEntity);
                     }
                     else if (_documentsView.CurrentEntity is Part) {
-                        docs = uow.Documents.GetByPart((Part) _documentsView.CurrentEntity);
+                        docs = cpe.Documents.GetByPart((Part) _documentsView.CurrentEntity);
                     }
                     else // is IPartVersion
                     {
-                        docs = uow.Documents.GetByPartVersion((PartVersion) _documentsView.CurrentEntity);
+                        docs = cpe.Documents.GetByPartVersion((PartVersion) _documentsView.CurrentEntity);
                     }
                 }
             }

@@ -131,21 +131,14 @@ namespace nGenLibrary.Controls
 
             if (e.Button == MouseButtons.Right)
             {
-                if (ItemContextMenuStrip == null && ContextMenuStrip == null)
-                    return;
+                var menuToShow = (clickedItem == null) ? ContextMenuStrip : ItemContextMenuStrip;
 
-                ContextMenuStrip menuStrip = null;
-
-                if (ItemContextMenuStrip != null && clickedItem != null)
-                    menuStrip = ItemContextMenuStrip;
-                else
-                    menuStrip = ContextMenuStrip;
-
-                if (menuStrip == null) {
+                if (menuToShow == null)
+                {
                     return;
                 }
 
-                menuStrip.Show(this, e.X, e.Y);
+                menuToShow.Show(this, e.X, e.Y);
             }
 
             if (EnsureSelection)

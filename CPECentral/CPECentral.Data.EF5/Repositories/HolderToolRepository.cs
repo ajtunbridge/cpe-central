@@ -9,7 +9,7 @@ namespace CPECentral.Data.EF5.Repositories
 {
     public sealed class HolderToolRepository : RepositoryBase<HolderTool>
     {
-        public HolderToolRepository(UnitOfWork unitOfWork) : base(unitOfWork)
+        public HolderToolRepository(CPEUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

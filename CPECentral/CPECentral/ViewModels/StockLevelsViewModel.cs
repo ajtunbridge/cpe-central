@@ -1,16 +1,17 @@
-﻿using System;
+﻿#region Using directives
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace CPECentral.ViewModels
 {
     public class StockLevelsViewModel
     {
-        public IEnumerable<StockLevelsViewModelItem> StockLevels { get; set; }
+        public IEnumerable<TricornBatch> Batches { get; set; }
     }
 
-    public class StockLevelsViewModelItem
+    public class TricornBatch
     {
         public string BatchNumber { get; set; }
         public double Quantity { get; set; }

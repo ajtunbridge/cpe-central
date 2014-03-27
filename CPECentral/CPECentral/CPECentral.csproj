@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.1.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>1</ApplicationRevision>
+    <MinimumRequiredVersion>2.1.0.1</MinimumRequiredVersion>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -154,6 +154,7 @@
     <Compile Include="Controls\SettingsEmployeesUserControl.Designer.cs">
       <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -232,17 +233,17 @@
     <Compile Include="Dialogs\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.Designer.cs">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ToolSelectorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ToolSelectorDialog.Designer.cs">
+      <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TransmitProgramDialog.cs">
       <SubType>Form</SubType>
@@ -262,11 +263,12 @@
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />
+    <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
     <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
-    <Compile Include="Presenters\ToolLibraryViewPresenter.cs" />
     <Compile Include="Presenters\ToolsViewPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
@@ -288,11 +290,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
+    <Compile Include="ViewModels\OperationsToolViewModel.cs" />
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
-    <Compile Include="ViewModels\ToolGroupsViewModel.cs" />
-    <Compile Include="ViewModels\ToolLibraryViewModel.cs" />
     <Compile Include="Views\CustomerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -324,6 +325,12 @@
     <Compile Include="Views\OperationsView.Designer.cs">
       <DependentUpon>OperationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\OperationToolsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OperationToolsView.Designer.cs">
+      <DependentUpon>OperationToolsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PartInformationView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -343,17 +350,17 @@
     <Compile Include="Views\PartView.Designer.cs">
       <DependentUpon>PartView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StockLevelsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StockLevelsView.Designer.cs">
+      <DependentUpon>StockLevelsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolGroupsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ToolGroupsView.Designer.cs">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ToolLibraryView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ToolLibraryView.Designer.cs">
-      <DependentUpon>ToolLibraryView.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewBase.cs">
       <SubType>UserControl</SubType>
@@ -424,11 +431,11 @@
     <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ToolSelectorDialog.resx">
+      <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
       <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
@@ -464,6 +471,9 @@
     <EmbeddedResource Include="Views\OperationsView.resx">
       <DependentUpon>OperationsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\OperationToolsView.resx">
+      <DependentUpon>OperationToolsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PartInformationView.resx">
       <DependentUpon>PartInformationView.cs</DependentUpon>
     </EmbeddedResource>
@@ -473,11 +483,11 @@
     <EmbeddedResource Include="Views\PartView.resx">
       <DependentUpon>PartView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\StockLevelsView.resx">
+      <DependentUpon>StockLevelsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolGroupsView.resx">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ToolLibraryView.resx">
-      <DependentUpon>ToolLibraryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
@@ -485,10 +495,10 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

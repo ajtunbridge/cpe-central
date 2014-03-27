@@ -1,12 +1,13 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Tricorn;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -14,19 +15,20 @@ namespace CPECentral.Dialogs
     {
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
+        public SelectTricornMaterialDialog(string filterValue)
+        {
+            InitializeComponent();
+            filterValueEnhancedTextBox.Text = string.Format("%{0}%", filterValue);
+        }
+
         public IEnumerable<Material> SelectedMaterials
         {
             get
             {
-                var materials = (from ListViewItem item in resultsEnhancedListView.CheckedItems select item.Tag as Material).ToList();
+                var materials =
+                    (from ListViewItem item in resultsEnhancedListView.CheckedItems select item.Tag as Material).ToList();
                 return materials;
             }
-        }
-
-        public SelectTricornMaterialDialog(string filterValue)
-        {
-            InitializeComponent();
-            filterValueEnhancedTextBox.Text = filterValue;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -49,7 +51,7 @@ namespace CPECentral.Dialogs
             searchWorker.RunWorkerAsync(filterValue);
         }
 
-        void searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             searchButton.Enabled = true;
             progressBar.Style = ProgressBarStyle.Blocks;
@@ -63,7 +65,7 @@ namespace CPECentral.Dialogs
             var results = e.Result as IEnumerable<Material>;
 
             foreach (var result in results) {
-                ListViewItem item = resultsEnhancedListView.Items.Add(result.Name);
+                var item = resultsEnhancedListView.Items.Add(result.Name);
                 item.Tag = result;
             }
         }
@@ -74,9 +76,9 @@ namespace CPECentral.Dialogs
             _dialogService.ShowError(msg);
         }
 
-        void searchWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void searchWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var filterValue = (string)e.Argument;
+            var filterValue = (string) e.Argument;
             try {
                 using (var tricorn = new TricornDataProvider()) {
                     var materials = tricorn.GetMaterials(filterValue).OrderBy(m => m.Name).ToList();

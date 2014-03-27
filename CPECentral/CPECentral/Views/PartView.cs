@@ -117,6 +117,8 @@ namespace CPECentral.Views
 
         private void operationsView_OperationSelected(object sender, OperationEventArgs e)
         {
+            operationToolsView1.RetrieveOperationTools(e.Operation);
+
             if (e.Operation == null) {
                 operationDescriptionLabel.Text = string.Empty;
                 operationsTabControl.Enabled = false;
