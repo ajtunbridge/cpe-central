@@ -34,7 +34,7 @@ namespace CPECentral
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
 
-            Application.Run(new ToolSelectorDialog());
+            Application.Run(new MainForm());
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

@@ -32,8 +32,8 @@
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.stockLevelsView = new CPECentral.Views.StockLevelsView();
             this.toolsView = new CPECentral.Views.ToolsView();
-            this.toolGroupsView = new CPECentral.Views.ToolGroupsView();
             this.holdersView = new CPECentral.Views.HoldersView();
+            this.toolGroupsView = new CPECentral.Views.ToolGroupsView();
             this.SuspendLayout();
             // 
             // filterComboBox
@@ -85,6 +85,17 @@
             this.toolsView.ToolSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolSelected);
             this.toolsView.ToolPicked += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolPicked);
             // 
+            // holdersView
+            // 
+            this.holdersView.EditMode = false;
+            this.holdersView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.holdersView.Location = new System.Drawing.Point(12, 47);
+            this.holdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.holdersView.Name = "holdersView";
+            this.holdersView.Size = new System.Drawing.Size(239, 325);
+            this.holdersView.TabIndex = 5;
+            this.holdersView.HolderSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.HolderEventArgs>(this.holdersView_HolderSelectionChanged);
+            // 
             // toolGroupsView
             // 
             this.toolGroupsView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -97,16 +108,6 @@
             this.toolGroupsView.Size = new System.Drawing.Size(239, 325);
             this.toolGroupsView.TabIndex = 0;
             this.toolGroupsView.ToolGroupSelected += new System.EventHandler<CPECentral.CustomEventArgs.ToolGroupEventArgs>(this.ToolGroupsView_ToolGroupSelected);
-            // 
-            // holdersView
-            // 
-            this.holdersView.EditMode = false;
-            this.holdersView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.holdersView.Location = new System.Drawing.Point(12, 47);
-            this.holdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.holdersView.Name = "holdersView";
-            this.holdersView.Size = new System.Drawing.Size(239, 325);
-            this.holdersView.TabIndex = 5;
             // 
             // ToolSelectorDialog
             // 

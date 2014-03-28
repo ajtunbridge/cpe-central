@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.1.0.1</MinimumRequiredVersion>
-    <ApplicationRevision>2</ApplicationRevision>
+    <MinimumRequiredVersion>2.1.0.2</MinimumRequiredVersion>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderGroupEventArgs.cs" />
+    <Compile Include="CustomEventArgs\OperationToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -168,6 +169,12 @@
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameDocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\TransferStartedEventArgs.cs" />
+    <Compile Include="Dialogs\EditOperationToolDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditOperationToolDialog.Designer.cs">
+      <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddPartDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -408,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditOperationToolDialog.resx">
+      <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\AddPartDialog.resx">
       <DependentUpon>AddPartDialog.cs</DependentUpon>

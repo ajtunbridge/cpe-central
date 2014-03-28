@@ -25,9 +25,14 @@ namespace CPECentral.Dialogs
         }
 
         public Tool SelectedTool { get; private set; }
+        public Holder SelectedHolder { get; private set; }
 
         private void ToolGroupsView_ToolGroupSelected(object sender, ToolGroupEventArgs e)
         {
+            if (filterComboBox.Text != ToolGroupFilterText) {
+                return;
+            }
+
             toolsView.LoadTools(e.ToolGroup);
         }
 
@@ -69,6 +74,16 @@ namespace CPECentral.Dialogs
                     holdersView.BringToFront();
                     break;
             }
+        }
+
+        private void holdersView_HolderSelectionChanged(object sender, HolderEventArgs e)
+        {
+            if (filterComboBox.Text != HolderFilterText) {
+                return;
+            }
+
+            SelectedHolder = e.Holder;
+            toolsView.LoadTools(e.Holder);
         }
     }
 }

@@ -113,7 +113,6 @@ namespace CPECentral.Presenters
             }
         }
 
-
         private void OperationsView_AddMethod(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {

@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.holdersEnhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
+            this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.holderGroupContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -50,6 +50,7 @@
             // holdersEnhancedTreeView
             // 
             this.holdersEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.holdersEnhancedTreeView.HideSelection = false;
             this.holdersEnhancedTreeView.ImageIndex = 0;
             this.holdersEnhancedTreeView.ImageList = this.treeViewImageList;
             this.holdersEnhancedTreeView.Location = new System.Drawing.Point(0, 0);
@@ -61,6 +62,12 @@
             this.holdersEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.holdersEnhancedTreeView_AfterLabelEdit);
             this.holdersEnhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.holdersEnhancedTreeView_AfterSelect);
             this.holdersEnhancedTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.holdersEnhancedTreeView_MouseDown);
+            // 
+            // treeViewImageList
+            // 
+            this.treeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // mainContextMenuStrip
             // 
@@ -75,12 +82,6 @@
             this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
             this.addGroupToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addGroupToolStripMenuItem.Text = "&Add group";
-            // 
-            // treeViewImageList
-            // 
-            this.treeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // holderGroupContextMenuStrip
             // 

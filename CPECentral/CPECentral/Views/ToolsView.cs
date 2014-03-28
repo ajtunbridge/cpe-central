@@ -134,7 +134,7 @@ namespace CPECentral.Views
         {
             toolsEnhancedListView.Items.Clear();
 
-            if (!tools.Any()) {
+            if (tools == null || !tools.Any()) {
                 toolsEnhancedListView.Items.Add("No tools found!");
                 return;
             }

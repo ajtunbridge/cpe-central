@@ -194,9 +194,9 @@ namespace CPECentral.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("%\r\n:{prog}(DWG.{dwg} VER.{ver} OP.{op})\r\n\r\n(CUST.{cust})\r\n(NAME.{name})\r\n\r\n")]
-        public string TurningProgramHeader {
+        public string TurningProgramHeaderFormat {
             get {
-                return ((string)(this["TurningProgramHeader"]));
+                return ((string)(this["TurningProgramHeaderFormat"]));
             }
         }
         
@@ -239,6 +239,30 @@ namespace CPECentral.Properties {
         public string ViewInternallyFileExtensions {
             get {
                 return ((string)(this["ViewInternallyFileExtensions"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(T{position}{offset} - {tool})")]
+        public string TurningProgramToolFormat {
+            get {
+                return ((string)(this["TurningProgramToolFormat"]));
+            }
+            set {
+                this["TurningProgramToolFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(HOLDER - {holder})")]
+        public string TurningProgramHolderFormat {
+            get {
+                return ((string)(this["TurningProgramHolderFormat"]));
+            }
+            set {
+                this["TurningProgramHolderFormat"] = value;
             }
         }
     }

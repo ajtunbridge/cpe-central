@@ -47,7 +47,7 @@
     <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\</Value>
     </Setting>
-    <Setting Name="TurningProgramHeader" Type="System.String" Scope="Application">
+    <Setting Name="TurningProgramHeaderFormat" Type="System.String" Scope="Application">
       <Value Profile="(Default)">%
 :{prog}(DWG.{dwg} VER.{ver} OP.{op})
 
@@ -67,6 +67,12 @@
     </Setting>
     <Setting Name="ViewInternallyFileExtensions" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
+    </Setting>
+    <Setting Name="TurningProgramToolFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(T{position}{offset} - {tool})</Value>
+    </Setting>
+    <Setting Name="TurningProgramHolderFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(HOLDER - {holder})</Value>
     </Setting>
   </Settings>
 </SettingsFile>

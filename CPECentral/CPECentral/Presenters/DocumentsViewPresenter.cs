@@ -251,13 +251,34 @@ namespace CPECentral.Presenters
 
                         var tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
 
-                        var header = new StringBuilder(Settings.Default.TurningProgramHeader);
+                        var header = new StringBuilder(Settings.Default.TurningProgramHeaderFormat);
                         header.Replace("{prog}", group.NextNumber.ToString("D4"));
                         header.Replace("{dwg}", method.PartVersion.Part.DrawingNumber);
                         header.Replace("{ver}", method.PartVersion.VersionNumber);
                         header.Replace("{op}", op.Sequence.ToString("D2"));
                         header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
                         header.Replace("{name}", method.PartVersion.Part.Name);
+
+                        var opTools = cpe.OperationTools.GetByOperation(_documentsView.CurrentEntity as Operation)
+                            .OrderBy(t => t.Position)
+                            .ThenBy(t => t.Offset);
+
+                        if (opTools.Any()) {
+                            foreach (var opTool in opTools) {
+                                var line = Settings.Default.TurningProgramToolFormat
+                                    .Replace("{position}", opTool.Position.ToString("00"))
+                                    .Replace("{offset}", opTool.Offset.ToString("00"))
+                                    .Replace("{tool}", opTool.Tool.Description.Replace(":", ""));
+                                header.AppendLine(line);
+
+                                if (opTool.HolderId.HasValue) {
+                                    var holderLine = Settings.Default.TurningProgramHolderFormat
+                                        .Replace("{holder}", opTool.Holder.Name);
+                                    header.AppendLine(holderLine);
+                                    header.AppendLine();
+                                }
+                            }    
+                        }
 
                         File.WriteAllText(tempFileName, header.ToString());
 
