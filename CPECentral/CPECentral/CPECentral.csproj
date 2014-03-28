@@ -155,6 +155,7 @@
       <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
+    <Compile Include="CustomEventArgs\HolderGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
+    <Compile Include="Presenters\HoldersViewPresenter.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />
     <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
@@ -305,6 +307,12 @@
     </Compile>
     <Compile Include="Views\DocumentsView.Designer.cs">
       <DependentUpon>DocumentsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HoldersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\HoldersView.Designer.cs">
+      <DependentUpon>HoldersView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\LoginView.cs">
@@ -461,6 +469,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DocumentsView.resx">
       <DependentUpon>DocumentsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HoldersView.resx">
+      <DependentUpon>HoldersView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
@@ -630,6 +641,9 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\HolderIcon_16x16.png" />
+    <None Include="Resources\FolderOpenIcon_16x16.png" />
+    <None Include="Resources\FolderClosedIcon_16x16.png" />
     <None Include="Resources\ToolIcon_16x16.png" />
     <None Include="Resources\StockIcon_16x16.png" />
     <None Include="Resources\LoginHeaderImage.png" />

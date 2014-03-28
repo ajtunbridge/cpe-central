@@ -38,6 +38,7 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mainContextMenuStrip.SuspendLayout();
             this.nodeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -46,9 +47,12 @@
             // 
             this.groupsEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupsEnhancedTreeView.HideSelection = false;
+            this.groupsEnhancedTreeView.ImageIndex = 0;
+            this.groupsEnhancedTreeView.ImageList = this.treeViewImageList;
             this.groupsEnhancedTreeView.Location = new System.Drawing.Point(0, 0);
             this.groupsEnhancedTreeView.Name = "groupsEnhancedTreeView";
             this.groupsEnhancedTreeView.NodeContextMenuStrip = null;
+            this.groupsEnhancedTreeView.SelectedImageIndex = 0;
             this.groupsEnhancedTreeView.Size = new System.Drawing.Size(215, 253);
             this.groupsEnhancedTreeView.TabIndex = 0;
             this.groupsEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.enhancedTreeView_AfterLabelEdit);
@@ -112,6 +116,12 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
+            // treeViewImageList
+            // 
+            this.treeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // ToolGroupsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -139,5 +149,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addRootGroupToolStripMenuItem;
+        private System.Windows.Forms.ImageList treeViewImageList;
     }
 }

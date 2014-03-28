@@ -24,12 +24,13 @@ namespace CPECentral.Views
         event EventHandler<ToolGroupEventArgs> AddTool;
         event EventHandler<ToolGroupEventArgs> LoadGroupTools;
         event EventHandler<HolderEventArgs> LoadHolderTools;
-        event EventHandler<ToolEventArgs> ToolSelected;
+        event EventHandler<ToolEventArgs> ToolSelectionChanged;
         event EventHandler<ToolEventArgs> ToolPicked;
         event EventHandler<ToolEventArgs> ToolRenamed;
         event EventHandler<ToolEventArgs> EditTool;
         event EventHandler<ToolEventArgs> DeleteTool;
 
+        void ClearTools();
         void LoadTools(ToolGroup toolGroup);
         void LoadTools(Holder holder);
         void DisplayTools(IEnumerable<Tool> tools);
@@ -71,6 +72,8 @@ namespace CPECentral.Views
             get { return _currentToolGroup; }
         }
 
+        public Holder CurrentHolder { get; private set; }
+
         public Tool SelectedTool
         {
             get
@@ -87,11 +90,17 @@ namespace CPECentral.Views
         public event EventHandler<ToolGroupEventArgs> LoadGroupTools;
         public event EventHandler<HolderEventArgs> LoadHolderTools;
 
-        public event EventHandler<ToolEventArgs> ToolSelected;
+        public event EventHandler<ToolEventArgs> ToolSelectionChanged;
         public event EventHandler<ToolEventArgs> ToolPicked;
         public event EventHandler<ToolEventArgs> ToolRenamed;
         public event EventHandler<ToolEventArgs> EditTool;
         public event EventHandler<ToolEventArgs> DeleteTool;
+
+        public void ClearTools()
+        {
+            toolsEnhancedListView.Items.Clear();
+            OnToolSelected(new ToolEventArgs(null));
+        }
 
         public void LoadTools(ToolGroup toolGroup)
         {
@@ -142,7 +151,18 @@ namespace CPECentral.Views
                 return;
             }
 
-            OnLoadTools(new ToolGroupEventArgs(CurrentToolGroup));
+            if (CurrentHolder == null)
+            {
+                Debug.Write("ToolsView.RefreshTools(): CurrentHolder is null!");
+                return;
+            }
+
+            if (CurrentToolGroup != null) {
+                OnLoadGroupTools(new ToolGroupEventArgs(CurrentToolGroup));
+            }
+            else if (CurrentHolder != null) {
+                OnLoadHolderTools(new HolderEventArgs(CurrentHolder));
+            }
         }
 
         #endregion
@@ -160,7 +180,7 @@ namespace CPECentral.Views
 
         protected virtual void OnToolSelected(ToolEventArgs e)
         {
-            var handler = ToolSelected;
+            var handler = ToolSelectionChanged;
             if (handler != null) {
                 handler(this, e);
             }

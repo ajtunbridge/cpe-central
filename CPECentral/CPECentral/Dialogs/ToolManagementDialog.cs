@@ -18,7 +18,7 @@ namespace CPECentral.Dialogs
 
         private void toolGroupsView_ToolGroupSelected(object sender, CustomEventArgs.ToolGroupEventArgs e)
         {
-            toolsView1.LoadGroupTools(e.ToolGroup);
+            toolsView1.LoadTools(e.ToolGroup);
         }
     }
 }

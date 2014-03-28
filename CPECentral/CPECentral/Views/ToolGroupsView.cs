@@ -9,6 +9,7 @@ using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Delegates;
 using CPECentral.Presenters;
+using CPECentral.Properties;
 
 #endregion
 
@@ -41,6 +42,9 @@ namespace CPECentral.Views
         public ToolGroupsView()
         {
             InitializeComponent();
+
+            treeViewImageList.Images.Add("FolderClosed", Resources.FolderClosedIcon_16x16);
+            treeViewImageList.Images.Add("FolderOpen", Resources.FolderOpenIcon_16x16);
 
             if (!IsInDesignMode) {
                 _presenter = new ToolGroupsViewPresenter(this);
@@ -91,6 +95,8 @@ namespace CPECentral.Views
 
             foreach (var rootGroup in rootGroups) {
                 var rootGroupNode = groupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
+                rootGroupNode.ImageKey = "FolderClosed";
+                rootGroupNode.SelectedImageKey = "FolderOpen";
                 rootGroupNode.Tag = rootGroup;
                 RecursivelyAddChildGroups(rootGroupNode, groups);
             }
@@ -187,6 +193,8 @@ namespace CPECentral.Views
 
             foreach (var childGroup in groups.Where(g => g.ParentGroupId == parentGroup.Id)) {
                 var childGroupNode = parentNode.Nodes.Add(childGroup.Name);
+                childGroupNode.ImageKey = "FolderClosed";
+                childGroupNode.SelectedImageKey = "FolderOpen";
                 childGroupNode.Tag = childGroup;
                 RecursivelyAddChildGroups(childGroupNode, groups);
             }

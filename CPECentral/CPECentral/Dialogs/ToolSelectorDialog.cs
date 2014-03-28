@@ -28,7 +28,7 @@ namespace CPECentral.Dialogs
 
         private void ToolGroupsView_ToolGroupSelected(object sender, ToolGroupEventArgs e)
         {
-            toolsView.LoadGroupTools(e.ToolGroup);
+            toolsView.LoadTools(e.ToolGroup);
         }
 
         private void ToolsView_ToolSelected(object sender, ToolEventArgs e)
@@ -59,10 +59,14 @@ namespace CPECentral.Dialogs
 
         private void filterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            toolsView.ClearTools();
+
             switch (filterComboBox.Text) {
                 case ToolGroupFilterText:
+                    toolGroupsView.BringToFront();
                     break;
                 case HolderFilterText:
+                    holdersView.BringToFront();
                     break;
             }
         }

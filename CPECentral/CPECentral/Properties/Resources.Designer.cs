@@ -170,6 +170,26 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FolderClosedIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("FolderClosedIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FolderOpenIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("FolderOpenIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon GenericFileIcon {
@@ -185,6 +205,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap HexagonIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("HexagonIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HolderIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("HolderIcon_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

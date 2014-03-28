@@ -33,6 +33,7 @@
             this.stockLevelsView = new CPECentral.Views.StockLevelsView();
             this.toolsView = new CPECentral.Views.ToolsView();
             this.toolGroupsView = new CPECentral.Views.ToolGroupsView();
+            this.holdersView = new CPECentral.Views.HoldersView();
             this.SuspendLayout();
             // 
             // filterComboBox
@@ -81,7 +82,7 @@
             this.toolsView.Name = "toolsView";
             this.toolsView.Size = new System.Drawing.Size(435, 206);
             this.toolsView.TabIndex = 1;
-            this.toolsView.ToolSelected += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolSelected);
+            this.toolsView.ToolSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolSelected);
             this.toolsView.ToolPicked += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolPicked);
             // 
             // toolGroupsView
@@ -97,6 +98,16 @@
             this.toolGroupsView.TabIndex = 0;
             this.toolGroupsView.ToolGroupSelected += new System.EventHandler<CPECentral.CustomEventArgs.ToolGroupEventArgs>(this.ToolGroupsView_ToolGroupSelected);
             // 
+            // holdersView
+            // 
+            this.holdersView.EditMode = false;
+            this.holdersView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.holdersView.Location = new System.Drawing.Point(12, 47);
+            this.holdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.holdersView.Name = "holdersView";
+            this.holdersView.Size = new System.Drawing.Size(239, 325);
+            this.holdersView.TabIndex = 5;
+            // 
             // ToolSelectorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -107,6 +118,7 @@
             this.Controls.Add(this.stockLevelsView);
             this.Controls.Add(this.toolsView);
             this.Controls.Add(this.toolGroupsView);
+            this.Controls.Add(this.holdersView);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -128,5 +140,6 @@
         private Views.StockLevelsView stockLevelsView;
         private Controls.OkayCancelFooter okayCancelFooter;
         private System.Windows.Forms.ComboBox filterComboBox;
+        private Views.HoldersView holdersView;
     }
 }
