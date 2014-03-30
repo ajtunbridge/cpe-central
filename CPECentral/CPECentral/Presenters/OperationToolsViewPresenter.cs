@@ -1,8 +1,9 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
@@ -11,6 +12,8 @@ using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
 using Tricorn;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -29,7 +32,7 @@ namespace CPECentral.Presenters
             _view.DeleteOperationTool += _view_DeleteOperationTool;
         }
 
-        void _view_DeleteOperationTool(object sender, OperationToolEventArgs e)
+        private void _view_DeleteOperationTool(object sender, OperationToolEventArgs e)
         {
             if (!_view.DialogService.AskQuestion("Are you sure you want to remove this tool from the list?")) {
                 return;
@@ -49,22 +52,19 @@ namespace CPECentral.Presenters
             }
         }
 
-        void _view_EditOperationTool(object sender, OperationToolEventArgs e)
+        private void _view_EditOperationTool(object sender, OperationToolEventArgs e)
         {
-            using (var editOperationToolDialog = new EditOperationToolDialog(e.OperationTool))
-            {
-                if (editOperationToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK)
-                {
+            using (var editOperationToolDialog = new EditOperationToolDialog(e.OperationTool)) {
+                if (editOperationToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK) {
                     return;
                 }
 
-                var editedOpTool = editOperationToolDialog.OperationTool;
+                OperationTool editedOpTool = editOperationToolDialog.OperationTool;
 
-                try
-                {
+                try {
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            var duplicatePositionAndOffset = cpe.OperationTools.GetByOperation(editedOpTool.OperationId)
+                            bool duplicatePositionAndOffset = cpe.OperationTools.GetByOperation(editedOpTool.OperationId)
                                 .Where(ot => ot.Id != editedOpTool.Id)
                                 .Any(ot => ot.Position == editedOpTool.Position && ot.Offset == editedOpTool.Offset);
 
@@ -79,8 +79,7 @@ namespace CPECentral.Presenters
                         }
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     HandleException(ex);
                 }
             }
@@ -93,13 +92,13 @@ namespace CPECentral.Presenters
                     return;
                 }
 
-                var newOpTool = editOperationToolDialog.OperationTool;
+                OperationTool newOpTool = editOperationToolDialog.OperationTool;
                 newOpTool.OperationId = e.Operation.Id;
 
                 try {
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            var duplicatePositionAndOffset = cpe.OperationTools.GetByOperation(e.Operation)
+                            bool duplicatePositionAndOffset = cpe.OperationTools.GetByOperation(e.Operation)
                                 .Any(ot => ot.Position == newOpTool.Position && ot.Offset == newOpTool.Offset);
 
                             if (duplicatePositionAndOffset) {
@@ -119,7 +118,7 @@ namespace CPECentral.Presenters
             }
         }
 
-        void _view_LoadOperationTools(object sender, OperationEventArgs e)
+        private void _view_LoadOperationTools(object sender, OperationEventArgs e)
         {
             var loadToolsWorker = new BackgroundWorker();
             loadToolsWorker.DoWork += loadToolsWorker_DoWork;
@@ -127,7 +126,7 @@ namespace CPECentral.Presenters
             loadToolsWorker.RunWorkerAsync(e.Operation);
         }
 
-        void loadToolsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void loadToolsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
@@ -139,7 +138,7 @@ namespace CPECentral.Presenters
             _view.DisplayModel(model);
         }
 
-        void loadToolsWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void loadToolsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var operation = e.Argument as Operation;
 
@@ -148,11 +147,11 @@ namespace CPECentral.Presenters
                 model.Items = new List<OperationToolsViewModelItem>();
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    var opTools = cpe.OperationTools.GetByOperation(operation)
+                    IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(operation)
                         .OrderBy(t => t.Position)
                         .ThenBy(t => t.Offset);
 
-                    foreach (var opTool in opTools) {
+                    foreach (OperationTool opTool in opTools) {
                         var item = new OperationToolsViewModelItem();
                         item.OperationTool = opTool;
 
@@ -165,13 +164,14 @@ namespace CPECentral.Presenters
                         double? stockCount = 0;
 
                         using (var tricorn = new TricornDataProvider()) {
-                            foreach (var tricornTool in cpe.TricornTools.GetByTool(opTool.Tool)) {
-                                stockCount += tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
+                            foreach (TricornTool tricornTool in cpe.TricornTools.GetByTool(opTool.Tool)) {
+                                stockCount +=
+                                    tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
                             }
                         }
 
                         item.QuantityInStock = stockCount;
-                        
+
                         model.Items.Add(item);
                     }
                 }
@@ -183,7 +183,7 @@ namespace CPECentral.Presenters
             }
         }
 
-        void HandleException(Exception ex)
+        private void HandleException(Exception ex)
         {
             _view.DialogService.ShowError(ex.Message);
         }

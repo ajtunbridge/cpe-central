@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using directives
+
+using System;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Messages;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -30,42 +30,6 @@ namespace CPECentral.Views
         private readonly OperationToolsViewPresenter _presenter;
         private Operation _currentOperation;
         private OperationTool _selectedOperationTool;
-        public event EventHandler<OperationEventArgs> LoadOperationTools;
-        public event EventHandler<OperationEventArgs> AddOperationTool;
-        public event EventHandler<OperationToolEventArgs> EditOperationTool;
-        public event EventHandler<OperationToolEventArgs> DeleteOperationTool;
-
-        protected virtual void OnDeleteOperationTool(OperationToolEventArgs e)
-        {
-            EventHandler<OperationToolEventArgs> handler = DeleteOperationTool;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnEditOperationTool(OperationToolEventArgs e)
-        {
-            EventHandler<OperationToolEventArgs> handler = EditOperationTool;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnAddOperationTool(OperationEventArgs e)
-        {
-            var handler = AddOperationTool;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnLoadOperationTools(OperationEventArgs e)
-        {
-            EventHandler<OperationEventArgs> handler = LoadOperationTools;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
 
         public OperationToolsView()
         {
@@ -73,13 +37,16 @@ namespace CPECentral.Views
 
             if (!IsInDesignMode) {
                 _presenter = new OperationToolsViewPresenter(this);
+                Session.MessageBus.Subscribe<ToolRenamedMessage>(ToolRenamedMessageHandler);
             }
         }
 
-        private void OperationToolsView_Load(object sender, EventArgs e)
-        {
-            
-        }
+        #region IOperationToolsView Members
+
+        public event EventHandler<OperationEventArgs> LoadOperationTools;
+        public event EventHandler<OperationEventArgs> AddOperationTool;
+        public event EventHandler<OperationToolEventArgs> EditOperationTool;
+        public event EventHandler<OperationToolEventArgs> DeleteOperationTool;
 
         public void RefreshOperationTools()
         {
@@ -90,8 +57,9 @@ namespace CPECentral.Views
         {
             operationToolsEnhancedListView.Items.Clear();
 
-            foreach (var modelItem in model.Items) {
-                ListViewItem item = operationToolsEnhancedListView.Items.Add(modelItem.OperationTool.Position.ToString("00"));
+            foreach (OperationToolsViewModelItem modelItem in model.Items) {
+                ListViewItem item =
+                    operationToolsEnhancedListView.Items.Add(modelItem.OperationTool.Position.ToString("00"));
                 item.SubItems.Add(modelItem.OperationTool.Offset.ToString("00"));
                 item.SubItems.Add(modelItem.ToolName);
                 item.SubItems.Add(modelItem.HolderName);
@@ -123,6 +91,54 @@ namespace CPECentral.Views
             OnLoadOperationTools(new OperationEventArgs(operation));
         }
 
+        #endregion
+
+        protected virtual void OnDeleteOperationTool(OperationToolEventArgs e)
+        {
+            EventHandler<OperationToolEventArgs> handler = DeleteOperationTool;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnEditOperationTool(OperationToolEventArgs e)
+        {
+            EventHandler<OperationToolEventArgs> handler = EditOperationTool;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnAddOperationTool(OperationEventArgs e)
+        {
+            EventHandler<OperationEventArgs> handler = AddOperationTool;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnLoadOperationTools(OperationEventArgs e)
+        {
+            EventHandler<OperationEventArgs> handler = LoadOperationTools;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        private void ToolRenamedMessageHandler(ToolRenamedMessage toolRenamedMessage)
+        {
+            foreach (ListViewItem item in operationToolsEnhancedListView.Items) {
+                var opTool = item.Tag as OperationTool;
+                if (opTool.ToolId == toolRenamedMessage.RenamedTool.Id) {
+                    item.SubItems[2].Text = toolRenamedMessage.RenamedTool.Description;
+                }
+            }
+        }
+
+        private void OperationToolsView_Load(object sender, EventArgs e)
+        {
+        }
+
         private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Name) {
@@ -140,7 +156,7 @@ namespace CPECentral.Views
 
         private void operationToolsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectionCount = operationToolsEnhancedListView.SelectionCount;
+            int selectionCount = operationToolsEnhancedListView.SelectionCount;
 
             editToolStripButton.Enabled = (selectionCount == 1);
             deleteToolStripButton.Enabled = (selectionCount == 1);
@@ -156,6 +172,27 @@ namespace CPECentral.Views
         private void operationToolsEnhancedListView_ItemActivate(object sender, EventArgs e)
         {
             OnEditOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+        }
+
+        private void itemContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "editToolStripMenuItem":
+                    OnEditOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+                    break;
+                case "deleteToolStripMenuItem":
+                    OnDeleteOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+                    break;
+            }
+        }
+
+        private void mainContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "addToolToolStripMenuItem":
+                    OnAddOperationTool(new OperationEventArgs(_currentOperation));
+                    break;
+            }
         }
     }
 }

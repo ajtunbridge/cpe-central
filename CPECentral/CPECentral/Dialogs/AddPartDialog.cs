@@ -84,7 +84,7 @@ namespace CPECentral.Dialogs
             using (var cpe = new CPEUnitOfWork()) {
                 try {
                     using (BusyCursor.Show()) {
-                        var customers = cpe.Customers.GetAll().OrderBy(c => c.Name);
+                        IOrderedEnumerable<Customer> customers = cpe.Customers.GetAll().OrderBy(c => c.Name);
 
                         customerComboBox.Items.AddRange(customers.ToArray());
 
@@ -99,7 +99,7 @@ namespace CPECentral.Dialogs
                     }
                 }
                 catch (Exception ex) {
-                    var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                     _dialogService.ShowError(msg);
 
@@ -142,9 +142,9 @@ namespace CPECentral.Dialogs
             message.AppendLine();
             message.AppendLine();
 
-            var customerName = IsNewCustomer ? newCustomerNameTextBox.Text : customerComboBox.Text;
-           
-            var toolingLocation = toolingLocationTextBox.Text.IsNullOrWhitespace()
+            string customerName = IsNewCustomer ? newCustomerNameTextBox.Text : customerComboBox.Text;
+
+            string toolingLocation = toolingLocationTextBox.Text.IsNullOrWhitespace()
                 ? "N/A"
                 : toolingLocationTextBox.Text;
 
@@ -231,34 +231,34 @@ namespace CPECentral.Dialogs
 
         private void ScanServerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var scanDir = Settings.Default.DrawingFileDirectory;
+            string scanDir = Settings.Default.DrawingFileDirectory;
 
             if (!Directory.Exists(scanDir)) {
                 _dialogService.ShowError("The drawing file directory could not be located!");
                 return;
             }
 
-            var searchPattern = "*" + (string) e.Argument + "*";
+            string searchPattern = "*" + (string) e.Argument + "*";
 
             var dirStack = new Stack<string>();
             dirStack.Push(scanDir);
 
-            var validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+            string[] validExtensions = Settings.Default.DrawingFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
 
             while (dirStack.Count > 0) {
                 if (_scanServerWorker.CancellationPending) {
                     return;
                 }
 
-                var currentDir = dirStack.Pop();
+                string currentDir = dirStack.Pop();
 
-                var subDirs = Directory.GetDirectories(currentDir);
+                string[] subDirs = Directory.GetDirectories(currentDir);
 
                 if (_scanServerWorker.CancellationPending) {
                     return;
                 }
 
-                foreach (var subDir in subDirs) {
+                foreach (string subDir in subDirs) {
                     dirStack.Push(subDir);
                 }
 
@@ -266,16 +266,16 @@ namespace CPECentral.Dialogs
                     return;
                 }
 
-                var matches = Directory.GetFiles(currentDir, searchPattern)
+                IEnumerable<string> matches = Directory.GetFiles(currentDir, searchPattern)
                     .Where(fileName => {
-                        var ext = Path.GetExtension(fileName);
+                        string ext = Path.GetExtension(fileName);
                         return
                             validExtensions.Any(
                                 validExt => validExt.Equals(ext, StringComparison.OrdinalIgnoreCase));
                     });
 
                 filesListView.Invoke((MethodInvoker) delegate {
-                    foreach (var match in matches) {
+                    foreach (string match in matches) {
                         filesListView.AddFile(match, match);
                     }
                 });
@@ -296,7 +296,8 @@ namespace CPECentral.Dialogs
 
             // if no drawing files were found
             if (filesListView.Items.Count == 0) {
-                _dialogService.Notify("Could not find any matching files in the drawing directory!\n\nTry modifying the search term and scan again.");
+                _dialogService.Notify(
+                    "Could not find any matching files in the drawing directory!\n\nTry modifying the search term and scan again.");
                 return;
             }
 
@@ -330,17 +331,17 @@ namespace CPECentral.Dialogs
         {
             using (BusyCursor.Show()) {
                 using (var tricorn = new TricornDataProvider()) {
-                    var worksOrder = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text).FirstOrDefault();
+                    WOrder worksOrder = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text).FirstOrDefault();
 
                     if (worksOrder == null) {
                         _dialogService.Notify("The works order number you entered does not exist!");
                         return;
                     }
-                    var customer = tricorn.GetCustomer(worksOrder.Customer_Reference.Value);
+                    Tricorn.Customer customer = tricorn.GetCustomer(worksOrder.Customer_Reference.Value);
 
                     bool isNewCustomer = true;
 
-                    foreach (var obj in customerComboBox.Items) {
+                    foreach (object obj in customerComboBox.Items) {
                         var c = obj as Customer;
                         if (c.Name.Equals(customer.Name, StringComparison.OrdinalIgnoreCase)) {
                             customerComboBox.SelectedItem = c;

@@ -12,7 +12,7 @@ namespace CPECentral.Controls
 {
     public partial class ModelViewer : UserControl
     {
-        public static readonly string[] ValidCadExtensions = new[] {".step", ".stp", ".iges", ".igs"};
+        public static readonly string[] ValidCadExtensions = {".step", ".stp", ".iges", ".igs"};
 
         public ModelViewer()
         {
@@ -21,26 +21,22 @@ namespace CPECentral.Controls
 
         public void LoadFile(string fileName)
         {
-            var extension = Path.GetExtension(fileName).ToLower();
+            string extension = Path.GetExtension(fileName).ToLower();
 
             if (!ValidCadExtensions.Any(ext => ext.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 throw new ArgumentException("Unable to load this file as it doesn't have a valid extension!",
-                                            "fileName");
+                    "fileName");
             }
 
             if (extension == ".step" || extension == ".stp") {
                 using (BusyCursor.Show()) {
-
                 }
 
                 return;
             }
 
             if (extension == ".igs" || extension == ".iges") {
-
             }
-
-            return;
         }
     }
 }

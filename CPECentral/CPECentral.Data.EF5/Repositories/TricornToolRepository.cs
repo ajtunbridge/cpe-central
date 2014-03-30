@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿#region Using directives
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace CPECentral.Data.EF5.Repositories
 {

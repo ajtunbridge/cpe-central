@@ -41,7 +41,7 @@ namespace CPECentral.Dialogs
 
         private void SelectToolButton_Click(object sender, EventArgs e)
         {
-            using (var toolSelector = new ToolSelectorDialog()) {
+            using (var toolSelector = new ToolSelectorDialog(false)) {
                 if (toolSelector.ShowDialog(this) != DialogResult.OK) {
                     return;
                 }
@@ -98,11 +98,11 @@ namespace CPECentral.Dialogs
 
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var tool = cpe.Tools.GetById(_operationTool.ToolId);
+                        Tool tool = cpe.Tools.GetById(_operationTool.ToolId);
                         toolTextBox.Text = tool.Description;
 
                         if (_operationTool.HolderId.HasValue) {
-                            var holder = cpe.Holders.GetById(_operationTool.HolderId.Value);
+                            Holder holder = cpe.Holders.GetById(_operationTool.HolderId.Value);
                             holderTextBox.Text = holder.Name;
                         }
                     }

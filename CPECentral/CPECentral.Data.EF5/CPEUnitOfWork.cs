@@ -157,8 +157,8 @@ namespace CPECentral.Data.EF5
 
                     var errors = new StringBuilder();
 
-                    foreach (var validationError in validationEx.EntityValidationErrors) {
-                        foreach (var err in validationError.ValidationErrors) {
+                    foreach (DbEntityValidationResult validationError in validationEx.EntityValidationErrors) {
+                        foreach (DbValidationError err in validationError.ValidationErrors) {
                             errors.AppendLine(err.ErrorMessage);
                         }
                     }
@@ -166,7 +166,7 @@ namespace CPECentral.Data.EF5
                     throw new DataProviderException(errors.ToString(), DataProviderError.InvalidData, ex);
                 }
 
-                var inner = ex.InnerException;
+                Exception inner = ex.InnerException;
 
                 while (inner.GetType() != typeof (SqlException)) {
                     if (inner == null) {
@@ -206,7 +206,7 @@ namespace CPECentral.Data.EF5
             }
             finally {
                 // ensure we detach any entities to enable future changes to them
-                foreach (var entity in EntitiesToDetach) {
+                foreach (object entity in EntitiesToDetach) {
                     Entities.Entry(entity).State = EntityState.Detached;
                 }
 

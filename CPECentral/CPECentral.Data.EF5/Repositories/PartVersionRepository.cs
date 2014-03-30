@@ -32,8 +32,8 @@ namespace CPECentral.Data.EF5.Repositories
         public PartVersion GetLatestVersion(int partId)
         {
             return GetSet().Where(ver => ver.PartId == partId)
-                           .OrderByDescending(ver => ver.VersionNumber)
-                           .First();
+                .OrderByDescending(ver => ver.VersionNumber)
+                .First();
         }
 
         public override void Add(PartVersion entity)
@@ -45,16 +45,16 @@ namespace CPECentral.Data.EF5.Repositories
 
         private string CleanVersionNumber(string version)
         {
-            if (string.IsNullOrWhiteSpace(version))
+            if (string.IsNullOrWhiteSpace(version)) {
                 return string.Empty;
+            }
 
-            var trimmed = version.Trim();
+            string trimmed = version.Trim();
 
-            var isNumeric = trimmed.All(char.IsNumber);
+            bool isNumeric = trimmed.All(char.IsNumber);
 
-            if (isNumeric)
-            {
-                var issueNumber = int.Parse(trimmed);
+            if (isNumeric) {
+                int issueNumber = int.Parse(trimmed);
                 return issueNumber.ToString("D2");
             }
 

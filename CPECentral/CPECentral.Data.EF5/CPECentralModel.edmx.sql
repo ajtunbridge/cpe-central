@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/17/2013 13:18:42
--- Generated from EDMX file: C:\Users\atunbridge\Documents\GitHub\cpe-central\CPECentral\CPECentral.Data.EF5\CPECentralModel.edmx
+-- Date Created: 03/28/2014 15:35:29
+-- Generated from EDMX file: S:\Adam\Documents\GitHub\cpe-central\CPECentral\CPECentral.Data.EF5\CPECentralModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,103 +17,115 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_Documents_Operations]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_Documents_Operations];
+IF OBJECT_ID(N'[cpe].[FK_Documents_Operations]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Documents] DROP CONSTRAINT [FK_Documents_Operations];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Documents_Parts]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_Documents_Parts];
+IF OBJECT_ID(N'[cpe].[FK_Documents_Parts]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Documents] DROP CONSTRAINT [FK_Documents_Parts];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Documents_PartVersions]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_Documents_PartVersions];
+IF OBJECT_ID(N'[cpe].[FK_Documents_PartVersions]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Documents] DROP CONSTRAINT [FK_Documents_PartVersions];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Employees_EmployeeGroups]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employees] DROP CONSTRAINT [FK_Employees_EmployeeGroups];
+IF OBJECT_ID(N'[cpe].[FK_Employees_EmployeeGroups]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Employees] DROP CONSTRAINT [FK_Employees_EmployeeGroups];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Employees_Parts]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Employees] DROP CONSTRAINT [FK_Employees_Parts];
+IF OBJECT_ID(N'[cpe].[FK_Holders_HolderGroups]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Holders] DROP CONSTRAINT [FK_Holders_HolderGroups];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Holders_HolderGroups]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Holders] DROP CONSTRAINT [FK_Holders_HolderGroups];
+IF OBJECT_ID(N'[cpe].[FK_HolderTools_Holders]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[HolderTools] DROP CONSTRAINT [FK_HolderTools_Holders];
 GO
-IF OBJECT_ID(N'[dbo].[FK_HolderTools_Holders]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[HolderTools] DROP CONSTRAINT [FK_HolderTools_Holders];
+IF OBJECT_ID(N'[cpe].[FK_HolderTools_Tools]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[HolderTools] DROP CONSTRAINT [FK_HolderTools_Tools];
 GO
-IF OBJECT_ID(N'[dbo].[FK_HolderTools_Tools]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[HolderTools] DROP CONSTRAINT [FK_HolderTools_Tools];
+IF OBJECT_ID(N'[cpe].[FK_Methods_PartVersions]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Methods] DROP CONSTRAINT [FK_Methods_PartVersions];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Methods_PartVersions]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Methods] DROP CONSTRAINT [FK_Methods_PartVersions];
+IF OBJECT_ID(N'[cpe].[FK_Operations_MachineGroups]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Operations] DROP CONSTRAINT [FK_Operations_MachineGroups];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Operations_MachineGroups]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Operations] DROP CONSTRAINT [FK_Operations_MachineGroups];
+IF OBJECT_ID(N'[cpe].[FK_Operations_Methods]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Operations] DROP CONSTRAINT [FK_Operations_Methods];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Operations_PartVersions]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Operations] DROP CONSTRAINT [FK_Operations_PartVersions];
+IF OBJECT_ID(N'[cpe].[FK_OperationTools_Holders]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[OperationTools] DROP CONSTRAINT [FK_OperationTools_Holders];
 GO
-IF OBJECT_ID(N'[dbo].[FK_OperationTools_Operations]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[OperationTools] DROP CONSTRAINT [FK_OperationTools_Operations];
+IF OBJECT_ID(N'[cpe].[FK_OperationTools_Operations]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[OperationTools] DROP CONSTRAINT [FK_OperationTools_Operations];
 GO
-IF OBJECT_ID(N'[dbo].[FK_OperationTools_Tools]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[OperationTools] DROP CONSTRAINT [FK_OperationTools_Tools];
+IF OBJECT_ID(N'[cpe].[FK_OperationTools_Tools]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[OperationTools] DROP CONSTRAINT [FK_OperationTools_Tools];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Parts_Customers]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Parts] DROP CONSTRAINT [FK_Parts_Customers];
+IF OBJECT_ID(N'[cpe].[FK_Parts_Customers]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Parts] DROP CONSTRAINT [FK_Parts_Customers];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PartVersions_Parts]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PartVersions] DROP CONSTRAINT [FK_PartVersions_Parts];
+IF OBJECT_ID(N'[cpe].[FK_PartVersions_Parts]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[PartVersions] DROP CONSTRAINT [FK_PartVersions_Parts];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Tools_ToolGroups]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Tools] DROP CONSTRAINT [FK_Tools_ToolGroups];
+IF OBJECT_ID(N'[cpe].[FK_ToolGroups_ToolGroups]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[ToolGroups] DROP CONSTRAINT [FK_ToolGroups_ToolGroups];
+GO
+IF OBJECT_ID(N'[cpe].[FK_Tools_ToolGroups]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[Tools] DROP CONSTRAINT [FK_Tools_ToolGroups];
+GO
+IF OBJECT_ID(N'[cpe].[FK_TricornTools_Tools]', 'F') IS NOT NULL
+    ALTER TABLE [cpe].[TricornTools] DROP CONSTRAINT [FK_TricornTools_Tools];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Customers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Customers];
+IF OBJECT_ID(N'[cpe].[Customers]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Customers];
 GO
-IF OBJECT_ID(N'[dbo].[Documents]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Documents];
+IF OBJECT_ID(N'[cpe].[Documents]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Documents];
 GO
-IF OBJECT_ID(N'[dbo].[EmployeeGroups]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[EmployeeGroups];
+IF OBJECT_ID(N'[cpe].[EmployeeGroups]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[EmployeeGroups];
 GO
-IF OBJECT_ID(N'[dbo].[Employees]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Employees];
+IF OBJECT_ID(N'[cpe].[Employees]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Employees];
 GO
-IF OBJECT_ID(N'[dbo].[HolderGroups]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[HolderGroups];
+IF OBJECT_ID(N'[cpe].[HolderGroups]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[HolderGroups];
 GO
-IF OBJECT_ID(N'[dbo].[Holders]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Holders];
+IF OBJECT_ID(N'[cpe].[Holders]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Holders];
 GO
-IF OBJECT_ID(N'[dbo].[HolderTools]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[HolderTools];
+IF OBJECT_ID(N'[cpe].[HolderTools]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[HolderTools];
 GO
-IF OBJECT_ID(N'[dbo].[MachineGroups]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[MachineGroups];
+IF OBJECT_ID(N'[cpe].[MachineGroups]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[MachineGroups];
 GO
-IF OBJECT_ID(N'[dbo].[Methods]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Methods];
+IF OBJECT_ID(N'[cpe].[Methods]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Methods];
 GO
-IF OBJECT_ID(N'[dbo].[Operations]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Operations];
+IF OBJECT_ID(N'[cpe].[Operations]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Operations];
 GO
-IF OBJECT_ID(N'[dbo].[OperationTools]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[OperationTools];
+IF OBJECT_ID(N'[cpe].[OperationTools]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[OperationTools];
 GO
-IF OBJECT_ID(N'[dbo].[Parts]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Parts];
+IF OBJECT_ID(N'[cpe].[Parts]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Parts];
 GO
-IF OBJECT_ID(N'[dbo].[PartVersions]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PartVersions];
+IF OBJECT_ID(N'[cpe].[PartVersions]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[PartVersions];
 GO
-IF OBJECT_ID(N'[dbo].[ToolGroups]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ToolGroups];
+IF OBJECT_ID(N'[cpe].[ToolGroups]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[ToolGroups];
 GO
-IF OBJECT_ID(N'[dbo].[Tools]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Tools];
+IF OBJECT_ID(N'[cpe].[Tools]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[Tools];
+GO
+IF OBJECT_ID(N'[cpe].[TricornTools]', 'U') IS NOT NULL
+    DROP TABLE [cpe].[TricornTools];
+GO
+IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[sysdiagrams];
 GO
 
 -- --------------------------------------------------
@@ -125,7 +137,8 @@ CREATE TABLE [dbo].[Customers] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] varchar(50)  NOT NULL,
     [CreatedBy] int  NOT NULL,
-    [ModifiedBy] int  NOT NULL
+    [ModifiedBy] int  NOT NULL,
+    [TricornReference] int  NULL
 );
 GO
 
@@ -159,7 +172,8 @@ CREATE TABLE [dbo].[Employees] (
     [Password] char(88)  NOT NULL,
     [Salt] char(24)  NOT NULL,
     [EmployeeGroupId] int  NOT NULL,
-    [LastViewedPartId] int  NULL
+    [LastViewedPartId] int  NULL,
+    [PreferredMachineGroup] int  NULL
 );
 GO
 
@@ -199,7 +213,9 @@ CREATE TABLE [dbo].[Methods] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Description] varchar(255)  NOT NULL,
     [IsPreferred] bit  NOT NULL,
-    [PartVersionId] int  NOT NULL
+    [PartVersionId] int  NOT NULL,
+    [CreatedBy] int  NOT NULL,
+    [ModifiedBy] int  NOT NULL
 );
 GO
 
@@ -224,9 +240,9 @@ CREATE TABLE [dbo].[OperationTools] (
     [Position] int  NOT NULL,
     [Offset] int  NOT NULL,
     [UseOnePer] int  NOT NULL,
-    [Holder] varchar(50)  NULL,
     [Notes] varchar(255)  NULL,
     [OperationId] int  NOT NULL,
+    [HolderId] int  NULL,
     [ToolId] int  NOT NULL
 );
 GO
@@ -266,6 +282,24 @@ CREATE TABLE [dbo].[Tools] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Description] varchar(50)  NOT NULL,
     [ToolGroupId] int  NOT NULL
+);
+GO
+
+-- Creating table 'sysdiagrams'
+CREATE TABLE [dbo].[sysdiagrams] (
+    [name] nvarchar(128)  NOT NULL,
+    [principal_id] int  NOT NULL,
+    [diagram_id] int IDENTITY(1,1) NOT NULL,
+    [version] int  NULL,
+    [definition] varbinary(max)  NULL
+);
+GO
+
+-- Creating table 'TricornTools'
+CREATE TABLE [dbo].[TricornTools] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ToolId] int  NOT NULL,
+    [TricornReference] int  NOT NULL
 );
 GO
 
@@ -363,6 +397,18 @@ ADD CONSTRAINT [PK_Tools]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [diagram_id] in table 'sysdiagrams'
+ALTER TABLE [dbo].[sysdiagrams]
+ADD CONSTRAINT [PK_sysdiagrams]
+    PRIMARY KEY CLUSTERED ([diagram_id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TricornTools'
+ALTER TABLE [dbo].[TricornTools]
+ADD CONSTRAINT [PK_TricornTools]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -437,27 +483,13 @@ ON [dbo].[Employees]
     ([EmployeeGroupId]);
 GO
 
--- Creating foreign key on [LastViewedPartId] in table 'Employees'
-ALTER TABLE [dbo].[Employees]
-ADD CONSTRAINT [FK_Employees_Parts]
-    FOREIGN KEY ([LastViewedPartId])
-    REFERENCES [dbo].[Parts]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Employees_Parts'
-CREATE INDEX [IX_FK_Employees_Parts]
-ON [dbo].[Employees]
-    ([LastViewedPartId]);
-GO
-
 -- Creating foreign key on [HolderGroupId] in table 'Holders'
 ALTER TABLE [dbo].[Holders]
 ADD CONSTRAINT [FK_Holders_HolderGroups]
     FOREIGN KEY ([HolderGroupId])
     REFERENCES [dbo].[HolderGroups]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Holders_HolderGroups'
 CREATE INDEX [IX_FK_Holders_HolderGroups]
@@ -476,6 +508,20 @@ ADD CONSTRAINT [FK_HolderTools_Holders]
 -- Creating non-clustered index for FOREIGN KEY 'FK_HolderTools_Holders'
 CREATE INDEX [IX_FK_HolderTools_Holders]
 ON [dbo].[HolderTools]
+    ([HolderId]);
+GO
+
+-- Creating foreign key on [HolderId] in table 'OperationTools'
+ALTER TABLE [dbo].[OperationTools]
+ADD CONSTRAINT [FK_OperationTools_Holders]
+    FOREIGN KEY ([HolderId])
+    REFERENCES [dbo].[Holders]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OperationTools_Holders'
+CREATE INDEX [IX_FK_OperationTools_Holders]
+ON [dbo].[OperationTools]
     ([HolderId]);
 GO
 
@@ -513,7 +559,7 @@ ADD CONSTRAINT [FK_Methods_PartVersions]
     FOREIGN KEY ([PartVersionId])
     REFERENCES [dbo].[PartVersions]
         ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Methods_PartVersions'
 CREATE INDEX [IX_FK_Methods_PartVersions]
@@ -523,14 +569,14 @@ GO
 
 -- Creating foreign key on [MethodId] in table 'Operations'
 ALTER TABLE [dbo].[Operations]
-ADD CONSTRAINT [FK_Operations_PartVersions]
+ADD CONSTRAINT [FK_Operations_Methods]
     FOREIGN KEY ([MethodId])
     REFERENCES [dbo].[Methods]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_Operations_PartVersions'
-CREATE INDEX [IX_FK_Operations_PartVersions]
+-- Creating non-clustered index for FOREIGN KEY 'FK_Operations_Methods'
+CREATE INDEX [IX_FK_Operations_Methods]
 ON [dbo].[Operations]
     ([MethodId]);
 GO
@@ -541,7 +587,7 @@ ADD CONSTRAINT [FK_OperationTools_Operations]
     FOREIGN KEY ([OperationId])
     REFERENCES [dbo].[Operations]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_OperationTools_Operations'
 CREATE INDEX [IX_FK_OperationTools_Operations]
@@ -577,6 +623,20 @@ ON [dbo].[PartVersions]
     ([PartId]);
 GO
 
+-- Creating foreign key on [ParentGroupId] in table 'ToolGroups'
+ALTER TABLE [dbo].[ToolGroups]
+ADD CONSTRAINT [FK_ToolGroups_ToolGroups]
+    FOREIGN KEY ([ParentGroupId])
+    REFERENCES [dbo].[ToolGroups]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ToolGroups_ToolGroups'
+CREATE INDEX [IX_FK_ToolGroups_ToolGroups]
+ON [dbo].[ToolGroups]
+    ([ParentGroupId]);
+GO
+
 -- Creating foreign key on [ToolGroupId] in table 'Tools'
 ALTER TABLE [dbo].[Tools]
 ADD CONSTRAINT [FK_Tools_ToolGroups]
@@ -589,6 +649,20 @@ ADD CONSTRAINT [FK_Tools_ToolGroups]
 CREATE INDEX [IX_FK_Tools_ToolGroups]
 ON [dbo].[Tools]
     ([ToolGroupId]);
+GO
+
+-- Creating foreign key on [ToolId] in table 'TricornTools'
+ALTER TABLE [dbo].[TricornTools]
+ADD CONSTRAINT [FK_TricornTools_Tools]
+    FOREIGN KEY ([ToolId])
+    REFERENCES [dbo].[Tools]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TricornTools_Tools'
+CREATE INDEX [IX_FK_TricornTools_Tools]
+ON [dbo].[TricornTools]
+    ([ToolId]);
 GO
 
 -- --------------------------------------------------

@@ -27,7 +27,7 @@ namespace CPECentral.Dialogs
         {
             const double sin60 = 0.866;
 
-            var dia = (double)acrossFlatsNumericUpDown.Value / sin60;
+            double dia = (double) acrossFlatsNumericUpDown.Value/sin60;
 
             minimumDiameterLabel.Text = dia.ToString("Ø##0.000");
         }

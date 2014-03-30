@@ -79,7 +79,7 @@ namespace CPECentral.Data.EF5
         public override int GetHashCode()
         {
             unchecked {
-                var hashCode = (FileName != null ? FileName.GetHashCode() : 0);
+                int hashCode = (FileName != null ? FileName.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ PartId.GetHashCode();
                 hashCode = (hashCode*397) ^ PartVersionId.GetHashCode();
                 hashCode = (hashCode*397) ^ OperationId.GetHashCode();
@@ -585,7 +585,7 @@ namespace CPECentral.Data.EF5
         public override int GetHashCode()
         {
             unchecked {
-                var hashCode = Position;
+                int hashCode = Position;
                 hashCode = (hashCode*397) ^ Offset;
                 hashCode = (hashCode*397) ^ OperationId;
                 return hashCode;

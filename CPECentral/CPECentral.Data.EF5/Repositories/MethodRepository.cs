@@ -35,12 +35,10 @@ namespace CPECentral.Data.EF5.Repositories
 
         public void SetPreferredMethod(Method method)
         {
-            var allMethods = GetByPartVersion(method.PartVersionId);
+            IEnumerable<Method> allMethods = GetByPartVersion(method.PartVersionId);
 
-            foreach (var m in allMethods)
-            {
-                if (m.Id == method.Id)
-                {
+            foreach (Method m in allMethods) {
+                if (m.Id == method.Id) {
                     m.IsPreferred = true;
                     continue;
                 }

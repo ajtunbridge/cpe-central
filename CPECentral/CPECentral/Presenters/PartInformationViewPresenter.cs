@@ -33,7 +33,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var part = _partInformationView.Part;
+                        Part part = _partInformationView.Part;
 
                         part.ModifiedBy = Session.CurrentEmployee.Id;
 
@@ -80,8 +80,9 @@ namespace CPECentral.Presenters
                 var part = (Part) e.Argument;
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    var customer = cpe.Customers.GetById(part.CustomerId);
-                    var versions = cpe.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
+                    Customer customer = cpe.Customers.GetById(part.CustomerId);
+                    IOrderedEnumerable<PartVersion> versions =
+                        cpe.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
 
                     var model = new PartInformationViewModel();
                     model.AllVersions = versions;

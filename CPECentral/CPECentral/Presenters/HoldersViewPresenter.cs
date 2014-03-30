@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Views;
 using nGenLibrary;
@@ -14,6 +15,8 @@ namespace CPECentral.Presenters
 {
     public class HoldersViewPresenter
     {
+        private const string NewGroupName = "NEW GROUP ";
+        private const string NewHolderName = "NEW HOLDER ";
         private readonly IHoldersView _view;
 
         public HoldersViewPresenter(IHoldersView view)
@@ -23,6 +26,64 @@ namespace CPECentral.Presenters
             _view.LoadHolders += View_LoadHolders;
             _view.HolderRenamed += View_HolderRenamed;
             _view.HolderGroupRenamed += View_HolderGroupRenamed;
+            _view.AddHolderGroup += View_AddHolderGroup;
+            _view.AddHolder += View_AddHolder;
+        }
+
+        private void View_AddHolder(object sender, HolderGroupEventArgs e)
+        {
+            Holder newHolder = null;
+
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        IEnumerable<Holder> allHolders = cpe.Holders.GetByHolderGroup(e.HolderGroup);
+                        string newName = NewHolderName + "01";
+                        int count = 1;
+                        while (allHolders.Any(h => h.Name.Equals(newName, StringComparison.OrdinalIgnoreCase))) {
+                            count++;
+                            newName = NewHolderName + count.ToString("00");
+                        }
+
+                        newHolder = new Holder {HolderGroupId = e.HolderGroup.Id, Name = newName};
+
+                        cpe.Holders.Add(newHolder);
+                        cpe.Commit();
+                        _view.ReloadHolders(newHolder, true);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex, newHolder);
+            }
+        }
+
+        private void View_AddHolderGroup(object sender, EventArgs e)
+        {
+            HolderGroup newGroup = null;
+
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        IEnumerable<HolderGroup> allHolderGroups = cpe.HolderGroups.GetAll();
+                        string newName = NewGroupName + "01";
+                        int count = 1;
+                        while (allHolderGroups.Any(g => g.Name.Equals(newName, StringComparison.OrdinalIgnoreCase))) {
+                            count++;
+                            newName = NewGroupName + count.ToString("00");
+                        }
+
+                        newGroup = new HolderGroup {Name = newName};
+
+                        cpe.HolderGroups.Add(newGroup);
+                        cpe.Commit();
+                        _view.ReloadHolders(newGroup, true);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex, newGroup);
+            }
         }
 
         private bool View_HolderGroupRenamed(HolderGroup entity)

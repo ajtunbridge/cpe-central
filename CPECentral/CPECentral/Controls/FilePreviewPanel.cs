@@ -27,17 +27,17 @@ namespace CPECentral.Controls
         {
             Controls.Clear();
 
-            var indexOfLastDot = fileName.LastIndexOf(".");
+            int indexOfLastDot = fileName.LastIndexOf(".");
 
             if (indexOfLastDot == -1) {
                 return;
             }
 
-            var extension = fileName.Substring(indexOfLastDot).ToLower();
+            string extension = fileName.Substring(indexOfLastDot).ToLower();
 
             if (extension == ".pdf") {
                 using (BusyCursor.Show()) {
-                    var tempFile = Path.GetTempFileName() + extension;
+                    string tempFile = Path.GetTempFileName() + extension;
 
                     File.Copy(fileName, tempFile, true);
 
@@ -49,7 +49,8 @@ namespace CPECentral.Controls
                 return;
             }
 
-            var validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+            string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.None);
 
             if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var ncEditor = new AvalonNcEditor();
@@ -59,8 +60,8 @@ namespace CPECentral.Controls
                 ncEditor.LoadFile(fileName);
             }
 
-            var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
-                                                                             StringSplitOptions.RemoveEmptyEntries);
+            string[] imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.RemoveEmptyEntries);
 
             if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var imageViewer = new ImageViewer();

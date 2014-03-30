@@ -23,8 +23,7 @@ namespace nGenLibrary.IO
             MemoryStream stream = null;
             byte[] serializedData;
 
-            try
-            {
+            try {
                 var formatter = new BinaryFormatter();
 
                 stream = new MemoryStream();
@@ -34,11 +33,11 @@ namespace nGenLibrary.IO
                 // Convert the streams' data into a byte array
                 serializedData = stream.ToArray();
             }
-            finally
-            {
+            finally {
                 // Ensure we close the stream when we are finished with it
-                if (stream != null)
+                if (stream != null) {
                     stream.Close();
+                }
             }
 
             return serializedData;
@@ -55,17 +54,16 @@ namespace nGenLibrary.IO
             var formatter = new BinaryFormatter();
             MemoryStream stream = null;
 
-            try
-            {
+            try {
                 stream = new MemoryStream(data) {Position = 0};
 
                 deserializedObject = (T) formatter.Deserialize(stream);
             }
-            finally
-            {
+            finally {
                 // Ensure we close the stream when we are finished with it
-                if (stream != null)
+                if (stream != null) {
                     stream.Close();
+                }
             }
 
             return deserializedObject;
@@ -80,14 +78,12 @@ namespace nGenLibrary.IO
         /// <returns>A clone of the supplied object</returns>
         public static T Clone(T obj)
         {
-            var clone = default(T);
+            T clone = default(T);
 
-            if ((typeof (T).Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable)
-            {
+            if ((typeof (T).Attributes & TypeAttributes.Serializable) == TypeAttributes.Serializable) {
                 var formatter = new BinaryFormatter();
 
-                using (var stream = new MemoryStream())
-                {
+                using (var stream = new MemoryStream()) {
                     formatter.Serialize(stream, obj);
                     stream.Position = 0;
 

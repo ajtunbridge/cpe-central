@@ -143,18 +143,18 @@ namespace CPECentral.Views
                 return;
             }
 
-            var partCount = 0;
+            int partCount = 0;
 
-            foreach (var customer in viewModel.Customers.OrderBy(c => c.Name)) {
-                var customerNode = enhancedTreeView.Nodes.Add(customer.Name);
+            foreach (Customer customer in viewModel.Customers.OrderBy(c => c.Name)) {
+                TreeNode customerNode = enhancedTreeView.Nodes.Add(customer.Name);
                 customerNode.ImageKey = "CustomerIcon";
                 customerNode.SelectedImageKey = "CustomerIcon";
                 customerNode.Tag = customer;
 
-                var customerParts = viewModel.Parts.Where(p => p.CustomerId == customer.Id)
-                                             .OrderBy(p => p.DrawingNumber);
+                IOrderedEnumerable<Part> customerParts = viewModel.Parts.Where(p => p.CustomerId == customer.Id)
+                    .OrderBy(p => p.DrawingNumber);
 
-                foreach (var part in customerParts) {
+                foreach (Part part in customerParts) {
                     partCount++;
 
                     string nodeText;
@@ -166,7 +166,7 @@ namespace CPECentral.Views
                         nodeText = part.DrawingNumber;
                     }
 
-                    var partNode = customerNode.Nodes.Add(nodeText);
+                    TreeNode partNode = customerNode.Nodes.Add(nodeText);
                     partNode.ImageKey = "PartIcon";
                     partNode.SelectedImageKey = "PartIcon";
                     partNode.ToolTipText = part.Name;
@@ -174,14 +174,14 @@ namespace CPECentral.Views
                 }
             }
 
-            var status = "Found " + partCount + " parts";
+            string status = "Found " + partCount + " parts";
 
             Session.MessageBus.Publish(new StatusUpdateMessage(status));
         }
 
         protected virtual void OnReloadData()
         {
-            var handler = ReloadData;
+            EventHandler handler = ReloadData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -189,7 +189,7 @@ namespace CPECentral.Views
 
         protected virtual void OnCustomerSelected(CustomerEventArgs e)
         {
-            var handler = CustomerSelected;
+            EventHandler<CustomerEventArgs> handler = CustomerSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -197,7 +197,7 @@ namespace CPECentral.Views
 
         protected virtual void OnPartSelected(PartEventArgs e)
         {
-            var handler = PartSelected;
+            EventHandler<PartEventArgs> handler = PartSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -205,7 +205,7 @@ namespace CPECentral.Views
 
         protected virtual void OnDeletePart(PartEventArgs e)
         {
-            var handler = DeletePart;
+            EventHandler<PartEventArgs> handler = DeletePart;
             if (handler != null) {
                 handler(this, e);
             }
@@ -213,7 +213,7 @@ namespace CPECentral.Views
 
         protected virtual void OnSearch(PartSearchEventArgs e)
         {
-            var handler = Search;
+            EventHandler<PartSearchEventArgs> handler = Search;
             if (handler != null) {
                 handler(this, e);
             }
@@ -227,7 +227,7 @@ namespace CPECentral.Views
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
             if (SelectedPart == message.EditedPart) {
-                var selectedNode = enhancedTreeView.SelectedNode;
+                TreeNode selectedNode = enhancedTreeView.SelectedNode;
 
                 selectedNode.Text = message.EditedPart.DrawingNumber;
                 selectedNode.ToolTipText = message.EditedPart.Name;

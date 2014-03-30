@@ -33,7 +33,7 @@ namespace CPECentral
         {
             using (BusyCursor.Show()) {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var group = cpe.EmployeeGroups.GetById(Session.CurrentEmployee.EmployeeGroupId);
+                    EmployeeGroup group = cpe.EmployeeGroups.GetById(Session.CurrentEmployee.EmployeeGroupId);
 
                     if (group.HasPermission(AppPermission.Administrator) || group.HasPermission(permission)) {
                         return true;
@@ -43,7 +43,7 @@ namespace CPECentral
                         return false;
                     }
 
-                    var message = "Access denied!";
+                    string message = "Access denied!";
 
                     switch (permission) {
                         case AppPermission.ManageDocuments:
@@ -58,7 +58,7 @@ namespace CPECentral
                         case AppPermission.ManageOperations:
                             message = "You do not have permission to edit operation information!";
                             break;
-                            case AppPermission.EditSettings:
+                        case AppPermission.EditSettings:
                             message = "You do not have permission to edit application settings!";
                             break;
                     }

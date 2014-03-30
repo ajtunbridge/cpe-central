@@ -24,7 +24,7 @@ namespace CPECentral.Controls
 
         protected virtual void OnOkayClicked()
         {
-            var handler = OkayClicked;
+            EventHandler handler = OkayClicked;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -32,7 +32,7 @@ namespace CPECentral.Controls
 
         protected virtual void OnCancelClicked()
         {
-            var handler = CancelClicked;
+            EventHandler handler = CancelClicked;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }

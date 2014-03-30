@@ -18,14 +18,15 @@ using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Properties;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using NcCommunicator.Data;
 using NcCommunicator.Data.Model;
 using nGenLibrary;
 using FontFamily = System.Windows.Media.FontFamily;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using UnitOfWork = NcCommunicator.Data.UnitOfWork;
 
 #endregion
 
@@ -88,7 +89,7 @@ namespace CPECentral.Controls
             Enabled = false;
 
             ThreadPool.QueueUserWorkItem(delegate {
-                var text = File.ReadAllText(fileName);
+                string text = File.ReadAllText(fileName);
 
                 _host.Invoke((MethodInvoker) delegate {
                     _editor.Text = text;
@@ -105,21 +106,21 @@ namespace CPECentral.Controls
                 return;
             }
 
-            var currentIndex = 0;
+            int currentIndex = 0;
 
-            var caretPos = _editor.TextArea.Caret.Position;
+            TextViewPosition caretPos = _editor.TextArea.Caret.Position;
 
             currentIndex = _editor.Document.GetOffset(caretPos) + 1;
 
             var regex = new Regex(_currentToolChangeValue);
 
-            var match = regex.Match(_editor.Text, currentIndex);
+            Match match = regex.Match(_editor.Text, currentIndex);
 
             if (match.Index == 0) {
                 return;
             }
 
-            var nextLocation = _editor.Document.GetLocation(match.Index + 1);
+            TextLocation nextLocation = _editor.Document.GetLocation(match.Index + 1);
 
             _editor.TextArea.Caret.Position = new TextViewPosition(nextLocation.Line, nextLocation.Column - 1);
 
@@ -138,17 +139,17 @@ namespace CPECentral.Controls
 
         private void LanguageToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var toolChangeHasBeenSet = false;
+            bool toolChangeHasBeenSet = false;
 
             try {
                 using (BusyCursor.Show()) {
-                    using (var configReader = OpenConfigurationFile()) {
+                    using (XmlReader configReader = OpenConfigurationFile()) {
                         while (configReader.Read()) {
                             if (configReader.NodeType != XmlNodeType.Element && configReader.Name != "language") {
                                 continue;
                             }
 
-                            var language = configReader.GetAttribute("name");
+                            string language = configReader.GetAttribute("name");
 
                             if (language != languageToolStripComboBox.Text) {
                                 continue;
@@ -165,7 +166,7 @@ namespace CPECentral.Controls
                                 }
 
                                 if (configReader.NodeType == XmlNodeType.Element && configReader.Name == "syntaxfile") {
-                                    var syntaxFileName = configReader.ReadString();
+                                    string syntaxFileName = configReader.ReadString();
 
                                     ApplySyntaxHighlighting(syntaxFileName);
 
@@ -204,9 +205,9 @@ namespace CPECentral.Controls
 
                 saveToolStripButton.Enabled = false;
 
-                var fileName = Path.GetFileName(_currentFileName);
+                string fileName = Path.GetFileName(_currentFileName);
 
-                var status = "Saved " + fileName + " successfully!";
+                string status = "Saved " + fileName + " successfully!";
 
                 Session.MessageBus.Publish(new StatusUpdateMessage(status));
             }
@@ -217,9 +218,9 @@ namespace CPECentral.Controls
 
         private XmlReader OpenConfigurationFile()
         {
-            var appDir = Settings.Default.SharedAppDir;
+            string appDir = Settings.Default.SharedAppDir;
 
-            var configFile = string.Format("{0}\\Syntax\\config.xml", appDir);
+            string configFile = string.Format("{0}\\Syntax\\config.xml", appDir);
 
             if (!File.Exists(configFile)) {
                 throw new FileNotFoundException("The machine language configuration file is missing!");
@@ -232,10 +233,10 @@ namespace CPECentral.Controls
         {
             try {
                 using (BusyCursor.Show()) {
-                    using (var reader = OpenConfigurationFile()) {
+                    using (XmlReader reader = OpenConfigurationFile()) {
                         while (reader.Read()) {
                             if (reader.NodeType == XmlNodeType.Element && reader.Name == "language") {
-                                var language = reader.GetAttribute("name");
+                                string language = reader.GetAttribute("name");
 
                                 languageToolStripComboBox.Items.Add(language);
                             }
@@ -243,7 +244,7 @@ namespace CPECentral.Controls
                     }
 
                     if (languageToolStripComboBox.Items.Count > 0) {
-                        var preferredLanguage = Settings.Default.PreferredNcLanguage;
+                        string preferredLanguage = Settings.Default.PreferredNcLanguage;
 
                         if (languageToolStripComboBox.Items.Contains(preferredLanguage)) {
                             languageToolStripComboBox.SelectedItem = preferredLanguage;
@@ -265,8 +266,8 @@ namespace CPECentral.Controls
                 _machinesDb = new UnitOfWork();
             }
 
-            var machines = _machinesDb.Machines.GetAll().OrderBy(m => m.Name);
-            foreach (var machine in machines) {
+            IOrderedEnumerable<Machine> machines = _machinesDb.Machines.GetAll().OrderBy(m => m.Name);
+            foreach (Machine machine in machines) {
                 var transmitItem = new ToolStripMenuItem(machine.Name);
                 var receiveItem = new ToolStripMenuItem(machine.Name);
 
@@ -280,15 +281,15 @@ namespace CPECentral.Controls
 
         private void ApplySyntaxHighlighting(string syntaxFile)
         {
-            var storageDir = Settings.Default.SharedAppDir;
+            string storageDir = Settings.Default.SharedAppDir;
 
-            var fileName = string.Format("{0}\\Syntax\\{1}", storageDir, syntaxFile);
+            string fileName = string.Format("{0}\\Syntax\\{1}", storageDir, syntaxFile);
 
             if (!File.Exists(fileName)) {
                 throw new FileNotFoundException("The syntax highlighting file for this language is missing!");
             }
 
-            using (var stream = File.OpenRead(fileName)) {
+            using (FileStream stream = File.OpenRead(fileName)) {
                 using (var reader = new XmlTextReader(stream)) {
                     _editor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
                 }
@@ -299,7 +300,7 @@ namespace CPECentral.Controls
         {
             if (e.ClickedItem.Tag is Machine) {
                 var machine = e.ClickedItem.Tag as Machine;
-                var control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
+                MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
 
                 using (var dialog = new TransmitProgramDialog(_editor.Text, machine.ComPort, control)) {
                     dialog.ShowDialog(ParentForm);
@@ -311,7 +312,7 @@ namespace CPECentral.Controls
         {
             if (e.ClickedItem.Tag is Machine) {
                 var machine = e.ClickedItem.Tag as Machine;
-                var control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
+                MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
 
                 using (var dialog = new ReceiveProgramDialog(machine.ComPort, control)) {
                     dialog.ShowDialog(ParentForm);
@@ -344,18 +345,18 @@ namespace CPECentral.Controls
         {
             var stringBuilder = new StringBuilder();
 
-            var turningPattern = Settings.Default.TurningToolRegEx;
+            string turningPattern = Settings.Default.TurningToolRegEx;
 
             var regex = new Regex(turningPattern);
 
-            var matches = regex.Matches(_editor.Text);
+            MatchCollection matches = regex.Matches(_editor.Text);
 
             // if is turning file
             if (matches.Count > 0) {
                 foreach (Match match in matches) {
-                    var position = match.Groups["position"].Value;
-                    var offset = match.Groups["offset"].Value;
-                    var name = match.Groups["name"].Value;
+                    string position = match.Groups["position"].Value;
+                    string offset = match.Groups["offset"].Value;
+                    string name = match.Groups["name"].Value;
 
                     stringBuilder.AppendFormat("TOOL {0} OFFSET {1}: {2}", position, offset, name);
                     stringBuilder.AppendLine();
@@ -363,7 +364,6 @@ namespace CPECentral.Controls
 
                 _stringToPrint = new StringReader(stringBuilder.ToString());
                 Print("Tool list");
-                return;
             }
 
             // TODO: milling tool regex matching
@@ -388,7 +388,7 @@ namespace CPECentral.Controls
             var font = new Font("Consolas", 10f);
             float linesPerPage = 0;
             float yPos = 0;
-            var count = 0;
+            int count = 0;
             float leftMargin = e.MarginBounds.Left;
             float topMargin = e.MarginBounds.Top;
             string line = null;

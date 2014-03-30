@@ -22,6 +22,9 @@ namespace CPECentral.Presenters
 {
     public class DocumentsViewPresenter
     {
+        private const string MillingGroupName = "MILLS";
+        private const string TurningGroupName = "LATHES";
+
         private readonly IDocumentsView _documentsView;
         private readonly object _refreshLocker = new object();
         private BackgroundWorker _refreshDocumentsWorker;
@@ -51,20 +54,20 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var filePaths = Clipboard.GetFileDropList();
+            StringCollection filePaths = Clipboard.GetFileDropList();
 
             if (filePaths.Count == 0) {
                 return;
             }
 
-            var docs = GetDocuments();
+            IEnumerable<Document> docs = GetDocuments();
 
             var existingDocuments = new List<Document>();
 
-            foreach (var path in filePaths) {
-                var fileName = Path.GetFileName(path);
+            foreach (string path in filePaths) {
+                string fileName = Path.GetFileName(path);
 
-                var existing = docs.FirstOrDefault(d => d.FileName == fileName);
+                Document existing = docs.FirstOrDefault(d => d.FileName == fileName);
 
                 if (existing == null) {
                     continue;
@@ -75,11 +78,11 @@ namespace CPECentral.Presenters
 
             if (existingDocuments.Count > 0) {
                 // TODO: improve the UI for overwriting 
-                var question = string.Format("Do you want to overwrite the following documents:\n\n");
+                string question = string.Format("Do you want to overwrite the following documents:\n\n");
 
-                var count = 1;
+                int count = 1;
 
-                foreach (var doc in existingDocuments) {
+                foreach (Document doc in existingDocuments) {
                     question += string.Format("{0}) {1}\n", count, doc.FileName);
                     count++;
                 }
@@ -89,7 +92,7 @@ namespace CPECentral.Presenters
                 }
             }
 
-            foreach (var fileName in filePaths) {
+            foreach (string fileName in filePaths) {
                 Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
             }
         }
@@ -98,7 +101,7 @@ namespace CPECentral.Presenters
         {
             var fileNames = new StringCollection();
 
-            foreach (var document in _documentsView.SelectedDocuments) {
+            foreach (Document document in _documentsView.SelectedDocuments) {
                 fileNames.Add(Session.DocumentService.GetPathToDocument(document));
             }
 
@@ -112,7 +115,7 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            var invalidChars = Path.GetInvalidFileNameChars();
+            char[] invalidChars = Path.GetInvalidFileNameChars();
 
             if (e.NewFileName.Any(invalidChars.Contains)) {
                 _documentsView.DialogService.ShowError("You entered illegal characters into the file name!");
@@ -129,7 +132,7 @@ namespace CPECentral.Presenters
 
         private void _documentsView_ImportMillingFile(object sender, EventArgs e)
         {
-            var parentForm = ((UserControl) _documentsView).ParentForm;
+            Form parentForm = ((UserControl) _documentsView).ParentForm;
 
             var operation = _documentsView.CurrentEntity as Operation;
 
@@ -146,7 +149,7 @@ namespace CPECentral.Presenters
             }
 
             using (var fileDialog = new OpenFileDialog()) {
-                var parentForm = ((UserControl) _documentsView).ParentForm;
+                Form parentForm = ((UserControl) _documentsView).ParentForm;
 
                 fileDialog.Filter = "All files|*.*";
                 fileDialog.Title = "Please select documents to upload";
@@ -156,7 +159,7 @@ namespace CPECentral.Presenters
                     return;
                 }
 
-                foreach (var fileName in fileDialog.FileNames) {
+                foreach (string fileName in fileDialog.FileNames) {
                     Session.DocumentService.QueueUpload(fileName, _documentsView.CurrentEntity);
                 }
             }
@@ -174,17 +177,17 @@ namespace CPECentral.Presenters
                     using (var cpe = new CPEUnitOfWork()) {
                         var op = _documentsView.CurrentEntity as Operation;
 
-                        var method = cpe.Methods.GetById(op.MethodId);
+                        Method method = cpe.Methods.GetById(op.MethodId);
 
-                        var drawingNo = method.PartVersion.Part.DrawingNumber;
-                        var version = method.PartVersion.VersionNumber;
-                        var opNumber = op.Sequence;
+                        string drawingNo = method.PartVersion.Part.DrawingNumber;
+                        string version = method.PartVersion.VersionNumber;
+                        int opNumber = op.Sequence;
 
-                        var fileName = string.Format("{0} Version {1} Op {2:00}.fm", drawingNo, version, opNumber);
+                        string fileName = string.Format("{0} Version {1} Op {2:00}.fm", drawingNo, version, opNumber);
 
-                        var pathToFile = Path.Combine(Path.GetTempPath(), fileName);
+                        string pathToFile = Path.Combine(Path.GetTempPath(), fileName);
 
-                        var machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId).Name;
+                        string machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId).Name;
 
                         string templateFileName = null;
 
@@ -199,12 +202,12 @@ namespace CPECentral.Presenters
 
                         if (!File.Exists(templateFileName)) {
                             _documentsView.DialogService.ShowError("The CAM template file could not be found!");
-                            return;    
+                            return;
                         }
 
                         try {
                             using (BusyCursor.Show()) {
-                                var data = File.ReadAllBytes(templateFileName);
+                                byte[] data = File.ReadAllBytes(templateFileName);
 
                                 File.WriteAllBytes(pathToFile, data);
                             }
@@ -237,7 +240,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var group = cpe.MachineGroups.GetByName("Turning");
+                        MachineGroup group = cpe.MachineGroups.GetByName("LATHES");
 
                         if (group == null) {
                             throw new InvalidOperationException("There isn't a machine group for lathes!");
@@ -245,11 +248,11 @@ namespace CPECentral.Presenters
 
                         var op = _documentsView.CurrentEntity as Operation;
 
-                        var method = cpe.Methods.GetById(op.MethodId);
+                        Method method = cpe.Methods.GetById(op.MethodId);
 
-                        var tempPath = Path.GetTempPath();
+                        string tempPath = Path.GetTempPath();
 
-                        var tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
+                        string tempFileName = string.Format("{0}\\{1:0000}.nc", tempPath, group.NextNumber);
 
                         var header = new StringBuilder(Settings.Default.TurningProgramHeaderFormat);
                         header.Replace("{prog}", group.NextNumber.ToString("D4"));
@@ -259,25 +262,28 @@ namespace CPECentral.Presenters
                         header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
                         header.Replace("{name}", method.PartVersion.Part.Name);
 
-                        var opTools = cpe.OperationTools.GetByOperation(_documentsView.CurrentEntity as Operation)
+                        IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(
+                            _documentsView.CurrentEntity as Operation)
                             .OrderBy(t => t.Position)
                             .ThenBy(t => t.Offset);
 
                         if (opTools.Any()) {
-                            foreach (var opTool in opTools) {
-                                var line = Settings.Default.TurningProgramToolFormat
+                            foreach (OperationTool opTool in opTools) {
+                                string line = Settings.Default.TurningProgramToolFormat
                                     .Replace("{position}", opTool.Position.ToString("00"))
                                     .Replace("{offset}", opTool.Offset.ToString("00"))
                                     .Replace("{tool}", opTool.Tool.Description.Replace(":", ""));
+
                                 header.AppendLine(line);
 
                                 if (opTool.HolderId.HasValue) {
-                                    var holderLine = Settings.Default.TurningProgramHolderFormat
+                                    string holderLine = Settings.Default.TurningProgramHolderFormat
                                         .Replace("{holder}", opTool.Holder.Name);
                                     header.AppendLine(holderLine);
-                                    header.AppendLine();
                                 }
-                            }    
+
+                                header.AppendLine();
+                            }
                         }
 
                         File.WriteAllText(tempFileName, header.ToString());
@@ -322,7 +328,7 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            foreach (var file in e.DroppedFiles) {
+            foreach (string file in e.DroppedFiles) {
                 Session.DocumentService.QueueUpload(file, _documentsView.CurrentEntity);
             }
         }
@@ -351,18 +357,15 @@ namespace CPECentral.Presenters
                         if (entity is Operation) {
                             var op = entity as Operation;
 
-                            var machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId);
+                            MachineGroup machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId);
 
-                            switch (machineGroup.Name.ToLower()) {
-                                case "milling":
-                                    model.OpType = OperationType.Milling;
-                                    break;
-                                case "turning":
-                                    model.OpType = OperationType.Turning;
-                                    break;
-                                default:
-                                    model.OpType = OperationType.None;
-                                    break;
+                            model.OpType = OperationType.None;
+
+                            if (machineGroup.Name == MillingGroupName) {
+                                model.OpType = OperationType.Milling;
+                            }
+                            else if (machineGroup.Name == TurningGroupName) {
+                                model.OpType = OperationType.Turning;
                             }
 
                             documents = cpe.Documents.GetByOperation(entity.Id);
@@ -374,8 +377,8 @@ namespace CPECentral.Presenters
                             documents = cpe.Documents.GetByPartVersion(entity.Id);
                         }
 
-                        foreach (var document in documents.OrderBy(d => d.FileName)) {
-                            var pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
+                        foreach (Document document in documents.OrderBy(d => d.FileName)) {
+                            string pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
 
                             model.AddDocumentModel(document, pathToFile);
                         }
@@ -430,8 +433,8 @@ namespace CPECentral.Presenters
 
             var existingDocs = new List<Document>();
 
-            foreach (var doc in docs) {
-                var pathToFile = Session.DocumentService.GetPathToDocument(doc);
+            foreach (Document doc in docs) {
+                string pathToFile = Session.DocumentService.GetPathToDocument(doc);
 
                 if (!File.Exists(pathToFile)) {
                     // TODO: Handle missing documents
@@ -453,8 +456,8 @@ namespace CPECentral.Presenters
             }
             else {
                 message = exception.InnerException == null
-                              ? exception.Message
-                              : exception.InnerException.Message;
+                    ? exception.Message
+                    : exception.InnerException.Message;
             }
 
             _documentsView.DialogService.ShowError(message);

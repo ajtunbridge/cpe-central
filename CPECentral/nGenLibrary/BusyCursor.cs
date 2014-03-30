@@ -17,8 +17,7 @@ namespace nGenLibrary
 
         public BusyCursor()
         {
-            if (Cursor.Current == Cursors.WaitCursor)
-            {
+            if (Cursor.Current == Cursors.WaitCursor) {
                 _cursorAlreadyChanged = true;
                 return;
             }
@@ -30,8 +29,9 @@ namespace nGenLibrary
 
         public void Dispose()
         {
-            if (_cursorAlreadyChanged)
+            if (_cursorAlreadyChanged) {
                 return;
+            }
 
             Cursor.Current = Cursors.Default;
         }

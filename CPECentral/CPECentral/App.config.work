@@ -33,16 +33,16 @@
         <value>Normal</value>
       </setting>
       <setting name="PreferredNcLanguage" serializeAs="String">
-        <value>Heidenhain</value>
+        <value>Fanuc</value>
       </setting>
       <setting name="DrawingFileDirectory" serializeAs="String">
-        <value>S:\Adam\CPE Central\Drawing files\</value>
+        <value>I:\Drawing Files\</value>
       </setting>
       <setting name="SharedAppDir" serializeAs="String">
-        <value>S:\Adam\CPE Central\Data\</value>
+        <value>I:\Central\</value>
       </setting>
       <setting name="MillingProgramDirectory" serializeAs="String">
-        <value>S:\Adam\CPE Central\Milling programs\</value>
+        <value>I:\Milling\</value>
       </setting>
       <setting name="PreviewFormLocation" serializeAs="String">
         <value>100, 100</value>
@@ -59,14 +59,20 @@
       <setting name="CamTemplateTurning" serializeAs="String">
         <value />
       </setting>
+      <setting name="TurningProgramToolFormat" serializeAs="String">
+        <value>(T{position}{offset} - {tool})</value>
+      </setting>
+      <setting name="TurningProgramHolderFormat" serializeAs="String">
+        <value>(HOLDER - {holder})</value>
+      </setting>
     </CPECentral.Properties.Settings>
   </userSettings>
   <connectionStrings>
     <add name="TricornEntities"
-         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>
@@ -81,9 +87,9 @@
         <value>.pdf|.iges|.igs|.dxf|.dwg|.stp|.step|.x_t|.tif|.tiff</value>
       </setting>
       <setting name="DefaultDirectory" serializeAs="String">
-        <value>S:\</value>
+        <value>I:\</value>
       </setting>
-      <setting name="TurningProgramHeader" serializeAs="String">
+      <setting name="TurningProgramHeaderFormat" serializeAs="String">
         <value>%
 :{prog}(DWG.{dwg} VER.{ver} OP.{op})
 
@@ -94,6 +100,9 @@
       </setting>
       <setting name="TurningToolRegEx" serializeAs="String">
         <value>\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</value>
+      </setting>
+      <setting name="ViewInternallyFileExtensions" serializeAs="String">
+        <value>.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</value>
       </setting>
     </CPECentral.Properties.Settings>
   </applicationSettings>

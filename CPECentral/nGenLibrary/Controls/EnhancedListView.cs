@@ -97,64 +97,71 @@ namespace nGenLibrary.Controls
         /// </summary>
         public void SelectFirstItem()
         {
-            if (ItemCount > 0)
+            if (ItemCount > 0) {
                 Items[0].Selected = true;
+            }
         }
 
         protected virtual void OnItemsRemoved()
         {
-            var handler = ItemsRemoved;
-            if (handler != null) handler(this, EventArgs.Empty);
+            EventHandler handler = ItemsRemoved;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
 
-            if (UseAlternatingBackColor)
+            if (UseAlternatingBackColor) {
                 PaintAlternatingBackColor();
+            }
         }
 
         protected virtual void OnItemsAdded()
         {
-            var handler = ItemsAdded;
-            if (handler != null) handler(this, EventArgs.Empty);
+            EventHandler handler = ItemsAdded;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
 
-            if (UseAlternatingBackColor)
+            if (UseAlternatingBackColor) {
                 PaintAlternatingBackColor();
+            }
         }
 
         private void EnhancedListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (e.IsSelected)
+            if (e.IsSelected) {
                 _lastSelectedIndex = e.ItemIndex;
+            }
         }
 
         private void EnhancedListView_MouseUp(object sender, MouseEventArgs e)
         {
-            var clickedItem = GetItemAt(e.X, e.Y);
+            ListViewItem clickedItem = GetItemAt(e.X, e.Y);
 
-            if (e.Button == MouseButtons.Right)
-            {
-                var menuToShow = (clickedItem == null) ? ContextMenuStrip : ItemContextMenuStrip;
+            if (e.Button == MouseButtons.Right) {
+                ContextMenuStrip menuToShow = (clickedItem == null) ? ContextMenuStrip : ItemContextMenuStrip;
 
-                if (menuToShow == null)
-                {
+                if (menuToShow == null) {
                     return;
                 }
 
                 menuToShow.Show(this, e.X, e.Y);
             }
 
-            if (EnsureSelection)
-            {
-                if (clickedItem == null && Items.Count > 0)
+            if (EnsureSelection) {
+                if (clickedItem == null && Items.Count > 0) {
                     Items[_lastSelectedIndex].Selected = true;
+                }
             }
         }
 
         private void PaintAlternatingBackColor()
         {
-            var index = 0;
+            int index = 0;
 
-            foreach (ListViewItem item in Items)
-            {
-                if (item == null) continue;
+            foreach (ListViewItem item in Items) {
+                if (item == null) {
+                    continue;
+                }
 
                 item.BackColor = (index%2 == 0) ? BackColor : _alternateBackgroundColor;
                 index++;
@@ -173,12 +180,13 @@ namespace nGenLibrary.Controls
             const int LVM_INSERTITEMW = LVM_FIRST + 77;
 
             //Filter out the WM_ERASEBKGND message to prevent flicker when redrawing
-            if (m.Msg == WM_ERASEBKGND) return;
+            if (m.Msg == WM_ERASEBKGND) {
+                return;
+            }
 
             base.WndProc(ref m);
 
-            switch (m.Msg)
-            {
+            switch (m.Msg) {
                 case WM_WINDOWPOSCHANGING:
                     HandleWindowPosChanging(ref m);
                     break;
@@ -195,28 +203,40 @@ namespace nGenLibrary.Controls
 
         protected virtual void HandleWindowPosChanging(ref Message m)
         {
-            try
-            {
+            try {
                 var pos = new WINDOWPOS();
                 pos = (WINDOWPOS) Marshal.PtrToStructure(m.LParam, pos.GetType());
-                if (Columns.Count > 0 && ResizeColumnToFill && (pos.flags & SWP_NOSIZE) == 0)
-                {
+                if (Columns.Count > 0 && ResizeColumnToFill && (pos.flags & SWP_NOSIZE) == 0) {
                     ResizeFreeSpaceFillingColumns(pos.cx - (Bounds.Width - ClientSize.Width));
                 }
             }
-            catch (ArgumentException)
-            {
+            catch (ArgumentException) {
             }
         }
 
         private void ResizeFreeSpaceFillingColumns(int listViewWidth)
         {
-            if (Columns.Count == 0)
+            if (Columns.Count == 0) {
                 return;
+            }
 
-            var sumWidth = (from ColumnHeader column in Columns where column.Index != IndexOfColumnToResize select column.Width).Sum();
+            int sumWidth =
+                (from ColumnHeader column in Columns where column.Index != IndexOfColumnToResize select column.Width)
+                    .Sum();
 
             Columns[IndexOfColumnToResize].Width = listViewWidth - sumWidth - 3;
+        }
+
+        private void EnhancedListView_ClientSizeChanged(object sender, EventArgs e)
+        {
+            ResizeFreeSpaceFillingColumns(ClientSize.Width);
+        }
+
+        private void EnhancedListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2 && LabelEdit && SelectionCount == 1) {
+                SelectedItems[0].BeginEdit();
+            }
         }
 
         #region Nested type: WINDOWPOS
@@ -234,10 +254,5 @@ namespace nGenLibrary.Controls
         }
 
         #endregion
-
-        private void EnhancedListView_ClientSizeChanged(object sender, EventArgs e)
-        {
-            ResizeFreeSpaceFillingColumns(ClientSize.Width);
-        }
     }
 }

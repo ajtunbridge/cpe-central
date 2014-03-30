@@ -1,10 +1,9 @@
 ﻿#region Using directives
 
-using System.Threading;
 using CPECentral.Data.EF5;
-using Ninject;
 using nGenLibrary.Messaging;
 using nGenLibrary.Security;
+using Ninject;
 
 #endregion
 

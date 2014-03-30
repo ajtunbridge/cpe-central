@@ -29,13 +29,13 @@ namespace Tricorn
 
         public string GetFixtureLocation(string drawingNumber)
         {
-            var material = _entities.Materials.FirstOrDefault(m => m.Specification == drawingNumber);
+            Material material = _entities.Materials.FirstOrDefault(m => m.Specification == drawingNumber);
 
             if (material == null) {
                 return string.Empty;
             }
 
-            var stock = _entities.MStocks.FirstOrDefault(ms => ms.Material_Reference == material.Material_Reference);
+            MStock stock = _entities.MStocks.FirstOrDefault(ms => ms.Material_Reference == material.Material_Reference);
 
             if (stock == null) {
                 return string.Empty;

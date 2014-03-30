@@ -35,7 +35,7 @@ namespace CPECentral.Controls
 
             Task.Factory.StartNew(() => {
                 using (var fs = new FileStream(_fileName, FileMode.Open, FileAccess.Read)) {
-                    var img = Image.FromStream(fs);
+                    Image img = Image.FromStream(fs);
 
                     imageBox.InvokeEx(() => {
                         imageBox.Image = img;
@@ -107,7 +107,9 @@ namespace CPECentral.Controls
 
         private void imageBox_Resize(object sender, EventArgs e)
         {
-            if (!progressBar.Visible) return;
+            if (!progressBar.Visible) {
+                return;
+            }
 
             progressBar.Left = (imageBox.Width - progressBar.Width)/2;
             progressBar.Top = (imageBox.Height - progressBar.Height)/2;

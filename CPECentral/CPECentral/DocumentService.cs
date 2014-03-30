@@ -63,13 +63,13 @@ namespace CPECentral
 
         public void OpenDocument(Document document)
         {
-            var fileName = GetPathToDocument(document);
+            string fileName = GetPathToDocument(document);
 
             try {
                 Process.Start(fileName);
             }
             catch (Exception ex) {
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 _dialogService.ShowError(msg);
             }
@@ -86,7 +86,7 @@ namespace CPECentral
                     IEntity entity = null;
 
                     using (var cpe = new CPEUnitOfWork()) {
-                        foreach (var document in documents) {
+                        foreach (Document document in documents) {
                             if (document.OperationId.HasValue) {
                                 entity = cpe.Operations.GetById(document.OperationId.Value);
                             }
@@ -97,7 +97,7 @@ namespace CPECentral
                                 entity = cpe.PartVersions.GetById(document.PartVersionId.Value);
                             }
 
-                            var fileName = GetPathToDocument(document, cpe);
+                            string fileName = GetPathToDocument(document, cpe);
 
                             if (File.Exists(fileName)) {
                                 File.Delete(fileName);
@@ -132,20 +132,20 @@ namespace CPECentral
                 return;
             }
 
-            var renamedOk = false;
+            bool renamedOk = false;
             string sourceFileName = null, destinationFileName = null;
 
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var documentToUpdate = cpe.Documents.GetById(document.Id);
+                        Document documentToUpdate = cpe.Documents.GetById(document.Id);
 
                         sourceFileName = GetPathToDocument(documentToUpdate, cpe);
 
-                        var lastIndexOfDot = documentToUpdate.FileName.LastIndexOf(".");
+                        int lastIndexOfDot = documentToUpdate.FileName.LastIndexOf(".");
 
                         if (lastIndexOfDot > -1) {
-                            var extension = documentToUpdate.FileName.Substring(lastIndexOfDot);
+                            string extension = documentToUpdate.FileName.Substring(lastIndexOfDot);
                             documentToUpdate.FileName = newFileName + extension;
                         }
 
@@ -180,9 +180,9 @@ namespace CPECentral
 
         public string GetPathToDocument(Document document, CPEUnitOfWork cpe)
         {
-            var entity = GetDocumentEntity(document, cpe);
+            IEntity entity = GetDocumentEntity(document, cpe);
 
-            var storageDir = GetEntityStorageDirectory(entity, cpe);
+            string storageDir = GetEntityStorageDirectory(entity, cpe);
 
             return Path.Combine(storageDir, document.FileName);
         }
@@ -206,28 +206,28 @@ namespace CPECentral
 
         private void DoUpload(UploadQueueItem uploadItem, CPEUnitOfWork cpe)
         {
-            var fileName = Path.GetFileName(uploadItem.SourceFile);
+            string fileName = Path.GetFileName(uploadItem.SourceFile);
 
             OnTransferStarted(new TransferStartedEventArgs(fileName));
 
             string destinationFile = null;
 
             try {
-                var storageDir = GetEntityStorageDirectory(uploadItem.Entity, cpe);
+                string storageDir = GetEntityStorageDirectory(uploadItem.Entity, cpe);
 
                 if (!Directory.Exists(storageDir)) {
                     Directory.CreateDirectory(storageDir);
                 }
 
                 // convert all extensions to lower case
-                var extension = Path.GetExtension(uploadItem.SourceFile);
-                var lowerCaseExtension = extension.ToLower();
+                string extension = Path.GetExtension(uploadItem.SourceFile);
+                string lowerCaseExtension = extension.ToLower();
 
                 fileName = Path.GetFileNameWithoutExtension(fileName) + lowerCaseExtension;
 
                 destinationFile = Path.Combine(storageDir, fileName);
 
-                var overwriting = File.Exists(destinationFile);
+                bool overwriting = File.Exists(destinationFile);
 
                 if (overwriting) {
                     var args = new ConfirmOverwriteArgs();
@@ -241,7 +241,7 @@ namespace CPECentral
 
                 FileCopier.Copy(uploadItem.SourceFile, destinationFile, FileCopyCallback);
 
-                var entity = uploadItem.Entity;
+                IEntity entity = uploadItem.Entity;
 
                 if (!overwriting) {
                     var newDoc = new Document();
@@ -319,7 +319,7 @@ namespace CPECentral
         private string GetEntityStorageDirectory(IEntity entity, CPEUnitOfWork cpe)
         {
             if (entity is Part) {
-                var appDir = Settings.Default.SharedAppDir;
+                string appDir = Settings.Default.SharedAppDir;
 
                 return string.Format("{0}\\Documents\\PID{1}", appDir, entity.Id);
             }
@@ -327,9 +327,9 @@ namespace CPECentral
             if (entity is PartVersion) {
                 var version = entity as PartVersion;
 
-                var part = cpe.Parts.GetById(version.PartId);
+                Part part = cpe.Parts.GetById(version.PartId);
 
-                var partDir = GetEntityStorageDirectory(part, cpe);
+                string partDir = GetEntityStorageDirectory(part, cpe);
 
                 return string.Format("{0}\\VER{1}", partDir, entity.Id);
             }
@@ -337,9 +337,9 @@ namespace CPECentral
             if (entity is Operation) {
                 var op = entity as Operation;
 
-                var method = cpe.Methods.GetById(op.MethodId);
+                Method method = cpe.Methods.GetById(op.MethodId);
 
-                var versionDir = GetEntityStorageDirectory(method.PartVersion, cpe);
+                string versionDir = GetEntityStorageDirectory(method.PartVersion, cpe);
 
                 return string.Format("{0}\\OP{1}", versionDir, entity.Id);
             }
@@ -353,7 +353,7 @@ namespace CPECentral
 
             using (var cpe = new CPEUnitOfWork()) {
                 while (_queue.Count > 0) {
-                    var item = DequeueItem();
+                    IQueueItem item = DequeueItem();
 
                     if (item is UploadQueueItem) {
                         DoUpload(item as UploadQueueItem, cpe);
@@ -379,7 +379,7 @@ namespace CPECentral
 
         protected virtual void OnError(ExceptionEventArgs e)
         {
-            var handler = Error;
+            EventHandler<ExceptionEventArgs> handler = Error;
             if (handler != null) {
                 handler(this, e);
             }
@@ -387,7 +387,7 @@ namespace CPECentral
 
         protected virtual void OnTransferStarted(TransferStartedEventArgs e)
         {
-            var handler = TransferStarted;
+            EventHandler<TransferStartedEventArgs> handler = TransferStarted;
             if (handler != null) {
                 handler(this, e);
             }
@@ -395,7 +395,7 @@ namespace CPECentral
 
         protected virtual void OnTransferComplete()
         {
-            var handler = TransferComplete;
+            EventHandler handler = TransferComplete;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -404,7 +404,7 @@ namespace CPECentral
         protected virtual CopyFileCallbackAction OnTransferProgress(string filename, string destinationdirectory,
             int percentcomplete)
         {
-            var handler = TransferProgress;
+            CopyFileCallback handler = TransferProgress;
 
             if (handler != null) {
                 return handler(filename, destinationdirectory, percentcomplete);

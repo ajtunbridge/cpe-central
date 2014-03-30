@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿#region Using directives
+
+using System;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -24,16 +23,6 @@ namespace CPECentral.Views
     {
         private readonly StockLevelsViewPresenter _presenter;
 
-        public event EventHandler<ToolEventArgs> LoadStockLevels;
-
-        protected virtual void OnLoadStockLevels(ToolEventArgs e)
-        {
-            EventHandler<ToolEventArgs> handler = LoadStockLevels;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
         public StockLevelsView()
         {
             InitializeComponent();
@@ -42,6 +31,10 @@ namespace CPECentral.Views
                 _presenter = new StockLevelsViewPresenter(this);
             }
         }
+
+        #region IStockLevelsView Members
+
+        public event EventHandler<ToolEventArgs> LoadStockLevels;
 
         public void DisplayStockLevels(StockLevelsViewModel model)
         {
@@ -52,7 +45,7 @@ namespace CPECentral.Views
                 return;
             }
 
-            foreach (var batch in model.Batches) {
+            foreach (TricornBatch batch in model.Batches) {
                 ListViewItem item = stockLevelsEnhancedListView.Items.Add(batch.BatchNumber);
                 item.SubItems.Add(batch.Quantity.ToString("00"));
                 item.SubItems.Add(batch.Location);
@@ -70,6 +63,16 @@ namespace CPECentral.Views
             stockLevelsEnhancedListView.Items.Add("retrieving...");
 
             OnLoadStockLevels(new ToolEventArgs(tool));
+        }
+
+        #endregion
+
+        protected virtual void OnLoadStockLevels(ToolEventArgs e)
+        {
+            EventHandler<ToolEventArgs> handler = LoadStockLevels;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
     }
 }

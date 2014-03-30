@@ -26,7 +26,7 @@ namespace CPECentral.Presenters
             _mainView.LoadToolManagementDialog += _mainView_LoadToolManagementDialog;
         }
 
-        void _mainView_LoadToolManagementDialog(object sender, EventArgs e)
+        private void _mainView_LoadToolManagementDialog(object sender, EventArgs e)
         {
             using (var toolManagementDialog = new ToolManagementDialog()) {
                 toolManagementDialog.ShowDialog(_mainView.ParentForm);
@@ -58,7 +58,7 @@ namespace CPECentral.Presenters
             }
 
             using (var addPartDialog = new AddPartDialog()) {
-                var parent = ((UserControl) _mainView).ParentForm;
+                Form parent = ((UserControl) _mainView).ParentForm;
 
                 if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
                     return;
@@ -105,20 +105,20 @@ namespace CPECentral.Presenters
 
                             Session.MessageBus.Publish(new PartAddedMessage(part));
 
-                            foreach (var file in addPartDialog.FilesToImport) {
+                            foreach (string file in addPartDialog.FilesToImport) {
                                 Session.DocumentService.QueueUpload(file, version);
                             }
                         }
                     }
                 }
                 catch (DataProviderException dataEx) {
-                    var msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
+                    string msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
                         ? "A part with these details already exists in the system!"
                         : dataEx.Message;
                     _mainView.DialogService.ShowError(msg);
                 }
                 catch (Exception ex) {
-                    var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                     _mainView.DialogService.ShowError(msg);
                 }
             }

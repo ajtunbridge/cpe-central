@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+
+#endregion
 
 [assembly: AssemblyTitle("Cyotek ImageBox Control")]
 [assembly: AssemblyDescription("")]

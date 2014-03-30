@@ -17,11 +17,11 @@ namespace nGenLibrary.Security
 
         public Password SecurePassword(string plainPassword)
         {
-            var gch = GCHandle.Alloc(plainPassword, GCHandleType.Pinned);
+            GCHandle gch = GCHandle.Alloc(plainPassword, GCHandleType.Pinned);
 
             var hashed = new Password();
 
-            var salt = GenerateSalt();
+            byte[] salt = GenerateSalt();
 
             hashed.Hash = ComputeHash(plainPassword, salt);
             hashed.Salt = Convert.ToBase64String(salt);
@@ -35,11 +35,11 @@ namespace nGenLibrary.Security
 
         public bool AreEqual(string plainPassword, string hashedPassword, string salt)
         {
-            var gch = GCHandle.Alloc(plainPassword, GCHandleType.Pinned);
+            GCHandle gch = GCHandle.Alloc(plainPassword, GCHandleType.Pinned);
 
-            var saltBytes = Convert.FromBase64String(salt);
+            byte[] saltBytes = Convert.FromBase64String(salt);
 
-            var newHash = ComputeHash(plainPassword, saltBytes);
+            string newHash = ComputeHash(plainPassword, saltBytes);
 
             ZeroMemory(gch.AddrOfPinnedObject(), plainPassword.Length*2);
 
@@ -56,17 +56,15 @@ namespace nGenLibrary.Security
 
         private string ComputeHash(string text, byte[] salt)
         {
-            using (var pbkdf2 = new Rfc2898DeriveBytes(text, salt, Iterations))
-            {
-                var key = pbkdf2.GetBytes(64);
+            using (var pbkdf2 = new Rfc2898DeriveBytes(text, salt, Iterations)) {
+                byte[] key = pbkdf2.GetBytes(64);
                 return Convert.ToBase64String(key);
             }
         }
 
         private byte[] GenerateSalt()
         {
-            using (var rand = RandomNumberGenerator.Create())
-            {
+            using (RandomNumberGenerator rand = RandomNumberGenerator.Create()) {
                 var saltBytes = new byte[SaltSize];
 
                 rand.GetBytes(saltBytes);

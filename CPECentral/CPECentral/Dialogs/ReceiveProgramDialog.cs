@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.IO;
 using System.Media;
 using System.Windows.Forms;
 using CPECentral.Properties;
@@ -13,8 +14,8 @@ namespace CPECentral.Dialogs
 {
     public partial class ReceiveProgramDialog : Form
     {
-        private readonly SerialLink _serialLink;
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private readonly SerialLink _serialLink;
 
         public ReceiveProgramDialog(string comPort, MachineControl control)
         {
@@ -25,21 +26,21 @@ namespace CPECentral.Dialogs
             _serialLink.DataTransferComplete += _serialLink_DataTransferComplete;
         }
 
+        public string ReceivedProgram
+        {
+            get { return programTextBox.Text; }
+        }
+
         private void _serialLink_DataTransferStarted(object sender, EventArgs e)
         {
             BeginInvoke((MethodInvoker) delegate {
                 messageLabel.Text = "Receiving program...";
-                using (var stream = Resources.Beep) {
+                using (UnmanagedMemoryStream stream = Resources.Beep) {
                     using (var player = new SoundPlayer(stream)) {
                         player.Play();
                     }
                 }
             });
-        }
-
-        public string ReceivedProgram
-        {
-            get { return programTextBox.Text; }
         }
 
         private void _serialLink_DataTransferComplete(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace CPECentral.Dialogs
         private void _serialLink_ReceiveProgress(object sender, ReceiveProgressEventArgs e)
         {
             // clean up whitespace
-            var cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
+            string cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
 
             Invoke((MethodInvoker) delegate {
                 programTextBox.Text += cleanValue;

@@ -35,7 +35,7 @@ namespace CPECentral.Dialogs
                 case "employeesTreeNode":
                     categoryControl = new SettingsEmployeesUserControl();
                     if (!AppSecurity.Check(AppPermission.ManageEmployees, true)) {
-                        categoryControl.Enabled = false;    
+                        categoryControl.Enabled = false;
                     }
                     break;
             }

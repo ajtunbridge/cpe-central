@@ -1,76 +1,166 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="MachinesDataSet" targetNamespace="http://tempuri.org/MachinesDataSet.xsd" xmlns:mstns="http://tempuri.org/MachinesDataSet.xsd" xmlns="http://tempuri.org/MachinesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+<xs:schema id="MachinesDataSet" targetNamespace="http://tempuri.org/MachinesDataSet.xsd"
+           xmlns:mstns="http://tempuri.org/MachinesDataSet.xsd" xmlns="http://tempuri.org/MachinesDataSet.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+           xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified"
+           elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter"
+                  Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema"
+                  xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections />
         <Tables />
         <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="MachinesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MachinesDataSet" msprop:Generator_UserDSName="MachinesDataSet">
+  <xs:element name="MachinesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true"
+              msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MachinesDataSet"
+              msprop:Generator_UserDSName="MachinesDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Machines" msprop:Generator_TableClassName="MachinesDataTable" msprop:Generator_TableVarName="tableMachines" msprop:Generator_TablePropName="Machines" msprop:Generator_RowDeletingName="MachinesRowDeleting" msprop:Generator_RowChangingName="MachinesRowChanging" msprop:Generator_RowEvHandlerName="MachinesRowChangeEventHandler" msprop:Generator_RowDeletedName="MachinesRowDeleted" msprop:Generator_UserTableName="Machines" msprop:Generator_RowChangedName="MachinesRowChanged" msprop:Generator_RowEvArgName="MachinesRowChangeEvent" msprop:Generator_RowClassName="MachinesRow">
+        <xs:element name="Machines" msprop:Generator_TableClassName="MachinesDataTable"
+                    msprop:Generator_TableVarName="tableMachines" msprop:Generator_TablePropName="Machines"
+                    msprop:Generator_RowDeletingName="MachinesRowDeleting"
+                    msprop:Generator_RowChangingName="MachinesRowChanging"
+                    msprop:Generator_RowEvHandlerName="MachinesRowChangeEventHandler"
+                    msprop:Generator_RowDeletedName="MachinesRowDeleted" msprop:Generator_UserTableName="Machines"
+                    msprop:Generator_RowChangedName="MachinesRowChanged"
+                    msprop:Generator_RowEvArgName="MachinesRowChangeEvent" msprop:Generator_RowClassName="MachinesRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
-              <xs:element name="ComPort" msprop:Generator_ColumnVarNameInTable="columnComPort" msprop:Generator_ColumnPropNameInRow="ComPort" msprop:Generator_ColumnPropNameInTable="ComPortColumn" msprop:Generator_UserColumnName="ComPort" type="xs:string" />
-              <xs:element name="MachineControlId" msprop:Generator_ColumnVarNameInTable="columnMachineControlId" msprop:Generator_ColumnPropNameInRow="MachineControlId" msprop:Generator_ColumnPropNameInTable="MachineControlIdColumn" msprop:Generator_UserColumnName="MachineControlId" type="xs:int" />
-              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" />
+              <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId"
+                          msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn"
+                          msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="ComPort" msprop:Generator_ColumnVarNameInTable="columnComPort"
+                          msprop:Generator_ColumnPropNameInRow="ComPort"
+                          msprop:Generator_ColumnPropNameInTable="ComPortColumn"
+                          msprop:Generator_UserColumnName="ComPort" type="xs:string" />
+              <xs:element name="MachineControlId" msprop:Generator_ColumnVarNameInTable="columnMachineControlId"
+                          msprop:Generator_ColumnPropNameInRow="MachineControlId"
+                          msprop:Generator_ColumnPropNameInTable="MachineControlIdColumn"
+                          msprop:Generator_UserColumnName="MachineControlId" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName"
+                          msprop:Generator_ColumnPropNameInRow="Name"
+                          msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name"
+                          type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="MachineControls" msprop:Generator_TableClassName="MachineControlsDataTable" msprop:Generator_TableVarName="tableMachineControls" msprop:Generator_TablePropName="MachineControls" msprop:Generator_RowDeletingName="MachineControlsRowDeleting" msprop:Generator_RowChangingName="MachineControlsRowChanging" msprop:Generator_RowEvHandlerName="MachineControlsRowChangeEventHandler" msprop:Generator_RowDeletedName="MachineControlsRowDeleted" msprop:Generator_UserTableName="MachineControls" msprop:Generator_RowChangedName="MachineControlsRowChanged" msprop:Generator_RowEvArgName="MachineControlsRowChangeEvent" msprop:Generator_RowClassName="MachineControlsRow">
+        <xs:element name="MachineControls" msprop:Generator_TableClassName="MachineControlsDataTable"
+                    msprop:Generator_TableVarName="tableMachineControls"
+                    msprop:Generator_TablePropName="MachineControls"
+                    msprop:Generator_RowDeletingName="MachineControlsRowDeleting"
+                    msprop:Generator_RowChangingName="MachineControlsRowChanging"
+                    msprop:Generator_RowEvHandlerName="MachineControlsRowChangeEventHandler"
+                    msprop:Generator_RowDeletedName="MachineControlsRowDeleted"
+                    msprop:Generator_UserTableName="MachineControls"
+                    msprop:Generator_RowChangedName="MachineControlsRowChanged"
+                    msprop:Generator_RowEvArgName="MachineControlsRowChangeEvent"
+                    msprop:Generator_RowClassName="MachineControlsRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
-              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" />
-              <xs:element name="StopBits" msdata:DataType="System.IO.Ports.StopBits, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnStopBits" msprop:Generator_ColumnPropNameInRow="StopBits" msprop:Generator_ColumnPropNameInTable="StopBitsColumn" msprop:Generator_UserColumnName="StopBits" type="xs:anyType" minOccurs="0" />
-              <xs:element name="Parity" msdata:DataType="System.IO.Ports.Parity, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnParity" msprop:Generator_ColumnPropNameInRow="Parity" msprop:Generator_ColumnPropNameInTable="ParityColumn" msprop:Generator_UserColumnName="Parity" type="xs:anyType" minOccurs="0" />
-              <xs:element name="Handshake" msdata:DataType="System.IO.Ports.Handshake, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnHandshake" msprop:Generator_ColumnPropNameInRow="Handshake" msprop:Generator_ColumnPropNameInTable="HandshakeColumn" msprop:Generator_UserColumnName="Handshake" type="xs:anyType" minOccurs="0" />
-              <xs:element name="DataBits" msprop:Generator_ColumnVarNameInTable="columnDataBits" msprop:Generator_ColumnPropNameInRow="DataBits" msprop:Generator_ColumnPropNameInTable="DataBitsColumn" msprop:Generator_UserColumnName="DataBits" type="xs:int" minOccurs="0" />
-              <xs:element name="BaudRate" msprop:Generator_ColumnVarNameInTable="columnBaudRate" msprop:Generator_ColumnPropNameInRow="BaudRate" msprop:Generator_ColumnPropNameInTable="BaudRateColumn" msprop:Generator_UserColumnName="BaudRate" type="xs:int" minOccurs="0" />
-              <xs:element name="DtrEnable" msprop:Generator_ColumnVarNameInTable="columnDtrEnable" msprop:Generator_ColumnPropNameInRow="DtrEnable" msprop:Generator_ColumnPropNameInTable="DtrEnableColumn" msprop:Generator_UserColumnName="DtrEnable" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RtsEnable" msprop:Generator_ColumnVarNameInTable="columnRtsEnable" msprop:Generator_ColumnPropNameInRow="RtsEnable" msprop:Generator_ColumnPropNameInTable="RtsEnableColumn" msprop:Generator_UserColumnName="RtsEnable" type="xs:boolean" minOccurs="0" />
-              <xs:element name="XOnChar" msprop:Generator_ColumnVarNameInTable="columnXOnChar" msprop:Generator_ColumnPropNameInRow="XOnChar" msprop:Generator_ColumnPropNameInTable="XOnCharColumn" msprop:Generator_UserColumnName="XOnChar" minOccurs="0">
+              <xs:element name="Id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId"
+                          msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn"
+                          msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName"
+                          msprop:Generator_ColumnPropNameInRow="Name"
+                          msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name"
+                          type="xs:string" />
+              <xs:element name="StopBits"
+                          msdata:DataType="System.IO.Ports.StopBits, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                          msprop:Generator_ColumnVarNameInTable="columnStopBits"
+                          msprop:Generator_ColumnPropNameInRow="StopBits"
+                          msprop:Generator_ColumnPropNameInTable="StopBitsColumn"
+                          msprop:Generator_UserColumnName="StopBits" type="xs:anyType" minOccurs="0" />
+              <xs:element name="Parity"
+                          msdata:DataType="System.IO.Ports.Parity, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                          msprop:Generator_ColumnVarNameInTable="columnParity"
+                          msprop:Generator_ColumnPropNameInRow="Parity"
+                          msprop:Generator_ColumnPropNameInTable="ParityColumn"
+                          msprop:Generator_UserColumnName="Parity" type="xs:anyType" minOccurs="0" />
+              <xs:element name="Handshake"
+                          msdata:DataType="System.IO.Ports.Handshake, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                          msprop:Generator_ColumnVarNameInTable="columnHandshake"
+                          msprop:Generator_ColumnPropNameInRow="Handshake"
+                          msprop:Generator_ColumnPropNameInTable="HandshakeColumn"
+                          msprop:Generator_UserColumnName="Handshake" type="xs:anyType" minOccurs="0" />
+              <xs:element name="DataBits" msprop:Generator_ColumnVarNameInTable="columnDataBits"
+                          msprop:Generator_ColumnPropNameInRow="DataBits"
+                          msprop:Generator_ColumnPropNameInTable="DataBitsColumn"
+                          msprop:Generator_UserColumnName="DataBits" type="xs:int" minOccurs="0" />
+              <xs:element name="BaudRate" msprop:Generator_ColumnVarNameInTable="columnBaudRate"
+                          msprop:Generator_ColumnPropNameInRow="BaudRate"
+                          msprop:Generator_ColumnPropNameInTable="BaudRateColumn"
+                          msprop:Generator_UserColumnName="BaudRate" type="xs:int" minOccurs="0" />
+              <xs:element name="DtrEnable" msprop:Generator_ColumnVarNameInTable="columnDtrEnable"
+                          msprop:Generator_ColumnPropNameInRow="DtrEnable"
+                          msprop:Generator_ColumnPropNameInTable="DtrEnableColumn"
+                          msprop:Generator_UserColumnName="DtrEnable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RtsEnable" msprop:Generator_ColumnVarNameInTable="columnRtsEnable"
+                          msprop:Generator_ColumnPropNameInRow="RtsEnable"
+                          msprop:Generator_ColumnPropNameInTable="RtsEnableColumn"
+                          msprop:Generator_UserColumnName="RtsEnable" type="xs:boolean" minOccurs="0" />
+              <xs:element name="XOnChar" msprop:Generator_ColumnVarNameInTable="columnXOnChar"
+                          msprop:Generator_ColumnPropNameInRow="XOnChar"
+                          msprop:Generator_ColumnPropNameInTable="XOnCharColumn"
+                          msprop:Generator_UserColumnName="XOnChar" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="XOffChar" msprop:Generator_ColumnVarNameInTable="columnXOffChar" msprop:Generator_ColumnPropNameInRow="XOffChar" msprop:Generator_ColumnPropNameInTable="XOffCharColumn" msprop:Generator_UserColumnName="XOffChar" minOccurs="0">
+              <xs:element name="XOffChar" msprop:Generator_ColumnVarNameInTable="columnXOffChar"
+                          msprop:Generator_ColumnPropNameInRow="XOffChar"
+                          msprop:Generator_ColumnPropNameInTable="XOffCharColumn"
+                          msprop:Generator_UserColumnName="XOffChar" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="NewLine" msprop:Generator_ColumnVarNameInTable="columnNewLine" msprop:Generator_ColumnPropNameInRow="NewLine" msprop:Generator_ColumnPropNameInTable="NewLineColumn" msprop:Generator_UserColumnName="NewLine" type="xs:string" minOccurs="0" />
-              <xs:element name="ProgramStartChar" msprop:Generator_ColumnVarNameInTable="columnProgramStartChar" msprop:Generator_ColumnPropNameInRow="ProgramStartChar" msprop:Generator_ColumnPropNameInTable="ProgramStartCharColumn" msprop:Generator_UserColumnName="ProgramStartChar" minOccurs="0">
+              <xs:element name="NewLine" msprop:Generator_ColumnVarNameInTable="columnNewLine"
+                          msprop:Generator_ColumnPropNameInRow="NewLine"
+                          msprop:Generator_ColumnPropNameInTable="NewLineColumn"
+                          msprop:Generator_UserColumnName="NewLine" type="xs:string" minOccurs="0" />
+              <xs:element name="ProgramStartChar" msprop:Generator_ColumnVarNameInTable="columnProgramStartChar"
+                          msprop:Generator_ColumnPropNameInRow="ProgramStartChar"
+                          msprop:Generator_ColumnPropNameInTable="ProgramStartCharColumn"
+                          msprop:Generator_UserColumnName="ProgramStartChar" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ProgramEndChar" msprop:Generator_ColumnVarNameInTable="columnProgramEndChar" msprop:Generator_ColumnPropNameInRow="ProgramEndChar" msprop:Generator_ColumnPropNameInTable="ProgramEndCharColumn" msprop:Generator_UserColumnName="ProgramEndChar" minOccurs="0">
+              <xs:element name="ProgramEndChar" msprop:Generator_ColumnVarNameInTable="columnProgramEndChar"
+                          msprop:Generator_ColumnPropNameInRow="ProgramEndChar"
+                          msprop:Generator_ColumnPropNameInTable="ProgramEndCharColumn"
+                          msprop:Generator_UserColumnName="ProgramEndChar" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="XOnChar2" msprop:Generator_ColumnVarNameInTable="columnXOnChar2" msprop:Generator_ColumnPropNameInRow="XOnChar2" msprop:Generator_ColumnPropNameInTable="XOnChar2Column" msprop:Generator_UserColumnName="XOnChar2" minOccurs="0">
+              <xs:element name="XOnChar2" msprop:Generator_ColumnVarNameInTable="columnXOnChar2"
+                          msprop:Generator_ColumnPropNameInRow="XOnChar2"
+                          msprop:Generator_ColumnPropNameInTable="XOnChar2Column"
+                          msprop:Generator_UserColumnName="XOnChar2" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="XOffChar2" msprop:Generator_ColumnVarNameInTable="columnXOffChar2" msprop:Generator_ColumnPropNameInRow="XOffChar2" msprop:Generator_ColumnPropNameInTable="XOffChar2Column" msprop:Generator_UserColumnName="XOffChar2" minOccurs="0">
+              <xs:element name="XOffChar2" msprop:Generator_ColumnVarNameInTable="columnXOffChar2"
+                          msprop:Generator_ColumnPropNameInRow="XOffChar2"
+                          msprop:Generator_ColumnPropNameInTable="XOffChar2Column"
+                          msprop:Generator_UserColumnName="XOffChar2" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:length value="1" />

@@ -89,8 +89,8 @@ namespace CPECentral.Views
 
             methodsToolStrip.Enabled = true;
 
-            foreach (var method in methods) {
-                var item = methodsEnhancedListView.Items.Add(method.Description);
+            foreach (Method method in methods) {
+                ListViewItem item = methodsEnhancedListView.Items.Add(method.Description);
                 item.SubItems.Add(method.IsPreferred ? "Yes" : "No");
                 item.Tag = method;
             }
@@ -105,8 +105,8 @@ namespace CPECentral.Views
             operationsEnhancedListView.Items.Clear();
             operationsEnhancedListView.Enabled = true;
 
-            foreach (var operation in operations) {
-                var item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
+            foreach (Operation operation in operations) {
+                ListViewItem item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
                 item.SubItems.Add(operation.Description);
                 item.Tag = operation;
             }
@@ -118,7 +118,7 @@ namespace CPECentral.Views
 
         protected virtual void OnAddMethod()
         {
-            var handler = AddMethod;
+            EventHandler handler = AddMethod;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -126,7 +126,7 @@ namespace CPECentral.Views
 
         protected virtual void OnEditMethod()
         {
-            var handler = EditMethod;
+            EventHandler handler = EditMethod;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -134,7 +134,7 @@ namespace CPECentral.Views
 
         protected virtual void OnAddOperation()
         {
-            var handler = AddOperation;
+            EventHandler handler = AddOperation;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -142,7 +142,7 @@ namespace CPECentral.Views
 
         protected virtual void OnEditOperation()
         {
-            var handler = EditOperation;
+            EventHandler handler = EditOperation;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -150,7 +150,7 @@ namespace CPECentral.Views
 
         protected virtual void OnRefreshViewData()
         {
-            var handler = ReloadMethods;
+            EventHandler handler = ReloadMethods;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -158,7 +158,7 @@ namespace CPECentral.Views
 
         protected virtual void OnMethodSelected(MethodEventArgs e)
         {
-            var handler = MethodSelected;
+            EventHandler<MethodEventArgs> handler = MethodSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -166,7 +166,7 @@ namespace CPECentral.Views
 
         protected virtual void OnOperationSelected(OperationEventArgs e)
         {
-            var handler = OperationSelected;
+            EventHandler<OperationEventArgs> handler = OperationSelected;
             if (handler != null) {
                 handler(this, e);
             }

@@ -21,8 +21,8 @@ namespace nGenLibrary.IO
         [SuppressUnmanagedCodeSecurity]
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool CopyFileEx(string lpExistingFileName, string lpNewFileName,
-                                              CopyProgressRoutine lpProgressRoutine, IntPtr lpData, ref bool pbCancel,
-                                              int dwCopyFlags);
+            CopyProgressRoutine lpProgressRoutine, IntPtr lpData, ref bool pbCancel,
+            int dwCopyFlags);
 
         #endregion
 
@@ -49,26 +49,27 @@ namespace nGenLibrary.IO
         }
 
         public static void Copy(string source, string destination, CopyFileCallback callback,
-                                CopyFileOptions options, object state)
+            CopyFileOptions options, object state)
         {
-            if (!File.Exists(source))
+            if (!File.Exists(source)) {
                 throw new FileNotFoundException("File does not exist!", source);
+            }
 
-            if ((options & ~CopyFileOptions.All) != 0)
+            if ((options & ~CopyFileOptions.All) != 0) {
                 throw new ArgumentOutOfRangeException("options");
+            }
 
             new FileIOPermission(FileIOPermissionAccess.Read, source).Demand();
             new FileIOPermission(FileIOPermissionAccess.Write, destination).Demand();
 
-            var cpr = (callback == null)
-                          ? null
-                          : new CopyProgressRoutine(
-                                new ProgressData(destination, callback).CallbackHandler);
+            CopyProgressRoutine cpr = (callback == null)
+                ? null
+                : new CopyProgressRoutine(
+                    new ProgressData(destination, callback).CallbackHandler);
 
-            var cancel = false;
+            bool cancel = false;
 
-            if (!CopyFileEx(source, destination, cpr, IntPtr.Zero, ref cancel, (int) options))
-            {
+            if (!CopyFileEx(source, destination, cpr, IntPtr.Zero, ref cancel, (int) options)) {
                 throw new IOException(new Win32Exception().Message);
             }
         }
@@ -98,15 +99,15 @@ namespace nGenLibrary.IO
             }
 
             public int CallbackHandler(long totalBytes, long bytesCopied, long streamSize,
-                                       long streamBytesTransferred, int streamNumber, int callbackReason,
-                                       IntPtr sourceFile, IntPtr destinationFile, IntPtr data)
+                long streamBytesTransferred, int streamNumber, int callbackReason,
+                IntPtr sourceFile, IntPtr destinationFile, IntPtr data)
             {
-                var fileName = Path.GetFileName(_destination);
-                var directory = Path.GetDirectoryName(_destination);
+                string fileName = Path.GetFileName(_destination);
+                string directory = Path.GetDirectoryName(_destination);
 
-                var temp = ((double) bytesCopied/totalBytes*100);
+                double temp = ((double) bytesCopied/totalBytes*100);
 
-                var progress = Convert.ToInt32(temp);
+                int progress = Convert.ToInt32(temp);
 
                 return (int) _callback(fileName, directory, progress);
             }

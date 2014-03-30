@@ -1,29 +1,29 @@
 ﻿namespace Cyotek.Windows.Forms
 {
-  // Cyotek ImageBox
-  // Copyright (c) 2010-2013 Cyotek. All Rights Reserved.
-  // http://cyotek.com
+    // Cyotek ImageBox
+    // Copyright (c) 2010-2013 Cyotek. All Rights Reserved.
+    // http://cyotek.com
 
-  // If you use this control in your applications, attribution or donations are welcome.
-
-  /// <summary>
-  ///   Specifies the selection mode.
-  /// </summary>
-  public enum ImageBoxSelectionMode
-  {
-    /// <summary>
-    ///   No selection.
-    /// </summary>
-    None,
+    // If you use this control in your applications, attribution or donations are welcome.
 
     /// <summary>
-    ///   Rectangle selection.
+    ///     Specifies the selection mode.
     /// </summary>
-    Rectangle,
+    public enum ImageBoxSelectionMode
+    {
+        /// <summary>
+        ///     No selection.
+        /// </summary>
+        None,
 
-    /// <summary>
-    ///   Zoom selection.
-    /// </summary>
-    Zoom
-  }
+        /// <summary>
+        ///     Rectangle selection.
+        /// </summary>
+        Rectangle,
+
+        /// <summary>
+        ///     Zoom selection.
+        /// </summary>
+        Zoom
+    }
 }

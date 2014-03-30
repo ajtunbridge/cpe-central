@@ -22,7 +22,7 @@ namespace CPECentral
         {
             get
             {
-                var cp = base.CreateParams;
+                CreateParams cp = base.CreateParams;
                 //cp.ExStyle |= 0x02000000;
                 return cp;
             }

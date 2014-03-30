@@ -1,23 +1,23 @@
 ﻿namespace Cyotek.Windows.Forms
 {
-  /// <summary>
-  ///   Specifies the display styles for the background texture grid
-  /// </summary>
-  public enum ImageBoxGridDisplayMode
-  {
     /// <summary>
-    ///   No background.
+    ///     Specifies the display styles for the background texture grid
     /// </summary>
-    None,
+    public enum ImageBoxGridDisplayMode
+    {
+        /// <summary>
+        ///     No background.
+        /// </summary>
+        None,
 
-    /// <summary>
-    ///   Background is displayed in the control's client area.
-    /// </summary>
-    Client,
+        /// <summary>
+        ///     Background is displayed in the control's client area.
+        /// </summary>
+        Client,
 
-    /// <summary>
-    ///   Background is displayed only in the image region.
-    /// </summary>
-    Image
-  }
+        /// <summary>
+        ///     Background is displayed only in the image region.
+        /// </summary>
+        Image
+    }
 }

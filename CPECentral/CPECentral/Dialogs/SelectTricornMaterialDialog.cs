@@ -15,17 +15,18 @@ namespace CPECentral.Dialogs
     {
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
-        public SelectTricornMaterialDialog(string filterValue)
+        public SelectTricornMaterialDialog()
         {
             InitializeComponent();
-            filterValueEnhancedTextBox.Text = string.Format("%{0}%", filterValue);
+
+            filterValueEnhancedTextBox.SelectionStart = 1;
         }
 
         public IEnumerable<Material> SelectedMaterials
         {
             get
             {
-                var materials =
+                List<Material> materials =
                     (from ListViewItem item in resultsEnhancedListView.CheckedItems select item.Tag as Material).ToList();
                 return materials;
             }
@@ -33,7 +34,7 @@ namespace CPECentral.Dialogs
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            var filterValue = filterValueEnhancedTextBox.Text;
+            string filterValue = filterValueEnhancedTextBox.Text;
 
             if (filterValue.Length == 0) {
                 _dialogService.Notify("You haven't entered a search value!");
@@ -64,15 +65,15 @@ namespace CPECentral.Dialogs
 
             var results = e.Result as IEnumerable<Material>;
 
-            foreach (var result in results) {
-                var item = resultsEnhancedListView.Items.Add(result.Name);
+            foreach (Material result in results) {
+                ListViewItem item = resultsEnhancedListView.Items.Add(result.Name);
                 item.Tag = result;
             }
         }
 
         private void HandleException(Exception exception)
         {
-            var msg = exception.InnerException == null ? exception.Message : exception.InnerException.Message;
+            string msg = exception.InnerException == null ? exception.Message : exception.InnerException.Message;
             _dialogService.ShowError(msg);
         }
 
@@ -81,7 +82,7 @@ namespace CPECentral.Dialogs
             var filterValue = (string) e.Argument;
             try {
                 using (var tricorn = new TricornDataProvider()) {
-                    var materials = tricorn.GetMaterials(filterValue).OrderBy(m => m.Name).ToList();
+                    List<Material> materials = tricorn.GetMaterials(filterValue).OrderBy(m => m.Name).ToList();
                     e.Result = materials;
                 }
             }

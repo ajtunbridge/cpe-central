@@ -54,7 +54,7 @@ namespace CPECentral.Presenters
 
         private bool View_ToolGroupRenamed(ToolGroup entity)
         {
-            var result = true;
+            bool result = true;
 
             try {
                 using (BusyCursor.Show()) {
@@ -93,12 +93,12 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var groupsAtSameLevel = (parentGroup == null)
+                        IEnumerable<ToolGroup> groupsAtSameLevel = (parentGroup == null)
                             ? cpe.ToolGroups.GetRootGroups()
                             : cpe.ToolGroups.GetChildGroups(parentGroup);
 
-                        var newName = NewGroupName + "01";
-                        var count = 1;
+                        string newName = NewGroupName + "01";
+                        int count = 1;
                         while (groupsAtSameLevel.Any(g => g.Name.Equals(newName, StringComparison.OrdinalIgnoreCase))) {
                             count++;
                             newName = NewGroupName + count.ToString("00");

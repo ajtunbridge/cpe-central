@@ -10,6 +10,8 @@ using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
 using Tricorn;
+using Customer = CPECentral.Data.EF5.Customer;
+using Employee = CPECentral.Data.EF5.Employee;
 using Part = CPECentral.Data.EF5.Part;
 
 #endregion
@@ -36,7 +38,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var emp = cpe.Employees.GetById(Session.CurrentEmployee.Id);
+                        Employee emp = cpe.Employees.GetById(Session.CurrentEmployee.Id);
                         emp.LastViewedPartId = e.Part.Id;
                         cpe.Employees.Update(emp);
                         cpe.Commit();
@@ -76,24 +78,24 @@ namespace CPECentral.Presenters
                 using (BusyCursor.Show()) {
                     var documents = new List<Document>();
 
-                    var part = _libraryView.SelectedPart;
+                    Part part = _libraryView.SelectedPart;
 
                     documents.AddRange(cpe.Documents.GetByPart(part));
 
-                    var versions = cpe.PartVersions.GetByPart(part).ToList();
+                    List<PartVersion> versions = cpe.PartVersions.GetByPart(part).ToList();
 
                     var methods = new List<Method>();
-                    foreach (var version in versions) {
+                    foreach (PartVersion version in versions) {
                         methods.AddRange(cpe.Methods.GetByPartVersion(version));
                         documents.AddRange(cpe.Documents.GetByPartVersion(version));
                     }
 
                     var operations = new List<Operation>();
-                    foreach (var method in methods) {
+                    foreach (Method method in methods) {
                         operations.AddRange(cpe.Operations.GetByMethod(method));
                     }
 
-                    foreach (var operation in operations) {
+                    foreach (Operation operation in operations) {
                         documents.AddRange(cpe.Documents.GetByOperation(operation));
                     }
 
@@ -130,10 +132,10 @@ namespace CPECentral.Presenters
                     switch (args.Field) {
                         case SearchField.WorksOrderNumber:
                             using (var tricorn = new TricornDataProvider()) {
-                                var drawingNumbers =
+                                IEnumerable<string> drawingNumbers =
                                     tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
                                 var parts = new List<Part>();
-                                foreach (var drawingNumber in drawingNumbers) {
+                                foreach (string drawingNumber in drawingNumbers) {
                                     parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(drawingNumber));
                                 }
                                 matchingParts = parts;
@@ -150,7 +152,7 @@ namespace CPECentral.Presenters
                             break;
                     }
 
-                    var customers = matchingParts.Select(part => part.Customer).Distinct().ToList();
+                    List<Customer> customers = matchingParts.Select(part => part.Customer).Distinct().ToList();
 
                     var model = new PartLibraryViewModel();
                     model.Customers = customers;
@@ -202,9 +204,9 @@ namespace CPECentral.Presenters
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var customers = cpe.Customers.GetAll();
-                    var parts = cpe.Parts.GetAll();
-                    var lastViewedPartId = cpe.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
+                    IEnumerable<Customer> customers = cpe.Customers.GetAll();
+                    IEnumerable<Part> parts = cpe.Parts.GetAll();
+                    int? lastViewedPartId = cpe.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
 
                     var viewModel = new PartLibraryViewModel {
                         Customers = customers,

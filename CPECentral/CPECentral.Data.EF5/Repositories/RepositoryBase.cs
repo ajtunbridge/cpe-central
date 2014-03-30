@@ -47,7 +47,7 @@ namespace CPECentral.Data.EF5.Repositories
         {
             UnitOfWork.Entities.Set<TEntity>().Attach(entity);
 
-            var entry = UnitOfWork.Entities.Entry(entity);
+            DbEntityEntry<TEntity> entry = UnitOfWork.Entities.Entry(entity);
 
             entry.State = attachState;
 

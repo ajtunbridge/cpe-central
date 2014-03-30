@@ -42,4 +42,4 @@ using System.Resources;
 
 [assembly: AssemblyVersion("2.1.0.2")]
 [assembly: AssemblyFileVersion("2.1.0.2")]
-[assembly: NeutralResourcesLanguageAttribute("en-GB")]
+[assembly: NeutralResourcesLanguage("en-GB")]

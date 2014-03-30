@@ -1,31 +1,21 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary;
 using Tricorn;
 
+#endregion
+
 namespace CPECentral.Dialogs
 {
     public partial class EditToolDialog : Form
     {
-        private readonly Tool _tool;
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
-
-        public Tool Tool
-        {
-            get { return _tool; }
-        }
-
-        public IEnumerable<Material> TricornLinks
-        {
-            get { return (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material).ToList(); }
-        }
+        private readonly Tool _tool;
 
         public EditToolDialog() : this(new Tool())
         {
@@ -40,17 +30,31 @@ namespace CPECentral.Dialogs
             descriptionEnhancedTextBox.DataBindings.Add("Text", _tool, "Description");
         }
 
+        public Tool Tool
+        {
+            get { return _tool; }
+        }
+
+        public IEnumerable<Material> TricornLinks
+        {
+            get
+            {
+                return
+                    (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material).ToList();
+            }
+        }
+
         private void EditToolDialog_Load(object sender, EventArgs e)
         {
             using (BusyCursor.Show()) {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var tricornTools = cpe.TricornTools.GetByTool(_tool);
+                    IEnumerable<TricornTool> tricornTools = cpe.TricornTools.GetByTool(_tool);
                     if (!tricornTools.Any()) {
                         return;
                     }
                     using (var tricorn = new TricornDataProvider()) {
-                        foreach (var tricornTool in tricornTools) {
-                            var material = tricorn.GetMaterialByReference(tricornTool.TricornReference);
+                        foreach (TricornTool tricornTool in tricornTools) {
+                            Material material = tricorn.GetMaterialByReference(tricornTool.TricornReference);
                             if (material == null) {
                                 // TODO: handle missing Tricorn tool reference
                                 continue;
@@ -75,13 +79,15 @@ namespace CPECentral.Dialogs
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            using (var selectDialog = new SelectTricornMaterialDialog(descriptionEnhancedTextBox.Text)) {
+            using (var selectDialog = new SelectTricornMaterialDialog()) {
                 if (selectDialog.ShowDialog(this) != DialogResult.OK) {
                     return;
                 }
-                var materialsAlreadyAdded = (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material);
 
-                foreach (var material in selectDialog.SelectedMaterials) {
+                IEnumerable<Material> materialsAlreadyAdded =
+                    (from ListViewItem item in tricornLinksEnhancedListView.Items select item.Tag as Material);
+
+                foreach (Material material in selectDialog.SelectedMaterials) {
                     if (materialsAlreadyAdded.Any(m => m.Material_Reference == material.Material_Reference)) {
                         continue;
                     }
@@ -98,7 +104,7 @@ namespace CPECentral.Dialogs
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            var question = string.Format("Are you sure you want to remove the link to this material?\n\n{0}",
+            string question = string.Format("Are you sure you want to remove the link to this material?\n\n{0}",
                 tricornLinksEnhancedListView.SelectedItems[0].Text);
 
             if (!_dialogService.AskQuestion(question)) {

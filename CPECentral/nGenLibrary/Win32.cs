@@ -116,8 +116,7 @@ namespace nGenLibrary
         {
             var lastInPut = new LASTINPUTINFO();
             lastInPut.cbSize = (uint) Marshal.SizeOf(lastInPut);
-            if (!GetLastInputInfo(ref lastInPut))
-            {
+            if (!GetLastInputInfo(ref lastInPut)) {
                 throw new Exception(GetLastError().ToString());
             }
 
@@ -133,22 +132,20 @@ namespace nGenLibrary
         public static Icon GetIconForFolder(bool largeIcon, bool openFolder)
         {
             var shellFileInfo = new SHFILEINFO();
-            try
-            {
-                var flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
+            try {
+                uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
                 flags |= openFolder ? SHGFI_OPENICON : 0;
                 flags |= largeIcon ? SHGFI_LARGEICON : SHGFI_SMALLICON;
 
                 SHGetFileInfo(null,
-                              FILE_ATTRIBUTE_DIRECTORY,
-                              ref shellFileInfo,
-                              (uint) Marshal.SizeOf(shellFileInfo),
-                              flags);
+                    FILE_ATTRIBUTE_DIRECTORY,
+                    ref shellFileInfo,
+                    (uint) Marshal.SizeOf(shellFileInfo),
+                    flags);
 
                 return (Icon) Icon.FromHandle(shellFileInfo.hIcon).Clone();
             }
-            finally
-            {
+            finally {
                 DestroyIcon(shellFileInfo.hIcon); // Cleanup
             }
         }
@@ -162,26 +159,25 @@ namespace nGenLibrary
         /// <returns>The requested Icon</returns>
         public static Icon GetIconForFileExtension(string extension, bool largeIcon, bool linkOverlay)
         {
-            if (!extension.StartsWith("."))
+            if (!extension.StartsWith(".")) {
                 extension = "." + extension;
+            }
 
             var shellFileInfo = new SHFILEINFO();
-            try
-            {
-                var flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
+            try {
+                uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
                 flags |= linkOverlay ? SHGFI_LINKOVERLAY : 0;
                 flags |= largeIcon ? SHGFI_LARGEICON : SHGFI_SMALLICON;
 
                 SHGetFileInfo(extension,
-                              FILE_ATTRIBUTE_NORMAL,
-                              ref shellFileInfo,
-                              (uint) Marshal.SizeOf(shellFileInfo),
-                              flags);
+                    FILE_ATTRIBUTE_NORMAL,
+                    ref shellFileInfo,
+                    (uint) Marshal.SizeOf(shellFileInfo),
+                    flags);
 
                 return (Icon) Icon.FromHandle(shellFileInfo.hIcon).Clone();
             }
-            finally
-            {
+            finally {
                 DestroyIcon(shellFileInfo.hIcon);
             }
         }

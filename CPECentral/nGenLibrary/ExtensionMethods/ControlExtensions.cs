@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
 
+#endregion
 
 // ReSharper disable CheckNamespace
 public static class ControlExtensions
@@ -13,17 +13,16 @@ public static class ControlExtensions
         where TControl : Control
     {
         return control.InvokeRequired
-                   ? (TResult) control.Invoke(func, control)
-                   : func(control);
+            ? (TResult) control.Invoke(func, control)
+            : func(control);
     }
 
     public static void InvokeEx<TControl>(this TControl control, Action<TControl> func) where TControl : Control
     {
-        control.InvokeEx(c =>
-            {
-                func(c);
-                return c;
-            });
+        control.InvokeEx(c => {
+            func(c);
+            return c;
+        });
     }
 
     public static void InvokeEx<TControl>(this TControl control, Action action)

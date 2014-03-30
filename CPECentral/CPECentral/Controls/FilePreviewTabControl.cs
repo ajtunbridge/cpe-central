@@ -1,7 +1,6 @@
 ﻿#region Using directives
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,7 +40,7 @@ namespace CPECentral.Controls
         {
             var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
 
-            var fileName = files[0];
+            string fileName = files[0];
 
             ShowFile(fileName);
         }
@@ -55,27 +54,27 @@ namespace CPECentral.Controls
                 }
             }
 
-            var indexOfLastDot = fileName.LastIndexOf(".");
+            int indexOfLastDot = fileName.LastIndexOf(".");
 
             if (indexOfLastDot == -1) {
                 return;
             }
 
-            var extension = fileName.Substring(indexOfLastDot).ToLower();
+            string extension = fileName.Substring(indexOfLastDot).ToLower();
 
             if (!tabPagesImageList.Images.ContainsKey(extension)) {
-                var smallIcon = Win32.GetIconForFileExtension(extension, false, false).ToBitmap();
+                Bitmap smallIcon = Win32.GetIconForFileExtension(extension, false, false).ToBitmap();
                 tabPagesImageList.Images.Add(extension, smallIcon);
             }
 
-            var imageIndex = tabPagesImageList.Images.IndexOfKey(extension);
+            int imageIndex = tabPagesImageList.Images.IndexOfKey(extension);
 
             var newPage = new TabPage(Path.GetFileName(fileName));
             newPage.ImageIndex = imageIndex;
 
             if (extension == ".pdf") {
                 using (BusyCursor.Show()) {
-                    var tempFile = Path.GetTempFileName() + extension;
+                    string tempFile = Path.GetTempFileName() + extension;
 
                     File.Copy(fileName, tempFile, true);
 
@@ -93,7 +92,7 @@ namespace CPECentral.Controls
 
             if (ModelViewer.ValidCadExtensions.Any(ext => ext.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var modelView = new ModelViewer();
-                modelView.Dock = DockStyle.Fill; 
+                modelView.Dock = DockStyle.Fill;
                 newPage.Controls.Add(modelView);
 
                 tabControl.TabPages.Add(newPage);
@@ -104,7 +103,8 @@ namespace CPECentral.Controls
                 return;
             }
 
-            var validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+            string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.None);
 
             if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var ncEditor = new AvalonNcEditor();
@@ -112,15 +112,15 @@ namespace CPECentral.Controls
                 newPage.Controls.Add(ncEditor);
                 ncEditor.BringToFront();
                 ncEditor.LoadFile(fileName);
-                
+
                 tabControl.TabPages.Add(newPage);
                 tabControl.SelectedTab = newPage;
 
                 return;
             }
 
-            var imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
-                                                                             StringSplitOptions.RemoveEmptyEntries);
+            string[] imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.RemoveEmptyEntries);
 
             if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var imageViewer = new ImageViewer();
@@ -130,8 +130,6 @@ namespace CPECentral.Controls
 
                 tabControl.TabPages.Add(newPage);
                 tabControl.SelectedTab = newPage;
-
-                return;
             }
         }
 
@@ -152,13 +150,12 @@ namespace CPECentral.Controls
 
         private void tabControl_MouseClick(object sender, MouseEventArgs e)
         {
-            var tabs = tabControl.TabPages;
+            TabControl.TabPageCollection tabs = tabControl.TabPages;
 
-            if (e.Button == MouseButtons.Middle)
-            {
+            if (e.Button == MouseButtons.Middle) {
                 tabs.Remove(tabs.Cast<TabPage>()
-                        .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
-                        .First());
+                    .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
+                    .First());
             }
         }
     }

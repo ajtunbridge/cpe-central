@@ -32,11 +32,28 @@ namespace CPECentral.Presenters
             _view.DeleteTool += View_DeleteTool;
         }
 
+        private bool View_ToolRenamed(Tool entity)
+        {
+            bool updatedOk = false;
+
+            PerformDatabaseActionThenRefreshView(() => {
+                using (var cpe = new CPEUnitOfWork()) {
+                    using (BusyCursor.Show()) {
+                        cpe.Tools.Update(entity);
+                        cpe.Commit();
+                        updatedOk = true;
+                    }
+                }
+            });
+
+            return updatedOk;
+        }
+
         private void View_AddTool(object sender, ToolGroupEventArgs e)
         {
             using (BusyCursor.Show()) {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var hasChildGroups = cpe.ToolGroups.GetChildGroups(e.ToolGroup).Any();
+                    bool hasChildGroups = cpe.ToolGroups.GetChildGroups(e.ToolGroup).Any();
                     if (hasChildGroups) {
                         const string question =
                             "The group you are creating this tool in has child groups!\n\nAre you sure you're adding it to the correct group?";
@@ -54,6 +71,7 @@ namespace CPECentral.Presenters
                 if (editToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK) {
                     return;
                 }
+
                 newTool = editToolDialog.Tool;
                 tricornLinks = editToolDialog.TricornLinks;
             }
@@ -64,7 +82,7 @@ namespace CPECentral.Presenters
                         newTool.ToolGroupId = e.ToolGroup.Id;
                         cpe.Tools.Add(newTool);
 
-                        foreach (var material in tricornLinks) {
+                        foreach (Material material in tricornLinks) {
                             var tricornTool = new TricornTool();
                             tricornTool.Tool = newTool;
                             tricornTool.TricornReference = material.Material_Reference;
@@ -72,6 +90,8 @@ namespace CPECentral.Presenters
                         }
 
                         cpe.Commit();
+
+                        _view.RefreshTools();
                     }
                 }
             });
@@ -81,27 +101,20 @@ namespace CPECentral.Presenters
         {
             IEnumerable<Material> tricornLinks = null;
 
-            using (var editToolDialog = new EditToolDialog(e.Tool))
-            {
-                if (editToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK)
-                {
+            using (var editToolDialog = new EditToolDialog(e.Tool)) {
+                if (editToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK) {
                     return;
                 }
                 tricornLinks = editToolDialog.TricornLinks;
             }
 
-            PerformDatabaseActionThenRefreshView(() =>
-            {
-                using (var cpe = new CPEUnitOfWork())
-                {
-                    using (BusyCursor.Show())
-                    {
+            PerformDatabaseActionThenRefreshView(() => {
+                using (var cpe = new CPEUnitOfWork()) {
+                    using (BusyCursor.Show()) {
                         cpe.Tools.Update(e.Tool);
-                        var existingTricornTools = cpe.TricornTools.GetByTool(e.Tool);
-                        foreach (var material in tricornLinks)
-                        {
-                            if (existingTricornTools.Any(t => t.TricornReference == material.Material_Reference))
-                            {
+                        IEnumerable<TricornTool> existingTricornTools = cpe.TricornTools.GetByTool(e.Tool);
+                        foreach (Material material in tricornLinks) {
+                            if (existingTricornTools.Any(t => t.TricornReference == material.Material_Reference)) {
                                 continue;
                             }
                             var tricornTool = new TricornTool();
@@ -134,14 +147,6 @@ namespace CPECentral.Presenters
 
         private void View_ToolRenamed(object sender, ToolEventArgs e)
         {
-            PerformDatabaseActionThenRefreshView(() => {
-                using (var cpe = new CPEUnitOfWork()) {
-                    using (BusyCursor.Show()) {
-                        cpe.Tools.Update(e.Tool);
-                        cpe.Commit();
-                    }
-                }
-            });
         }
 
         private void View_LoadGroupTools(object sender, ToolGroupEventArgs e)
@@ -152,7 +157,7 @@ namespace CPECentral.Presenters
             worker.RunWorkerAsync(e.ToolGroup);
         }
 
-        void _view_LoadHolderTools(object sender, HolderEventArgs e)
+        private void _view_LoadHolderTools(object sender, HolderEventArgs e)
         {
             var loadHolderToolsWorker = new BackgroundWorker();
             loadHolderToolsWorker.DoWork += LoadToolsWorker_DoWork;
@@ -180,11 +185,15 @@ namespace CPECentral.Presenters
                 using (var cpe = new CPEUnitOfWork()) {
                     if (e.Argument is ToolGroup) {
                         var group = e.Argument as ToolGroup;
-                        tools = cpe.Tools.GetByToolGroup(group, true).ToList();
+                        tools = cpe.Tools.GetByToolGroup(group, true)
+                            .OrderBy(t => t.Description)
+                            .ToList();
                     }
                     else if (e.Argument is Holder) {
                         var holder = e.Argument as Holder;
-                        tools = cpe.Tools.GetByHolder(holder).ToList();
+                        tools = cpe.Tools.GetByHolder(holder)
+                            .OrderBy(t => t.Description)
+                            .ToList();
                     }
                 }
             }
@@ -211,17 +220,17 @@ namespace CPECentral.Presenters
         private void HandleException(Exception ex)
         {
             // TODO: handle exceptions properly
-            var message = ex.Message;
+            string message = ex.Message;
 
             if (ex is DataProviderException) {
                 var dataEx = ex as DataProviderException;
 
                 switch (dataEx.Error) {
                     case DataProviderError.UniqueConstraintViolation:
-                        message = "A tool's name must be unique!\n\nThe one you entered is not.";
+                        message = "A tool already exists in this group with this name.";
                         break;
                     case DataProviderError.RelationshipViolation:
-                        message = "Unable to delete this tool!\n\nIt is in one or more operation tool lists.";
+                        message = "Unable to delete this tool!\n\nIt is used on at least one operation.";
                         break;
                 }
             }

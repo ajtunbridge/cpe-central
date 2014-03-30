@@ -30,12 +30,12 @@ namespace CPECentral.Dialogs
 
         private void DrawHexagon(Graphics g)
         {
-            var sideLength = (Width/3);
-            var x = (Width - sideLength)/2;
-            var y = (Height - sideLength*2);
+            int sideLength = (Width/3);
+            int x = (Width - sideLength)/2;
+            int y = (Height - sideLength*2);
 
-            var shortSide = Convert.ToSingle(Math.Sin(30*Math.PI/180)*sideLength);
-            var longSide = Convert.ToSingle(Math.Cos(30*Math.PI/180)*sideLength);
+            float shortSide = Convert.ToSingle(Math.Sin(30*Math.PI/180)*sideLength);
+            float longSide = Convert.ToSingle(Math.Cos(30*Math.PI/180)*sideLength);
 
             var points = new PointF[6];
             points[0] = new PointF(x, y);
@@ -51,8 +51,8 @@ namespace CPECentral.Dialogs
                 g.DrawPolygon(p, points);
             }
 
-            var overPoints = points[2].X - points[5].X;
-            var yOffset = (overPoints - (points[4].Y - points[0].Y))/2;
+            float overPoints = points[2].X - points[5].X;
+            float yOffset = (overPoints - (points[4].Y - points[0].Y))/2;
 
             using (var p = new Pen(Brushes.DarkRed, 2f)) {
                 p.DashStyle = DashStyle.Dash;

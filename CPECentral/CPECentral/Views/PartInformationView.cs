@@ -56,7 +56,7 @@ namespace CPECentral.Views
             Enabled = false;
             _isLoadingData = true;
 
-            foreach (var control in Controls) {
+            foreach (object control in Controls) {
                 if (control is TextBox) {
                     (control as TextBox).Text = "retrieving...";
                 }
@@ -103,7 +103,7 @@ namespace CPECentral.Views
 
                 Session.MessageBus.Publish(new PartEditedMessage(Part));
 
-                var status = "Updated " + Part.DrawingNumber + " successfully!";
+                string status = "Updated " + Part.DrawingNumber + " successfully!";
 
                 Session.MessageBus.Publish(new StatusUpdateMessage(status));
             }
@@ -116,7 +116,7 @@ namespace CPECentral.Views
 
         protected virtual void OnSaveChanges()
         {
-            var handler = SaveChanges;
+            EventHandler handler = SaveChanges;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -124,7 +124,7 @@ namespace CPECentral.Views
 
         protected virtual void OnReloadData()
         {
-            var handler = ReloadData;
+            EventHandler handler = ReloadData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -132,7 +132,7 @@ namespace CPECentral.Views
 
         protected virtual void OnVersionSelected(PartVersionEventArgs e)
         {
-            var handler = VersionSelected;
+            EventHandler<PartVersionEventArgs> handler = VersionSelected;
             if (handler != null) {
                 handler(this, e);
             }

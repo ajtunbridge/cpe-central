@@ -1,9 +1,12 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Properties;
 
 #endregion
 
@@ -16,9 +19,12 @@ namespace CPECentral.Dialogs
 
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
 
-        public ToolSelectorDialog()
+        public ToolSelectorDialog(bool multiSelect)
         {
             InitializeComponent();
+
+            toolsView.MultiSelect = multiSelect;
+
             filterComboBox.Items.Add(ToolGroupFilterText);
             filterComboBox.Items.Add(HolderFilterText);
             filterComboBox.SelectedIndex = 0;
@@ -26,6 +32,11 @@ namespace CPECentral.Dialogs
 
         public Tool SelectedTool { get; private set; }
         public Holder SelectedHolder { get; private set; }
+
+        public IEnumerable<Tool> SelectedTools
+        {
+            get { return toolsView.SelectedTools; }
+        }
 
         private void ToolGroupsView_ToolGroupSelected(object sender, ToolGroupEventArgs e)
         {
@@ -49,8 +60,8 @@ namespace CPECentral.Dialogs
 
         private void OkayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
-            if (SelectedTool == null) {
-                _dialogService.Notify("You haven't selected a tool!");
+            if (SelectedTool == null & !SelectedTools.Any()) {
+                _dialogService.Notify("You haven't selected anything!");
                 return;
             }
 
@@ -84,6 +95,21 @@ namespace CPECentral.Dialogs
 
             SelectedHolder = e.Holder;
             toolsView.LoadTools(e.Holder);
+        }
+
+        private void ToolSelectorDialog_Load(object sender, EventArgs e)
+        {
+            Size = Settings.Default.ToolSelectorDialogFormSize;
+        }
+
+        private void ToolSelectorDialog_SizeChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void ToolSelectorDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.ToolSelectorDialogFormSize = Size;
+            Settings.Default.Save();
         }
     }
 }

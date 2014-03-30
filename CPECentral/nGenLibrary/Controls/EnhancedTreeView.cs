@@ -39,7 +39,9 @@ namespace nGenLibrary.Controls
             const int WM_ERASEBKGND = 0x14;
 
             //Filter out the WM_ERASEBKGND message to prevent flicker when redrawing
-            if (m.Msg == WM_ERASEBKGND) return;
+            if (m.Msg == WM_ERASEBKGND) {
+                return;
+            }
 
             base.WndProc(ref m);
         }
@@ -47,10 +49,9 @@ namespace nGenLibrary.Controls
         private void EnhancedTreeView_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right) {
+                TreeNode clickedNode = GetNodeAt(e.X, e.Y);
 
-                var clickedNode = GetNodeAt(e.X, e.Y);
-
-                var contextMenu = (clickedNode == null) ? ContextMenuStrip : NodeContextMenuStrip;
+                ContextMenuStrip contextMenu = (clickedNode == null) ? ContextMenuStrip : NodeContextMenuStrip;
 
                 if (contextMenu != null) {
                     contextMenu.Show(this, e.X, e.Y);
@@ -60,8 +61,9 @@ namespace nGenLibrary.Controls
                     return;
                 }
 
-                if (SelectedNode != null && SelectedNode == clickedNode)
+                if (SelectedNode != null && SelectedNode == clickedNode) {
                     return;
+                }
 
                 SelectedNode = clickedNode;
             }

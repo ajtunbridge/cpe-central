@@ -43,7 +43,7 @@
             this.filterComboBox.Location = new System.Drawing.Point(12, 14);
             this.filterComboBox.Name = "filterComboBox";
             this.filterComboBox.Size = new System.Drawing.Size(239, 25);
-            this.filterComboBox.TabIndex = 4;
+            this.filterComboBox.TabIndex = 0;
             this.filterComboBox.SelectedIndexChanged += new System.EventHandler(this.filterComboBox_SelectedIndexChanged);
             // 
             // okayCancelFooter
@@ -51,11 +51,11 @@
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
             this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 381);
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 436);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
-            this.okayCancelFooter.Size = new System.Drawing.Size(702, 45);
-            this.okayCancelFooter.TabIndex = 3;
+            this.okayCancelFooter.Size = new System.Drawing.Size(799, 45);
+            this.okayCancelFooter.TabIndex = 4;
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
             // 
@@ -64,11 +64,11 @@
             this.stockLevelsView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.stockLevelsView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stockLevelsView.Location = new System.Drawing.Point(257, 230);
+            this.stockLevelsView.Location = new System.Drawing.Point(257, 285);
             this.stockLevelsView.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.stockLevelsView.Name = "stockLevelsView";
-            this.stockLevelsView.Size = new System.Drawing.Size(435, 142);
-            this.stockLevelsView.TabIndex = 2;
+            this.stockLevelsView.Size = new System.Drawing.Size(532, 142);
+            this.stockLevelsView.TabIndex = 3;
             // 
             // toolsView
             // 
@@ -80,19 +80,21 @@
             this.toolsView.Location = new System.Drawing.Point(257, 14);
             this.toolsView.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.toolsView.Name = "toolsView";
-            this.toolsView.Size = new System.Drawing.Size(435, 206);
-            this.toolsView.TabIndex = 1;
+            this.toolsView.Size = new System.Drawing.Size(532, 261);
+            this.toolsView.TabIndex = 2;
             this.toolsView.ToolSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolSelected);
             this.toolsView.ToolPicked += new System.EventHandler<CPECentral.CustomEventArgs.ToolEventArgs>(this.ToolsView_ToolPicked);
             // 
             // holdersView
             // 
+            this.holdersView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.holdersView.EditMode = false;
             this.holdersView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.holdersView.Location = new System.Drawing.Point(12, 47);
             this.holdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.holdersView.Name = "holdersView";
-            this.holdersView.Size = new System.Drawing.Size(239, 325);
+            this.holdersView.Size = new System.Drawing.Size(239, 380);
             this.holdersView.TabIndex = 5;
             this.holdersView.HolderSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.HolderEventArgs>(this.holdersView_HolderSelectionChanged);
             // 
@@ -105,15 +107,15 @@
             this.toolGroupsView.Location = new System.Drawing.Point(12, 47);
             this.toolGroupsView.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.toolGroupsView.Name = "toolGroupsView";
-            this.toolGroupsView.Size = new System.Drawing.Size(239, 325);
-            this.toolGroupsView.TabIndex = 0;
+            this.toolGroupsView.Size = new System.Drawing.Size(239, 380);
+            this.toolGroupsView.TabIndex = 1;
             this.toolGroupsView.ToolGroupSelected += new System.EventHandler<CPECentral.CustomEventArgs.ToolGroupEventArgs>(this.ToolGroupsView_ToolGroupSelected);
             // 
             // ToolSelectorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 426);
+            this.ClientSize = new System.Drawing.Size(799, 481);
             this.Controls.Add(this.filterComboBox);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.stockLevelsView);
@@ -130,6 +132,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tool selector";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ToolSelectorDialog_FormClosing);
+            this.Load += new System.EventHandler(this.ToolSelectorDialog_Load);
+            this.SizeChanged += new System.EventHandler(this.ToolSelectorDialog_SizeChanged);
             this.ResumeLayout(false);
 
         }

@@ -56,7 +56,7 @@ namespace NcCommunicator.Data.Repositories
 
         public void Insert(Machine machine)
         {
-            var rowToInsert = DataSet.Machines.NewMachinesRow();
+            MachinesDataSet.MachinesRow rowToInsert = DataSet.Machines.NewMachinesRow();
             rowToInsert.Name = machine.Name;
             rowToInsert.ComPort = machine.ComPort;
             rowToInsert.MachineControlId = machine.MachineControlId;
@@ -66,7 +66,7 @@ namespace NcCommunicator.Data.Repositories
 
         public void Delete(int id)
         {
-            var rowToDelete = DataSet.Machines.SingleOrDefault(m => m.Id == id);
+            MachinesDataSet.MachinesRow rowToDelete = DataSet.Machines.SingleOrDefault(m => m.Id == id);
 
             if (rowToDelete == null) {
                 throw new KeyNotFoundException("Unable to find machine with an ID value of " + id);
@@ -77,7 +77,7 @@ namespace NcCommunicator.Data.Repositories
 
         public void Update(Machine machine)
         {
-            var rowToUpdate = DataSet.Machines.SingleOrDefault(m => m.Id == machine.Id);
+            MachinesDataSet.MachinesRow rowToUpdate = DataSet.Machines.SingleOrDefault(m => m.Id == machine.Id);
 
             if (rowToUpdate == null) {
                 throw new KeyNotFoundException("Unable to find machine with an ID value of " + machine.Id);

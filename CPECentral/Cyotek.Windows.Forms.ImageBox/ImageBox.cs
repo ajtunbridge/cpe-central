@@ -39,6 +39,7 @@ namespace Cyotek.Windows.Forms
         private bool _allowZoom;
         private bool _autoCenter;
         private bool _autoPan;
+        private Image _backgroundTile;
         private int _dropShadowSize;
         private int _gridCellSize;
         private Color _gridColor;
@@ -47,7 +48,6 @@ namespace Cyotek.Windows.Forms
         private ImageBoxGridScale _gridScale;
         private Bitmap _gridTile;
         private Image _image;
-        private Image _backgroundTile;
         private Color _imageBorderColor;
         private ImageBoxBorderStyle _imageBorderStyle;
         private InterpolationMode _interpolationMode;
@@ -338,16 +338,13 @@ namespace Cyotek.Windows.Forms
             height = cellSize*2;
             result = new Bitmap(width, height);
 
-            using (var g = Graphics.FromImage(result))
-            {
-                using (Brush brush = new SolidBrush(cellColor))
-                {
+            using (Graphics g = Graphics.FromImage(result)) {
+                using (Brush brush = new SolidBrush(cellColor)) {
                     g.FillRectangle(brush, new Rectangle(cellSize, 0, cellSize, cellSize));
                     g.FillRectangle(brush, new Rectangle(0, cellSize, cellSize, cellSize));
                 }
 
-                using (Brush brush = new SolidBrush(alternateCellColor))
-                {
+                using (Brush brush = new SolidBrush(alternateCellColor)) {
                     g.FillRectangle(brush, new Rectangle(0, 0, cellSize, cellSize));
                     g.FillRectangle(brush, new Rectangle(cellSize, cellSize, cellSize, cellSize));
                 }
@@ -379,8 +376,7 @@ namespace Cyotek.Windows.Forms
             get { return _allowClickZoom; }
             set
             {
-                if (_allowClickZoom != value)
-                {
+                if (_allowClickZoom != value) {
                     _allowClickZoom = value;
                     OnAllowClickZoomChanged(EventArgs.Empty);
                 }
@@ -393,8 +389,7 @@ namespace Cyotek.Windows.Forms
             get { return _allowDoubleClick; }
             set
             {
-                if (AllowDoubleClick != value)
-                {
+                if (AllowDoubleClick != value) {
                     _allowDoubleClick = value;
 
                     OnAllowDoubleClickChanged(EventArgs.Empty);
@@ -414,8 +409,7 @@ namespace Cyotek.Windows.Forms
             get { return _allowZoom; }
             set
             {
-                if (AllowZoom != value)
-                {
+                if (AllowZoom != value) {
                     _allowZoom = value;
 
                     OnAllowZoomChanged(EventArgs.Empty);
@@ -435,8 +429,7 @@ namespace Cyotek.Windows.Forms
             get { return _autoCenter; }
             set
             {
-                if (_autoCenter != value)
-                {
+                if (_autoCenter != value) {
                     _autoCenter = value;
                     OnAutoCenterChanged(EventArgs.Empty);
                 }
@@ -456,19 +449,20 @@ namespace Cyotek.Windows.Forms
             get { return _autoPan; }
             set
             {
-                if (_autoPan != value)
-                {
+                if (_autoPan != value) {
                     _autoPan = value;
                     OnAutoPanChanged(EventArgs.Empty);
 
-                    if (value)
+                    if (value) {
                         SizeToFit = false;
+                    }
                 }
             }
         }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether the container enables the user to scroll to any content placed outside of its visible boundaries.
+        ///     Gets or sets a value indicating whether the container enables the user to scroll to any content placed outside of
+        ///     its visible boundaries.
         /// </summary>
         /// <value>
         ///     <c>true</c> if the container enables auto-scrolling; otherwise, <c>false</c>.
@@ -485,7 +479,8 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         /// <value></value>
         /// <returns>
-        ///     A <see cref="T:System.Drawing.Size" /> that determines the minimum size of the virtual area through which the user can scroll.
+        ///     A <see cref="T:System.Drawing.Size" /> that determines the minimum size of the virtual area through which the user
+        ///     can scroll.
         /// </returns>
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never),
          DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -509,8 +504,7 @@ namespace Cyotek.Windows.Forms
             get { return base.AutoSize; }
             set
             {
-                if (base.AutoSize != value)
-                {
+                if (base.AutoSize != value) {
                     base.AutoSize = value;
                     AdjustLayout();
                 }
@@ -522,7 +516,8 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         /// <value></value>
         /// <returns>
-        ///     A <see cref="T:System.Drawing.Color" /> that represents the background color of the control. The default is the value of the
+        ///     A <see cref="T:System.Drawing.Color" /> that represents the background color of the control. The default is the
+        ///     value of the
         ///     <see
         ///         cref="P:System.Windows.Forms.Control.DefaultBackColor" />
         ///     property.
@@ -550,7 +545,8 @@ namespace Cyotek.Windows.Forms
         }
 
         /// <summary>
-        ///     Gets or sets the background image layout as defined in the <see cref="T:System.Windows.Forms.ImageLayout" /> enumeration.
+        ///     Gets or sets the background image layout as defined in the <see cref="T:System.Windows.Forms.ImageLayout" />
+        ///     enumeration.
         /// </summary>
         /// <value>The background image layout.</value>
         /// <returns>
@@ -579,8 +575,7 @@ namespace Cyotek.Windows.Forms
             get { return _backgroundTile; }
             set
             {
-                if (_backgroundTile != value)
-                {
+                if (_backgroundTile != value) {
                     _backgroundTile = value;
 
                     OnBackgroundTileChanged();
@@ -598,8 +593,7 @@ namespace Cyotek.Windows.Forms
             get { return _dropShadowSize; }
             set
             {
-                if (DropShadowSize != value)
-                {
+                if (DropShadowSize != value) {
                     _dropShadowSize = value;
 
                     OnDropShadowSizeChanged(EventArgs.Empty);
@@ -612,7 +606,8 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         /// <value></value>
         /// <returns>
-        ///     The <see cref="T:System.Drawing.Font" /> to apply to the text displayed by the control. The default is the value of the
+        ///     The <see cref="T:System.Drawing.Font" /> to apply to the text displayed by the control. The default is the value of
+        ///     the
         ///     <see
         ///         cref="P:System.Windows.Forms.Control.DefaultFont" />
         ///     property.
@@ -635,8 +630,7 @@ namespace Cyotek.Windows.Forms
             get { return _gridCellSize; }
             set
             {
-                if (_gridCellSize != value)
-                {
+                if (_gridCellSize != value) {
                     _gridCellSize = value;
                     OnGridCellSizeChanged(EventArgs.Empty);
                 }
@@ -653,8 +647,7 @@ namespace Cyotek.Windows.Forms
             get { return _gridColor; }
             set
             {
-                if (_gridColor != value)
-                {
+                if (_gridColor != value) {
                     _gridColor = value;
                     OnGridColorChanged(EventArgs.Empty);
                 }
@@ -671,8 +664,7 @@ namespace Cyotek.Windows.Forms
             get { return _gridColorAlternate; }
             set
             {
-                if (_gridColorAlternate != value)
-                {
+                if (_gridColorAlternate != value) {
                     _gridColorAlternate = value;
                     OnGridColorAlternateChanged(EventArgs.Empty);
                 }
@@ -689,8 +681,7 @@ namespace Cyotek.Windows.Forms
             get { return _gridDisplayMode; }
             set
             {
-                if (_gridDisplayMode != value)
-                {
+                if (_gridDisplayMode != value) {
                     _gridDisplayMode = value;
                     OnGridDisplayModeChanged(EventArgs.Empty);
                 }
@@ -707,8 +698,7 @@ namespace Cyotek.Windows.Forms
             get { return _gridScale; }
             set
             {
-                if (_gridScale != value)
-                {
+                if (_gridScale != value) {
                     _gridScale = value;
                     OnGridScaleChanged(EventArgs.Empty);
                 }
@@ -725,8 +715,7 @@ namespace Cyotek.Windows.Forms
             get { return _image; }
             set
             {
-                if (_image != value)
-                {
+                if (_image != value) {
                     _image = value;
                     OnImageChanged(EventArgs.Empty);
                 }
@@ -743,8 +732,7 @@ namespace Cyotek.Windows.Forms
             get { return _imageBorderColor; }
             set
             {
-                if (ImageBorderColor != value)
-                {
+                if (ImageBorderColor != value) {
                     _imageBorderColor = value;
 
                     OnImageBorderColorChanged(EventArgs.Empty);
@@ -762,8 +750,7 @@ namespace Cyotek.Windows.Forms
             get { return _imageBorderStyle; }
             set
             {
-                if (ImageBorderStyle != value)
-                {
+                if (ImageBorderStyle != value) {
                     _imageBorderStyle = value;
 
                     OnImageBorderStyleChanged(EventArgs.Empty);
@@ -781,11 +768,11 @@ namespace Cyotek.Windows.Forms
             get { return _interpolationMode; }
             set
             {
-                if (value == InterpolationMode.Invalid)
+                if (value == InterpolationMode.Invalid) {
                     value = InterpolationMode.Default;
+                }
 
-                if (_interpolationMode != value)
-                {
+                if (_interpolationMode != value) {
                     _interpolationMode = value;
                     OnInterpolationModeChanged(EventArgs.Empty);
                 }
@@ -804,8 +791,7 @@ namespace Cyotek.Windows.Forms
             get { return _invertMouse; }
             set
             {
-                if (_invertMouse != value)
-                {
+                if (_invertMouse != value) {
                     _invertMouse = value;
                     OnInvertMouseChanged(EventArgs.Empty);
                 }
@@ -824,28 +810,28 @@ namespace Cyotek.Windows.Forms
             get { return _isPanning; }
             protected set
             {
-                if (_isPanning != value)
-                {
+                if (_isPanning != value) {
                     CancelEventArgs args;
 
                     args = new CancelEventArgs();
 
-                    if (value)
+                    if (value) {
                         OnPanStart(args);
-                    else
+                    }
+                    else {
                         OnPanEnd(EventArgs.Empty);
+                    }
 
-                    if (!args.Cancel)
-                    {
+                    if (!args.Cancel) {
                         _isPanning = value;
 
-                        if (value)
-                        {
+                        if (value) {
                             _startScrollPosition = AutoScrollPosition;
                             Cursor = Cursors.SizeAll;
                         }
-                        else
+                        else {
                             Cursor = Cursors.Default;
+                        }
                     }
                 }
             }
@@ -863,19 +849,21 @@ namespace Cyotek.Windows.Forms
             get { return _isSelecting; }
             protected set
             {
-                if (_isSelecting != value)
-                {
+                if (_isSelecting != value) {
                     CancelEventArgs args;
 
                     args = new CancelEventArgs();
 
-                    if (value)
+                    if (value) {
                         OnSelecting(args);
-                    else
+                    }
+                    else {
                         OnSelected(EventArgs.Empty);
+                    }
 
-                    if (!args.Cancel)
+                    if (!args.Cancel) {
                         _isSelecting = value;
+                    }
                 }
             }
         }
@@ -892,8 +880,7 @@ namespace Cyotek.Windows.Forms
             get { return _limitSelectionToImage; }
             set
             {
-                if (LimitSelectionToImage != value)
-                {
+                if (LimitSelectionToImage != value) {
                     _limitSelectionToImage = value;
 
                     OnLimitSelectionToImageChanged(EventArgs.Empty);
@@ -907,8 +894,7 @@ namespace Cyotek.Windows.Forms
             get { return _pixelGridColor; }
             set
             {
-                if (PixelGridColor != value)
-                {
+                if (PixelGridColor != value) {
                     _pixelGridColor = value;
 
                     OnPixelGridColorChanged(EventArgs.Empty);
@@ -928,8 +914,7 @@ namespace Cyotek.Windows.Forms
             get { return _selectionColor; }
             set
             {
-                if (SelectionColor != value)
-                {
+                if (SelectionColor != value) {
                     _selectionColor = value;
 
                     OnSelectionColorChanged(EventArgs.Empty);
@@ -949,8 +934,7 @@ namespace Cyotek.Windows.Forms
             get { return _selectionMode; }
             set
             {
-                if (SelectionMode != value)
-                {
+                if (SelectionMode != value) {
                     _selectionMode = value;
 
                     OnSelectionModeChanged(EventArgs.Empty);
@@ -970,8 +954,7 @@ namespace Cyotek.Windows.Forms
             get { return _selectionRegion; }
             set
             {
-                if (SelectionRegion != value)
-                {
+                if (SelectionRegion != value) {
                     _selectionRegion = value;
 
                     OnSelectionRegionChanged(EventArgs.Empty);
@@ -991,8 +974,7 @@ namespace Cyotek.Windows.Forms
             get { return _shortcutsEnabled; }
             set
             {
-                if (ShortcutsEnabled != value)
-                {
+                if (ShortcutsEnabled != value) {
                     _shortcutsEnabled = value;
 
                     OnShortcutsEnabledChanged(EventArgs.Empty);
@@ -1006,8 +988,7 @@ namespace Cyotek.Windows.Forms
             get { return _showPixelGrid; }
             set
             {
-                if (ShowPixelGrid != value)
-                {
+                if (ShowPixelGrid != value) {
                     _showPixelGrid = value;
 
                     OnShowPixelGridChanged(EventArgs.Empty);
@@ -1027,15 +1008,15 @@ namespace Cyotek.Windows.Forms
             get { return _sizeToFit; }
             set
             {
-                if (_sizeToFit != value)
-                {
+                if (_sizeToFit != value) {
                     _sizeToFit = value;
                     OnSizeToFitChanged(EventArgs.Empty);
 
-                    if (value)
+                    if (value) {
                         AutoPan = false;
+                    }
                     //else
-                       // ActualSize();
+                    // ActualSize();
                 }
             }
         }
@@ -1062,7 +1043,8 @@ namespace Cyotek.Windows.Forms
         ///     <c>true</c> if the control acts as a virtual image box; otherwise, <c>false</c>.
         /// </value>
         /// <remarks>
-        ///     When this property is set to <c>true</c>, the Image property is ignored in favor of the VirtualSize property. In addition, the VirtualDraw event is raised to allow custom painting of the image area.
+        ///     When this property is set to <c>true</c>, the Image property is ignored in favor of the VirtualSize property. In
+        ///     addition, the VirtualDraw event is raised to allow custom painting of the image area.
         /// </remarks>
         [Category("Behavior"), DefaultValue(false)]
         public virtual bool VirtualMode
@@ -1070,8 +1052,7 @@ namespace Cyotek.Windows.Forms
             get { return _virtualMode; }
             set
             {
-                if (VirtualMode != value)
-                {
+                if (VirtualMode != value) {
                     _virtualMode = value;
 
                     OnVirtualModeChanged(EventArgs.Empty);
@@ -1089,8 +1070,7 @@ namespace Cyotek.Windows.Forms
             get { return _virtualSize; }
             set
             {
-                if (VirtualSize != value)
-                {
+                if (VirtualSize != value) {
                     _virtualSize = value;
 
                     OnVirtualSizeChanged(EventArgs.Empty);
@@ -1108,13 +1088,14 @@ namespace Cyotek.Windows.Forms
             get { return _zoom; }
             set
             {
-                if (value < MinZoom)
+                if (value < MinZoom) {
                     value = MinZoom;
-                else if (value > MaxZoom)
+                }
+                else if (value > MaxZoom) {
                     value = MaxZoom;
+                }
 
-                if (_zoom != value)
-                {
+                if (_zoom != value) {
                     _zoom = value;
                     OnZoomChanged(EventArgs.Empty);
                 }
@@ -1143,8 +1124,7 @@ namespace Cyotek.Windows.Forms
             get { return _zoomLevels; }
             set
             {
-                if (ZoomLevels != value)
-                {
+                if (ZoomLevels != value) {
                     _zoomLevels = value;
 
                     OnZoomLevelsChanged(EventArgs.Empty);
@@ -1195,8 +1175,9 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         public virtual void ActualSize()
         {
-            if (SizeToFit)
+            if (SizeToFit) {
                 SizeToFit = false;
+            }
 
             Zoom = 100;
         }
@@ -1223,11 +1204,13 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         public virtual void EndUpdate()
         {
-            if (_updateCount > 0)
+            if (_updateCount > 0) {
                 _updateCount--;
+            }
 
-            if (AllowPainting)
+            if (AllowPainting) {
                 Invalidate();
+            }
         }
 
         /// <summary>
@@ -1249,17 +1232,21 @@ namespace Cyotek.Windows.Forms
             w = rectangle.Width;
             h = rectangle.Height;
 
-            if (x < 0)
+            if (x < 0) {
                 x = 0;
+            }
 
-            if (y < 0)
+            if (y < 0) {
                 y = 0;
+            }
 
-            if (x + w > ViewSize.Width)
+            if (x + w > ViewSize.Width) {
                 w = ViewSize.Width - x;
+            }
 
-            if (y + h > ViewSize.Height)
+            if (y + h > ViewSize.Height) {
                 h = ViewSize.Height - y;
+            }
 
             return new Rectangle(x, y, w, h);
         }
@@ -1283,17 +1270,21 @@ namespace Cyotek.Windows.Forms
             w = rectangle.Width;
             h = rectangle.Height;
 
-            if (x < 0)
+            if (x < 0) {
                 x = 0;
+            }
 
-            if (y < 0)
+            if (y < 0) {
                 y = 0;
+            }
 
-            if (x + w > ViewSize.Width)
+            if (x + w > ViewSize.Width) {
                 w = ViewSize.Width - x;
+            }
 
-            if (y + h > ViewSize.Height)
+            if (y + h > ViewSize.Height) {
                 h = ViewSize.Height - y;
+            }
 
             return new RectangleF(x, y, w, h);
         }
@@ -1306,8 +1297,7 @@ namespace Cyotek.Windows.Forms
         {
             Rectangle viewPort;
 
-            if (!ViewSize.IsEmpty)
-            {
+            if (!ViewSize.IsEmpty) {
                 Rectangle innerRectangle;
                 Point offset;
                 int width;
@@ -1315,12 +1305,12 @@ namespace Cyotek.Windows.Forms
 
                 innerRectangle = GetInsideViewPort(true);
 
-                if (!HScroll && !VScroll)
+                if (!HScroll && !VScroll) {
                     // if no scrolling is present, tinker the view port so that the image and any applicable borders all fit inside
                     innerRectangle.Inflate(-GetImageBorderOffset(), -GetImageBorderOffset());
+                }
 
-                if (AutoCenter)
-                {
+                if (AutoCenter) {
                     int x;
                     int y;
 
@@ -1329,16 +1319,18 @@ namespace Cyotek.Windows.Forms
 
                     offset = new Point(x, y);
                 }
-                else
+                else {
                     offset = Point.Empty;
+                }
 
                 width = Math.Min(ScaledImageWidth - Math.Abs(AutoScrollPosition.X), innerRectangle.Width);
                 height = Math.Min(ScaledImageHeight - Math.Abs(AutoScrollPosition.Y), innerRectangle.Height);
 
                 viewPort = new Rectangle(offset.X + innerRectangle.Left, offset.Y + innerRectangle.Top, width, height);
             }
-            else
+            else {
                 viewPort = Rectangle.Empty;
+            }
 
             return viewPort;
         }
@@ -1371,8 +1363,7 @@ namespace Cyotek.Windows.Forms
             width = ClientSize.Width;
             height = ClientSize.Height;
 
-            if (includePadding)
-            {
+            if (includePadding) {
                 left += Padding.Left;
                 top += Padding.Top;
                 width -= Padding.Horizontal;
@@ -1383,7 +1374,8 @@ namespace Cyotek.Windows.Forms
         }
 
         /// <summary>
-        ///     Returns the source <see cref="T:System.Drawing.Point" /> repositioned to include the current image offset and scaled by the current zoom level
+        ///     Returns the source <see cref="T:System.Drawing.Point" /> repositioned to include the current image offset and
+        ///     scaled by the current zoom level
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns>A Point which has been repositioned to match the current zoom level and image offset</returns>
@@ -1397,7 +1389,8 @@ namespace Cyotek.Windows.Forms
         }
 
         /// <summary>
-        ///     Returns the source <see cref="T:System.Drawing.PointF" /> repositioned to include the current image offset and scaled by the current zoom level
+        ///     Returns the source <see cref="T:System.Drawing.PointF" /> repositioned to include the current image offset and
+        ///     scaled by the current zoom level
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns>A Point which has been repositioned to match the current zoom level and image offset</returns>
@@ -1417,7 +1410,8 @@ namespace Cyotek.Windows.Forms
         }
 
         /// <summary>
-        ///     Returns the source <see cref="T:System.Drawing.RectangleF" /> scaled according to the current zoom level and repositioned to include the current image offset
+        ///     Returns the source <see cref="T:System.Drawing.RectangleF" /> scaled according to the current zoom level and
+        ///     repositioned to include the current image offset
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns>A Rectangle which has been resized and repositioned to match the current zoom level and image offset</returns>
@@ -1447,8 +1441,7 @@ namespace Cyotek.Windows.Forms
         {
             Size size;
 
-            if (!ViewSize.IsEmpty)
-            {
+            if (!ViewSize.IsEmpty) {
                 int width;
                 int height;
 
@@ -1466,8 +1459,9 @@ namespace Cyotek.Windows.Forms
 
                 size = new Size(width, height);
             }
-            else
+            else {
                 size = base.GetPreferredSize(proposedSize);
+            }
 
             return size;
         }
@@ -1500,7 +1494,7 @@ namespace Cyotek.Windows.Forms
         public virtual Rectangle GetScaledRectangle(Rectangle source)
         {
             return new Rectangle((int) (source.Left*ZoomFactor), (int) (source.Top*ZoomFactor),
-                                 (int) (source.Width*ZoomFactor), (int) (source.Height*ZoomFactor));
+                (int) (source.Width*ZoomFactor), (int) (source.Height*ZoomFactor));
         }
 
         /// <summary>
@@ -1511,7 +1505,7 @@ namespace Cyotek.Windows.Forms
         public virtual RectangleF GetScaledRectangle(RectangleF source)
         {
             return new RectangleF((float) (source.Left*ZoomFactor), (float) (source.Top*ZoomFactor),
-                                  (float) (source.Width*ZoomFactor), (float) (source.Height*ZoomFactor));
+                (float) (source.Width*ZoomFactor), (float) (source.Height*ZoomFactor));
         }
 
         /// <summary>
@@ -1543,21 +1537,22 @@ namespace Cyotek.Windows.Forms
         {
             Image result;
 
-            if (!SelectionRegion.IsEmpty)
-            {
+            if (!SelectionRegion.IsEmpty) {
                 Rectangle rect;
 
                 rect =
                     FitRectangle(new Rectangle((int) SelectionRegion.X, (int) SelectionRegion.Y,
-                                               (int) SelectionRegion.Width, (int) SelectionRegion.Height));
+                        (int) SelectionRegion.Width, (int) SelectionRegion.Height));
 
                 result = new Bitmap(rect.Width, rect.Height);
 
-                using (var g = Graphics.FromImage(result))
+                using (Graphics g = Graphics.FromImage(result)) {
                     g.DrawImage(Image, new Rectangle(Point.Empty, rect.Size), rect, GraphicsUnit.Pixel);
+                }
             }
-            else
+            else {
                 result = null;
+            }
 
             return result;
         }
@@ -1570,8 +1565,7 @@ namespace Cyotek.Windows.Forms
         {
             RectangleF region;
 
-            if (!ViewSize.IsEmpty)
-            {
+            if (!ViewSize.IsEmpty) {
                 float sourceLeft;
                 float sourceTop;
                 float sourceWidth;
@@ -1586,8 +1580,9 @@ namespace Cyotek.Windows.Forms
 
                 region = new RectangleF(sourceLeft, sourceTop, sourceWidth, sourceHeight);
             }
-            else
+            else {
                 region = RectangleF.Empty;
+            }
 
             return region;
         }
@@ -1620,7 +1615,8 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         /// <param name="point">The source point.</param>
         /// <param name="fitToBounds">
-        ///     if set to <c>true</c> and the point is outside the bounds of the source image, it will be mapped to the nearest edge.
+        ///     if set to <c>true</c> and the point is outside the bounds of the source image, it will be mapped to the nearest
+        ///     edge.
         /// </param>
         /// <returns>Point.Empty is the point could not be matched to the source image, otherwise the new translated point</returns>
         /// <remarks>If a match is made, the return will be offset by 1</remarks>
@@ -1632,26 +1628,29 @@ namespace Cyotek.Windows.Forms
 
             viewport = GetImageViewPort();
 
-            if (viewport.Contains(point) || fitToBounds)
-            {
-                if (AutoScrollPosition != Point.Empty)
+            if (viewport.Contains(point) || fitToBounds) {
+                if (AutoScrollPosition != Point.Empty) {
                     point = new Point(point.X - AutoScrollPosition.X, point.Y - AutoScrollPosition.Y);
+                }
 
                 x = (int) ((point.X - viewport.X)/ZoomFactor);
                 y = (int) ((point.Y - viewport.Y)/ZoomFactor);
 
-                if (x < 0)
+                if (x < 0) {
                     x = 0;
-                else if (x > ViewSize.Width)
+                }
+                else if (x > ViewSize.Width) {
                     x = ViewSize.Width;
+                }
 
-                if (y < 0)
+                if (y < 0) {
                     y = 0;
-                else if (y > ViewSize.Height)
+                }
+                else if (y > ViewSize.Height) {
                     y = ViewSize.Height;
+                }
             }
-            else
-            {
+            else {
                 x = 0; // Return Point.Empty if we couldn't match
                 y = 0;
             }
@@ -1681,8 +1680,9 @@ namespace Cyotek.Windows.Forms
         /// <exception cref="System.InvalidOperationException">Thrown if no image is currently set</exception>
         public virtual void SelectAll()
         {
-            if (Image == null)
+            if (Image == null) {
                 throw new InvalidOperationException("No image set");
+            }
 
             SelectionRegion = new RectangleF(PointF.Empty, Image.Size);
         }
@@ -1700,8 +1700,7 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         public virtual void ZoomIn()
         {
-            if (SizeToFit)
-            {
+            if (SizeToFit) {
                 int previousZoom;
 
                 previousZoom = Zoom;
@@ -1717,8 +1716,7 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         public virtual void ZoomOut()
         {
-            if (SizeToFit)
-            {
+            if (SizeToFit) {
                 int previousZoom;
 
                 previousZoom = Zoom;
@@ -1734,8 +1732,7 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         public virtual void ZoomToFit()
         {
-            if (!ViewSize.IsEmpty)
-            {
+            if (!ViewSize.IsEmpty) {
                 Rectangle innerRectangle;
                 double zoom;
                 double aspectRatio;
@@ -1744,24 +1741,20 @@ namespace Cyotek.Windows.Forms
 
                 innerRectangle = GetInsideViewPort(true);
 
-                if (Image.Width > Image.Height)
-                {
+                if (Image.Width > Image.Height) {
                     aspectRatio = (double) innerRectangle.Width/Image.Width;
                     zoom = aspectRatio*100.0;
 
-                    if (innerRectangle.Height < ((Image.Height*zoom)/100.0))
-                    {
+                    if (innerRectangle.Height < ((Image.Height*zoom)/100.0)) {
                         aspectRatio = (double) innerRectangle.Height/Image.Height;
                         zoom = aspectRatio*100.0;
                     }
                 }
-                else
-                {
+                else {
                     aspectRatio = (double) innerRectangle.Height/Image.Height;
                     zoom = aspectRatio*100.0;
 
-                    if (innerRectangle.Width < ((Image.Width*zoom)/100.0))
-                    {
+                    if (innerRectangle.Width < ((Image.Width*zoom)/100.0)) {
                         aspectRatio = (double) innerRectangle.Width/Image.Width;
                         zoom = aspectRatio*100.0;
                     }
@@ -1798,12 +1791,15 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         protected virtual void AdjustLayout()
         {
-            if (AutoSize)
+            if (AutoSize) {
                 AdjustSize();
-            else if (SizeToFit)
+            }
+            else if (SizeToFit) {
                 ZoomToFit();
-            else if (AutoScroll)
+            }
+            else if (AutoScroll) {
                 AdjustViewPort();
+            }
 
             Invalidate();
         }
@@ -1827,8 +1823,9 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         protected virtual void AdjustSize()
         {
-            if (AutoSize && Dock == DockStyle.None)
+            if (AutoSize && Dock == DockStyle.None) {
                 base.Size = base.PreferredSize;
+            }
         }
 
         /// <summary>
@@ -1836,9 +1833,10 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         protected virtual void AdjustViewPort()
         {
-            if (AutoScroll && !ViewSize.IsEmpty)
+            if (AutoScroll && !ViewSize.IsEmpty) {
                 AutoScrollMinSize = new Size(ScaledImageWidth + Padding.Horizontal,
-                                             ScaledImageHeight + Padding.Vertical);
+                    ScaledImageHeight + Padding.Vertical);
+            }
         }
 
         /// <summary>
@@ -1853,8 +1851,7 @@ namespace Cyotek.Windows.Forms
             float scale;
 
             // rescale the cell size
-            switch (GridScale)
-            {
+            switch (GridScale) {
                 case ImageBoxGridScale.Medium:
                     scale = 1.5F;
                     break;
@@ -1878,16 +1875,13 @@ namespace Cyotek.Windows.Forms
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (_texture != null)
-                {
+            if (disposing) {
+                if (_texture != null) {
                     _texture.Dispose();
                     _texture = null;
                 }
 
-                if (_gridTile != null)
-                {
+                if (_gridTile != null) {
                     _gridTile.Dispose();
                     _gridTile = null;
                 }
@@ -1906,12 +1900,13 @@ namespace Cyotek.Windows.Forms
             Rectangle bottomEdge;
 
             rightEdge = new Rectangle(viewPort.Right + 1, viewPort.Top + DropShadowSize, DropShadowSize,
-                                      viewPort.Height);
+                viewPort.Height);
             bottomEdge = new Rectangle(viewPort.Left + DropShadowSize, viewPort.Bottom + 1, viewPort.Width + 1,
-                                       DropShadowSize);
+                DropShadowSize);
 
-            using (Brush brush = new SolidBrush(ImageBorderColor))
+            using (Brush brush = new SolidBrush(ImageBorderColor)) {
                 g.FillRectangles(brush, new[] {rightEdge, bottomEdge});
+            }
         }
 
         /// <summary>
@@ -1925,8 +1920,7 @@ namespace Cyotek.Windows.Forms
 
             g.SetClip(viewPort, CombineMode.Exclude); // make sure the inside glow doesn't appear
 
-            using (var path = new GraphicsPath())
-            {
+            using (var path = new GraphicsPath()) {
                 int glowSize;
                 int feather;
 
@@ -1934,15 +1928,15 @@ namespace Cyotek.Windows.Forms
                 glowSize = DropShadowSize*3;
                 feather = 50;
 
-                for (var i = 1; i <= glowSize; i += 2)
-                {
+                for (int i = 1; i <= glowSize; i += 2) {
                     int alpha;
 
                     alpha = feather - ((feather/glowSize)*i);
 
                     using (
-                        var pen = new Pen(Color.FromArgb(alpha, ImageBorderColor), i) {LineJoin = LineJoin.Round})
+                        var pen = new Pen(Color.FromArgb(alpha, ImageBorderColor), i) {LineJoin = LineJoin.Round}) {
                         g.DrawPath(pen, path);
+                    }
                 }
             }
         }
@@ -1977,21 +1971,20 @@ namespace Cyotek.Windows.Forms
         /// <param name="graphics"> The graphics. </param>
         protected virtual void DrawImageBorder(Graphics graphics)
         {
-            if (ImageBorderStyle != ImageBoxBorderStyle.None)
-            {
+            if (ImageBorderStyle != ImageBoxBorderStyle.None) {
                 Rectangle viewPort;
 
                 graphics.SetClip(GetInsideViewPort());
-                    // make sure the image border doesn't overwrite the control border
+                // make sure the image border doesn't overwrite the control border
 
                 viewPort = GetImageViewPort();
                 viewPort = new Rectangle(viewPort.Left - 1, viewPort.Top - 1, viewPort.Width + 1, viewPort.Height + 1);
 
-                using (var borderPen = new Pen(ImageBorderColor))
+                using (var borderPen = new Pen(ImageBorderColor)) {
                     graphics.DrawRectangle(borderPen, viewPort);
+                }
 
-                switch (ImageBorderStyle)
-                {
+                switch (ImageBorderStyle) {
                     case ImageBoxBorderStyle.FixedSingleDropShadow:
                         DrawDropShadow(graphics, viewPort);
                         break;
@@ -2014,8 +2007,7 @@ namespace Cyotek.Windows.Forms
 
             pixelSize = (float) ZoomFactor;
 
-            if (pixelSize > PixelGridThreshold)
-            {
+            if (pixelSize > PixelGridThreshold) {
                 Rectangle viewport;
                 float offsetX;
                 float offsetY;
@@ -2024,13 +2016,14 @@ namespace Cyotek.Windows.Forms
                 offsetX = Math.Abs(AutoScrollPosition.X)%pixelSize;
                 offsetY = Math.Abs(AutoScrollPosition.Y)%pixelSize;
 
-                using (var pen = new Pen(PixelGridColor) {DashStyle = DashStyle.Dot})
-                {
-                    for (var x = viewport.Left + pixelSize - offsetX; x < viewport.Right; x += pixelSize)
+                using (var pen = new Pen(PixelGridColor) {DashStyle = DashStyle.Dot}) {
+                    for (float x = viewport.Left + pixelSize - offsetX; x < viewport.Right; x += pixelSize) {
                         g.DrawLine(pen, x, viewport.Top, x, viewport.Bottom);
+                    }
 
-                    for (var y = viewport.Top + pixelSize - offsetY; y < viewport.Bottom; y += pixelSize)
+                    for (float y = viewport.Top + pixelSize - offsetY; y < viewport.Bottom; y += pixelSize) {
                         g.DrawLine(pen, viewport.Left, y, viewport.Right, y);
+                    }
 
                     g.DrawRectangle(pen, viewport);
                 }
@@ -2051,11 +2044,13 @@ namespace Cyotek.Windows.Forms
 
             rect = GetOffsetRectangle(SelectionRegion);
 
-            using (Brush brush = new SolidBrush(Color.FromArgb(128, SelectionColor)))
+            using (Brush brush = new SolidBrush(Color.FromArgb(128, SelectionColor))) {
                 e.Graphics.FillRectangle(brush, rect);
+            }
 
-            using (var pen = new Pen(SelectionColor))
+            using (var pen = new Pen(SelectionColor)) {
                 e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+            }
 
             e.Graphics.ResetClip();
         }
@@ -2068,8 +2063,7 @@ namespace Cyotek.Windows.Forms
         {
             int offset;
 
-            switch (ImageBorderStyle)
-            {
+            switch (ImageBorderStyle) {
                 case ImageBoxBorderStyle.FixedSingle:
                     offset = 1;
                     break;
@@ -2099,10 +2093,12 @@ namespace Cyotek.Windows.Forms
             bool result;
 
             if ((keyData & Keys.Right) == Keys.Right | (keyData & Keys.Left) == Keys.Left |
-                (keyData & Keys.Up) == Keys.Up | (keyData & Keys.Down) == Keys.Down)
+                (keyData & Keys.Up) == Keys.Up | (keyData & Keys.Down) == Keys.Down) {
                 result = true;
-            else
+            }
+            else {
                 result = base.IsInputKey(keyData);
+            }
 
             return result;
         }
@@ -2119,8 +2115,9 @@ namespace Cyotek.Windows.Forms
 
             handler = AllowClickZoomChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2138,8 +2135,9 @@ namespace Cyotek.Windows.Forms
 
             handler = AllowDoubleClickChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2154,8 +2152,9 @@ namespace Cyotek.Windows.Forms
 
             handler = AllowZoomChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2172,8 +2171,9 @@ namespace Cyotek.Windows.Forms
 
             handler = AutoCenterChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2188,8 +2188,9 @@ namespace Cyotek.Windows.Forms
 
             handler = AutoPanChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2228,8 +2229,9 @@ namespace Cyotek.Windows.Forms
         {
             base.OnDockChanged(e);
 
-            if (Dock != DockStyle.None)
+            if (Dock != DockStyle.None) {
                 AutoSize = false;
+            }
         }
 
         /// <summary>
@@ -2246,8 +2248,9 @@ namespace Cyotek.Windows.Forms
 
             handler = DropShadowSizeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2264,8 +2267,9 @@ namespace Cyotek.Windows.Forms
 
             handler = GridCellSizeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2282,8 +2286,9 @@ namespace Cyotek.Windows.Forms
 
             handler = GridColorAlternateChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2300,8 +2305,9 @@ namespace Cyotek.Windows.Forms
 
             handler = GridColorChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2319,8 +2325,9 @@ namespace Cyotek.Windows.Forms
 
             handler = GridDisplayModeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2337,8 +2344,9 @@ namespace Cyotek.Windows.Forms
 
             handler = GridScaleChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2355,8 +2363,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ImageBorderColorChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2373,8 +2382,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ImageBorderStyleChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2391,8 +2401,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ImageChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         protected virtual void OnBackgroundTileChanged()
@@ -2400,7 +2411,9 @@ namespace Cyotek.Windows.Forms
             InitializeGridTile();
             Invalidate();
             EventHandler handler = BackgroundTileChanged;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>
@@ -2417,8 +2430,9 @@ namespace Cyotek.Windows.Forms
 
             handler = InterpolationModeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2433,8 +2447,9 @@ namespace Cyotek.Windows.Forms
 
             handler = InvertMouseChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2449,8 +2464,9 @@ namespace Cyotek.Windows.Forms
 
             ProcessScrollingShortcuts(e);
 
-            if (ShortcutsEnabled)
+            if (ShortcutsEnabled) {
                 ProcessImageShortcuts(e);
+            }
         }
 
         /// <summary>
@@ -2465,8 +2481,9 @@ namespace Cyotek.Windows.Forms
 
             handler = LimitSelectionToImageChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2479,11 +2496,13 @@ namespace Cyotek.Windows.Forms
         {
             base.OnMouseDown(e);
 
-            if (!Focused)
+            if (!Focused) {
                 Focus();
+            }
 
-            if (e.Button == MouseButtons.Left && SelectionMode != ImageBoxSelectionMode.None)
+            if (e.Button == MouseButtons.Left && SelectionMode != ImageBoxSelectionMode.None) {
                 SelectionRegion = Rectangle.Empty;
+            }
         }
 
         /// <summary>
@@ -2496,8 +2515,7 @@ namespace Cyotek.Windows.Forms
         {
             base.OnMouseMove(e);
 
-            if (e.Button == MouseButtons.Left)
-            {
+            if (e.Button == MouseButtons.Left) {
                 ProcessPanning(e);
                 ProcessSelection(e);
             }
@@ -2517,19 +2535,22 @@ namespace Cyotek.Windows.Forms
 
             doNotProcessClick = IsPanning || IsSelecting;
 
-            if (IsPanning)
+            if (IsPanning) {
                 IsPanning = false;
+            }
 
-            if (IsSelecting)
+            if (IsSelecting) {
                 IsSelecting = false;
+            }
 
-            if (!doNotProcessClick && AllowZoom && AllowClickZoom && !IsPanning && !SizeToFit)
-            {
-                if (e.Button == MouseButtons.Left && ModifierKeys == Keys.None)
+            if (!doNotProcessClick && AllowZoom && AllowClickZoom && !IsPanning && !SizeToFit) {
+                if (e.Button == MouseButtons.Left && ModifierKeys == Keys.None) {
                     ProcessMouseZoom(true, e.Location);
+                }
                 else if (e.Button == MouseButtons.Right ||
-                         (e.Button == MouseButtons.Left && ModifierKeys != Keys.None))
+                         (e.Button == MouseButtons.Left && ModifierKeys != Keys.None)) {
                     ProcessMouseZoom(false, e.Location);
+                }
             }
         }
 
@@ -2543,8 +2564,9 @@ namespace Cyotek.Windows.Forms
         {
             base.OnMouseWheel(e);
 
-            if (AllowZoom && !SizeToFit)
+            if (AllowZoom && !SizeToFit) {
                 ProcessMouseZoom(e.Delta > 0, e.Location);
+            }
         }
 
         /// <summary>
@@ -2567,20 +2589,18 @@ namespace Cyotek.Windows.Forms
         /// </param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (AllowPainting)
-            {
+            if (AllowPainting) {
                 Rectangle innerRectangle;
 
                 innerRectangle = GetInsideViewPort();
 
                 // draw the background
-                using (var brush = new SolidBrush(BackColor))
+                using (var brush = new SolidBrush(BackColor)) {
                     e.Graphics.FillRectangle(brush, innerRectangle);
+                }
 
-                if (_texture != null && GridDisplayMode != ImageBoxGridDisplayMode.None)
-                {
-                    switch (GridDisplayMode)
-                    {
+                if (_texture != null && GridDisplayMode != ImageBoxGridDisplayMode.None) {
+                    switch (GridDisplayMode) {
                         case ImageBoxGridDisplayMode.Image:
                             Rectangle fillRectangle;
 
@@ -2595,20 +2615,25 @@ namespace Cyotek.Windows.Forms
                 }
 
                 // draw the image
-                if (!ViewSize.IsEmpty)
+                if (!ViewSize.IsEmpty) {
                     DrawImageBorder(e.Graphics);
-                if (VirtualMode)
+                }
+                if (VirtualMode) {
                     OnVirtualDraw(e);
-                else if (Image != null)
+                }
+                else if (Image != null) {
                     DrawImage(e.Graphics);
+                }
 
                 // draw the grid
-                if (ShowPixelGrid && !VirtualMode)
+                if (ShowPixelGrid && !VirtualMode) {
                     DrawPixelGrid(e.Graphics);
+                }
 
                 // draw the selection
-                if (SelectionRegion != Rectangle.Empty)
+                if (SelectionRegion != Rectangle.Empty) {
                     DrawSelection(e);
+                }
 
                 base.OnPaint(e);
             }
@@ -2626,8 +2651,9 @@ namespace Cyotek.Windows.Forms
 
             handler = PanEnd;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2642,8 +2668,9 @@ namespace Cyotek.Windows.Forms
 
             handler = PanStart;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2672,8 +2699,9 @@ namespace Cyotek.Windows.Forms
 
             handler = PixelGridColorChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2712,12 +2740,10 @@ namespace Cyotek.Windows.Forms
         {
             EventHandler<EventArgs> handler;
 
-            switch (SelectionMode)
-            {
+            switch (SelectionMode) {
                 case ImageBoxSelectionMode.Zoom:
                     if (SelectionRegion.Width > SelectionDeadZone &&
-                        SelectionRegion.Height > SelectionDeadZone)
-                    {
+                        SelectionRegion.Height > SelectionDeadZone) {
                         ZoomToRegion(SelectionRegion);
                         SelectionRegion = RectangleF.Empty;
                     }
@@ -2726,8 +2752,9 @@ namespace Cyotek.Windows.Forms
 
             handler = Selected;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2742,8 +2769,9 @@ namespace Cyotek.Windows.Forms
 
             handler = Selecting;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2758,8 +2786,9 @@ namespace Cyotek.Windows.Forms
 
             handler = SelectionColorChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2774,8 +2803,9 @@ namespace Cyotek.Windows.Forms
 
             handler = SelectionModeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2792,8 +2822,9 @@ namespace Cyotek.Windows.Forms
 
             handler = SelectionRegionChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2808,8 +2839,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ShortcutsEnabledChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2826,8 +2858,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ShowPixelGridChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2844,8 +2877,9 @@ namespace Cyotek.Windows.Forms
 
             handler = SizeToFitChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2860,8 +2894,9 @@ namespace Cyotek.Windows.Forms
 
             handler = VirtualDraw;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2878,8 +2913,9 @@ namespace Cyotek.Windows.Forms
 
             handler = VirtualModeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2896,8 +2932,9 @@ namespace Cyotek.Windows.Forms
 
             handler = VirtualSizeChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2914,8 +2951,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ZoomChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2930,8 +2968,9 @@ namespace Cyotek.Windows.Forms
 
             handler = ZoomLevelsChanged;
 
-            if (handler != null)
+            if (handler != null) {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -2946,33 +2985,37 @@ namespace Cyotek.Windows.Forms
 
             previousZoom = Zoom;
 
-            switch (e.KeyCode)
-            {
+            switch (e.KeyCode) {
                 case Keys.Home:
-                    if (AllowZoom)
+                    if (AllowZoom) {
                         ActualSize();
+                    }
                     break;
 
                 case Keys.PageDown:
                 case Keys.Oemplus:
-                    if (AllowZoom)
+                    if (AllowZoom) {
                         ZoomIn();
+                    }
                     break;
 
                 case Keys.PageUp:
                 case Keys.OemMinus:
-                    if (AllowZoom)
+                    if (AllowZoom) {
                         ZoomOut();
+                    }
                     break;
             }
 
-            if (Zoom != previousZoom && AutoCenter && !AutoScrollMinSize.IsEmpty)
+            if (Zoom != previousZoom && AutoCenter && !AutoScrollMinSize.IsEmpty) {
                 AutoScrollPosition = new Point((AutoScrollMinSize.Width - ClientSize.Width)/2,
-                                               (AutoScrollMinSize.Height - ClientSize.Height)/2);
+                    (AutoScrollMinSize.Height - ClientSize.Height)/2);
+            }
         }
 
         /// <summary>
-        ///     Processes zooming with the mouse. Attempts to keep the pre-zoom image pixel under the mouse after the zoom has completed.
+        ///     Processes zooming with the mouse. Attempts to keep the pre-zoom image pixel under the mouse after the zoom has
+        ///     completed.
         /// </summary>
         /// <param name="isZoomIn">
         ///     if set to <c>true</c> zoom in, otherwise zoom out.
@@ -2988,8 +3031,9 @@ namespace Cyotek.Windows.Forms
 
             Zoom = isZoomIn ? ZoomLevels.NextZoom(Zoom) : ZoomLevels.PreviousZoom(Zoom);
 
-            if (Zoom != currentZoom)
+            if (Zoom != currentZoom) {
                 ScrollTo(currentPixel, cursorPosition);
+            }
         }
 
         /// <summary>
@@ -3000,27 +3044,22 @@ namespace Cyotek.Windows.Forms
         /// </param>
         protected virtual void ProcessPanning(MouseEventArgs e)
         {
-            if (AutoPan && !ViewSize.IsEmpty && SelectionMode == ImageBoxSelectionMode.None)
-            {
-                if (!IsPanning && (HScroll | VScroll))
-                {
+            if (AutoPan && !ViewSize.IsEmpty && SelectionMode == ImageBoxSelectionMode.None) {
+                if (!IsPanning && (HScroll | VScroll)) {
                     _startMousePosition = e.Location;
                     IsPanning = true;
                 }
 
-                if (IsPanning)
-                {
+                if (IsPanning) {
                     int x;
                     int y;
                     Point position;
 
-                    if (!InvertMouse)
-                    {
+                    if (!InvertMouse) {
                         x = -_startScrollPosition.X + (_startMousePosition.X - e.Location.X);
                         y = -_startScrollPosition.Y + (_startMousePosition.Y - e.Location.Y);
                     }
-                    else
-                    {
+                    else {
                         x = -(_startScrollPosition.X + (_startMousePosition.X - e.Location.X));
                         y = -(_startScrollPosition.Y + (_startMousePosition.Y - e.Location.Y));
                     }
@@ -3040,13 +3079,12 @@ namespace Cyotek.Windows.Forms
         /// </param>
         protected virtual void ProcessScrollingShortcuts(KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
+            switch (e.KeyCode) {
                 case Keys.Left:
                     AdjustScroll(
                         -(e.Modifiers == Keys.None
-                              ? HorizontalScroll.SmallChange
-                              : HorizontalScroll.LargeChange), 0);
+                            ? HorizontalScroll.SmallChange
+                            : HorizontalScroll.LargeChange), 0);
                     break;
 
                 case Keys.Right:
@@ -3057,16 +3095,16 @@ namespace Cyotek.Windows.Forms
 
                 case Keys.Up:
                     AdjustScroll(0,
-                                 -(e.Modifiers == Keys.None
-                                       ? VerticalScroll.SmallChange
-                                       : VerticalScroll.LargeChange));
+                        -(e.Modifiers == Keys.None
+                            ? VerticalScroll.SmallChange
+                            : VerticalScroll.LargeChange));
                     break;
 
                 case Keys.Down:
                     AdjustScroll(0,
-                                 e.Modifiers == Keys.None
-                                     ? VerticalScroll.SmallChange
-                                     : VerticalScroll.LargeChange);
+                        e.Modifiers == Keys.None
+                            ? VerticalScroll.SmallChange
+                            : VerticalScroll.LargeChange);
                     break;
             }
         }
@@ -3079,16 +3117,13 @@ namespace Cyotek.Windows.Forms
         /// </param>
         protected virtual void ProcessSelection(MouseEventArgs e)
         {
-            if (SelectionMode != ImageBoxSelectionMode.None)
-            {
-                if (!IsSelecting)
-                {
+            if (SelectionMode != ImageBoxSelectionMode.None) {
+                if (!IsSelecting) {
                     _startMousePosition = e.Location;
                     IsSelecting = true;
                 }
 
-                if (IsSelecting)
-                {
+                if (IsSelecting) {
                     float x;
                     float y;
                     float w;
@@ -3098,24 +3133,20 @@ namespace Cyotek.Windows.Forms
 
                     imageOffset = GetImageViewPort().Location;
 
-                    if (e.X < _startMousePosition.X)
-                    {
+                    if (e.X < _startMousePosition.X) {
                         x = e.X;
                         w = _startMousePosition.X - e.X;
                     }
-                    else
-                    {
+                    else {
                         x = _startMousePosition.X;
                         w = e.X - _startMousePosition.X;
                     }
 
-                    if (e.Y < _startMousePosition.Y)
-                    {
+                    if (e.Y < _startMousePosition.Y) {
                         y = e.Y;
                         h = _startMousePosition.Y - e.Y;
                     }
-                    else
-                    {
+                    else {
                         y = _startMousePosition.Y;
                         h = e.Y - _startMousePosition.Y;
                     }
@@ -3129,8 +3160,9 @@ namespace Cyotek.Windows.Forms
                     h = h/(float) ZoomFactor;
 
                     selection = new RectangleF(x, y, w, h);
-                    if (LimitSelectionToImage)
+                    if (LimitSelectionToImage) {
                         selection = FitRectangle(selection);
+                    }
 
                     SelectionRegion = selection;
                 }
@@ -3153,20 +3185,23 @@ namespace Cyotek.Windows.Forms
         /// </summary>
         private void InitializeGridTile()
         {
-            if (_texture != null)
+            if (_texture != null) {
                 _texture.Dispose();
+            }
 
-            if (_gridTile != null)
+            if (_gridTile != null) {
                 _gridTile.Dispose();
+            }
 
-            if (GridDisplayMode != ImageBoxGridDisplayMode.None && GridCellSize != 0)
-            {
+            if (GridDisplayMode != ImageBoxGridDisplayMode.None && GridCellSize != 0) {
                 _gridTile = CreateGridTileImage(GridCellSize, GridColor, GridColorAlternate);
 
-                if (_backgroundTile != null)
+                if (_backgroundTile != null) {
                     _texture = new TextureBrush(_backgroundTile);
-                else
+                }
+                else {
                     _texture = new TextureBrush(_gridTile);
+                }
             }
 
             Invalidate();
@@ -3174,7 +3209,7 @@ namespace Cyotek.Windows.Forms
 
         public void Rotate()
         {
-            var rotated = RotateImage((Bitmap) _image, 90);
+            Bitmap rotated = RotateImage((Bitmap) _image, 90);
 
             Image = rotated;
         }
@@ -3185,21 +3220,18 @@ namespace Cyotek.Windows.Forms
             mRotate.Translate(bmpSrc.Width/-2, bmpSrc.Height/-2, MatrixOrder.Append);
             mRotate.RotateAt(theta, new Point(0, 0), MatrixOrder.Append);
 
-            using (var gp = new GraphicsPath())
-            {
-
+            using (var gp = new GraphicsPath()) {
                 // transform image points by rotation matrix
                 gp.AddPolygon(new[] {new Point(0, 0), new Point(bmpSrc.Width, 0), new Point(0, bmpSrc.Height)});
                 gp.Transform(mRotate);
-                var pts = gp.PathPoints;
+                PointF[] pts = gp.PathPoints;
 
                 // create destination bitmap sized to contain rotated source image
-                var bbox = GetBoundingBox(bmpSrc, mRotate);
+                Rectangle bbox = GetBoundingBox(bmpSrc, mRotate);
 
                 var bmpDest = new Bitmap(bbox.Width, bbox.Height);
 
-                using (var gDest = Graphics.FromImage(bmpDest))
-                {
+                using (Graphics gDest = Graphics.FromImage(bmpDest)) {
                     // draw source into dest
                     var mDest = new Matrix();
                     gDest.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -3214,23 +3246,23 @@ namespace Cyotek.Windows.Forms
         private Rectangle GetBoundingBox(Image img, Matrix matrix)
         {
             var gu = new GraphicsUnit();
-            var rImg = Rectangle.Round(img.GetBounds(ref gu));
+            Rectangle rImg = Rectangle.Round(img.GetBounds(ref gu));
 
             // Transform the four points of the image, to get the resized bounding box.
             var topLeft = new Point(rImg.Left, rImg.Top);
             var topRight = new Point(rImg.Right, rImg.Top);
             var bottomRight = new Point(rImg.Right, rImg.Bottom);
             var bottomLeft = new Point(rImg.Left, rImg.Bottom);
-            var points = new[] { topLeft, topRight, bottomRight, bottomLeft };
+            var points = new[] {topLeft, topRight, bottomRight, bottomLeft};
             var gp = new GraphicsPath(points,
-                                      new[]
-                                          {
-                                              (byte) PathPointType.Start, (byte) PathPointType.Line,
-                                              (byte) PathPointType.Line, (byte) PathPointType.Line
-                                          });
+                new[] {
+                    (byte) PathPointType.Start, (byte) PathPointType.Line,
+                    (byte) PathPointType.Line, (byte) PathPointType.Line
+                });
             gp.Transform(matrix);
             return Rectangle.Round(gp.GetBounds());
         }
+
         #endregion
     }
 }

@@ -11,7 +11,6 @@ using CPECentral.Messages;
 using CPECentral.Presenters;
 using CPECentral.Properties;
 using CPECentral.ViewModels;
-using nGenLibrary;
 
 #endregion
 
@@ -29,8 +28,8 @@ namespace CPECentral.Views
 
     public partial class PartView : ViewBase, IPartView
     {
-        private readonly PartViewPresenter _presenter;
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private readonly PartViewPresenter _presenter;
 
         public PartView()
         {
@@ -75,7 +74,7 @@ namespace CPECentral.Views
 
         protected virtual void OnReloadData()
         {
-            var handler = ReloadData;
+            EventHandler handler = ReloadData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -134,11 +133,12 @@ namespace CPECentral.Views
         {
             var view = (DocumentsView) sender;
 
-            var doc = view.SelectedDocuments.First();
+            Document doc = view.SelectedDocuments.First();
 
-            var viewInternallyFileExtensions = Settings.Default.ViewInternallyFileExtensions.Split(new[] {"|"}, StringSplitOptions.None);
+            string[] viewInternallyFileExtensions = Settings.Default.ViewInternallyFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.None);
 
-            var docExt = doc.FileName.Substring(doc.FileName.LastIndexOf("."));
+            string docExt = doc.FileName.Substring(doc.FileName.LastIndexOf("."));
 
             if (!viewInternallyFileExtensions.Any(ext => ext.Equals(docExt, StringComparison.OrdinalIgnoreCase))) {
                 documentsView_OpenDocumentExternally(sender, e);
@@ -146,7 +146,7 @@ namespace CPECentral.Views
             }
 
             ThreadPool.QueueUserWorkItem(delegate {
-                var pathToDocument = Session.DocumentService.GetPathToDocument(doc);
+                string pathToDocument = Session.DocumentService.GetPathToDocument(doc);
 
                 filePreviewTabControl.InvokeEx(() => filePreviewTabControl.ShowFile(pathToDocument));
             });
@@ -155,11 +155,11 @@ namespace CPECentral.Views
         private void documentsView_OpenDocumentExternally(object sender, EventArgs e)
         {
             try {
-                    var view = (DocumentsView)sender;
+                var view = (DocumentsView) sender;
 
-                    var doc = view.SelectedDocuments.First();
+                Document doc = view.SelectedDocuments.First();
 
-                    Task.Factory.StartNew(() => Session.DocumentService.OpenDocument(doc));
+                Task.Factory.StartNew(() => Session.DocumentService.OpenDocument(doc));
             }
             catch (Exception ex) {
                 _dialogService.ShowError(ex.Message);

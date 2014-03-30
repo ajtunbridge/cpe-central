@@ -2,11 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Delegates;
+using CPECentral.Messages;
 using CPECentral.Presenters;
 
 #endregion
@@ -21,12 +22,14 @@ namespace CPECentral.Views
         Holder CurrentHolder { get; }
         Tool SelectedTool { get; }
 
+        IEnumerable<Tool> SelectedTools { get; }
+
         event EventHandler<ToolGroupEventArgs> AddTool;
         event EventHandler<ToolGroupEventArgs> LoadGroupTools;
         event EventHandler<HolderEventArgs> LoadHolderTools;
         event EventHandler<ToolEventArgs> ToolSelectionChanged;
         event EventHandler<ToolEventArgs> ToolPicked;
-        event EventHandler<ToolEventArgs> ToolRenamed;
+        event UpdateResultCallbackDelegate<Tool> ToolRenamed;
         event EventHandler<ToolEventArgs> EditTool;
         event EventHandler<ToolEventArgs> DeleteTool;
 
@@ -40,8 +43,8 @@ namespace CPECentral.Views
     public partial class ToolsView : ViewBase, IToolsView
     {
         private readonly ToolsViewPresenter _presenter;
-        private ToolGroup _currentToolGroup;
         private Holder _currentHolder;
+        private ToolGroup _currentToolGroup;
         private bool _editMode;
 
         public ToolsView()
@@ -53,6 +56,16 @@ namespace CPECentral.Views
             }
         }
 
+        public bool MultiSelect
+        {
+            get { return toolsEnhancedListView.MultiSelect; }
+            set
+            {
+                toolsEnhancedListView.MultiSelect = value;
+                toolsEnhancedListView.CheckBoxes = value;
+            }
+        }
+
         #region IToolsView Members
 
         public bool EditMode
@@ -61,6 +74,7 @@ namespace CPECentral.Views
             set
             {
                 _editMode = value;
+                toolStrip.Visible = value;
                 toolsEnhancedListView.ContextMenuStrip = value ? listViewContextMenuStrip : null;
                 toolsEnhancedListView.ItemContextMenuStrip = value ? listViewItemContextMenuStrip : null;
                 toolsEnhancedListView.LabelEdit = value;
@@ -86,13 +100,23 @@ namespace CPECentral.Views
             }
         }
 
+        public IEnumerable<Tool> SelectedTools
+        {
+            get
+            {
+                IEnumerable<Tool> checkedTools =
+                    (from ListViewItem item in toolsEnhancedListView.CheckedItems select item.Tag as Tool);
+                return checkedTools;
+            }
+        }
+
         public event EventHandler<ToolGroupEventArgs> AddTool;
         public event EventHandler<ToolGroupEventArgs> LoadGroupTools;
         public event EventHandler<HolderEventArgs> LoadHolderTools;
 
         public event EventHandler<ToolEventArgs> ToolSelectionChanged;
         public event EventHandler<ToolEventArgs> ToolPicked;
-        public event EventHandler<ToolEventArgs> ToolRenamed;
+        public event UpdateResultCallbackDelegate<Tool> ToolRenamed;
         public event EventHandler<ToolEventArgs> EditTool;
         public event EventHandler<ToolEventArgs> DeleteTool;
 
@@ -128,8 +152,8 @@ namespace CPECentral.Views
             OnLoadHolderTools(new HolderEventArgs(holder));
 
             OnToolSelected(new ToolEventArgs(null));
-            
         }
+
         public void DisplayTools(IEnumerable<Tool> tools)
         {
             toolsEnhancedListView.Items.Clear();
@@ -139,24 +163,14 @@ namespace CPECentral.Views
                 return;
             }
 
-            foreach (var tool in tools) {
-                var item = toolsEnhancedListView.Items.Add(tool.Description);
+            foreach (Tool tool in tools) {
+                ListViewItem item = toolsEnhancedListView.Items.Add(tool.Description);
                 item.Tag = tool;
             }
         }
+
         public void RefreshTools()
         {
-            if (CurrentToolGroup == null) {
-                Debug.Write("ToolsView.RefreshTools(): CurrentToolGroup is null!");
-                return;
-            }
-
-            if (CurrentHolder == null)
-            {
-                Debug.Write("ToolsView.RefreshTools(): CurrentHolder is null!");
-                return;
-            }
-
             if (CurrentToolGroup != null) {
                 OnLoadGroupTools(new ToolGroupEventArgs(CurrentToolGroup));
             }
@@ -172,15 +186,14 @@ namespace CPECentral.Views
         protected virtual void OnAddTool(ToolGroupEventArgs e)
         {
             EventHandler<ToolGroupEventArgs> handler = AddTool;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }
 
         protected virtual void OnToolSelected(ToolEventArgs e)
         {
-            var handler = ToolSelectionChanged;
+            EventHandler<ToolEventArgs> handler = ToolSelectionChanged;
             if (handler != null) {
                 handler(this, e);
             }
@@ -188,7 +201,7 @@ namespace CPECentral.Views
 
         protected virtual void OnLoadGroupTools(ToolGroupEventArgs e)
         {
-            var handler = LoadGroupTools;
+            EventHandler<ToolGroupEventArgs> handler = LoadGroupTools;
             if (handler != null) {
                 handler(this, e);
             }
@@ -197,15 +210,14 @@ namespace CPECentral.Views
         protected virtual void OnLoadHolderTools(HolderEventArgs e)
         {
             EventHandler<HolderEventArgs> handler = LoadHolderTools;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }
 
         protected virtual void OnEditTool(ToolEventArgs e)
         {
-            var handler = EditTool;
+            EventHandler<ToolEventArgs> handler = EditTool;
             if (handler != null) {
                 handler(this, e);
             }
@@ -213,15 +225,27 @@ namespace CPECentral.Views
 
         protected virtual void OnDeleteTool(ToolEventArgs e)
         {
-            var handler = DeleteTool;
+            EventHandler<ToolEventArgs> handler = DeleteTool;
             if (handler != null) {
                 handler(this, e);
             }
         }
 
+        protected virtual bool OnToolRenamed(ToolEventArgs e)
+        {
+            bool updatedOk = false;
+
+            UpdateResultCallbackDelegate<Tool> handler = ToolRenamed;
+            if (handler != null) {
+                updatedOk = handler(e.Tool);
+            }
+
+            return updatedOk;
+        }
+
         protected virtual void OnToolPicked(ToolEventArgs e)
         {
-            var handler = ToolPicked;
+            EventHandler<ToolEventArgs> handler = ToolPicked;
             if (handler != null) {
                 handler(this, e);
             }
@@ -231,8 +255,14 @@ namespace CPECentral.Views
 
         private void toolsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int selectionCount = toolsEnhancedListView.SelectionCount;
+
+            editToolStripButton.Enabled = selectionCount == 1;
+            deleteToolStripButton.Enabled = selectionCount == 1;
+            renameToolStripButton.Enabled = selectionCount == 1;
+
             if (toolsEnhancedListView.SelectionCount == 1) {
-                var tag = toolsEnhancedListView.SelectedItems[0].Tag;
+                object tag = toolsEnhancedListView.SelectedItems[0].Tag;
 
                 if (!(tag is Tool)) {
                     return;
@@ -251,7 +281,7 @@ namespace CPECentral.Views
         {
             listViewItemContextMenuStrip.Hide();
 
-            var clickedItem = toolsEnhancedListView.SelectedItems[0];
+            ListViewItem clickedItem = toolsEnhancedListView.SelectedItems[0];
 
             switch (e.ClickedItem.Name) {
                 case "editToolStripMenuItem":
@@ -285,6 +315,44 @@ namespace CPECentral.Views
             else {
                 OnToolPicked(new ToolEventArgs(SelectedTool));
             }
+        }
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "addToolStripButton":
+                    OnAddTool(new ToolGroupEventArgs(CurrentToolGroup));
+                    break;
+                case "editToolStripButton":
+                    OnEditTool(new ToolEventArgs(SelectedTool));
+                    break;
+                case "renameToolStripButton":
+                    toolsEnhancedListView.SelectedItems[0].BeginEdit();
+                    break;
+                case "deleteToolStripButton":
+                    OnDeleteTool(new ToolEventArgs(SelectedTool));
+                    break;
+            }
+        }
+
+        private void toolsEnhancedListView_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            if (e.Label.IsNullOrWhitespace()) {
+                e.CancelEdit = true;
+                return;
+            }
+
+            string newDescription = e.Label.ToUpper().Trim();
+
+            SelectedTool.Description = newDescription;
+
+            bool updatedOk = OnToolRenamed(new ToolEventArgs(SelectedTool));
+
+            if (updatedOk) {
+                Session.MessageBus.Publish(new ToolRenamedMessage(SelectedTool));
+            }
+
+            e.CancelEdit = !updatedOk;
         }
     }
 }

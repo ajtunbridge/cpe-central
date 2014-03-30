@@ -31,15 +31,12 @@ namespace nGenLibrary.Messaging
         /// </param>
         public void Subscribe<TMessage>(Action<TMessage> handler)
         {
-            lock (_lock)
-            {
-                if (_subscribers.ContainsKey(typeof (TMessage)))
-                {
-                    var handlers = _subscribers[typeof (TMessage)];
+            lock (_lock) {
+                if (_subscribers.ContainsKey(typeof (TMessage))) {
+                    List<ActionReference> handlers = _subscribers[typeof (TMessage)];
                     handlers.Add(new ActionReference(handler));
                 }
-                else
-                {
+                else {
                     var handlers = new List<ActionReference>();
                     handlers.Add(new ActionReference(handler));
                     _subscribers[typeof (TMessage)] = handlers;
@@ -56,26 +53,21 @@ namespace nGenLibrary.Messaging
         /// </param>
         public void Unsubscribe<TMessage>(Action<TMessage> handler)
         {
-            lock (_lock)
-            {
-                if (_subscribers.ContainsKey(typeof (TMessage)))
-                {
-                    var handlers = _subscribers[typeof (TMessage)];
+            lock (_lock) {
+                if (_subscribers.ContainsKey(typeof (TMessage))) {
+                    List<ActionReference> handlers = _subscribers[typeof (TMessage)];
 
                     ActionReference targetReference = null;
-                    foreach (var reference in handlers)
-                    {
+                    foreach (ActionReference reference in handlers) {
                         var action = (Action<TMessage>) reference.Target;
-                        if ((action.Target == handler.Target) && action.Method.Equals(handler.Method))
-                        {
+                        if ((action.Target == handler.Target) && action.Method.Equals(handler.Method)) {
                             targetReference = reference;
                             break;
                         }
                     }
                     handlers.Remove(targetReference);
 
-                    if (handlers.Count == 0)
-                    {
+                    if (handlers.Count == 0) {
                         _subscribers.Remove(typeof (TMessage));
                     }
                 }
@@ -89,9 +81,8 @@ namespace nGenLibrary.Messaging
         /// <param name="message">The message to be published</param>
         public void Publish<TMessage>(TMessage message)
         {
-            var subscribers = RefreshAndGetSubscribers<TMessage>();
-            foreach (var subscriber in subscribers)
-            {
+            List<Action<TMessage>> subscribers = RefreshAndGetSubscribers<TMessage>();
+            foreach (Action<TMessage> subscriber in subscribers) {
                 subscriber.Invoke(message);
             }
         }
@@ -105,9 +96,8 @@ namespace nGenLibrary.Messaging
         {
             var message = Activator.CreateInstance<TMessage>();
 
-            var subscribers = RefreshAndGetSubscribers<TMessage>();
-            foreach (var subscriber in subscribers)
-            {
+            List<Action<TMessage>> subscribers = RefreshAndGetSubscribers<TMessage>();
+            foreach (Action<TMessage> subscriber in subscribers) {
                 subscriber.Invoke(message);
             }
         }
@@ -119,30 +109,23 @@ namespace nGenLibrary.Messaging
             var toCall = new List<Action<TMessage>>();
             var toRemove = new List<ActionReference>();
 
-            lock (_lock)
-            {
-                if (_subscribers.ContainsKey(typeof (TMessage)))
-                {
-                    var handlers = _subscribers[typeof (TMessage)];
-                    foreach (var handler in handlers)
-                    {
-                        if (handler.IsAlive)
-                        {
+            lock (_lock) {
+                if (_subscribers.ContainsKey(typeof (TMessage))) {
+                    List<ActionReference> handlers = _subscribers[typeof (TMessage)];
+                    foreach (ActionReference handler in handlers) {
+                        if (handler.IsAlive) {
                             toCall.Add((Action<TMessage>) handler.Target);
                         }
-                        else
-                        {
+                        else {
                             toRemove.Add(handler);
                         }
                     }
 
-                    foreach (var remove in toRemove)
-                    {
+                    foreach (ActionReference remove in toRemove) {
                         handlers.Remove(remove);
                     }
 
-                    if (handlers.Count == 0)
-                    {
+                    if (handlers.Count == 0) {
                         _subscribers.Remove(typeof (TMessage));
                     }
                 }

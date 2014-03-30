@@ -15,10 +15,6 @@ namespace nGenLibrary.Controls
             InitializeComponent();
         }
 
-        [Category("Key")]
-        [Description("Fired when not multiline and the enter key is pressed")]
-        public event EventHandler EnterKeyPressed;
-
         [Category("Behavior")]
         [Description("If true, there cannot be a space at the start of the text")]
         public bool DisableLeadingSpace { get; set; }
@@ -35,16 +31,19 @@ namespace nGenLibrary.Controls
         [Description("Set to true to enable only numeric characters to be entered")]
         public bool NumericCharactersOnly { get; set; }
 
+        [Category("Key")]
+        [Description("Fired when not multiline and the enter key is pressed")]
+        public event EventHandler EnterKeyPressed;
+
         private void EnhancedTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (DisableDoubleSpace)
-            {
-                if (Text.Length > 1)
-                {
-                    var previousChar = Text[Text.Length - 1];
+            if (DisableDoubleSpace) {
+                if (Text.Length > 1) {
+                    char previousChar = Text[Text.Length - 1];
 
-                    if (previousChar == 32 && e.KeyChar == 32)
+                    if (previousChar == 32 && e.KeyChar == 32) {
                         e.Handled = true;
+                    }
                 }
             }
 
@@ -57,26 +56,30 @@ namespace nGenLibrary.Controls
                 }
             }
 
-            if (e.KeyChar == 32 && DisableLeadingSpace && Text.Length == 0)
+            if (e.KeyChar == 32 && DisableLeadingSpace && Text.Length == 0) {
                 e.Handled = true;
+            }
         }
 
         private void EnhancedTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (SuppressEnterKey)
+            if (e.KeyCode == Keys.Enter) {
+                if (SuppressEnterKey) {
                     e.SuppressKeyPress = true;
+                }
 
-                if (!Multiline)
+                if (!Multiline) {
                     OnEnterKeyPressed();
+                }
             }
         }
 
         protected virtual void OnEnterKeyPressed()
         {
             EventHandler handler = EnterKeyPressed;
-            if (handler != null) handler(this, EventArgs.Empty);
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
         }
     }
 }

@@ -1,15 +1,6 @@
-﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
-// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
-
-using System;
-using System.Diagnostics;
-using System.Text;
-
-using ICSharpCode.AvalonEdit.Utils;
-
-namespace ICSharpCode.AvalonEdit.Document
+﻿namespace ICSharpCode.AvalonEdit.Document
 {
-	/*
+    /*
 	/// <summary>
 	/// Implementation of a gap text buffer.
 	/// </summary>

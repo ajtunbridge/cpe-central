@@ -73,7 +73,7 @@ namespace CPECentral.Views
 
         protected virtual void OnLogin()
         {
-            var handler = Login;
+            EventHandler handler = Login;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -94,7 +94,7 @@ namespace CPECentral.Views
         {
             versionLabel.Text = string.Format("version {0}", Application.ProductVersion);
 
-            var lastUserName = Settings.Default.LastUserName;
+            string lastUserName = Settings.Default.LastUserName;
 
             if (string.IsNullOrWhiteSpace(lastUserName)) {
                 return;

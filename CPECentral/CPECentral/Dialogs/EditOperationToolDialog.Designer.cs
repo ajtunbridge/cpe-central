@@ -56,11 +56,14 @@
             // 
             // toolTextBox
             // 
+            this.toolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.toolTextBox.Location = new System.Drawing.Point(108, 28);
             this.toolTextBox.Name = "toolTextBox";
             this.toolTextBox.ReadOnly = true;
-            this.toolTextBox.Size = new System.Drawing.Size(292, 25);
+            this.toolTextBox.Size = new System.Drawing.Size(350, 25);
             this.toolTextBox.TabIndex = 1;
+            this.toolTextBox.TabStop = false;
             // 
             // label2
             // 
@@ -73,18 +76,23 @@
             // 
             // holderTextBox
             // 
+            this.holderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.holderTextBox.Location = new System.Drawing.Point(108, 76);
             this.holderTextBox.Name = "holderTextBox";
             this.holderTextBox.ReadOnly = true;
-            this.holderTextBox.Size = new System.Drawing.Size(292, 25);
+            this.holderTextBox.Size = new System.Drawing.Size(350, 25);
             this.holderTextBox.TabIndex = 1;
+            this.holderTextBox.TabStop = false;
             // 
             // selectToolButton
             // 
+            this.selectToolButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.selectToolButton.Location = new System.Drawing.Point(108, 112);
             this.selectToolButton.Name = "selectToolButton";
-            this.selectToolButton.Size = new System.Drawing.Size(292, 38);
-            this.selectToolButton.TabIndex = 2;
+            this.selectToolButton.Size = new System.Drawing.Size(350, 38);
+            this.selectToolButton.TabIndex = 3;
             this.selectToolButton.Text = "Select tool";
             this.selectToolButton.UseVisualStyleBackColor = true;
             this.selectToolButton.Click += new System.EventHandler(this.SelectToolButton_Click);
@@ -113,7 +121,7 @@
             0});
             this.positionNumericUpDown.Name = "positionNumericUpDown";
             this.positionNumericUpDown.Size = new System.Drawing.Size(77, 25);
-            this.positionNumericUpDown.TabIndex = 3;
+            this.positionNumericUpDown.TabIndex = 0;
             this.positionNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.positionNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -137,7 +145,7 @@
             0});
             this.offsetNumericUpDown.Name = "offsetNumericUpDown";
             this.offsetNumericUpDown.Size = new System.Drawing.Size(77, 25);
-            this.offsetNumericUpDown.TabIndex = 3;
+            this.offsetNumericUpDown.TabIndex = 1;
             this.offsetNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.offsetNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -174,7 +182,7 @@
             0});
             this.useOnePerNumericUpDown.Name = "useOnePerNumericUpDown";
             this.useOnePerNumericUpDown.Size = new System.Drawing.Size(77, 25);
-            this.useOnePerNumericUpDown.TabIndex = 3;
+            this.useOnePerNumericUpDown.TabIndex = 2;
             this.useOnePerNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.useOnePerNumericUpDown.ValueChanged += new System.EventHandler(this.UseOnePerNumericUpDown_ValueChanged);
             // 
@@ -186,7 +194,7 @@
             this.okayCancelFooter.Location = new System.Drawing.Point(0, 167);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
-            this.okayCancelFooter.Size = new System.Drawing.Size(417, 45);
+            this.okayCancelFooter.Size = new System.Drawing.Size(475, 45);
             this.okayCancelFooter.TabIndex = 4;
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter_CancelClicked);
@@ -195,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 212);
+            this.ClientSize = new System.Drawing.Size(475, 212);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.useOnePerNumericUpDown);
             this.Controls.Add(this.offsetNumericUpDown);

@@ -22,18 +22,16 @@ namespace CPECentral.Data.EF5.Repositories
         {
             var tools = new List<Tool>();
 
-            var groupTools = GetSet().Where(t => t.ToolGroupId == toolGroupId).ToList();
+            List<Tool> groupTools = GetSet().Where(t => t.ToolGroupId == toolGroupId).ToList();
 
             tools.AddRange(groupTools);
 
-            if (includeChildGroups)
-            {
-                var childGroups =
+            if (includeChildGroups) {
+                IQueryable<ToolGroup> childGroups =
                     UnitOfWork.Entities.ToolGroups.AsNoTracking().Where(g => g.ParentGroupId == toolGroupId);
 
-                foreach (var childGroup in childGroups)
-                {
-                    var childTools = GetByToolGroup(childGroup, true);
+                foreach (ToolGroup childGroup in childGroups) {
+                    IEnumerable<Tool> childTools = GetByToolGroup(childGroup, true);
 
                     tools.AddRange(childTools);
                 }
@@ -49,7 +47,7 @@ namespace CPECentral.Data.EF5.Repositories
 
         public IEnumerable<Tool> GetByHolder(int holderId)
         {
-            var holder = UnitOfWork.Entities.Holders.Single(h => h.Id == holderId);
+            Holder holder = UnitOfWork.Entities.Holders.Single(h => h.Id == holderId);
 
             return holder.HolderTools.Select(ht => ht.Tool).ToList();
         }
@@ -61,13 +59,13 @@ namespace CPECentral.Data.EF5.Repositories
 
         public IEnumerable<Tool> GetByOperation(int operationId)
         {
-            var operation = UnitOfWork.Entities.Operations.Single(op => op.Id == operationId);
+            Operation operation = UnitOfWork.Entities.Operations.Single(op => op.Id == operationId);
 
             return operation.OperationTools.Select(opTool => opTool.Tool).ToList();
         }
 
         /// <summary>
-        /// Gets the number of tools dependent on this group existing
+        ///     Gets the number of tools dependent on this group existing
         /// </summary>
         /// <param name="rootGroup">The root group</param>
         /// <returns></returns>

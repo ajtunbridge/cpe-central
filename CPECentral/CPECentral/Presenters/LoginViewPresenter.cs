@@ -63,7 +63,7 @@ namespace CPECentral.Presenters
             try {
                 var cpe = new CPEUnitOfWork();
 
-                var employee = cpe.Employees.GetByUserName(args.UserName);
+                Employee employee = cpe.Employees.GetByUserName(args.UserName);
 
                 if (employee == null) {
                     _loginView.DialogService.ShowError("There is no account associated with the user name you entered!");
@@ -72,7 +72,7 @@ namespace CPECentral.Presenters
 
                 var passwordService = Session.GetInstanceOf<IPasswordService>();
 
-                var passwordOk = passwordService.AreEqual(args.Password, employee.Password, employee.Salt);
+                bool passwordOk = passwordService.AreEqual(args.Password, employee.Password, employee.Salt);
 
                 if (!passwordOk) {
                     _loginView.DialogService.ShowError("The password you provided does not match the one on record!");

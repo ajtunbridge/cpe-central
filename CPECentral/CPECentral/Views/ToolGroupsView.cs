@@ -81,6 +81,7 @@ namespace CPECentral.Views
                 groupsEnhancedTreeView.NodeContextMenuStrip = value ? nodeContextMenuStrip : null;
                 groupsEnhancedTreeView.ContextMenuStrip = value ? mainContextMenuStrip : null;
                 groupsEnhancedTreeView.LabelEdit = value;
+                toolStrip.Visible = value;
                 _editMode = value;
             }
         }
@@ -91,10 +92,10 @@ namespace CPECentral.Views
 
             groupsEnhancedTreeView.Nodes.Clear();
 
-            var rootGroups = groups.Where(t => !t.ParentGroupId.HasValue);
+            IEnumerable<ToolGroup> rootGroups = groups.Where(t => !t.ParentGroupId.HasValue);
 
-            foreach (var rootGroup in rootGroups) {
-                var rootGroupNode = groupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
+            foreach (ToolGroup rootGroup in rootGroups) {
+                TreeNode rootGroupNode = groupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
                 rootGroupNode.ImageKey = "FolderClosed";
                 rootGroupNode.SelectedImageKey = "FolderOpen";
                 rootGroupNode.Tag = rootGroup;
@@ -114,7 +115,7 @@ namespace CPECentral.Views
             }
 
             while (nodeStack.Count > 0) {
-                var currentNode = nodeStack.Pop();
+                TreeNode currentNode = nodeStack.Pop();
                 foreach (TreeNode childNode in currentNode.Nodes) {
                     nodeStack.Push(childNode);
                 }
@@ -135,7 +136,7 @@ namespace CPECentral.Views
 
         protected virtual void OnToolGroupSelected(ToolGroupEventArgs e)
         {
-            var handler = ToolGroupSelected;
+            EventHandler<ToolGroupEventArgs> handler = ToolGroupSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -143,9 +144,9 @@ namespace CPECentral.Views
 
         protected virtual bool OnToolGroupRenamed(ToolGroup entity)
         {
-            var result = false;
+            bool result = false;
 
-            var handler = ToolGroupRenamed;
+            UpdateResultCallbackDelegate<ToolGroup> handler = ToolGroupRenamed;
             if (handler != null) {
                 result = handler(entity);
             }
@@ -155,7 +156,7 @@ namespace CPECentral.Views
 
         protected virtual void OnRefreshGroups()
         {
-            var handler = RefreshGroups;
+            EventHandler handler = RefreshGroups;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -163,7 +164,7 @@ namespace CPECentral.Views
 
         protected virtual void OnAddRootGroup()
         {
-            var handler = AddRootGroup;
+            EventHandler handler = AddRootGroup;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -171,7 +172,7 @@ namespace CPECentral.Views
 
         protected virtual void OnAddChildGroup(ToolGroupEventArgs e)
         {
-            var handler = AddChildGroup;
+            EventHandler<ToolGroupEventArgs> handler = AddChildGroup;
             if (handler != null) {
                 handler(this, e);
             }
@@ -179,7 +180,7 @@ namespace CPECentral.Views
 
         protected virtual void OnDeleteGroup(ToolGroupEventArgs e)
         {
-            var handler = DeleteGroup;
+            EventHandler<ToolGroupEventArgs> handler = DeleteGroup;
             if (handler != null) {
                 handler(this, e);
             }
@@ -191,8 +192,8 @@ namespace CPECentral.Views
         {
             var parentGroup = parentNode.Tag as ToolGroup;
 
-            foreach (var childGroup in groups.Where(g => g.ParentGroupId == parentGroup.Id)) {
-                var childGroupNode = parentNode.Nodes.Add(childGroup.Name);
+            foreach (ToolGroup childGroup in groups.Where(g => g.ParentGroupId == parentGroup.Id)) {
+                TreeNode childGroupNode = parentNode.Nodes.Add(childGroup.Name);
                 childGroupNode.ImageKey = "FolderClosed";
                 childGroupNode.SelectedImageKey = "FolderOpen";
                 childGroupNode.Tag = childGroup;
@@ -242,7 +243,9 @@ namespace CPECentral.Views
                 return;
             }
 
-            var nodesAtSameLevel = e.Node.Parent == null ? groupsEnhancedTreeView.Nodes : e.Node.Parent.Nodes;
+            TreeNodeCollection nodesAtSameLevel = e.Node.Parent == null
+                ? groupsEnhancedTreeView.Nodes
+                : e.Node.Parent.Nodes;
 
             foreach (TreeNode node in nodesAtSameLevel) {
                 if (node == e.Node) {
@@ -258,7 +261,7 @@ namespace CPECentral.Views
             var group = groupsEnhancedTreeView.SelectedNode.Tag as ToolGroup;
             group.Name = e.Label.ToUpper();
 
-            var updatedOk = OnToolGroupRenamed(group);
+            bool updatedOk = OnToolGroupRenamed(group);
 
             e.CancelEdit = !updatedOk;
         }
@@ -272,6 +275,24 @@ namespace CPECentral.Views
             var selectedGroup = e.Node.Tag as ToolGroup;
 
             OnToolGroupSelected(new ToolGroupEventArgs(selectedGroup));
+        }
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "rootGroupToolStripMenuItem":
+                    OnAddRootGroup();
+                    break;
+                case "childGroupToolStripMenuItem":
+                    OnAddChildGroup(new ToolGroupEventArgs(SelectedToolGroup));
+                    break;
+                case "renameToolStripButton":
+                    groupsEnhancedTreeView.SelectedNode.BeginEdit();
+                    break;
+                case "deleteToolStripButton":
+                    OnDeleteGroup(new ToolGroupEventArgs(SelectedToolGroup));
+                    break;
+            }
         }
     }
 }

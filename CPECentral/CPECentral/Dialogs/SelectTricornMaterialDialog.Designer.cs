@@ -90,6 +90,7 @@
             this.filterValueEnhancedTextBox.Size = new System.Drawing.Size(394, 33);
             this.filterValueEnhancedTextBox.SuppressEnterKey = true;
             this.filterValueEnhancedTextBox.TabIndex = 1;
+            this.filterValueEnhancedTextBox.Text = "%%";
             this.filterValueEnhancedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.filterValueEnhancedTextBox.EnterKeyPressed += new System.EventHandler(this.filterValueEnhancedTextBox_EnterKeyPressed);
             // 

@@ -1,7 +1,6 @@
 ﻿#region Using directives
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -27,9 +26,9 @@ namespace NcCommunicator
         public SerialLink(string comPortName, MachineControl control)
         {
             // set valid characters
-            var index = 0;
+            int index = 0;
 
-            for (var charValue = 32; charValue < 94; charValue++) {
+            for (int charValue = 32; charValue < 94; charValue++) {
                 _validChars[index] = (char) charValue;
                 index++;
             }
@@ -59,15 +58,14 @@ namespace NcCommunicator
         protected virtual void OnDataTransferStarted()
         {
             EventHandler handler = DataTransferStarted;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
         }
 
         protected virtual void OnDataTransferComplete()
         {
-            var handler = DataTransferComplete;
+            EventHandler handler = DataTransferComplete;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -75,7 +73,7 @@ namespace NcCommunicator
 
         protected virtual void OnReceiveProgress(ReceiveProgressEventArgs e)
         {
-            var handler = ReceiveProgress;
+            EventHandler<ReceiveProgressEventArgs> handler = ReceiveProgress;
             if (handler != null) {
                 handler(this, e);
             }
@@ -83,7 +81,7 @@ namespace NcCommunicator
 
         protected virtual void OnTransmitProgress(TransmitProgressEventArgs e)
         {
-            var handler = TransmitProgress;
+            EventHandler<TransmitProgressEventArgs> handler = TransmitProgress;
             if (handler != null) {
                 handler(this, e);
             }
@@ -96,12 +94,11 @@ namespace NcCommunicator
 
             while (_port.BytesToRead > 0) {
                 string line = null;
-                
+
                 try {
                     line = _port.ReadLine();
                 }
                 catch (IOException ioEx) {
-
                 }
                 catch (TimeoutException timeoutEx) {
                     line = _port.ReadExisting();
@@ -111,8 +108,7 @@ namespace NcCommunicator
                     _control.XOnChar, _control.XOnChar2
                 }) >= 0;
 
-                if (receivedXOnChar)
-                {
+                if (receivedXOnChar) {
                     OnDataTransferStarted();
                     if (_awaitingTransmission) {
                         TransmitData();
@@ -131,11 +127,11 @@ namespace NcCommunicator
                     OnDataTransferComplete();
                     break;
                 }
-                
+
                 // otherwise we're still reading
 
                 // remove any invalid characters and whitespace
-                var cleanLine = RemoveInvalidCharacters(line.Trim()) + Environment.NewLine;
+                string cleanLine = RemoveInvalidCharacters(line.Trim()) + Environment.NewLine;
                 OnReceiveProgress(new ReceiveProgressEventArgs(cleanLine));
 
                 if (receivedXoffChar) {
@@ -190,7 +186,7 @@ namespace NcCommunicator
 
         public void Transmit(string text)
         {
-            var data = Encoding.ASCII.GetBytes(text);
+            byte[] data = Encoding.ASCII.GetBytes(text);
             Transmit(data);
         }
 
@@ -202,31 +198,32 @@ namespace NcCommunicator
 
         private void TransmitData()
         {
-            var currentIndex = 0;
+            int currentIndex = 0;
 
             while (currentIndex < _dataToTransmit.Length) {
-                var remainder = _dataToTransmit.Length - currentIndex;
-                var blockSize = Math.Min(DefaultBlockSize, remainder);
-                var bufferSpace = _port.WriteBufferSize - _port.BytesToWrite;
+                int remainder = _dataToTransmit.Length - currentIndex;
+                int blockSize = Math.Min(DefaultBlockSize, remainder);
+                int bufferSpace = _port.WriteBufferSize - _port.BytesToWrite;
                 while (bufferSpace < blockSize) {
                     bufferSpace = _port.WriteBufferSize - _port.BytesToWrite;
                 }
                 _port.Write(_dataToTransmit, currentIndex, blockSize);
                 var written = new byte[blockSize];
                 Buffer.BlockCopy(_dataToTransmit, currentIndex, written, 0, blockSize);
-                var progress = Convert.ToInt32(((double) currentIndex/_dataToTransmit.Length)*100);
+                int progress = Convert.ToInt32(((double) currentIndex/_dataToTransmit.Length)*100);
                 OnTransmitProgress(new TransmitProgressEventArgs(written, progress));
                 currentIndex += blockSize;
             }
         }
+
         private string RemoveInvalidCharacters(string value)
         {
             var builder = new StringBuilder();
 
-            foreach (var c in value)
-            {
-                if (!_validChars.Any(validChar => validChar == c))
+            foreach (char c in value) {
+                if (!_validChars.Any(validChar => validChar == c)) {
                     continue;
+                }
 
                 builder.Append(c);
             }

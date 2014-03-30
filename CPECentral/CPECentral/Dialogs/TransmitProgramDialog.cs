@@ -31,12 +31,11 @@ namespace CPECentral.Dialogs
             _serialLink.DataTransferComplete += SerialLinkDataTransferComplete;
         }
 
-        void _serialLink_DataTransferStarted(object sender, EventArgs e)
+        private void _serialLink_DataTransferStarted(object sender, EventArgs e)
         {
-            BeginInvoke((MethodInvoker)delegate
-            {
+            BeginInvoke((MethodInvoker) delegate {
                 messageLabel.Text = "Transmitting program...";
-                using (var stream = Resources.Beep) {
+                using (UnmanagedMemoryStream stream = Resources.Beep) {
                     using (var player = new SoundPlayer(stream)) {
                         player.Play();
                     }
@@ -62,9 +61,7 @@ namespace CPECentral.Dialogs
 
         private void _serialLink_TransmitProgress(object sender, TransmitProgressEventArgs e)
         {
-            Invoke((MethodInvoker) delegate {
-                progressBar.Value = e.Progress;
-            });
+            Invoke((MethodInvoker) delegate { progressBar.Value = e.Progress; });
         }
 
         private void TransmitProgramDialog_FormClosing(object sender, FormClosingEventArgs e)

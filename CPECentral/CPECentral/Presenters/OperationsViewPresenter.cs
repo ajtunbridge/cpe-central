@@ -40,7 +40,7 @@ namespace CPECentral.Presenters
             }
 
             try {
-                var parentForm = ((UserControl) _operationsView).ParentForm;
+                Form parentForm = ((UserControl) _operationsView).ParentForm;
 
                 using (var operationDialog = new EditOperationDialog(_operationsView.SelectedOperation)) {
                     if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
@@ -49,7 +49,7 @@ namespace CPECentral.Presenters
 
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            var opToEdit = cpe.Operations.GetById(_operationsView.SelectedOperation.Id);
+                            Operation opToEdit = cpe.Operations.GetById(_operationsView.SelectedOperation.Id);
 
                             opToEdit.CycleTime = operationDialog.CycleTime;
                             opToEdit.Description = operationDialog.Description;
@@ -82,7 +82,7 @@ namespace CPECentral.Presenters
                 Operation newOperation;
 
                 using (var operationDialog = new EditOperationDialog()) {
-                    var parentForm = ((UserControl) _operationsView).ParentForm;
+                    Form parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -123,7 +123,7 @@ namespace CPECentral.Presenters
                 Method newMethod;
 
                 using (var methodDialog = new EditMethodDialog()) {
-                    var parentForm = ((UserControl) _operationsView).ParentForm;
+                    Form parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -163,7 +163,7 @@ namespace CPECentral.Presenters
 
             try {
                 using (var methodDialog = new EditMethodDialog(_operationsView.SelectedMethod)) {
-                    var parentForm = ((UserControl) _operationsView).ParentForm;
+                    Form parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -171,7 +171,7 @@ namespace CPECentral.Presenters
 
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            var methodToEdit = cpe.Methods.GetById(_operationsView.SelectedMethod.Id);
+                            Method methodToEdit = cpe.Methods.GetById(_operationsView.SelectedMethod.Id);
                             methodToEdit.Description = methodDialog.Description;
                             methodToEdit.IsPreferred = methodDialog.IsPreferred;
 
@@ -208,7 +208,7 @@ namespace CPECentral.Presenters
                 var method = (Method) e.Argument;
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    var ops = cpe.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
+                    IOrderedEnumerable<Operation> ops = cpe.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
 
                     e.Result = ops;
                 }
@@ -237,8 +237,8 @@ namespace CPECentral.Presenters
                 var partVersion = (PartVersion) e.Argument;
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    var methods = cpe.Methods.GetByPartVersion(partVersion)
-                                     .OrderByDescending(method => method.IsPreferred);
+                    IOrderedEnumerable<Method> methods = cpe.Methods.GetByPartVersion(partVersion)
+                        .OrderByDescending(method => method.IsPreferred);
 
                     e.Result = methods;
                 }
@@ -263,10 +263,10 @@ namespace CPECentral.Presenters
 
         private void EnsureOnlyOnePreferredMethod(Method prefferedMethod, CPEUnitOfWork cpe)
         {
-            var otherMethods = cpe.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
-                                  .Where(m => m.Id != prefferedMethod.Id);
+            IEnumerable<Method> otherMethods = cpe.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
+                .Where(m => m.Id != prefferedMethod.Id);
 
-            foreach (var method in otherMethods) {
+            foreach (Method method in otherMethods) {
                 method.IsPreferred = false;
                 cpe.Methods.Update(method);
             }
@@ -302,8 +302,8 @@ namespace CPECentral.Presenters
                 var dataEx = ex as DataProviderException;
 
                 message = dataEx.Error == DataProviderError.UniqueConstraintViolation
-                              ? "An operation already exists at this sequence!"
-                              : ex.Message;
+                    ? "An operation already exists at this sequence!"
+                    : ex.Message;
             }
             else {
                 message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;

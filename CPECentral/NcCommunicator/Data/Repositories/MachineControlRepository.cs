@@ -44,7 +44,7 @@ namespace NcCommunicator.Data.Repositories
 
         public void Insert(MachineControl machineControl)
         {
-            var rowToInsert = DataSet.MachineControls.NewMachineControlsRow();
+            MachinesDataSet.MachineControlsRow rowToInsert = DataSet.MachineControls.NewMachineControlsRow();
 
             rowToInsert.BaudRate = machineControl.BaudRate;
             rowToInsert.DataBits = machineControl.DataBits;
@@ -67,7 +67,8 @@ namespace NcCommunicator.Data.Repositories
 
         public void Update(MachineControl machineControl)
         {
-            var rowToUpdate = DataSet.MachineControls.SingleOrDefault(r => r.Id == machineControl.Id);
+            MachinesDataSet.MachineControlsRow rowToUpdate =
+                DataSet.MachineControls.SingleOrDefault(r => r.Id == machineControl.Id);
 
             if (rowToUpdate == null) {
                 throw new KeyNotFoundException("Unable to find machine control with an ID value of " + machineControl.Id);

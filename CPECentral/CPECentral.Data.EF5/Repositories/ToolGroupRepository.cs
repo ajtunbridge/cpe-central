@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#region Using directives
+
+using System.Collections.Generic;
 using System.Linq;
+
+#endregion
 
 namespace CPECentral.Data.EF5.Repositories
 {

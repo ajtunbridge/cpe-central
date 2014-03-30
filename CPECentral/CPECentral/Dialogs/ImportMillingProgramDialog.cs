@@ -36,32 +36,32 @@ namespace CPECentral.Dialogs
 
         private void proceedButton_Click(object sender, EventArgs e)
         {
-            var foundFile = false;
+            bool foundFile = false;
             using (BusyCursor.Show()) {
-                var files = Directory.GetFiles(Settings.Default.MillingProgramDirectory,
-                                               "*" + _millingGroup.NextNumber + "*");
+                string[] files = Directory.GetFiles(Settings.Default.MillingProgramDirectory,
+                    "*" + _millingGroup.NextNumber + "*");
 
 
-                foreach (var fileName in files) {
-                    var ext = Path.GetExtension(fileName).ToLower();
+                foreach (string fileName in files) {
+                    string ext = Path.GetExtension(fileName).ToLower();
 
                     if (ext != ".h" && ext != ".txt") {
                         continue;
                     }
 
-                    var lastIndexOfDot = fileName.LastIndexOf(".");
+                    int lastIndexOfDot = fileName.LastIndexOf(".");
 
                     if (lastIndexOfDot == -1) {
                         continue;
                     }
 
-                    var withoutExt = Path.GetFileNameWithoutExtension(fileName);
+                    string withoutExt = Path.GetFileNameWithoutExtension(fileName);
 
                     if (!withoutExt.All(char.IsNumber)) {
                         continue;
                     }
 
-                    var fileNumber = Convert.ToInt32(withoutExt);
+                    int fileNumber = Convert.ToInt32(withoutExt);
 
                     if (fileNumber != _millingGroup.NextNumber) {
                         continue;

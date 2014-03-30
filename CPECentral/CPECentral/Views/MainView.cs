@@ -77,7 +77,7 @@ namespace CPECentral.Views
 
         protected virtual void OnAddPart()
         {
-            var handler = AddPart;
+            EventHandler handler = AddPart;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -85,7 +85,7 @@ namespace CPECentral.Views
 
         protected virtual void OnLoadHexagonCalculator()
         {
-            var handler = LoadHexagonCalculator;
+            EventHandler handler = LoadHexagonCalculator;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -94,8 +94,7 @@ namespace CPECentral.Views
         protected virtual void OnLoadSettingsDialog()
         {
             EventHandler handler = LoadSettingsDialog;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
         }
@@ -103,8 +102,7 @@ namespace CPECentral.Views
         protected virtual void OnLoadToolManagementDialog()
         {
             EventHandler handler = LoadToolManagementDialog;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
         }

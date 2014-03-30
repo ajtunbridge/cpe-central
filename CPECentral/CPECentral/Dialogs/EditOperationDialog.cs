@@ -87,17 +87,17 @@ namespace CPECentral.Dialogs
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var machineGroups = cpe.MachineGroups.GetAll().OrderBy(m => m.Name);
+                        IOrderedEnumerable<MachineGroup> machineGroups = cpe.MachineGroups.GetAll().OrderBy(m => m.Name);
 
                         machineGroupComboBox.Items.AddRange(machineGroups.ToArray());
 
                         if (_operation == null) {
-                            var preferredMachineGroupId = Session.CurrentEmployee.PreferredMachineGroup;
+                            int? preferredMachineGroupId = Session.CurrentEmployee.PreferredMachineGroup;
                             if (!preferredMachineGroupId.HasValue) {
                                 machineGroupComboBox.SelectedIndex = 0;
                             }
                             else {
-                                foreach (var group in machineGroups) {
+                                foreach (MachineGroup group in machineGroups) {
                                     if (group.Id == preferredMachineGroupId) {
                                         machineGroupComboBox.SelectedItem = group;
                                         break;
@@ -110,15 +110,15 @@ namespace CPECentral.Dialogs
                         sequenceNumericUpDown.Value = _operation.Sequence;
                         setupNumericUpDown.Value = _operation.SetupTime.HasValue ? _operation.SetupTime.Value : 0;
                         cycleNumericUpDown.Value = _operation.CycleTime.HasValue
-                                                       ? (decimal) _operation.CycleTime.Value
-                                                       : 0;
+                            ? (decimal) _operation.CycleTime.Value
+                            : 0;
                         descriptionTextBox.Text = _operation.Description;
                         machineGroupComboBox.SelectedItem = cpe.MachineGroups.GetById(_operation.MachineGroupId);
                     }
                 }
             }
             catch (Exception ex) {
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 _dialogService.ShowError(msg);
 

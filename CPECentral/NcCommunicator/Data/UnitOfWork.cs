@@ -3,7 +3,6 @@
 using System;
 using System.Data;
 using System.IO;
-using System.Reflection;
 using NcCommunicator.Data.Model;
 using NcCommunicator.Data.Repositories;
 
@@ -15,8 +14,8 @@ namespace NcCommunicator.Data
     {
         private MachinesDataSet _dataSet;
 
-        private MachineRepository _machines;
         private MachineControlRepository _machineControls;
+        private MachineRepository _machines;
 
         public UnitOfWork()
         {
@@ -44,7 +43,7 @@ namespace NcCommunicator.Data
 
         public void Commit()
         {
-            var dataFile = GetDataFileName();
+            string dataFile = GetDataFileName();
 
             _dataSet.WriteXml(dataFile, XmlWriteMode.WriteSchema);
         }
@@ -56,7 +55,7 @@ namespace NcCommunicator.Data
 
         private void ReadInDataFile()
         {
-            var dataFile = GetDataFileName();
+            string dataFile = GetDataFileName();
 
             if (!File.Exists(dataFile)) {
                 _dataSet = new MachinesDataSet();
@@ -69,10 +68,12 @@ namespace NcCommunicator.Data
 
         private static string GetDataFileName()
         {
-            var commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\CPECentral\\";
+            string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
+                                  "\\CPECentral\\";
 
-            if (!Directory.Exists(commonAppDir))
+            if (!Directory.Exists(commonAppDir)) {
                 Directory.CreateDirectory(commonAppDir);
+            }
 
             return string.Format("{0}\\machines.xml", commonAppDir);
         }
