@@ -53,6 +53,7 @@
             // 
             // groupsEnhancedTreeView
             // 
+            this.groupsEnhancedTreeView.AllowDrop = true;
             this.groupsEnhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupsEnhancedTreeView.HideSelection = false;
             this.groupsEnhancedTreeView.ImageIndex = 0;
@@ -65,6 +66,8 @@
             this.groupsEnhancedTreeView.TabIndex = 0;
             this.groupsEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.enhancedTreeView_AfterLabelEdit);
             this.groupsEnhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.groupsEnhancedTreeView_AfterSelect);
+            this.groupsEnhancedTreeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupsEnhancedTreeView_DragDrop);
+            this.groupsEnhancedTreeView.DragOver += new System.Windows.Forms.DragEventHandler(this.groupsEnhancedTreeView_DragOver);
             // 
             // treeViewImageList
             // 
@@ -160,14 +163,14 @@
             // rootGroupToolStripMenuItem
             // 
             this.rootGroupToolStripMenuItem.Name = "rootGroupToolStripMenuItem";
-            this.rootGroupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rootGroupToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.rootGroupToolStripMenuItem.Text = "Root group";
             this.rootGroupToolStripMenuItem.ToolTipText = "Add a new root group";
             // 
             // childGroupToolStripMenuItem
             // 
             this.childGroupToolStripMenuItem.Name = "childGroupToolStripMenuItem";
-            this.childGroupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.childGroupToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.childGroupToolStripMenuItem.Text = "Child group";
             this.childGroupToolStripMenuItem.ToolTipText = "Add a new child group to the select group";
             // 

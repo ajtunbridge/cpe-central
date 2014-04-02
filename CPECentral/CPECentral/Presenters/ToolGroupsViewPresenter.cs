@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Views;
@@ -26,6 +27,51 @@ namespace CPECentral.Presenters
             _view.AddChildGroup += View_AddChildGroup;
             _view.ToolGroupRenamed += View_ToolGroupRenamed;
             _view.DeleteGroup += View_DeleteGroup;
+            _view.MoveToolToNewGroup += _view_MoveToolToNewGroup;
+        }
+
+        void _view_MoveToolToNewGroup(object sender, MoveToolsToNewGroupEventArgs e)
+        {
+
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var cpe = new CPEUnitOfWork())
+                    {
+                        var groupTreeBuilder = new StringBuilder();
+
+                        groupTreeBuilder.Append(e.NewGroup.Name);
+
+                        var parentGroup = e.NewGroup.ParentGroupId.HasValue
+                            ? cpe.ToolGroups.GetById(e.NewGroup.ParentGroupId.Value)
+                            : null;
+
+                        while (parentGroup != null) {
+                            groupTreeBuilder.Insert(0, parentGroup.Name + " --> ");
+                            parentGroup = parentGroup.ParentGroupId.HasValue
+                                ? cpe.ToolGroups.GetById(parentGroup.ParentGroupId.Value)
+                                : null;
+                        }
+
+                        if (!_view.DialogService.AskQuestion("Are you sure you want to move this tool to this group?\n\n" + groupTreeBuilder)) {
+                            return;
+                        }
+
+                        foreach (var tool in e.ToolsToMove) {
+                            tool.ToolGroup = null;
+                            tool.ToolGroupId = e.NewGroup.Id;
+                            cpe.Tools.Update(tool);
+                        }
+                        cpe.Commit();
+                        RefreshGroups();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
         }
 
         private void View_DeleteGroup(object sender, ToolGroupEventArgs e)

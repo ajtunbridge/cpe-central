@@ -128,10 +128,17 @@ namespace CPECentral.Views
 
         public void LoadTools(ToolGroup toolGroup)
         {
+            Enabled = false;
+
+            toolsEnhancedListView.Items.Clear();
+
             _currentToolGroup = toolGroup;
             _currentHolder = null;
 
-            toolsEnhancedListView.Items.Clear();
+            if (toolGroup == null) {
+                toolsEnhancedListView.Items.Add("Please select a holder or tool group!");
+                return;
+            }
 
             toolsEnhancedListView.Items.Add("retrieving...");
 
@@ -142,11 +149,18 @@ namespace CPECentral.Views
 
         public void LoadTools(Holder holder)
         {
-            _currentToolGroup = null;
-            _currentHolder = holder;
+            Enabled = false;
 
             toolsEnhancedListView.Items.Clear();
 
+            _currentToolGroup = null;
+            _currentHolder = holder;
+
+            if (holder == null)
+            {
+                toolsEnhancedListView.Items.Add("Please select a holder or tool group!");
+                return;
+            }
             toolsEnhancedListView.Items.Add("retrieving...");
 
             OnLoadHolderTools(new HolderEventArgs(holder));
@@ -156,6 +170,8 @@ namespace CPECentral.Views
 
         public void DisplayTools(IEnumerable<Tool> tools)
         {
+            Enabled = true;
+
             toolsEnhancedListView.Items.Clear();
 
             if (tools == null || !tools.Any()) {
@@ -353,6 +369,11 @@ namespace CPECentral.Views
             }
 
             e.CancelEdit = !updatedOk;
+        }
+
+        private void toolsEnhancedListView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            toolsEnhancedListView.DoDragDrop(toolsEnhancedListView.SelectedItems, DragDropEffects.Move);
         }
     }
 }

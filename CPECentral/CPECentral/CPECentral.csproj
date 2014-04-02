@@ -156,7 +156,9 @@
     </Compile>
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderGroupEventArgs.cs" />
+    <Compile Include="CustomEventArgs\MoveToolsToNewGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationToolEventArgs.cs" />
+    <Compile Include="CustomEventArgs\StringEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -529,13 +531,13 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="App.config.dev">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -671,6 +673,8 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\LogoutIcon_32x32.png" />
+    <None Include="Resources\AddIcon_32x32.png" />
     <None Include="Resources\HolderIcon_16x16.png" />
     <None Include="Resources\FolderOpenIcon_16x16.png" />
     <None Include="Resources\FolderClosedIcon_16x16.png" />

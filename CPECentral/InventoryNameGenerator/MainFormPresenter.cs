@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InventoryNameGenerator.Data;
@@ -31,7 +30,7 @@ namespace InventoryNameGenerator
             _mainForm.EditModuleDataFile += _mainForm_EditModuleDataFile;
         }
 
-        void _mainForm_EditModuleDataFile(object sender, IModuleEventArgs e)
+        private void _mainForm_EditModuleDataFile(object sender, IModuleEventArgs e)
         {
             var dataEditor = new DataEditorDialog(e.Module);
 
@@ -49,7 +48,7 @@ namespace InventoryNameGenerator
             Task.Factory.StartNew(() => {
                 e.Module.LoadDataFile(Settings.Default.ModuleDataDir);
 
-                var panel = e.Module.CreatePanel();
+                ModulePanel panel = e.Module.CreatePanel();
 
                 _mainForm.Invoke((MethodInvoker) (() => _mainForm.DisplaySelectedModule(panel)));
             });
@@ -65,12 +64,15 @@ namespace InventoryNameGenerator
 
         private void loadModulesWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception) {
-                HandleException(e.Result as Exception);
+            var loadedModules = e.Result as List<IModule>;
+
+            if (loadedModules.Count == 0) {
+                MessageBox.Show("Unable to find any naming modules!\n\nThe application must now exit.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Application.Exit();
                 return;
             }
-
-            var loadedModules = e.Result as List<IModule>;
 
             _mainForm.DisplayModules(loadedModules);
         }
@@ -91,7 +93,7 @@ namespace InventoryNameGenerator
 
             _mainForm.UpdateStatus("loading modules....");
 
-            var modules = LoadModules();
+            IEnumerable<IModule> modules = LoadModules();
 
             e.Result = modules;
         }
@@ -102,37 +104,37 @@ namespace InventoryNameGenerator
         /// <returns></returns>
         private void CheckForNewAndUpdatedModules()
         {
-            var remoteModulePath = Settings.Default.ModuleUpdateDir;
+            string remoteModulePath = Settings.Default.ModuleUpdateDir;
 
             if (!Directory.Exists(remoteModulePath)) {
                 throw new DirectoryNotFoundException("Unable to find the update directory!");
             }
 
-            var remoteModules = Directory.GetFiles(remoteModulePath, "Module.*.dll");
-            var localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
+            string[] remoteModules = Directory.GetFiles(remoteModulePath, "Module.*.dll");
+            string[] localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
 
             var modulesToDownload = new List<string>();
 
-            foreach (var remoteModule in remoteModules) {
-                var filename = Path.GetFileName(remoteModule);
+            foreach (string remoteModule in remoteModules) {
+                string filename = Path.GetFileName(remoteModule);
 
                 // if module exists, check if it's up to date
                 if (localModules.Any(x => Path.GetFileName(x) == filename)) {
-                    var localModule = localModules.First(x => Path.GetFileName(x) == filename);
+                    string localModule = localModules.First(x => Path.GetFileName(x) == filename);
 
                     byte[] remoteBytes, localBytes;
 
                     using (var remoteStream = new FileStream(remoteModule, FileMode.Open, FileAccess.Read)) {
                         using (var localStream = new FileStream(localModule, FileMode.Open, FileAccess.Read)) {
-                            var md5 = MD5.Create();
+                            MD5 md5 = MD5.Create();
 
                             remoteBytes = md5.ComputeHash(remoteStream);
                             localBytes = md5.ComputeHash(localStream);
                         }
                     }
 
-                    var remoteHash = Convert.ToBase64String(remoteBytes);
-                    var localHash = Convert.ToBase64String(localBytes);
+                    string remoteHash = Convert.ToBase64String(remoteBytes);
+                    string localHash = Convert.ToBase64String(localBytes);
 
                     // if module has been modified
                     if (remoteHash != localHash) {
@@ -146,8 +148,14 @@ namespace InventoryNameGenerator
                 modulesToDownload.Add(remoteModule);
             }
 
-            foreach (var remoteModule in modulesToDownload) {
-                var localFilename = string.Format("{0}\\{1}", Session.LocalModuleDir,
+            string localDir = Session.LocalModuleDir;
+
+            if (!Directory.Exists(localDir)) {
+                Directory.CreateDirectory(localDir);
+            }
+
+            foreach (string remoteModule in modulesToDownload) {
+                string localFilename = string.Format("{0}\\{1}", localDir,
                     Path.GetFileName(remoteModule));
 
                 File.Copy(remoteModule, localFilename, true);
@@ -159,12 +167,12 @@ namespace InventoryNameGenerator
         /// </summary>
         private void RemoveOrphanedLocalModules()
         {
-            var localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
+            string[] localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
 
-            foreach (var localModulePath in localModules) {
-                var filename = Path.GetFileName(localModulePath);
+            foreach (string localModulePath in localModules) {
+                string filename = Path.GetFileName(localModulePath);
 
-                var remoteModulePath = string.Format("{0}{1}", Settings.Default.ModuleUpdateDir, filename);
+                string remoteModulePath = string.Format("{0}{1}", Settings.Default.ModuleUpdateDir, filename);
 
                 if (!File.Exists(remoteModulePath)) {
                     File.Delete(localModulePath);
@@ -177,14 +185,14 @@ namespace InventoryNameGenerator
         /// </summary>
         private void GenerateMissingDataFiles()
         {
-            var localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
+            string[] localModules = Directory.GetFiles(Session.LocalModuleDir, "Module.*.dll");
 
-            foreach (var localModulePath in localModules) {
-                var assembly = Assembly.LoadFile(localModulePath);
+            foreach (string localModulePath in localModules) {
+                Assembly assembly = Assembly.LoadFile(localModulePath);
 
-                foreach (var type in assembly.GetTypes()) {
-                    var interfaces = type.GetInterfaces();
-                    var isModule = interfaces.Contains(typeof (IModule));
+                foreach (Type type in assembly.GetTypes()) {
+                    Type[] interfaces = type.GetInterfaces();
+                    bool isModule = interfaces.Contains(typeof (IModule));
 
                     if (isModule) {
                         var module = (IModule) Activator.CreateInstance(type);
@@ -201,14 +209,20 @@ namespace InventoryNameGenerator
         {
             var loadedModules = new List<IModule>();
 
-            var moduleFiles = Directory.GetFiles(Session.LocalModuleDir);
+            string localDir = Session.LocalModuleDir;
 
-            foreach (var file in moduleFiles) {
-                var assembly = Assembly.LoadFile(file);
+            if (!Directory.Exists(localDir)) {
+                Directory.CreateDirectory(localDir);
+            }
 
-                foreach (var type in assembly.GetTypes()) {
-                    var interfaces = type.GetInterfaces();
-                    var isModule = interfaces.Contains(typeof (IModule));
+            string[] moduleFiles = Directory.GetFiles(Session.LocalModuleDir);
+
+            foreach (string file in moduleFiles) {
+                Assembly assembly = Assembly.LoadFile(file);
+
+                foreach (Type type in assembly.GetTypes()) {
+                    Type[] interfaces = type.GetInterfaces();
+                    bool isModule = interfaces.Contains(typeof (IModule));
 
                     if (isModule) {
                         var module = (IModule) Activator.CreateInstance(type);
@@ -219,11 +233,6 @@ namespace InventoryNameGenerator
             }
 
             return loadedModules;
-        }
-
-        private void HandleException(Exception exception)
-        {
-            throw new NotImplementedException();
         }
     }
 }

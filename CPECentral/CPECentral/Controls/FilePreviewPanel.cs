@@ -75,10 +75,5 @@ namespace CPECentral.Controls
         {
             Controls.Clear();
         }
-
-        private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            Enabled = true;
-        }
     }
 }

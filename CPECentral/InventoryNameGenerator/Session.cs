@@ -18,7 +18,11 @@ namespace InventoryNameGenerator
             get
             {
                 var applicationDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                return string.Format("{0}\\Inventory Name Generator\\Modules\\", applicationDataFolder);
+                var localModuleDir = string.Format("{0}\\Inventory Name Generator\\Modules\\", applicationDataFolder);
+                if (!Directory.Exists(localModuleDir)) {
+                    Directory.CreateDirectory(localModuleDir);
+                }
+                return localModuleDir;
             }
         }
     }

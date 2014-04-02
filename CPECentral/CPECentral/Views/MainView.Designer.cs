@@ -44,16 +44,16 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.utilitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librarySelectionPanel = new System.Windows.Forms.Panel();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.toolManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.utilitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -65,25 +65,28 @@
             this.partLibraryView.BackColor = System.Drawing.SystemColors.Control;
             this.partLibraryView.Dock = System.Windows.Forms.DockStyle.Left;
             this.partLibraryView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.partLibraryView.Location = new System.Drawing.Point(0, 50);
+            this.partLibraryView.Location = new System.Drawing.Point(0, 75);
             this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(375, 485);
+            this.partLibraryView.Size = new System.Drawing.Size(375, 475);
             this.partLibraryView.TabIndex = 0;
             this.partLibraryView.CustomerSelected += new System.EventHandler<CPECentral.CustomEventArgs.CustomerEventArgs>(this.partLibraryView_CustomerSelected);
             this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
+            this.partLibraryView.WorksOrderNotFound += new System.EventHandler<CPECentral.CustomEventArgs.StringEventArgs>(this.partLibraryView_WorksOrderNotFound);
             // 
             // toolStrip
             // 
+            this.toolStrip.AutoSize = false;
             this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addPartToolStripButton,
             this.toolStripSeparator1,
             this.logoutToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 25);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(838, 25);
+            this.toolStrip.Size = new System.Drawing.Size(859, 50);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
@@ -91,24 +94,24 @@
             // addPartToolStripButton
             // 
             this.addPartToolStripButton.AutoToolTip = false;
-            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_32x32;
             this.addPartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addPartToolStripButton.Name = "addPartToolStripButton";
-            this.addPartToolStripButton.Size = new System.Drawing.Size(82, 22);
+            this.addPartToolStripButton.Size = new System.Drawing.Size(98, 47);
             this.addPartToolStripButton.Text = "New part";
             this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
             // 
             // logoutToolStripButton
             // 
-            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_16x16;
+            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_32x32;
             this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logoutToolStripButton.Name = "logoutToolStripButton";
-            this.logoutToolStripButton.Size = new System.Drawing.Size(69, 22);
+            this.logoutToolStripButton.Size = new System.Drawing.Size(85, 47);
             this.logoutToolStripButton.Text = "Logout";
             // 
             // documentTransferStatusStrip
@@ -117,9 +120,9 @@
             this.documentTransferStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentTransferStatusLabel,
             this.documentTransferToolStripProgressBar});
-            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 535);
+            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 550);
             this.documentTransferStatusStrip.Name = "documentTransferStatusStrip";
-            this.documentTransferStatusStrip.Size = new System.Drawing.Size(838, 22);
+            this.documentTransferStatusStrip.Size = new System.Drawing.Size(859, 22);
             this.documentTransferStatusStrip.SizingGrip = false;
             this.documentTransferStatusStrip.TabIndex = 3;
             this.documentTransferStatusStrip.Text = "statusStrip1";
@@ -144,7 +147,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(838, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(859, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -207,51 +210,6 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Image = global::CPECentral.Properties.Resources.SettingsIcon_16x16;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
-            // 
-            // librarySelectionPanel
-            // 
-            this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.librarySelectionPanel.Location = new System.Drawing.Point(375, 50);
-            this.librarySelectionPanel.Name = "librarySelectionPanel";
-            this.librarySelectionPanel.Size = new System.Drawing.Size(463, 485);
-            this.librarySelectionPanel.TabIndex = 4;
-            // 
-            // mainStatusStrip
-            // 
-            this.mainStatusStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainToolStripStatusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 557);
-            this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(838, 22);
-            this.mainStatusStrip.TabIndex = 6;
-            this.mainStatusStrip.Text = "statusStrip2";
-            // 
-            // mainToolStripStatusLabel
-            // 
-            this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
-            this.mainToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(375, 50);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 485);
-            this.splitter1.TabIndex = 7;
-            this.splitter1.TabStop = false;
-            // 
             // toolManagementToolStripMenuItem
             // 
             this.toolManagementToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ToolIcon_16x16;
@@ -259,6 +217,11 @@
             this.toolManagementToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.toolManagementToolStripMenuItem.Text = "&Tool management";
             this.toolManagementToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(179, 6);
             // 
             // utilitiesToolStripMenuItem
             // 
@@ -276,10 +239,50 @@
             this.hexagonCalculatorToolStripMenuItem.Text = "&Hexagon calculator";
             this.hexagonCalculatorToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
-            // toolStripSeparator3
+            // toolStripMenuItem2
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Image = global::CPECentral.Properties.Resources.SettingsIcon_16x16;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
+            // 
+            // librarySelectionPanel
+            // 
+            this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.librarySelectionPanel.Location = new System.Drawing.Point(375, 75);
+            this.librarySelectionPanel.Name = "librarySelectionPanel";
+            this.librarySelectionPanel.Size = new System.Drawing.Size(484, 475);
+            this.librarySelectionPanel.TabIndex = 4;
+            // 
+            // mainStatusStrip
+            // 
+            this.mainStatusStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainToolStripStatusLabel});
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 572);
+            this.mainStatusStrip.Name = "mainStatusStrip";
+            this.mainStatusStrip.Size = new System.Drawing.Size(859, 22);
+            this.mainStatusStrip.TabIndex = 6;
+            this.mainStatusStrip.Text = "statusStrip2";
+            // 
+            // mainToolStripStatusLabel
+            // 
+            this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
+            this.mainToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(375, 75);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(5, 475);
+            this.splitter1.TabIndex = 7;
+            this.splitter1.TabStop = false;
             // 
             // MainView
             // 
@@ -289,13 +292,13 @@
             this.Controls.Add(this.librarySelectionPanel);
             this.Controls.Add(this.partLibraryView);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.documentTransferStatusStrip);
             this.Controls.Add(this.mainStatusStrip);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainView";
-            this.Size = new System.Drawing.Size(838, 579);
+            this.Size = new System.Drawing.Size(859, 594);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.documentTransferStatusStrip.ResumeLayout(false);

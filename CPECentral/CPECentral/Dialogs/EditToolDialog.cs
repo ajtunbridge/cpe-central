@@ -2,7 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary;
@@ -112,6 +115,14 @@ namespace CPECentral.Dialogs
             }
 
             tricornLinksEnhancedListView.Items.RemoveAt(tricornLinksEnhancedListView.SelectedIndices[0]);
+        }
+
+        private void generateDescriptionButton_Click(object sender, EventArgs e)
+        {
+            var appDir = Path.GetDirectoryName(Application.ExecutablePath);
+            var generatorAppPath = Path.Combine(appDir, "InventoryNameGenerator.exe");
+
+            Process.Start(generatorAppPath);
         }
     }
 }

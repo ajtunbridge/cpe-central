@@ -16,6 +16,7 @@ namespace CPECentral.Views
     public interface IMainView : IView
     {
         event EventHandler AddPart;
+        event EventHandler<StringEventArgs> AddPartByWorksOrder;
         event EventHandler LoadHexagonCalculator;
         event EventHandler LoadSettingsDialog;
         event EventHandler LoadToolManagementDialog;
@@ -45,6 +46,7 @@ namespace CPECentral.Views
         #region IMainView Members
 
         public event EventHandler AddPart;
+        public event EventHandler<StringEventArgs> AddPartByWorksOrder;
         public event EventHandler LoadHexagonCalculator;
         public event EventHandler LoadSettingsDialog;
         public event EventHandler LoadToolManagementDialog;
@@ -80,6 +82,15 @@ namespace CPECentral.Views
             EventHandler handler = AddPart;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnAddPartByWorksOrder(StringEventArgs e)
+        {
+            EventHandler<StringEventArgs> handler = AddPartByWorksOrder;
+            if (handler != null)
+            {
+                handler(this, e);
             }
         }
 
@@ -210,6 +221,11 @@ namespace CPECentral.Views
             Session.CurrentEmployee = null;
 
             Session.MessageBus.Publish<EmployeeLoggedOutMessage>();
+        }
+
+        private void partLibraryView_WorksOrderNotFound(object sender, StringEventArgs e)
+        {
+            OnAddPartByWorksOrder(e);
         }
     }
 }

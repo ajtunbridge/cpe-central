@@ -27,6 +27,7 @@ namespace CPECentral.Views
         event EventHandler<CustomerEventArgs> CustomerSelected;
         event EventHandler<PartEventArgs> PartSelected;
         event EventHandler<PartEventArgs> DeletePart;
+        event EventHandler<StringEventArgs> WorksOrderNotFound;
 
         void RefreshLibrary();
         void DisplayLibrary(PartLibraryViewModel viewModel);
@@ -86,6 +87,7 @@ namespace CPECentral.Views
         public event EventHandler<CustomerEventArgs> CustomerSelected;
         public event EventHandler<PartEventArgs> PartSelected;
         public event EventHandler<PartEventArgs> DeletePart;
+        public event EventHandler<StringEventArgs> WorksOrderNotFound;
 
         public void DisplayLibrary(PartLibraryViewModel viewModel)
         {
@@ -135,6 +137,14 @@ namespace CPECentral.Views
             if (!viewModel.Customers.Any()) {
                 if (isSearchResult) {
                     enhancedTreeView.Nodes.Add("The search returned no results!");
+                    if (SearchField == SearchField.WorksOrderNumber) {
+                        var canEditParts = AppSecurity.Check(AppPermission.ManageParts);
+                        if (canEditParts) {
+                            if (DialogService.AskQuestion("No matches found!\n\nDo you want to create a new part?")) {
+                                OnWorksOrderNotFound(new StringEventArgs(SearchValue));
+                            }
+                        }
+                    }
                 }
                 else {
                     enhancedTreeView.Nodes.Add("There are no parts in the library!");
@@ -215,6 +225,15 @@ namespace CPECentral.Views
         {
             EventHandler<PartSearchEventArgs> handler = Search;
             if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnWorksOrderNotFound(StringEventArgs e)
+        {
+            EventHandler<StringEventArgs> handler = WorksOrderNotFound;
+            if (handler != null)
+            {
                 handler(this, e);
             }
         }

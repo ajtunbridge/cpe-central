@@ -32,6 +32,7 @@
             // 
             // EnhancedTreeView
             // 
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnhancedTreeView_KeyDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.EnhancedTreeView_MouseUp);
             this.ResumeLayout(false);
 

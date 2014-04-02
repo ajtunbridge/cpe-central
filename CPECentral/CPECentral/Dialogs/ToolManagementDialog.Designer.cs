@@ -91,6 +91,7 @@
             this.toolsView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolsView.Location = new System.Drawing.Point(253, 3);
             this.toolsView.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.toolsView.MultiSelect = false;
             this.toolsView.Name = "toolsView";
             this.toolsView.Size = new System.Drawing.Size(600, 451);
             this.toolsView.TabIndex = 4;
@@ -181,12 +182,15 @@
             this.holdersView.Location = new System.Drawing.Point(3, 3);
             this.holdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.holdersView.Name = "holdersView";
+            this.holdersView.SelectedHolder = null;
+            this.holdersView.SelectedHolderGroup = null;
             this.holdersView.Size = new System.Drawing.Size(250, 451);
             this.holdersView.TabIndex = 0;
             this.holdersView.HolderSelectionChanged += new System.EventHandler<CPECentral.CustomEventArgs.HolderEventArgs>(this.HoldersView_HolderSelectionChanged);
             // 
             // ToolManagementDialog
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 561);

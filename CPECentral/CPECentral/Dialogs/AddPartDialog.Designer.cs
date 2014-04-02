@@ -34,7 +34,7 @@ namespace CPECentral.Dialogs
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddPartDialog));
             this.label1 = new System.Windows.Forms.Label();
             this.customerComboBox = new System.Windows.Forms.ComboBox();
-            this.searchButton = new System.Windows.Forms.Button();
+            this.scanServerButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -52,10 +52,10 @@ namespace CPECentral.Dialogs
             this.drawingNumberTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.versionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.newCustomerNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.filesListView = new CPECentral.Controls.FilesListView();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.filePreviewPanel = new CPECentral.Controls.FilePreviewPanel();
-            this.filesListView = new CPECentral.Controls.FilesListView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +70,8 @@ namespace CPECentral.Dialogs
             // 
             // customerComboBox
             // 
+            this.customerComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.customerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.customerComboBox.FormattingEnabled = true;
             this.customerComboBox.Location = new System.Drawing.Point(9, 91);
@@ -77,15 +79,15 @@ namespace CPECentral.Dialogs
             this.customerComboBox.Size = new System.Drawing.Size(366, 25);
             this.customerComboBox.TabIndex = 2;
             // 
-            // searchButton
+            // scanServerButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(9, 72);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(348, 52);
-            this.searchButton.TabIndex = 1;
-            this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.ScanServerButton_Click);
+            this.scanServerButton.Location = new System.Drawing.Point(9, 72);
+            this.scanServerButton.Name = "scanServerButton";
+            this.scanServerButton.Size = new System.Drawing.Size(348, 52);
+            this.scanServerButton.TabIndex = 1;
+            this.scanServerButton.Text = "Scan server for drawings and models";
+            this.scanServerButton.UseVisualStyleBackColor = true;
+            this.scanServerButton.Click += new System.EventHandler(this.ScanServerButton_Click);
             // 
             // label2
             // 
@@ -166,7 +168,7 @@ namespace CPECentral.Dialogs
             this.importFromTricornButton.Enabled = false;
             this.importFromTricornButton.Location = new System.Drawing.Point(143, 12);
             this.importFromTricornButton.Name = "importFromTricornButton";
-            this.importFromTricornButton.Size = new System.Drawing.Size(232, 56);
+            this.importFromTricornButton.Size = new System.Drawing.Size(232, 42);
             this.importFromTricornButton.TabIndex = 1;
             this.importFromTricornButton.Text = "Import from Tricorn";
             this.importFromTricornButton.UseVisualStyleBackColor = true;
@@ -185,14 +187,14 @@ namespace CPECentral.Dialogs
             // 
             this.worksOrderEnhancedTextBox.DisableDoubleSpace = false;
             this.worksOrderEnhancedTextBox.DisableLeadingSpace = false;
-            this.worksOrderEnhancedTextBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.worksOrderEnhancedTextBox.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.worksOrderEnhancedTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.worksOrderEnhancedTextBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.worksOrderEnhancedTextBox.Location = new System.Drawing.Point(9, 29);
             this.worksOrderEnhancedTextBox.MaxLength = 5;
             this.worksOrderEnhancedTextBox.Name = "worksOrderEnhancedTextBox";
             this.worksOrderEnhancedTextBox.NumericCharactersOnly = true;
-            this.worksOrderEnhancedTextBox.Size = new System.Drawing.Size(128, 39);
-            this.worksOrderEnhancedTextBox.SuppressEnterKey = false;
+            this.worksOrderEnhancedTextBox.Size = new System.Drawing.Size(128, 25);
+            this.worksOrderEnhancedTextBox.SuppressEnterKey = true;
             this.worksOrderEnhancedTextBox.TabIndex = 0;
             this.worksOrderEnhancedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.worksOrderEnhancedTextBox.EnterKeyPressed += new System.EventHandler(this.worksOrderEnhancedTextBox_EnterKeyPressed);
@@ -278,6 +280,49 @@ namespace CPECentral.Dialogs
             this.newCustomerNameTextBox.SuppressEnterKey = false;
             this.newCustomerNameTextBox.TabIndex = 5;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.searchTermTextBox);
+            this.groupBox1.Controls.Add(this.scanServerButton);
+            this.groupBox1.Controls.Add(this.progressBar);
+            this.groupBox1.Controls.Add(this.filesListView);
+            this.groupBox1.Location = new System.Drawing.Point(12, 291);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(363, 290);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Drawings/Models search";
+            // 
+            // filesListView
+            // 
+            this.filesListView.AlternateBackColor = System.Drawing.Color.LightYellow;
+            this.filesListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.filesListView.CheckBoxes = true;
+            this.filesListView.EnsureSelection = false;
+            this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filesListView.FullRowSelect = true;
+            this.filesListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.filesListView.HideSelection = false;
+            this.filesListView.IndexOfColumnToResize = 0;
+            this.filesListView.ItemContextMenuStrip = null;
+            this.filesListView.Location = new System.Drawing.Point(9, 160);
+            this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filesListView.MultiSelect = false;
+            this.filesListView.Name = "filesListView";
+            this.filesListView.ResizeColumnToFill = true;
+            this.filesListView.ShowItemToolTips = true;
+            this.filesListView.Size = new System.Drawing.Size(348, 123);
+            this.filesListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.filesListView.TabIndex = 2;
+            this.filesListView.UseAlternatingBackColor = true;
+            this.filesListView.UseCompatibleStateImageBehavior = false;
+            this.filesListView.View = System.Windows.Forms.View.Details;
+            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.FilesListView_SelectedIndexChanged);
+            // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
@@ -305,48 +350,6 @@ namespace CPECentral.Dialogs
             this.filePreviewPanel.Name = "filePreviewPanel";
             this.filePreviewPanel.Size = new System.Drawing.Size(536, 567);
             this.filePreviewPanel.TabIndex = 9;
-            // 
-            // filesListView
-            // 
-            this.filesListView.AlternateBackColor = System.Drawing.Color.WhiteSmoke;
-            this.filesListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.filesListView.CheckBoxes = true;
-            this.filesListView.EnsureSelection = false;
-            this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filesListView.FullRowSelect = true;
-            this.filesListView.HideSelection = false;
-            this.filesListView.IndexOfColumnToResize = 0;
-            this.filesListView.ItemContextMenuStrip = null;
-            this.filesListView.Location = new System.Drawing.Point(9, 160);
-            this.filesListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.filesListView.MultiSelect = false;
-            this.filesListView.Name = "filesListView";
-            this.filesListView.ResizeColumnToFill = true;
-            this.filesListView.ShowItemToolTips = true;
-            this.filesListView.Size = new System.Drawing.Size(348, 123);
-            this.filesListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.filesListView.TabIndex = 2;
-            this.filesListView.UseAlternatingBackColor = true;
-            this.filesListView.UseCompatibleStateImageBehavior = false;
-            this.filesListView.View = System.Windows.Forms.View.Details;
-            this.filesListView.SelectedIndexChanged += new System.EventHandler(this.FilesListView_SelectedIndexChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.searchTermTextBox);
-            this.groupBox1.Controls.Add(this.searchButton);
-            this.groupBox1.Controls.Add(this.progressBar);
-            this.groupBox1.Controls.Add(this.filesListView);
-            this.groupBox1.Location = new System.Drawing.Point(12, 291);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(363, 290);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Drawings/Models search";
             // 
             // AddPartDialog
             // 
@@ -393,7 +396,7 @@ namespace CPECentral.Dialogs
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox customerComboBox;
-        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.Button scanServerButton;
         private Controls.FilesListView filesListView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

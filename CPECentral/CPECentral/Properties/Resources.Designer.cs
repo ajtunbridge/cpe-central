@@ -71,6 +71,16 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("AddIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon ApplicationIcon {
@@ -245,6 +255,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap LogoutIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("LogoutIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoutIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("LogoutIcon_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

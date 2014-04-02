@@ -24,10 +24,87 @@ namespace CPECentral.Presenters
             _view = view;
 
             _view.LoadHolders += View_LoadHolders;
+
+            _view.AddHolder += View_AddHolder;
+            _view.AddHolderGroup += View_AddHolderGroup;
+
             _view.HolderRenamed += View_HolderRenamed;
             _view.HolderGroupRenamed += View_HolderGroupRenamed;
-            _view.AddHolderGroup += View_AddHolderGroup;
-            _view.AddHolder += View_AddHolder;
+
+            _view.DeleteHolder += _view_DeleteHolder;
+            _view.DeleteHolderGroup += _view_DeleteHolderGroup;
+        }
+
+        bool _view_DeleteHolderGroup(HolderGroup entity)
+        {
+            var userCancelled = _view.DialogService.AskQuestion("This will delete this holder group and all holders related to it!\n\nDo you want to cancel?");
+
+            if (userCancelled)
+            {
+                return false;
+            }
+
+            var okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this group?");
+
+            if (!okToDelete)
+            {
+                return false;
+            }
+
+            bool deletedOk = false;
+
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var cpe = new CPEUnitOfWork())
+                    {
+                        // all related Holders + HolderTools will be cascade deleted by the database
+                        cpe.HolderGroups.Delete(entity);
+                        cpe.Commit();
+                        deletedOk = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, entity);
+            }
+
+            return deletedOk;
+        }
+
+        bool _view_DeleteHolder(Holder entity)
+        {
+            var userCancelled = _view.DialogService.AskQuestion("This will delete this holder!\n\nDo you want to cancel?");
+
+            if (userCancelled) {
+                return false;
+            }
+
+            var okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this holder?");
+
+            if (!okToDelete) {
+                return false;
+            }
+
+            bool deletedOk = false;
+
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        // all related HolderTools will be cascade deleted by the database
+                        cpe.Holders.Delete(entity);
+                        cpe.Commit();
+                        deletedOk = true;
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex, entity);
+            }
+
+            return deletedOk;
         }
 
         private void View_AddHolder(object sender, HolderGroupEventArgs e)
@@ -177,6 +254,14 @@ namespace CPECentral.Presenters
                     }
                     else if (sender is HolderGroup) {
                         message = "A holder group already exists with this name!";
+                    }
+                }
+                else if (dataEx.Error == DataProviderError.RelationshipViolation) {
+                    if (sender is Holder) {
+                        message = "This holder is referenced in one or more operation tool lists!";
+                    }
+                    else if (sender is HolderGroup) {
+                        message = "At least one holder in this group is referenced in one or more operation tool lists!";
                     }
                 }
                 else {

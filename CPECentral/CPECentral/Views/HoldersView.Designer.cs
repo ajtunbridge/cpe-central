@@ -34,27 +34,28 @@
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.holderGroupContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.renameHolderGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteHolderGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.holderContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameHolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteHolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.rootGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.childGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.renameToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.addHolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.addDropDownContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addGroupDropDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHolderDropDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContextMenuStrip.SuspendLayout();
             this.holderGroupContextMenuStrip.SuspendLayout();
             this.holderContextMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            this.addDropDownContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // holdersEnhancedTreeView
@@ -69,6 +70,7 @@
             this.holdersEnhancedTreeView.SelectedImageIndex = 0;
             this.holdersEnhancedTreeView.Size = new System.Drawing.Size(212, 267);
             this.holdersEnhancedTreeView.TabIndex = 0;
+            this.holdersEnhancedTreeView.DeleteKeyPressed += new System.EventHandler(this.holdersEnhancedTreeView_DeleteKeyPressed);
             this.holdersEnhancedTreeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.holdersEnhancedTreeView_AfterLabelEdit);
             this.holdersEnhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.holdersEnhancedTreeView_AfterSelect);
             this.holdersEnhancedTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.holdersEnhancedTreeView_MouseDown);
@@ -81,85 +83,93 @@
             // 
             // mainContextMenuStrip
             // 
+            this.mainContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addGroupToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
-            this.mainContextMenuStrip.Size = new System.Drawing.Size(132, 26);
+            this.mainContextMenuStrip.Size = new System.Drawing.Size(141, 26);
             this.mainContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainContextMenuStrip_ItemClicked);
             // 
             // addGroupToolStripMenuItem
             // 
             this.addGroupToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
-            this.addGroupToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.addGroupToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.addGroupToolStripMenuItem.Text = "&Add group";
             // 
             // holderGroupContextMenuStrip
             // 
+            this.holderGroupContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.holderGroupContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addHolderToolStripMenuItem,
             this.toolStripSeparator3,
-            this.renameToolStripMenuItem,
+            this.renameHolderGroupToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.deleteToolStripMenuItem});
+            this.deleteHolderGroupToolStripMenuItem});
             this.holderGroupContextMenuStrip.Name = "holderGroupContextMenuStrip";
-            this.holderGroupContextMenuStrip.Size = new System.Drawing.Size(153, 104);
+            this.holderGroupContextMenuStrip.Size = new System.Drawing.Size(143, 82);
             this.holderGroupContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.holderGroupContextMenuStrip_ItemClicked);
             // 
-            // renameToolStripMenuItem
+            // addHolderToolStripMenuItem
             // 
-            this.renameToolStripMenuItem.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
-            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.renameToolStripMenuItem.Text = "&Rename";
+            this.addHolderToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addHolderToolStripMenuItem.Name = "addHolderToolStripMenuItem";
+            this.addHolderToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.addHolderToolStripMenuItem.Text = "&Add holder";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
+            // 
+            // renameHolderGroupToolStripMenuItem
+            // 
+            this.renameHolderGroupToolStripMenuItem.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
+            this.renameHolderGroupToolStripMenuItem.Name = "renameHolderGroupToolStripMenuItem";
+            this.renameHolderGroupToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.renameHolderGroupToolStripMenuItem.Text = "&Rename";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(139, 6);
             // 
-            // deleteToolStripMenuItem
+            // deleteHolderGroupToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.deleteToolStripMenuItem.Text = "&Delete";
+            this.deleteHolderGroupToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteHolderGroupToolStripMenuItem.Name = "deleteHolderGroupToolStripMenuItem";
+            this.deleteHolderGroupToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.deleteHolderGroupToolStripMenuItem.Text = "&Delete";
             // 
             // holderContextMenuStrip
             // 
+            this.holderContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.holderContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
-            this.toolStripMenuItem2,
+            this.renameHolderToolStripMenuItem,
             this.toolStripSeparator1,
-            this.toolStripMenuItem3});
+            this.deleteHolderToolStripMenuItem});
             this.holderContextMenuStrip.Name = "holderGroupContextMenuStrip";
-            this.holderContextMenuStrip.Size = new System.Drawing.Size(118, 76);
+            this.holderContextMenuStrip.Size = new System.Drawing.Size(124, 54);
+            this.holderContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.holderContextMenuStrip_ItemClicked);
             // 
-            // editToolStripMenuItem
+            // renameHolderToolStripMenuItem
             // 
-            this.editToolStripMenuItem.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.editToolStripMenuItem.Text = "E&dit";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem2.Text = "&Rename";
+            this.renameHolderToolStripMenuItem.Image = global::CPECentral.Properties.Resources.RenameIcon_16x16;
+            this.renameHolderToolStripMenuItem.Name = "renameHolderToolStripMenuItem";
+            this.renameHolderToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.renameHolderToolStripMenuItem.Text = "&Rename";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(120, 6);
             // 
-            // toolStripMenuItem3
+            // deleteHolderToolStripMenuItem
             // 
-            this.toolStripMenuItem3.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem3.Text = "&Delete";
+            this.deleteHolderToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteHolderToolStripMenuItem.Name = "deleteHolderToolStripMenuItem";
+            this.deleteHolderToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.deleteHolderToolStripMenuItem.Text = "&Delete";
             // 
             // toolStrip
             // 
@@ -173,30 +183,19 @@
             this.toolStrip.Size = new System.Drawing.Size(212, 25);
             this.toolStrip.TabIndex = 4;
             this.toolStrip.Text = "toolStrip1";
+            this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
             // addToolStripButton
             // 
             this.addToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rootGroupToolStripMenuItem,
-            this.childGroupToolStripMenuItem});
+            this.addToolStripButton.DropDown = this.addDropDownContextMenuStrip;
             this.addToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.addToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addToolStripButton.Name = "addToolStripButton";
             this.addToolStripButton.Size = new System.Drawing.Size(29, 22);
-            this.addToolStripButton.Text = "toolStripButton1";
-            // 
-            // rootGroupToolStripMenuItem
-            // 
-            this.rootGroupToolStripMenuItem.Name = "rootGroupToolStripMenuItem";
-            this.rootGroupToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.rootGroupToolStripMenuItem.Text = "Root group";
-            // 
-            // childGroupToolStripMenuItem
-            // 
-            this.childGroupToolStripMenuItem.Name = "childGroupToolStripMenuItem";
-            this.childGroupToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.childGroupToolStripMenuItem.Text = "Child group";
+            this.addToolStripButton.Text = "Add";
+            this.addToolStripButton.ToolTipText = "Add a new group or holder";
+            this.addToolStripButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
             // deleteToolStripButton
             // 
@@ -205,7 +204,8 @@
             this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteToolStripButton.Name = "deleteToolStripButton";
             this.deleteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteToolStripButton.Text = "toolStripButton2";
+            this.deleteToolStripButton.Text = "Delete";
+            this.deleteToolStripButton.ToolTipText = "Delete the selected group or holder";
             // 
             // toolStripSeparator2
             // 
@@ -219,19 +219,31 @@
             this.renameToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.renameToolStripButton.Name = "renameToolStripButton";
             this.renameToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.renameToolStripButton.Text = "toolStripButton4";
+            this.renameToolStripButton.Text = "Rename";
+            this.renameToolStripButton.ToolTipText = "Rename the selected group or holder";
             // 
-            // addHolderToolStripMenuItem
+            // addDropDownContextMenuStrip
             // 
-            this.addHolderToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.addHolderToolStripMenuItem.Name = "addHolderToolStripMenuItem";
-            this.addHolderToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.addHolderToolStripMenuItem.Text = "&Add holder";
+            this.addDropDownContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addDropDownContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addGroupDropDownToolStripMenuItem,
+            this.addHolderDropDownToolStripMenuItem});
+            this.addDropDownContextMenuStrip.Name = "addDropDownContextMenuStrip";
+            this.addDropDownContextMenuStrip.ShowImageMargin = false;
+            this.addDropDownContextMenuStrip.Size = new System.Drawing.Size(92, 48);
+            this.addDropDownContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
-            // toolStripSeparator3
+            // addGroupDropDownToolStripMenuItem
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(130, 6);
+            this.addGroupDropDownToolStripMenuItem.Name = "addGroupDropDownToolStripMenuItem";
+            this.addGroupDropDownToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.addGroupDropDownToolStripMenuItem.Text = "Group";
+            // 
+            // addHolderDropDownToolStripMenuItem
+            // 
+            this.addHolderDropDownToolStripMenuItem.Name = "addHolderDropDownToolStripMenuItem";
+            this.addHolderDropDownToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.addHolderDropDownToolStripMenuItem.Text = "&Holder";
             // 
             // HoldersView
             // 
@@ -249,6 +261,7 @@
             this.holderContextMenuStrip.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.addDropDownContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,23 +273,23 @@
         private System.Windows.Forms.ContextMenuStrip mainContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addGroupToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip holderGroupContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renameHolderGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteHolderGroupToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip holderContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem renameHolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem deleteHolderToolStripMenuItem;
         private System.Windows.Forms.ImageList treeViewImageList;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripDropDownButton addToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem rootGroupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem childGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton deleteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton renameToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem addHolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ContextMenuStrip addDropDownContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem addGroupDropDownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addHolderDropDownToolStripMenuItem;
     }
 }

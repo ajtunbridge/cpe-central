@@ -2,6 +2,7 @@
 
 using System;
 using System.Windows.Forms;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.Messages;
@@ -21,6 +22,7 @@ namespace CPECentral.Presenters
             _mainView = mainView;
 
             _mainView.AddPart += mainView_AddPart;
+            _mainView.AddPartByWorksOrder += _mainView_AddPartByWorksOrder;
             _mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
             _mainView.LoadSettingsDialog += mainView_LoadSettingsDialog;
             _mainView.LoadToolManagementDialog += _mainView_LoadToolManagementDialog;
@@ -58,69 +60,91 @@ namespace CPECentral.Presenters
             }
 
             using (var addPartDialog = new AddPartDialog()) {
-                Form parent = ((UserControl) _mainView).ParentForm;
+                Form parent = _mainView.ParentForm;
 
                 if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
                     return;
                 }
 
-                try {
-                    using (BusyCursor.Show()) {
-                        using (var cpe = new CPEUnitOfWork()) {
-                            cpe.BeginTransaction();
+                AddNewPart(addPartDialog);
+            }
+        }
 
-                            var part = new Part();
+        private void _mainView_AddPartByWorksOrder(object sender, StringEventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
+                return;
+            }
 
-                            if (addPartDialog.IsNewCustomer) {
-                                var customer = new Customer();
-                                customer.Name = addPartDialog.NewCustomerName;
-                                customer.CreatedBy = Session.CurrentEmployee.Id;
-                                customer.ModifiedBy = Session.CurrentEmployee.Id;
+            using (var addPartDialog = new AddPartDialog(e.Value)) {
+                Form parent = _mainView.ParentForm;
 
-                                cpe.Customers.Add(customer);
+                if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
+                    return;
+                }
 
-                                part.Customer = customer;
-                            }
-                            else {
-                                part.CustomerId = addPartDialog.SelectedCustomer.Id;
-                            }
+                AddNewPart(addPartDialog);
+            }
+        }
 
-                            part.DrawingNumber = addPartDialog.DrawingNumber;
-                            part.Name = addPartDialog.PartName;
-                            part.ToolingLocation = addPartDialog.ToolingLocation;
-                            part.CreatedBy = Session.CurrentEmployee.Id;
-                            part.ModifiedBy = Session.CurrentEmployee.Id;
+        private void AddNewPart(AddPartDialog addPartDialog)
+        {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        cpe.BeginTransaction();
 
-                            cpe.Parts.Add(part);
+                        var part = new Part();
 
-                            var version = new PartVersion();
-                            version.Part = part;
-                            version.VersionNumber = addPartDialog.VersionNumber;
-                            version.CreatedBy = Session.CurrentEmployee.Id;
-                            version.ModifiedBy = Session.CurrentEmployee.Id;
+                        if (addPartDialog.IsNewCustomer) {
+                            var customer = new Customer();
+                            customer.Name = addPartDialog.NewCustomerName;
+                            customer.CreatedBy = Session.CurrentEmployee.Id;
+                            customer.ModifiedBy = Session.CurrentEmployee.Id;
 
-                            cpe.PartVersions.Add(version);
+                            cpe.Customers.Add(customer);
 
-                            cpe.Commit();
+                            part.Customer = customer;
+                        }
+                        else {
+                            part.CustomerId = addPartDialog.SelectedCustomer.Id;
+                        }
 
-                            Session.MessageBus.Publish(new PartAddedMessage(part));
+                        part.DrawingNumber = addPartDialog.DrawingNumber;
+                        part.Name = addPartDialog.PartName;
+                        part.ToolingLocation = addPartDialog.ToolingLocation;
+                        part.CreatedBy = Session.CurrentEmployee.Id;
+                        part.ModifiedBy = Session.CurrentEmployee.Id;
 
-                            foreach (string file in addPartDialog.FilesToImport) {
-                                Session.DocumentService.QueueUpload(file, version);
-                            }
+                        cpe.Parts.Add(part);
+
+                        var version = new PartVersion();
+                        version.Part = part;
+                        version.VersionNumber = addPartDialog.VersionNumber;
+                        version.CreatedBy = Session.CurrentEmployee.Id;
+                        version.ModifiedBy = Session.CurrentEmployee.Id;
+
+                        cpe.PartVersions.Add(version);
+
+                        cpe.Commit();
+
+                        Session.MessageBus.Publish(new PartAddedMessage(part));
+
+                        foreach (string file in addPartDialog.FilesToImport) {
+                            Session.DocumentService.QueueUpload(file, version);
                         }
                     }
                 }
-                catch (DataProviderException dataEx) {
-                    string msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
-                        ? "A part with these details already exists in the system!"
-                        : dataEx.Message;
-                    _mainView.DialogService.ShowError(msg);
-                }
-                catch (Exception ex) {
-                    string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
-                    _mainView.DialogService.ShowError(msg);
-                }
+            }
+            catch (DataProviderException dataEx) {
+                string msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
+                    ? "A part with these details already exists in the system!"
+                    : dataEx.Message;
+                _mainView.DialogService.ShowError(msg);
+            }
+            catch (Exception ex) {
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                _mainView.DialogService.ShowError(msg);
             }
         }
     }

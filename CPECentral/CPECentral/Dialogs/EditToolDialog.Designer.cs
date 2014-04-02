@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.descriptionEnhancedTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
+            this.generateDescriptionButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +117,7 @@
             this.descriptionEnhancedTextBox.MaxLength = 50;
             this.descriptionEnhancedTextBox.Name = "descriptionEnhancedTextBox";
             this.descriptionEnhancedTextBox.NumericCharactersOnly = false;
-            this.descriptionEnhancedTextBox.Size = new System.Drawing.Size(475, 25);
+            this.descriptionEnhancedTextBox.Size = new System.Drawing.Size(401, 25);
             this.descriptionEnhancedTextBox.SuppressEnterKey = false;
             this.descriptionEnhancedTextBox.TabIndex = 1;
             // 
@@ -133,11 +134,23 @@
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter_CancelClicked);
             // 
+            // generateDescriptionButton
+            // 
+            this.generateDescriptionButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generateDescriptionButton.Location = new System.Drawing.Point(419, 29);
+            this.generateDescriptionButton.Name = "generateDescriptionButton";
+            this.generateDescriptionButton.Size = new System.Drawing.Size(68, 25);
+            this.generateDescriptionButton.TabIndex = 3;
+            this.generateDescriptionButton.Text = "Generate";
+            this.generateDescriptionButton.UseVisualStyleBackColor = true;
+            this.generateDescriptionButton.Click += new System.EventHandler(this.generateDescriptionButton_Click);
+            // 
             // EditToolDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 336);
+            this.Controls.Add(this.generateDescriptionButton);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.descriptionEnhancedTextBox);
@@ -169,5 +182,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button generateDescriptionButton;
     }
 }

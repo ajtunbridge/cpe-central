@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -10,6 +11,18 @@ namespace nGenLibrary.Controls
 {
     public partial class EnhancedTreeView : TreeView
     {
+        [Category("Behavior")]
+        [Description("Fired when the delete key is pressed.")]
+        public event EventHandler DeleteKeyPressed;
+
+        protected virtual void OnDeleteKeyPressed()
+        {
+            EventHandler handler = DeleteKeyPressed;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
         public EnhancedTreeView()
         {
             InitializeComponent();
@@ -66,6 +79,16 @@ namespace nGenLibrary.Controls
                 }
 
                 SelectedNode = clickedNode;
+            }
+        }
+
+        private void EnhancedTreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2 && LabelEdit && SelectedNode != null) {
+                SelectedNode.BeginEdit();
+            }
+            else if (e.KeyCode == Keys.Delete) {
+                OnDeleteKeyPressed();
             }
         }
     }

@@ -3,13 +3,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Media;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Delegates;
 using CPECentral.Presenters;
 using CPECentral.Properties;
+using Color = System.Drawing.Color;
 
 #endregion
 
@@ -26,7 +29,8 @@ namespace CPECentral.Views
         event EventHandler<ToolGroupEventArgs> DeleteGroup;
         event EventHandler<ToolGroupEventArgs> ToolGroupSelected;
         event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
-
+        event EventHandler<MoveToolsToNewGroupEventArgs> MoveToolToNewGroup;
+ 
         void DisplayGroups(IEnumerable<ToolGroup> groups);
 
         void SelectToolGroup(ToolGroup groupToSelect, bool inEditMode);
@@ -37,7 +41,6 @@ namespace CPECentral.Views
     {
         private readonly ToolGroupsViewPresenter _presenter;
         private bool _editMode;
-        private bool _isDisplayingGroups;
 
         public ToolGroupsView()
         {
@@ -62,6 +65,7 @@ namespace CPECentral.Views
         public event EventHandler<ToolGroupEventArgs> AddChildGroup;
 
         public event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
+        public event EventHandler<MoveToolsToNewGroupEventArgs> MoveToolToNewGroup;
 
         public ToolGroup SelectedToolGroup
         {
@@ -88,11 +92,11 @@ namespace CPECentral.Views
 
         public void DisplayGroups(IEnumerable<ToolGroup> groups)
         {
-            _isDisplayingGroups = true;
-
             groupsEnhancedTreeView.Nodes.Clear();
 
             IEnumerable<ToolGroup> rootGroups = groups.Where(t => !t.ParentGroupId.HasValue);
+
+            TreeNode nodeToSelect = null;
 
             foreach (ToolGroup rootGroup in rootGroups) {
                 TreeNode rootGroupNode = groupsEnhancedTreeView.Nodes.Add(rootGroup.Name);
@@ -104,7 +108,12 @@ namespace CPECentral.Views
 
             groupsEnhancedTreeView.Sort();
 
-            _isDisplayingGroups = false;
+            if (groupsEnhancedTreeView.Nodes.Count > 0) {
+                groupsEnhancedTreeView.SelectedNode = groupsEnhancedTreeView.Nodes[0];
+            }
+            else {
+                OnToolGroupSelected(new ToolGroupEventArgs(null));
+            }
         }
 
         public void SelectToolGroup(ToolGroup groupToSelect, bool inEditMode)
@@ -152,6 +161,15 @@ namespace CPECentral.Views
             }
 
             return result;
+        }
+
+        protected virtual void OnMoveToolToNewGroup(MoveToolsToNewGroupEventArgs e)
+        {
+            EventHandler<MoveToolsToNewGroupEventArgs> handler = MoveToolToNewGroup;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         protected virtual void OnRefreshGroups()
@@ -268,10 +286,6 @@ namespace CPECentral.Views
 
         private void groupsEnhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (_isDisplayingGroups) {
-                return;
-            }
-
             var selectedGroup = e.Node.Tag as ToolGroup;
 
             OnToolGroupSelected(new ToolGroupEventArgs(selectedGroup));
@@ -292,6 +306,60 @@ namespace CPECentral.Views
                 case "deleteToolStripButton":
                     OnDeleteGroup(new ToolGroupEventArgs(SelectedToolGroup));
                     break;
+            }
+        }
+
+        private void groupsEnhancedTreeView_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof (ListView.SelectedListViewItemCollection))) {
+
+                var point = groupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
+
+                var nodeDroppedOn = groupsEnhancedTreeView.GetNodeAt(point);
+
+                if (nodeDroppedOn == null) {
+                    return;
+                }
+
+                var itemsDropped = (ListView.SelectedListViewItemCollection)e.Data.GetData(typeof (ListView.SelectedListViewItemCollection));
+
+                var group = nodeDroppedOn.Tag as ToolGroup;
+                var toolsToMove = new List<Tool>();
+
+                foreach (ListViewItem selectedItem in itemsDropped) {
+                    var toolToMove = selectedItem.Tag as Tool;
+                    toolsToMove.Add(toolToMove);
+                }
+
+                OnMoveToolToNewGroup(new MoveToolsToNewGroupEventArgs(toolsToMove, group));
+
+                groupsEnhancedTreeView.SelectedNode = nodeDroppedOn;
+            }
+        }
+
+        private void groupsEnhancedTreeView_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof (ListView.SelectedListViewItemCollection))) {
+                Point pointToClient = groupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
+
+                TreeNode node = groupsEnhancedTreeView.GetNodeAt(pointToClient.X, pointToClient.Y);
+
+                if (node == null) {
+                    return;
+                }
+
+                if (node.PrevVisibleNode != null) {
+                    node.PrevVisibleNode.BackColor = Color.White;
+                }
+                if (node.NextVisibleNode != null) {
+                    node.NextVisibleNode.BackColor = Color.White;
+                }
+
+                node.BackColor = Color.LightYellow;
+                
+                node.Expand();
+
+                e.Effect = e.AllowedEffect;
             }
         }
     }

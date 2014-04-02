@@ -72,6 +72,7 @@
             this.toolsEnhancedListView.View = System.Windows.Forms.View.Details;
             this.toolsEnhancedListView.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.toolsEnhancedListView_AfterLabelEdit);
             this.toolsEnhancedListView.ItemActivate += new System.EventHandler(this.toolsEnhancedListView_ItemActivate);
+            this.toolsEnhancedListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.toolsEnhancedListView_ItemDrag);
             this.toolsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.toolsEnhancedListView_SelectedIndexChanged);
             // 
             // columnHeader4

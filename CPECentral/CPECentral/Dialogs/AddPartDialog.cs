@@ -23,12 +23,21 @@ namespace CPECentral.Dialogs
         private bool _isScanningForFiles;
         private BackgroundWorker _scanServerWorker;
 
-        public AddPartDialog()
+        public AddPartDialog() : this(null)
+        {
+        }
+
+        public AddPartDialog(string worksOrderNumber)
         {
             InitializeComponent();
 
-            if (!DesignMode) {
+            if (!DesignMode)
+            {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
+
+                if (!worksOrderNumber.IsNullOrWhitespace()) {
+                    worksOrderEnhancedTextBox.Text = worksOrderNumber;
+                }
             }
         }
 
@@ -184,6 +193,10 @@ namespace CPECentral.Dialogs
         private void AddPartDialog_Load(object sender, EventArgs e)
         {
             LoadCustomers();
+
+            if (!worksOrderEnhancedTextBox.Text.IsNullOrWhitespace()) {
+                importFromTricornButton.PerformClick();
+            }
         }
 
         private void IsNewCustomerCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -202,8 +215,8 @@ namespace CPECentral.Dialogs
         {
             if (_isScanningForFiles) {
                 _scanServerWorker.CancelAsync();
-                searchButton.Text = "Cancelling...";
-                searchButton.Enabled = false;
+                scanServerButton.Text = "Cancelling...";
+                scanServerButton.Enabled = false;
 
                 return;
             }
@@ -217,7 +230,7 @@ namespace CPECentral.Dialogs
 
             filesListView.Items.Clear();
 
-            searchButton.Text = "Cancel";
+            scanServerButton.Text = "Cancel";
 
             progressBar.Style = ProgressBarStyle.Marquee;
 
@@ -290,14 +303,13 @@ namespace CPECentral.Dialogs
         {
             _isScanningForFiles = false;
 
-            searchButton.Text = "Scan server for drawings and models";
-            searchButton.Enabled = true;
+            scanServerButton.Text = "Scan server for drawings and models";
+            scanServerButton.Enabled = true;
             progressBar.Style = ProgressBarStyle.Blocks;
 
             // if no drawing files were found
             if (filesListView.Items.Count == 0) {
-                _dialogService.Notify(
-                    "Could not find any matching files in the drawing directory!\n\nTry modifying the search term and scan again.");
+                filesListView.Items.Add("No matches!");
                 return;
             }
 
@@ -337,6 +349,7 @@ namespace CPECentral.Dialogs
                         _dialogService.Notify("The works order number you entered does not exist!");
                         return;
                     }
+
                     Tricorn.Customer customer = tricorn.GetCustomer(worksOrder.Customer_Reference.Value);
 
                     bool isNewCustomer = true;
@@ -363,6 +376,8 @@ namespace CPECentral.Dialogs
                     drawingNumberTextBox.Text = worksOrder.Drawing_Number;
                     versionTextBox.Text = worksOrder.Drawing_Issue;
                     nameTextBox.Text = worksOrder.Description;
+
+                    scanServerButton.PerformClick();
                 }
             }
         }

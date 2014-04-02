@@ -18,12 +18,16 @@ namespace CPECentral.Views
     public interface IHoldersView : IView
     {
         bool EditMode { get; set; }
+        Holder SelectedHolder { get; set; }
+        HolderGroup SelectedHolderGroup { get; set; }
         event EventHandler LoadHolders;
         event EventHandler<HolderEventArgs> HolderSelectionChanged;
         event EventHandler AddHolderGroup;
         event EventHandler<HolderGroupEventArgs> AddHolder;
         event UpdateResultCallbackDelegate<HolderGroup> HolderGroupRenamed;
+        event UpdateResultCallbackDelegate<HolderGroup> DeleteHolderGroup;
         event UpdateResultCallbackDelegate<Holder> HolderRenamed;
+        event UpdateResultCallbackDelegate<Holder> DeleteHolder;
 
         void DisplayHolders(IEnumerable<HolderGroup> groups, IEnumerable<Holder> holders);
         void ReloadHolders(Holder holderToSelect, bool inEditMode);
@@ -63,7 +67,21 @@ namespace CPECentral.Views
         public event EventHandler<HolderGroupEventArgs> AddHolder;
 
         public event UpdateResultCallbackDelegate<HolderGroup> HolderGroupRenamed;
+        public event UpdateResultCallbackDelegate<HolderGroup> DeleteHolderGroup;
         public event UpdateResultCallbackDelegate<Holder> HolderRenamed;
+        public event UpdateResultCallbackDelegate<Holder> DeleteHolder;
+
+        public Holder SelectedHolder
+        {
+            get { return _selectedHolder; }
+            set { SelectHolder(value); }
+        }
+
+        public HolderGroup SelectedHolderGroup
+        {
+            get { return _selectedHolderGroup; }
+            set { SelectHolderGroup(value); }
+        }
 
         [Category("Behavior")]
         public bool EditMode
@@ -161,6 +179,30 @@ namespace CPECentral.Views
 
         #region Event Invocators
 
+        protected virtual bool OnDeleteHolder(Holder entity)
+        {
+            bool deletedOk = false;
+
+            UpdateResultCallbackDelegate<Holder> handler = DeleteHolder;
+            if (handler != null) {
+                deletedOk = handler(entity);
+            }
+
+            return deletedOk;
+        }
+
+        protected virtual bool OnDeleteHolderGroup(HolderGroup entity)
+        {
+            bool deletedOk = false;
+
+            UpdateResultCallbackDelegate<HolderGroup> handler = DeleteHolderGroup;
+            if (handler != null) {
+                deletedOk = handler(entity);
+            }
+
+            return deletedOk;
+        }
+
         protected virtual void OnHolderSelectionChanged(HolderEventArgs e)
         {
             EventHandler<HolderEventArgs> handler = HolderSelectionChanged;
@@ -224,41 +266,19 @@ namespace CPECentral.Views
             ReloadHolders();
         }
 
-        private void SelectHolder(Holder holder)
-        {
-            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes) {
-                foreach (TreeNode holderNode in groupNode.Nodes) {
-                    var currentHolder = holderNode.Tag as Holder;
-                    if (currentHolder.Equals(holder)) {
-                        holdersEnhancedTreeView.SelectedNode = holderNode;
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void SelectHolderGroup(HolderGroup holderGroup)
-        {
-            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes) {
-                var currentGroup = groupNode.Tag as HolderGroup;
-                if (currentGroup.Equals(holderGroup)) {
-                    holdersEnhancedTreeView.SelectedNode = groupNode;
-                    break;
-                }
-            }
-        }
-
         private void holdersEnhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag is HolderGroup) {
                 _selectedHolderGroup = e.Node.Tag as HolderGroup;
                 _selectedHolder = null;
+                addGroupDropDownToolStripMenuItem.Enabled = true;
                 OnHolderSelectionChanged(new HolderEventArgs(null));
             }
             else if (e.Node.Tag is Holder) {
                 var holder = e.Node.Tag as Holder;
                 _selectedHolder = holder;
                 _selectedHolderGroup = null;
+                addHolderDropDownToolStripMenuItem.Enabled = false;
                 OnHolderSelectionChanged(new HolderEventArgs(holder));
             }
         }
@@ -319,8 +339,15 @@ namespace CPECentral.Views
             }
         }
 
+        private void holdersEnhancedTreeView_DeleteKeyPressed(object sender, EventArgs e)
+        {
+            DeleteSelectedEntity();
+        }
+
         private void mainContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            mainContextMenuStrip.Hide();
+
             switch (e.ClickedItem.Name) {
                 case "addGroupToolStripMenuItem":
                     OnAddHolderGroup();
@@ -330,10 +357,125 @@ namespace CPECentral.Views
 
         private void holderGroupContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            holderGroupContextMenuStrip.Hide();
+
             switch (e.ClickedItem.Name) {
                 case "addHolderToolStripMenuItem":
                     OnAddHolder(new HolderGroupEventArgs(_selectedHolderGroup));
                     break;
+                case "deleteHolderGroupToolStripMenuItem":
+                    DeleteSelectedEntity();
+                    break;
+                case "renameHolderGroupToolStripMenuItem":
+                    EditLabelOnSelectedNode();
+                    break;
+            }
+        }
+
+        private void holderContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            holderContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "deleteHolderToolStripMenuItem":
+                    DeleteSelectedEntity();
+                    break;
+                case "renameHolderToolStripMenuItem":
+                    EditLabelOnSelectedNode();
+                    break;
+            }
+        }
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name) {
+                case "addGroup2ToolStripMenuItem":
+                    OnAddHolderGroup();
+                    break;
+                case "addHolder2ToolStripMenuItem":
+                    OnAddHolder(new HolderGroupEventArgs(_selectedHolderGroup));
+                    break;
+                case "deleteToolStripButton":
+                    DeleteSelectedEntity();
+                    break;
+                case "renameToolStripButton":
+                    EditLabelOnSelectedNode();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Recurses through the TreeView's nodes and selects the specified <see cref="Holder"/> node if it exists
+        /// </summary>
+        /// <param name="holder">The <see cref="Holder"/> to select</param>
+        private void SelectHolder(Holder holder)
+        {
+            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes)
+            {
+                foreach (TreeNode holderNode in groupNode.Nodes)
+                {
+                    var currentHolder = holderNode.Tag as Holder;
+                    if (currentHolder.Equals(holder))
+                    {
+                        holdersEnhancedTreeView.SelectedNode = holderNode;
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recurses through the TreeView's nodes and selects the specified <see cref="HolderGroup"/> node if it exists
+        /// </summary>
+        /// <param name="holderGroup">The <see cref="HolderGroup"/> to select</param>
+        private void SelectHolderGroup(HolderGroup holderGroup)
+        {
+            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes)
+            {
+                var currentGroup = groupNode.Tag as HolderGroup;
+                if (currentGroup.Equals(holderGroup))
+                {
+                    holdersEnhancedTreeView.SelectedNode = groupNode;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// If a node is selected in the TreeView and EditMode is true, begins LabelEdit
+        /// </summary>
+        private void EditLabelOnSelectedNode()
+        {
+            if (holdersEnhancedTreeView.SelectedNode != null && EditMode)
+            {
+                holdersEnhancedTreeView.SelectedNode.BeginEdit();
+            }
+        }
+
+        /// <summary>
+        ///     If a node is selected in the TreeView, deletes the entity it relates to
+        /// </summary>
+        private void DeleteSelectedEntity()
+        {
+            if (holdersEnhancedTreeView.SelectedNode == null)
+            {
+                return;
+            }
+
+            bool deletedOk = false;
+
+            if (_selectedHolder != null)
+            {
+                deletedOk = OnDeleteHolder(_selectedHolder);
+            }
+            else if (_selectedHolderGroup != null)
+            {
+                deletedOk = OnDeleteHolderGroup(_selectedHolderGroup);
+            }
+
+            if (deletedOk)
+            {
+                ReloadHolders();
             }
         }
     }

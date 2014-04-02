@@ -7,23 +7,23 @@
     <edmx:StorageModels>
     <Schema Namespace="CPECentralModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="CPECentralModelStoreContainer">
-    <EntitySet Name="Customers" EntityType="CPECentralModel.Store.Customers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Documents" EntityType="CPECentralModel.Store.Documents" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmployeeGroups" EntityType="CPECentralModel.Store.EmployeeGroups" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Employees" EntityType="CPECentralModel.Store.Employees" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="HolderGroups" EntityType="CPECentralModel.Store.HolderGroups" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Holders" EntityType="CPECentralModel.Store.Holders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="HolderTools" EntityType="CPECentralModel.Store.HolderTools" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MachineGroups" EntityType="CPECentralModel.Store.MachineGroups" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Methods" EntityType="CPECentralModel.Store.Methods" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Operations" EntityType="CPECentralModel.Store.Operations" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="OperationTools" EntityType="CPECentralModel.Store.OperationTools" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Parts" EntityType="CPECentralModel.Store.Parts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PartVersions" EntityType="CPECentralModel.Store.PartVersions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ToolGroups" EntityType="CPECentralModel.Store.ToolGroups" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Tools" EntityType="CPECentralModel.Store.Tools" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="CPECentralModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TricornTools" EntityType="CPECentralModel.Store.TricornTools" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customers" EntityType="CPECentralModel.Store.Customers" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Documents" EntityType="CPECentralModel.Store.Documents" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="EmployeeGroups" EntityType="CPECentralModel.Store.EmployeeGroups" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Employees" EntityType="CPECentralModel.Store.Employees" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="HolderGroups" EntityType="CPECentralModel.Store.HolderGroups" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Holders" EntityType="CPECentralModel.Store.Holders" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="HolderTools" EntityType="CPECentralModel.Store.HolderTools" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="MachineGroups" EntityType="CPECentralModel.Store.MachineGroups" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Methods" EntityType="CPECentralModel.Store.Methods" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Operations" EntityType="CPECentralModel.Store.Operations" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="OperationTools" EntityType="CPECentralModel.Store.OperationTools" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Parts" EntityType="CPECentralModel.Store.Parts" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="PartVersions" EntityType="CPECentralModel.Store.PartVersions" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="ToolGroups" EntityType="CPECentralModel.Store.ToolGroups" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="Tools" EntityType="CPECentralModel.Store.Tools" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="sysdiagrams" EntityType="CPECentralModel.Store.sysdiagrams" store:Type="Tables" Schema="cpe" />
+    <EntitySet Name="TricornTools" EntityType="CPECentralModel.Store.TricornTools" store:Type="Tables" Schema="cpe" />
     <AssociationSet Name="FK_Parts_Customers" Association="CPECentralModel.Store.FK_Parts_Customers">
       <End Role="Customer" EntitySet="Customers" />
       <End Role="Part" EntitySet="Parts" />
