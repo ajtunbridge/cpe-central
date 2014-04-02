@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InventoryNameGenerator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ModuleUpdateDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\Inventory Name Generator\Modules\</Value>
+    </Setting>
+    <Setting Name="ModuleDataDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\Inventory Name Generator\Data\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

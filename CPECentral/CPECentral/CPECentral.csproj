@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.1.0.2</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.2.1.0</MinimumRequiredVersion>
     <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
+    <ApplicationVersion>2.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -300,6 +300,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="ToolGenerator.cs" />
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
     <Compile Include="ViewModels\HolderToolsViewModel.cs" />
     <Compile Include="ViewModels\OperationsToolViewModel.cs" />
@@ -528,10 +529,13 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.dev">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -567,6 +571,10 @@
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryNameGenerator\InventoryNameGenerator.csproj">
+      <Project>{24858c51-c596-4cc7-8522-0e7a7757318d}</Project>
+      <Name>InventoryNameGenerator</Name>
     </ProjectReference>
     <ProjectReference Include="..\NcCommunicator\NcCommunicator.csproj">
       <Project>{7093233d-43d6-4c06-9528-e5de5acdd90f}</Project>

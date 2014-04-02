@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="LastUserName" Type="System.String" Scope="User">
@@ -28,12 +26,6 @@
     <Setting Name="PreferredNcLanguage" Type="System.String" Scope="User">
       <Value Profile="(Default)">Fanuc</Value>
     </Setting>
-    <Setting Name="DrawingFileDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Adam\CPE Central\Drawing files\</Value>
-    </Setting>
-    <Setting Name="SharedAppDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Adam\CPE Central\Data\</Value>
-    </Setting>
     <Setting Name="MillingProgramDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">I:\Milling\</Value>
     </Setting>
@@ -46,19 +38,6 @@
     <Setting Name="PreviewFormState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">S:\</Value>
-    </Setting>
-    <Setting Name="TurningProgramHeaderFormat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">
-        %
-        :{prog}(DWG.{dwg} VER.{ver} OP.{op})
-
-        (CUST.{cust})
-        (NAME.{name})
-
-      </Value>
-    </Setting>
     <Setting Name="TurningToolRegEx" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</Value>
     </Setting>
@@ -70,12 +49,6 @@
     </Setting>
     <Setting Name="ViewInternallyFileExtensions" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
-    </Setting>
-    <Setting Name="TurningProgramToolFormat" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-        (T{position}{offset})
-        ({tool})
-      </Value>
     </Setting>
     <Setting Name="TurningProgramHolderFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">(HOLDER - {holder})</Value>
@@ -94,6 +67,28 @@
     </Setting>
     <Setting Name="ToolSelectorDialogFormSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">815, 520</Value>
+    </Setting>
+    <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">I:\</Value>
+    </Setting>
+    <Setting Name="TurningProgramHeaderFormat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%
+:{prog}(DWG.{dwg} VER.{ver} OP.{op})
+
+(CUST.{cust})
+(NAME.{name})
+
+</Value>
+    </Setting>
+    <Setting Name="DrawingFileDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Drawing Files\</Value>
+    </Setting>
+    <Setting Name="SharedAppDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\</Value>
+    </Setting>
+    <Setting Name="TurningProgramToolFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(T{position}{offset})
+({tool})</Value>
     </Setting>
   </Settings>
 </SettingsFile>

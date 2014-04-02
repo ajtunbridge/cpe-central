@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.AvalonEdit", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NcCommunicator", "NcCommunicator\NcCommunicator.csproj", "{7093233D-43D6-4C06-9528-E5DE5ACDD90F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryNameGenerator", "InventoryNameGenerator\InventoryNameGenerator.csproj", "{24858C51-C596-4CC7-8522-0E7A7757318D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7093233D-43D6-4C06-9528-E5DE5ACDD90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7093233D-43D6-4C06-9528-E5DE5ACDD90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7093233D-43D6-4C06-9528-E5DE5ACDD90F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24858C51-C596-4CC7-8522-0E7A7757318D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24858C51-C596-4CC7-8522-0E7A7757318D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24858C51-C596-4CC7-8522-0E7A7757318D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24858C51-C596-4CC7-8522-0E7A7757318D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

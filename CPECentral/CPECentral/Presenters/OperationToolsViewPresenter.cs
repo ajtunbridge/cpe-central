@@ -147,11 +147,12 @@ namespace CPECentral.Presenters
                 model.Items = new List<OperationToolsViewModelItem>();
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(operation)
+                    IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(operation.Id)
                         .OrderBy(t => t.Position)
                         .ThenBy(t => t.Offset);
 
                     foreach (OperationTool opTool in opTools) {
+
                         var item = new OperationToolsViewModelItem();
                         item.OperationTool = opTool;
 
@@ -173,6 +174,13 @@ namespace CPECentral.Presenters
                         item.QuantityInStock = stockCount;
 
                         model.Items.Add(item);
+
+                        // we need to set these to null otherwise we get a referential integrity 
+                        // constraint violation when they're updated and saved to the database
+                        // later on
+                        opTool.Holder = null;
+                        opTool.Operation = null;
+                        opTool.Operation = null;
                     }
                 }
 

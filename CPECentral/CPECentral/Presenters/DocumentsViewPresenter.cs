@@ -192,10 +192,10 @@ namespace CPECentral.Presenters
                         string templateFileName = null;
 
                         switch (machineGroup.ToLower()) {
-                            case "milling":
+                            case "mills":
                                 templateFileName = Settings.Default.CamTemplateMilling;
                                 break;
-                            case "turning":
+                            case "lathes":
                                 templateFileName = Settings.Default.CamTemplateTurning;
                                 break;
                         }

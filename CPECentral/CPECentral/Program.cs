@@ -28,6 +28,8 @@ namespace CPECentral
             AddMyAccount();
 #endif
 
+            ToolGenerator.GenerateMetricHSSDrills();
+
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
 

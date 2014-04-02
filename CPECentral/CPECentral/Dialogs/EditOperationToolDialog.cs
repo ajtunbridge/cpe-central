@@ -23,12 +23,10 @@ namespace CPECentral.Dialogs
 
             _operationTool = operationTool;
 
-            // we need to set these to null otherwise we get a referential integrity 
-            // constraint violation when saving to the database
-            _operationTool.Tool = null;
-            _operationTool.Holder = null;
-
-            if (_operationTool.Id == 0) {
+            if (operationTool.Id > 0) {
+                _operationTool = new CPEUnitOfWork().OperationTools.GetById(operationTool.Id);
+            }
+            else {
                 _operationTool.Position = 1;
                 _operationTool.Offset = 1;
             }
