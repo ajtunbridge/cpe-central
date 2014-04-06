@@ -1,6 +1,8 @@
 ﻿#region Using directives
 
 using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
@@ -12,33 +14,56 @@ namespace CPECentral
 {
     internal static class Program
     {
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+
+        private const int SW_RESTORE = 9;
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            var createdNew = true;
 
-            Session.Initialize();
+            using (var mutex = new Mutex(true, "CPECentral", out createdNew)) {
+                if (createdNew) {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+
+                    Session.Initialize();
 
 #if DEBUG
-            EnsureThereIsAnAdminAccount();
-            AddMyAccount();
+                    EnsureThereIsAnAdminAccount();
+                    AddMyAccount();
 #endif
 
-            //ToolGenerator.GenerateMetricHSSDrills();
+                    Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+                    Application.ThreadException += Application_ThreadException;
 
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            Application.ThreadException += Application_ThreadException;
-
-            Application.Run(new MainForm());
+                    Application.Run(new MainForm());
+                }
+                else {
+                    var current = Process.GetCurrentProcess();
+                    foreach (var process in Process.GetProcessesByName(current.ProcessName)) {
+                        if (process.Id != current.Id) {
+                            ShowWindow(process.MainWindowHandle, SW_RESTORE);
+                            SetForegroundWindow(process.MainWindowHandle);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            string msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+            var msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
 
             MessageBox.Show(msg);
         }
@@ -47,7 +72,7 @@ namespace CPECentral
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    EmployeeGroup adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
+                    var adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
 
                     if (adminGroup == null) {
                         adminGroup = new EmployeeGroup();
@@ -57,7 +82,7 @@ namespace CPECentral
                         cpe.Commit();
                     }
 
-                    Employee adminEmployee = cpe.Employees.GetByUserName("admin");
+                    var adminEmployee = cpe.Employees.GetByUserName("admin");
 
                     if (adminEmployee == null) {
                         adminEmployee = new Employee();
@@ -66,7 +91,7 @@ namespace CPECentral
                         adminEmployee.UserName = "admin";
                         adminEmployee.EmployeeGroupId = adminGroup.Id;
 
-                        Password securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("5jc3ngltd");
+                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("5jc3ngltd");
 
                         adminEmployee.Password = securedPassword.Hash;
                         adminEmployee.Salt = securedPassword.Salt;
@@ -78,7 +103,7 @@ namespace CPECentral
                 }
             }
             catch (Exception ex) {
-                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
             }
@@ -88,7 +113,7 @@ namespace CPECentral
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    EmployeeGroup myGroup = cpe.EmployeeGroups.GetByName("Power users");
+                    var myGroup = cpe.EmployeeGroups.GetByName("Power users");
 
                     if (myGroup == null) {
                         myGroup = new EmployeeGroup();
@@ -104,7 +129,7 @@ namespace CPECentral
                         cpe.Commit();
                     }
 
-                    Employee myEmployee = cpe.Employees.GetByUserName("adam");
+                    var myEmployee = cpe.Employees.GetByUserName("adam");
 
                     if (myEmployee == null) {
                         myEmployee = new Employee();
@@ -113,7 +138,7 @@ namespace CPECentral
                         myEmployee.UserName = "adam";
                         myEmployee.EmployeeGroupId = myGroup.Id;
 
-                        Password securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("password");
+                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("password");
 
                         myEmployee.Password = securedPassword.Hash;
                         myEmployee.Salt = securedPassword.Salt;
@@ -125,7 +150,7 @@ namespace CPECentral
                 }
             }
             catch (Exception ex) {
-                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
             }

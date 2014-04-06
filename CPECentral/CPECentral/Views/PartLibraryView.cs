@@ -38,6 +38,7 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
+        private Part _partToSelect;
 
         public PartLibraryView()
         {
@@ -93,7 +94,11 @@ namespace CPECentral.Views
         {
             DisplayModel(viewModel, false);
 
-            if (viewModel.LastViewedPartId.HasValue) {
+            if (_partToSelect != null) {
+                SelectPart(_partToSelect.Id);
+                _partToSelect = null;
+            }
+            else if (viewModel.LastViewedPartId.HasValue) {
                 SelectPart(viewModel.LastViewedPartId.Value);
             }
         }
@@ -154,6 +159,8 @@ namespace CPECentral.Views
             }
 
             int partCount = 0;
+
+            TreeNode nodeToSelect = null;
 
             foreach (Customer customer in viewModel.Customers.OrderBy(c => c.Name)) {
                 TreeNode customerNode = enhancedTreeView.Nodes.Add(customer.Name);
@@ -240,6 +247,8 @@ namespace CPECentral.Views
 
         private void PartAddedMessage_Published(PartAddedMessage message)
         {
+            _partToSelect = message.NewPart;
+
             OnReloadData();
         }
 

@@ -15,52 +15,52 @@ namespace CPECentral.Presenters
 {
     public class MainViewPresenter
     {
-        private readonly IMainView _mainView;
+        private readonly IMainView _view;
 
-        public MainViewPresenter(IMainView mainView)
+        public MainViewPresenter(IMainView view)
         {
-            _mainView = mainView;
+            _view = view;
 
-            _mainView.AddPart += mainView_AddPart;
-            _mainView.AddPartByWorksOrder += _mainView_AddPartByWorksOrder;
-            _mainView.LoadHexagonCalculator += mainView_LoadHexagonCalculator;
-            _mainView.LoadSettingsDialog += mainView_LoadSettingsDialog;
-            _mainView.LoadToolManagementDialog += _mainView_LoadToolManagementDialog;
+            _view.AddPart += View_AddPart;
+            _view.AddPartByWorksOrder += View_AddPartByWorksOrder;
+            _view.LoadHexagonCalculator += View_LoadHexagonCalculator;
+            _view.LoadSettingsDialog += View_LoadSettingsDialog;
+            _view.LoadToolManagementDialog += View_LoadToolManagementDialog;
         }
 
-        private void _mainView_LoadToolManagementDialog(object sender, EventArgs e)
+        private void View_LoadToolManagementDialog(object sender, EventArgs e)
         {
             using (var toolManagementDialog = new ToolManagementDialog()) {
-                toolManagementDialog.ShowDialog(_mainView.ParentForm);
+                toolManagementDialog.ShowDialog(_view.ParentForm);
             }
         }
 
-        private void mainView_LoadSettingsDialog(object sender, EventArgs e)
+        private void View_LoadSettingsDialog(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.EditSettings, true)) {
                 return;
             }
 
             using (var settingsDialog = new SettingsDialog()) {
-                settingsDialog.ShowDialog(_mainView.ParentForm);
+                settingsDialog.ShowDialog(_view.ParentForm);
             }
         }
 
-        private void mainView_LoadHexagonCalculator(object sender, EventArgs e)
+        private void View_LoadHexagonCalculator(object sender, EventArgs e)
         {
             using (var dialog = new HexDiaCalculatorDialog()) {
-                dialog.ShowDialog(_mainView.ParentForm);
+                dialog.ShowDialog(_view.ParentForm);
             }
         }
 
-        private void mainView_AddPart(object sender, EventArgs e)
+        private void View_AddPart(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
             }
 
             using (var addPartDialog = new AddPartDialog()) {
-                Form parent = _mainView.ParentForm;
+                Form parent = _view.ParentForm;
 
                 if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
                     return;
@@ -70,14 +70,14 @@ namespace CPECentral.Presenters
             }
         }
 
-        private void _mainView_AddPartByWorksOrder(object sender, StringEventArgs e)
+        private void View_AddPartByWorksOrder(object sender, StringEventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
             }
 
             using (var addPartDialog = new AddPartDialog(e.Value)) {
-                Form parent = _mainView.ParentForm;
+                Form parent = _view.ParentForm;
 
                 if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
                     return;
@@ -132,7 +132,7 @@ namespace CPECentral.Presenters
 
                         foreach (string file in addPartDialog.FilesToImport) {
                             Session.DocumentService.QueueUpload(file, version);
-                        }
+                        }              
                     }
                 }
             }
@@ -140,11 +140,11 @@ namespace CPECentral.Presenters
                 string msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
                     ? "A part with these details already exists in the system!"
                     : dataEx.Message;
-                _mainView.DialogService.ShowError(msg);
+                _view.DialogService.ShowError(msg);
             }
             catch (Exception ex) {
                 string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
-                _mainView.DialogService.ShowError(msg);
+                _view.DialogService.ShowError(msg);
             }
         }
     }

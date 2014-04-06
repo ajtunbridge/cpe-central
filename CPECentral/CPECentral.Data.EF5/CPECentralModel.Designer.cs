@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'S:\Adam\Documents\GitHub\cpe-central\CPECentral\CPECentral.Data.EF5\CPECentralModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\atunbridge\Documents\GitHub\cpe-central\CPECentral\CPECentral.Data.EF5\CPECentralModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
