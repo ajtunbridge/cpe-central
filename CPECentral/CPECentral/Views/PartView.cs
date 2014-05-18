@@ -35,6 +35,8 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
+            Font = Session.AppFont;
+
             base.Dock = DockStyle.Fill;
 
             if (!IsInDesignMode) {

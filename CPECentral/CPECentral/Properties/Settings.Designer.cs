@@ -316,13 +316,22 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(T{position}{offset})\r\n({tool})")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n          (T{position}{offset})\r\n          ({tool})\r\n        ")]
         public string TurningProgramToolFormat {
             get {
                 return ((string)(this["TurningProgramToolFormat"]));
             }
             set {
                 this["TurningProgramToolFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 8.25pt")]
+        public global::System.Drawing.Font AppFont {
+            get {
+                return ((global::System.Drawing.Font)(this["AppFont"]));
             }
         }
     }

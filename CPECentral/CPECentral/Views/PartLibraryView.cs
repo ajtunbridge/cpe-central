@@ -44,6 +44,8 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
+            Font = Session.AppFont;
+
             enhancedTreeViewImageList.Images.Add("CustomerIcon", Resources.CustomerIcon_16x16);
             enhancedTreeViewImageList.Images.Add("PartIcon", Resources.OpenIcon_16x16);
 

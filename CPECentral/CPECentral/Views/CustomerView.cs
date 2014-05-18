@@ -15,6 +15,9 @@ namespace CPECentral.Views
         public CustomerView(Customer customer)
         {
             InitializeComponent();
+
+            Font = Session.AppFont;
+
             base.Dock = DockStyle.Fill;
 
             _customer = customer;

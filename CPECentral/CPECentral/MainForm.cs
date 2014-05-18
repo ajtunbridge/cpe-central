@@ -16,6 +16,7 @@ namespace CPECentral
         public MainForm()
         {
             InitializeComponent();
+            Font = Settings.Default.AppFont;
         }
 
         protected override CreateParams CreateParams
@@ -103,7 +104,7 @@ namespace CPECentral
         {
             Settings.Default.MainFormState = WindowState;
 
-            if (WindowState != FormWindowState.Maximized) {
+            if (WindowState != FormWindowState.Maximized && WindowState != FormWindowState.Minimized) {
                 Settings.Default.MainFormLocation = Location;
                 Settings.Default.MainFormSize = Size;
             }

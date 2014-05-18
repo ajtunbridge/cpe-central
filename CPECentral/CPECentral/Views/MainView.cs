@@ -7,6 +7,7 @@ using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Presenters;
+using CPECentral.Properties;
 using nGenLibrary.IO;
 
 #endregion
@@ -29,7 +30,10 @@ namespace CPECentral.Views
         public MainView()
         {
             InitializeComponent();
+
             base.Dock = DockStyle.Fill;
+
+            Font = Session.AppFont;
 
             if (!DesignMode) {
                 _presenter = new MainViewPresenter(this);

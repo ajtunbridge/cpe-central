@@ -28,6 +28,9 @@ namespace CPECentral.Views
         public LoginView()
         {
             InitializeComponent();
+
+            Font = Session.AppFont;
+
             Dock = DockStyle.Fill;
 
             if (!IsInDesignMode) {

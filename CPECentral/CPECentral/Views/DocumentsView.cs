@@ -52,6 +52,8 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
+            Font = Session.AppFont;
+
             if (!IsInDesignMode) {
                 _presenter = new DocumentsViewPresenter(this);
                 filesListView.View = Settings.Default.PreferredDocumentsViewStyle;

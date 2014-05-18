@@ -50,6 +50,8 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
+            Font = Session.AppFont;
+
             treeViewImageList.Images.Add("FolderOpen", Resources.FolderOpenIcon_16x16);
             treeViewImageList.Images.Add("FolderClosed", Resources.FolderClosedIcon_16x16);
             treeViewImageList.Images.Add("Holder", Resources.HolderIcon_16x16);
