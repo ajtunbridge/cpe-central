@@ -35,14 +35,17 @@
             this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewStockLevelsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.operationToolsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +61,9 @@
             this.editToolStripButton,
             this.deleteToolStripButton,
             this.toolStripSeparator1,
-            this.printToolStripButton});
+            this.printToolStripButton,
+            this.toolStripSeparator2,
+            this.viewStockLevelsToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(528, 25);
@@ -113,6 +118,20 @@
             this.printToolStripButton.Text = "Print";
             this.printToolStripButton.ToolTipText = "S";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // viewStockLevelsToolStripButton
+            // 
+            this.viewStockLevelsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.viewStockLevelsToolStripButton.Image = global::CPECentral.Properties.Resources.StockIcon_16x16;
+            this.viewStockLevelsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.viewStockLevelsToolStripButton.Name = "viewStockLevelsToolStripButton";
+            this.viewStockLevelsToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.viewStockLevelsToolStripButton.Text = "View stock levels";
+            // 
             // operationToolsEnhancedListView
             // 
             this.operationToolsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
@@ -120,7 +139,8 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.operationToolsEnhancedListView.ContextMenuStrip = this.mainContextMenuStrip;
             this.operationToolsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.operationToolsEnhancedListView.EnsureSelection = false;
@@ -155,12 +175,18 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 195;
+            this.columnHeader3.Width = 130;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Holder";
             this.columnHeader4.Width = 200;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Stock";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader5.Width = 63;
             // 
             // mainContextMenuStrip
             // 
@@ -170,6 +196,13 @@
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
             this.mainContextMenuStrip.Size = new System.Drawing.Size(128, 26);
             this.mainContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainContextMenuStrip_ItemClicked);
+            // 
+            // addToolToolStripMenuItem
+            // 
+            this.addToolToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addToolToolStripMenuItem.Name = "addToolToolStripMenuItem";
+            this.addToolToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.addToolToolStripMenuItem.Text = "&Add tool";
             // 
             // itemContextMenuStrip
             // 
@@ -182,30 +215,23 @@
             this.itemContextMenuStrip.Size = new System.Drawing.Size(114, 54);
             this.itemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.itemContextMenuStrip_ItemClicked);
             // 
-            // addToolToolStripMenuItem
-            // 
-            this.addToolToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
-            this.addToolToolStripMenuItem.Name = "addToolToolStripMenuItem";
-            this.addToolToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.addToolToolStripMenuItem.Text = "&Add tool";
-            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(110, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
             // OperationToolsView
@@ -247,5 +273,8 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton viewStockLevelsToolStripButton;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

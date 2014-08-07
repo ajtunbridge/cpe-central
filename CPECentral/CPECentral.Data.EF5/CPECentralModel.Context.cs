@@ -26,7 +26,6 @@ namespace CPECentral.Data.EF5
         }
     
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Document> Documents { get; set; }
         public DbSet<EmployeeGroup> EmployeeGroups { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<HolderGroup> HolderGroups { get; set; }
@@ -40,7 +39,7 @@ namespace CPECentral.Data.EF5
         public DbSet<PartVersion> PartVersions { get; set; }
         public DbSet<ToolGroup> ToolGroups { get; set; }
         public DbSet<Tool> Tools { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<TricornTool> TricornTools { get; set; }
+        public DbSet<Document> Documents { get; set; }
     }
 }

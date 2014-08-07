@@ -14,10 +14,14 @@ namespace CPECentral.Dialogs
     {
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
         private readonly Operation _operation;
+        private readonly int _methodId;
+        private bool _altKeyIsDown = false;
 
-        public EditOperationDialog()
+        public EditOperationDialog(int methodId)
         {
             InitializeComponent();
+
+            _methodId = methodId;
         }
 
         public EditOperationDialog(Operation operation)
@@ -104,6 +108,18 @@ namespace CPECentral.Dialogs
                                     }
                                 }
                             }
+
+                            // determine the next available sequence number
+                            var existingSequences = cpe.Operations.GetByMethod(_methodId).Select(op => op.Sequence);
+
+                            int nextAvailable = 1;
+
+                            while (existingSequences.Any(s => s == nextAvailable)) {
+                                nextAvailable++;
+                            }
+
+                            sequenceNumericUpDown.Value = nextAvailable;
+
                             return;
                         }
 
@@ -124,6 +140,19 @@ namespace CPECentral.Dialogs
 
                 DialogResult = DialogResult.Cancel;
             }
+        }
+
+        private void symbolButtons_Click(object sender, EventArgs e)
+        {
+            var selectionStart = descriptionTextBox.SelectionStart;
+
+            var newText = descriptionTextBox.Text.Insert(selectionStart, (sender as Button).Text);
+
+            descriptionTextBox.Text = newText;
+
+            descriptionTextBox.SelectionStart = selectionStart + 1;
+
+            descriptionTextBox.Focus();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
         public Nullable<int> TricornReference { get; set; }
+        public byte[] LogoBLOB { get; set; }
     
         public virtual ICollection<Part> Parts { get; set; }
     }

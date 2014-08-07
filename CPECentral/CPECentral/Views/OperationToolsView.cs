@@ -2,9 +2,11 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
@@ -19,7 +21,7 @@ namespace CPECentral.Views
         event EventHandler<OperationEventArgs> AddOperationTool;
         event EventHandler<OperationToolEventArgs> EditOperationTool;
         event EventHandler<OperationToolEventArgs> DeleteOperationTool;
-
+        
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
         void RetrieveOperationTools(Operation operation);
@@ -35,7 +37,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            Font = Session.AppFont;
+            base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
                 _presenter = new OperationToolsViewPresenter(this);
@@ -66,28 +68,43 @@ namespace CPECentral.Views
                 item.SubItems.Add(modelItem.ToolName);
                 item.SubItems.Add(modelItem.HolderName);
 
-                bool isInStock = modelItem.QuantityInStock.HasValue && modelItem.QuantityInStock > 0;
+                var stockLevelString = (modelItem.QuantityInStock.HasValue)
+                    ? string.Format("{0:00}", modelItem.QuantityInStock)
+                    : "N/A";
 
-                item.ForeColor = isInStock ? Color.Green : Color.Red;
+                item.SubItems.Add(stockLevelString);
 
-                item.ToolTipText = isInStock
-                    ? "Quantity in stock: " + modelItem.QuantityInStock.Value.ToString("00")
-                    : "None in stock!";
+                if (modelItem.QuantityInStock == null) {
+                    item.ForeColor = ForeColor;
+                    item.ToolTipText = "Not linked to Tricorn!";
+                }
+                else {
+                    bool isInStock = modelItem.QuantityInStock > 0;
+
+                    item.ForeColor = isInStock ? Color.Green : Color.Red;
+
+                    item.ToolTipText = isInStock
+                        ? string.Format("Quantity in stock: {0:00}", modelItem.QuantityInStock)
+                        : "None in stock!";
+                }
 
                 item.Tag = modelItem.OperationTool;
             }
+
+            Enabled = true;
         }
 
         public void RetrieveOperationTools(Operation operation)
         {
             _currentOperation = operation;
 
+            operationToolsEnhancedListView.Items.Clear();
+
             if (operation == null) {
-                operationToolsEnhancedListView.Items.Clear();
+                Enabled = false;
                 return;
             }
 
-            operationToolsEnhancedListView.Items.Clear();
             operationToolsEnhancedListView.Items.Add("retrieving...");
 
             OnLoadOperationTools(new OperationEventArgs(operation));
@@ -152,6 +169,12 @@ namespace CPECentral.Views
                     break;
                 case "deleteToolStripButton":
                     OnDeleteOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+                    break;
+                case "viewStockLevelsToolStripButton":
+                    var toolIds = from ListViewItem item in operationToolsEnhancedListView.Items select (item.Tag as OperationTool).ToolId;
+                    using (var dialog = new StockLevelsDialog(toolIds)) {
+                        dialog.ShowDialog(ParentForm);
+                    }
                     break;
             }
         }

@@ -17,7 +17,7 @@
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.3.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>2.3.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>2.4.0.4</MinimumRequiredVersion>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -67,7 +67,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
@@ -136,6 +136,12 @@
     <Compile Include="Controls\AvalonNcEditor.Designer.cs">
       <DependentUpon>AvalonNcEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingsGeneralUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SettingsGeneralUserControl.Designer.cs">
+      <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SettingsPathsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +160,7 @@
     <Compile Include="Controls\SettingsEmployeesUserControl.Designer.cs">
       <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomEventArgs\DocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\MoveToolsToNewGroupEventArgs.cs" />
@@ -225,6 +232,12 @@
     <Compile Include="Dialogs\MachineConfigurationDialog.Designer.cs">
       <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\NewVersionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewVersionDialog.Designer.cs">
+      <DependentUpon>NewVersionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ReceiveProgramDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,11 +250,23 @@
     <Compile Include="Dialogs\SelectTricornMaterialDialog.Designer.cs">
       <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectWorksOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectWorksOrderDialog.Designer.cs">
+      <DependentUpon>SelectWorksOrderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StockLevelsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\StockLevelsDialog.Designer.cs">
+      <DependentUpon>StockLevelsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
@@ -422,6 +447,9 @@
     <EmbeddedResource Include="Controls\SettingsEmployeesUserControl.resx">
       <DependentUpon>SettingsEmployeesUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SettingsGeneralUserControl.resx">
+      <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsPathsUserControl.resx">
       <DependentUpon>SettingsPathsUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -452,14 +480,23 @@
     <EmbeddedResource Include="Dialogs\MachineConfigurationDialog.resx">
       <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewVersionDialog.resx">
+      <DependentUpon>NewVersionDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectTricornMaterialDialog.resx">
       <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectWorksOrderDialog.resx">
+      <DependentUpon>SelectWorksOrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\StockLevelsDialog.resx">
+      <DependentUpon>StockLevelsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>

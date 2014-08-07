@@ -53,15 +53,17 @@ namespace CPECentral.Views
 
         public void LoadPart(Part part)
         {
-            filePreviewTabControl.Clear();
+            using (NoFlicker.On(this)) {
+                filePreviewTabControl.Clear();
 
-            Part = part;
+                Part = part;
 
-            partInformationView.LoadPart(Part);
-            partDocumentsView.LoadDocuments(Part);
-            operationDocumentsView.ClearDocuments();
+                partInformationView.LoadPart(Part);
+                partDocumentsView.LoadDocuments(Part);
+                operationDocumentsView.ClearDocuments();
 
-            RefreshData();
+                RefreshData();
+            }
         }
 
         public void DisplayModel(PartViewModel model)
@@ -114,6 +116,8 @@ namespace CPECentral.Views
             operationsView.LoadMethods(e.PartVersion);
 
             versionDocumentsView.LoadDocuments(e.PartVersion);
+
+            operationToolsView1.RetrieveOperationTools(null);
         }
 
         private void operationsView_OperationSelected(object sender, OperationEventArgs e)

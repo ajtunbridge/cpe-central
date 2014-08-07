@@ -24,6 +24,7 @@ namespace CPECentral.Data.EF5
         public int Id { get; set; }
         public string Description { get; set; }
         public int ToolGroupId { get; set; }
+        public byte[] PhotoBytes { get; set; }
     
         public virtual ICollection<HolderTool> HolderTools { get; set; }
         public virtual ICollection<OperationTool> OperationTools { get; set; }

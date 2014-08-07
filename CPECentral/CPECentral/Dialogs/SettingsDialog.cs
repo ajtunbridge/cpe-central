@@ -31,6 +31,7 @@ namespace CPECentral.Dialogs
                     categoryControl = new SettingsPathsUserControl();
                     break;
                 case "generalTreeNode":
+                    categoryControl = new SettingsGeneralUserControl();
                     break;
                 case "employeesTreeNode":
                     categoryControl = new SettingsEmployeesUserControl();

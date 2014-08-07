@@ -124,9 +124,6 @@
     <Compile Include="Repositories\ToolGroupRepository.cs" />
     <Compile Include="Repositories\ToolRepository.cs" />
     <Compile Include="Repositories\TricornToolRepository.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>CPECentralModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Tool.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>

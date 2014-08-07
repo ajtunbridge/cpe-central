@@ -287,8 +287,17 @@ namespace CPECentral.Dialogs
                                 validExt => validExt.Equals(ext, StringComparison.OrdinalIgnoreCase));
                     });
 
+
+                if (_scanServerWorker.CancellationPending)
+                {
+                    return;
+                }
+
                 filesListView.Invoke((MethodInvoker) delegate {
                     foreach (string match in matches) {
+                        if (_scanServerWorker.CancellationPending) {
+                            return;
+                        }
                         filesListView.AddFile(match, match);
                     }
                 });
@@ -343,14 +352,28 @@ namespace CPECentral.Dialogs
         {
             using (BusyCursor.Show()) {
                 using (var tricorn = new TricornDataProvider()) {
-                    WOrder worksOrder = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text).FirstOrDefault();
+                    var worksOrders = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text.Trim()).ToList();
 
-                    if (worksOrder == null) {
+                    WOrder selectedWorksOrder = null;
+                    if (worksOrders.Count() == 1) {
+                        selectedWorksOrder = worksOrders.Single();
+                    }
+                    else if (worksOrders.Count() > 1) {
+                        using (var selectWorksOrderDialog = new SelectWorksOrderDialog(worksOrders)) {
+                            if (selectWorksOrderDialog.ShowDialog(this) != DialogResult.OK) {
+                                return;
+                            }
+                            selectedWorksOrder = selectWorksOrderDialog.SelectedWorksOrder;
+                        }
+                    }
+
+                    if (selectedWorksOrder == null)
+                    {
                         _dialogService.Notify("The works order number you entered does not exist!");
                         return;
                     }
 
-                    Tricorn.Customer customer = tricorn.GetCustomer(worksOrder.Customer_Reference.Value);
+                    Tricorn.Customer customer = tricorn.GetCustomer(selectedWorksOrder.Customer_Reference.Value);
 
                     bool isNewCustomer = true;
 
@@ -371,11 +394,11 @@ namespace CPECentral.Dialogs
                         isNewCustomerCheckBox.Checked = false;
                     }
 
-                    toolingLocationTextBox.Text = tricorn.GetFixtureLocation(worksOrder.Drawing_Number);
+                    toolingLocationTextBox.Text = tricorn.GetFixtureLocation(selectedWorksOrder.Drawing_Number);
 
-                    drawingNumberTextBox.Text = worksOrder.Drawing_Number;
-                    versionTextBox.Text = worksOrder.Drawing_Issue;
-                    nameTextBox.Text = worksOrder.Description;
+                    drawingNumberTextBox.Text = selectedWorksOrder.Drawing_Number;
+                    versionTextBox.Text = selectedWorksOrder.Drawing_Issue;
+                    nameTextBox.Text = selectedWorksOrder.Description;
 
                     scanServerButton.PerformClick();
                 }
@@ -384,7 +407,7 @@ namespace CPECentral.Dialogs
 
         private void worksOrderEnhancedTextBox_TextChanged(object sender, EventArgs e)
         {
-            importFromTricornButton.Enabled = worksOrderEnhancedTextBox.Text.Length > 4;
+            importFromTricornButton.Enabled = worksOrderEnhancedTextBox.Text.Length > 2;
         }
     }
 }

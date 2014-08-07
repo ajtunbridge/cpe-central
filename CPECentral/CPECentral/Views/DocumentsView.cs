@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
@@ -47,12 +49,13 @@ namespace CPECentral.Views
     {
         private readonly DocumentsViewPresenter _presenter;
         private OperationType _opType;
+        private bool _currentlySelecting;
 
         public DocumentsView()
         {
             InitializeComponent();
 
-            Font = Session.AppFont;
+            base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
                 _presenter = new DocumentsViewPresenter(this);
@@ -115,6 +118,8 @@ namespace CPECentral.Views
             renameToolStripButton.Enabled = false;
 
             OnSelectionChanged();
+
+            // TODO: (Optional) - Notify user if any documents were missing and removed from database
         }
 
         public void ClearDocuments()
@@ -255,11 +260,15 @@ namespace CPECentral.Views
 
         private void filesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _currentlySelecting = true;
+
             int selectionCount = filesListView.SelectionCount;
 
             openDocumentToolStripButton.Enabled = selectionCount == 1;
             deleteDocumentsToolStripButton.Enabled = selectionCount > 0;
             renameToolStripButton.Enabled = selectionCount == 1;
+
+            _currentlySelecting = false;
 
             OnSelectionChanged();
         }

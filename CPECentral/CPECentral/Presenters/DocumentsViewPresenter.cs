@@ -256,11 +256,23 @@ namespace CPECentral.Presenters
 
                         var header = new StringBuilder(Settings.Default.TurningProgramHeaderFormat);
                         header.Replace("{prog}", group.NextNumber.ToString("D4"));
-                        header.Replace("{dwg}", method.PartVersion.Part.DrawingNumber);
-                        header.Replace("{ver}", method.PartVersion.VersionNumber);
+
+                        var cleanDrawingNumber = RemoveInvalidMachineCharacters(method.PartVersion.Part.DrawingNumber);
+                        header.Replace("{dwg}", cleanDrawingNumber);
+
+                        var cleanVersionNumber = RemoveInvalidMachineCharacters(method.PartVersion.VersionNumber);
+                        header.Replace("{ver}", cleanVersionNumber);
+
                         header.Replace("{op}", op.Sequence.ToString("D2"));
-                        header.Replace("{cust}", method.PartVersion.Part.Customer.Name);
-                        header.Replace("{name}", method.PartVersion.Part.Name);
+
+                        var cleanCustomerName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Customer.Name);
+                        header.Replace("{cust}", cleanCustomerName);
+
+                        var cleanPartName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Name);
+                        header.Replace("{name}", cleanPartName);
+
+                        var cleanEmployeeName = RemoveInvalidMachineCharacters(Session.CurrentEmployee.ToString().ToUpper());
+                        header.Replace("{employee}", cleanEmployeeName);
 
                         IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(
                             _documentsView.CurrentEntity as Operation)
@@ -269,17 +281,22 @@ namespace CPECentral.Presenters
 
                         if (opTools.Any()) {
                             foreach (OperationTool opTool in opTools) {
-                                string line = Settings.Default.TurningProgramToolFormat
-                                    .Replace("{position}", opTool.Position.ToString("00"))
-                                    .Replace("{offset}", opTool.Offset.ToString("00"))
-                                    .Replace("{tool}", opTool.Tool.Description.Replace(":", ""));
+                                var lineBuilder = new StringBuilder(Settings.Default.TurningProgramToolFormat);
+                                lineBuilder.Replace("{position}", opTool.Position.ToString("00"));
+                                lineBuilder.Replace("{offset}", opTool.Offset.ToString("00"));
 
-                                header.AppendLine(line);
+                                var cleanToolName = RemoveInvalidMachineCharacters(opTool.Tool.Description);
+                                lineBuilder.Replace("{tool}", cleanToolName);
+
+                                header.AppendLine(lineBuilder.ToString());
 
                                 if (opTool.HolderId.HasValue) {
-                                    string holderLine = Settings.Default.TurningProgramHolderFormat
-                                        .Replace("{holder}", opTool.Holder.Name);
-                                    header.AppendLine(holderLine);
+                                    var holderLineBuilder = new StringBuilder(Settings.Default.TurningProgramHolderFormat);
+
+                                    var cleanHolderName = RemoveInvalidMachineCharacters(opTool.Holder.Name);
+                                    holderLineBuilder.Replace("{holder}", cleanHolderName);
+
+                                    header.AppendLine(holderLineBuilder.ToString());
                                 }
 
                                 header.AppendLine();
@@ -379,11 +396,20 @@ namespace CPECentral.Presenters
 
                         foreach (Document document in documents.OrderBy(d => d.FileName)) {
                             string pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
-
+                            
+                            if (!File.Exists(pathToFile)) {
+                                model.MissingFiles.Add(pathToFile);
+                                cpe.Documents.Delete(document);
+                                continue;
+                            }
+                            
                             model.AddDocumentModel(document, pathToFile);
                         }
 
                         e.Result = model;
+
+                        // remove any missing document records from the database
+                        cpe.Commit();
                     }
                 }
                 catch (Exception ex) {
@@ -445,6 +471,18 @@ namespace CPECentral.Presenters
             }
 
             return existingDocs;
+        }
+
+        private string RemoveInvalidMachineCharacters(string dirtyString)
+        {
+            var builder = new StringBuilder(dirtyString);
+
+            var invalidChars = Settings.Default.InvalidTurningProgramCommentCharacters.Split
+                (new[] {"|"}, StringSplitOptions.RemoveEmptyEntries);
+
+            Array.ForEach(invalidChars, (c => builder.Replace(c, string.Empty)));
+
+            return builder.ToString();
         }
 
         private void HandleException(Exception exception)

@@ -52,6 +52,7 @@ namespace NcCommunicator
 
         public event EventHandler<ReceiveProgressEventArgs> ReceiveProgress;
         public event EventHandler<TransmitProgressEventArgs> TransmitProgress;
+        public event EventHandler<SerialErrorReceivedEventArgs> ErrorReceived;
         public event EventHandler DataTransferStarted;
         public event EventHandler DataTransferComplete;
 
@@ -85,6 +86,20 @@ namespace NcCommunicator
             if (handler != null) {
                 handler(this, e);
             }
+        }
+
+        protected virtual void OnErrorReceived(SerialErrorReceivedEventArgs e)
+        {
+            EventHandler<SerialErrorReceivedEventArgs> handler = ErrorReceived;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        void _port_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            OnErrorReceived(e);
         }
 
         private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -163,6 +178,7 @@ namespace NcCommunicator
                 _port.Open();
 
                 _port.DataReceived += port_DataReceived;
+                _port.ErrorReceived += _port_ErrorReceived;
             }
             catch (Exception ex) {
                 throw new SerialConnectionFailedException(_port.PortName, ex);

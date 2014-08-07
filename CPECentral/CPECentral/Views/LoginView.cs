@@ -122,5 +122,10 @@ namespace CPECentral.Views
         {
             DoLogin();
         }
+
+        private void LoginView_VisibleChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

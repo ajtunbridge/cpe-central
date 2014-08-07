@@ -16,7 +16,7 @@ namespace CPECentral.Data.EF5.Repositories
 
         public IEnumerable<Part> GetWhereDrawingNumberContains(string value)
         {
-            return GetSet().Where(p => p.DrawingNumber.Contains(value)).ToList();
+            return GetSet().Where(p => p.DrawingNumber.Contains(value) || (p.DrawingNumber + "-PO").Contains(value)).ToList();
         }
 
         public IEnumerable<Part> GetWhereDrawingNumberMatches(string wildcardQuery)

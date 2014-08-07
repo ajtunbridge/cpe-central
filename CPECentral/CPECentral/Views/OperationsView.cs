@@ -28,6 +28,8 @@ namespace CPECentral.Views
         event EventHandler<MethodEventArgs> MethodSelected;
         event EventHandler<OperationEventArgs> OperationSelected;
 
+        void Reset();
+
         void LoadMethods(PartVersion partVersion);
 
         void DisplayMethods(IEnumerable<Method> methods);
@@ -65,6 +67,10 @@ namespace CPECentral.Views
         public event EventHandler ReloadMethods;
         public event EventHandler<MethodEventArgs> MethodSelected;
         public event EventHandler<OperationEventArgs> OperationSelected;
+
+        public void Reset()
+        {
+        }
 
         public void LoadMethods(PartVersion partVersion)
         {

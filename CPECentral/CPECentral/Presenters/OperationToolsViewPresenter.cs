@@ -162,12 +162,17 @@ namespace CPECentral.Presenters
 
                         item.ToolName = opTool.Tool.Description;
 
-                        double? stockCount = 0;
+                        double? stockCount = null;
 
                         using (var tricorn = new TricornDataProvider()) {
-                            foreach (TricornTool tricornTool in cpe.TricornTools.GetByTool(opTool.Tool)) {
-                                stockCount +=
-                                    tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
+                            var tricornTools = cpe.TricornTools.GetByTool(opTool.Tool).ToList();
+
+                            if (tricornTools.Any()) {
+                                stockCount = 0;
+                                foreach (TricornTool tricornTool in tricornTools) {
+                                    var tricornStock = tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
+                                    stockCount += tricornStock;
+                                }
                             }
                         }
 

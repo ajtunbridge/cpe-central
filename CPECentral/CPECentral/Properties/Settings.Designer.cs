@@ -281,12 +281,15 @@ namespace CPECentral.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("%\r\n:{prog}(DWG.{dwg} VER.{ver} OP.{op})\r\n\r\n(CUST.{cust})\r\n(NAME.{name})\r\n\r\n")]
         public string TurningProgramHeaderFormat {
             get {
                 return ((string)(this["TurningProgramHeaderFormat"]));
+            }
+            set {
+                this["TurningProgramHeaderFormat"] = value;
             }
         }
         
@@ -316,7 +319,7 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\r\n          (T{position}{offset})\r\n          ({tool})\r\n        ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(T{position}{offset})\r\n({tool})")]
         public string TurningProgramToolFormat {
             get {
                 return ((string)(this["TurningProgramToolFormat"]));
@@ -328,10 +331,22 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 8.25pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 9.75pt")]
         public global::System.Drawing.Font AppFont {
             get {
                 return ((global::System.Drawing.Font)(this["AppFont"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("(|)|[|]|;|:|Ø")]
+        public string InvalidTurningProgramCommentCharacters {
+            get {
+                return ((string)(this["InvalidTurningProgramCommentCharacters"]));
+            }
+            set {
+                this["InvalidTurningProgramCommentCharacters"] = value;
             }
         }
     }

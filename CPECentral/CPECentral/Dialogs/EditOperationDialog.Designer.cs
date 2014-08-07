@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.sequenceNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +39,10 @@
             this.descriptionTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.machineGroupComboBox = new System.Windows.Forms.ComboBox();
+            this.diameterButton = new System.Windows.Forms.Button();
+            this.plusMinusButton = new System.Windows.Forms.Button();
+            this.degreesButton = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             ((System.ComponentModel.ISupportInitialize)(this.sequenceNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.setupNumericUpDown)).BeginInit();
@@ -47,7 +52,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 0;
@@ -55,7 +60,7 @@
             // 
             // sequenceNumericUpDown
             // 
-            this.sequenceNumericUpDown.Location = new System.Drawing.Point(15, 29);
+            this.sequenceNumericUpDown.Location = new System.Drawing.Point(12, 28);
             this.sequenceNumericUpDown.Maximum = new decimal(new int[] {
             255,
             0,
@@ -78,7 +83,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 57);
+            this.label2.Location = new System.Drawing.Point(9, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 17);
             this.label2.TabIndex = 0;
@@ -92,7 +97,7 @@
             0,
             0,
             0});
-            this.setupNumericUpDown.Location = new System.Drawing.Point(15, 77);
+            this.setupNumericUpDown.Location = new System.Drawing.Point(12, 90);
             this.setupNumericUpDown.Maximum = new decimal(new int[] {
             2880,
             0,
@@ -105,7 +110,7 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(12, 105);
+            this.label3.Location = new System.Drawing.Point(9, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 17);
             this.label3.TabIndex = 0;
@@ -120,7 +125,7 @@
             0,
             0,
             131072});
-            this.cycleNumericUpDown.Location = new System.Drawing.Point(15, 125);
+            this.cycleNumericUpDown.Location = new System.Drawing.Point(12, 138);
             this.cycleNumericUpDown.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -149,15 +154,16 @@
             this.descriptionTextBox.MaxLength = 30000;
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.NumericCharactersOnly = false;
             this.descriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.descriptionTextBox.Size = new System.Drawing.Size(268, 73);
+            this.descriptionTextBox.Size = new System.Drawing.Size(336, 86);
             this.descriptionTextBox.SuppressEnterKey = true;
             this.descriptionTextBox.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(91, 105);
+            this.label6.Location = new System.Drawing.Point(91, 118);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 17);
             this.label6.TabIndex = 2;
@@ -167,20 +173,56 @@
             // 
             this.machineGroupComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.machineGroupComboBox.FormattingEnabled = true;
-            this.machineGroupComboBox.Location = new System.Drawing.Point(94, 125);
+            this.machineGroupComboBox.Location = new System.Drawing.Point(94, 138);
             this.machineGroupComboBox.Name = "machineGroupComboBox";
-            this.machineGroupComboBox.Size = new System.Drawing.Size(268, 25);
+            this.machineGroupComboBox.Size = new System.Drawing.Size(373, 25);
             this.machineGroupComboBox.TabIndex = 4;
+            // 
+            // diameterButton
+            // 
+            this.diameterButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.diameterButton.Location = new System.Drawing.Point(442, 28);
+            this.diameterButton.Name = "diameterButton";
+            this.diameterButton.Size = new System.Drawing.Size(25, 25);
+            this.diameterButton.TabIndex = 7;
+            this.diameterButton.Text = "Ø";
+            this.toolTip.SetToolTip(this.diameterButton, "Shortcut = Alt Key + 216");
+            this.diameterButton.UseVisualStyleBackColor = true;
+            this.diameterButton.Click += new System.EventHandler(this.symbolButtons_Click);
+            // 
+            // plusMinusButton
+            // 
+            this.plusMinusButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.plusMinusButton.Location = new System.Drawing.Point(442, 59);
+            this.plusMinusButton.Name = "plusMinusButton";
+            this.plusMinusButton.Size = new System.Drawing.Size(25, 25);
+            this.plusMinusButton.TabIndex = 7;
+            this.plusMinusButton.Text = "±";
+            this.toolTip.SetToolTip(this.plusMinusButton, "Shortcut = Alt Key + 177");
+            this.plusMinusButton.UseVisualStyleBackColor = true;
+            this.plusMinusButton.Click += new System.EventHandler(this.symbolButtons_Click);
+            // 
+            // degreesButton
+            // 
+            this.degreesButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.degreesButton.Location = new System.Drawing.Point(442, 90);
+            this.degreesButton.Name = "degreesButton";
+            this.degreesButton.Size = new System.Drawing.Size(25, 25);
+            this.degreesButton.TabIndex = 7;
+            this.degreesButton.Text = "°";
+            this.toolTip.SetToolTip(this.degreesButton, "Shortcut = Alt Key + 0176");
+            this.degreesButton.UseVisualStyleBackColor = true;
+            this.degreesButton.Click += new System.EventHandler(this.symbolButtons_Click);
             // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
             this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 165);
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 181);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
-            this.okayCancelFooter.Size = new System.Drawing.Size(376, 45);
+            this.okayCancelFooter.Size = new System.Drawing.Size(479, 45);
             this.okayCancelFooter.TabIndex = 6;
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.OkayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.OkayCancelFooter_CancelClicked);
@@ -189,7 +231,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 210);
+            this.ClientSize = new System.Drawing.Size(479, 226);
+            this.Controls.Add(this.degreesButton);
+            this.Controls.Add(this.plusMinusButton);
+            this.Controls.Add(this.diameterButton);
             this.Controls.Add(this.machineGroupComboBox);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.descriptionTextBox);
@@ -233,5 +278,9 @@
         private Controls.OkayCancelFooter okayCancelFooter;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox machineGroupComboBox;
+        private System.Windows.Forms.Button diameterButton;
+        private System.Windows.Forms.Button plusMinusButton;
+        private System.Windows.Forms.Button degreesButton;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

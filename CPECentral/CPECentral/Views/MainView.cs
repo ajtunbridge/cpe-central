@@ -124,14 +124,6 @@ namespace CPECentral.Views
 
         private void partLibraryView_PartSelected(object sender, PartEventArgs e)
         {
-            if (librarySelectionPanel.Controls.Count == 1) {
-                if (librarySelectionPanel.Controls[0].GetType() == typeof (PartView)) {
-                    var existingView = (PartView) librarySelectionPanel.Controls[0];
-                    existingView.LoadPart(e.Part);
-                    return;
-                }
-            }
-
             var partView = new PartView();
 
             using (NoFlicker.On(librarySelectionPanel)) {
@@ -230,6 +222,11 @@ namespace CPECentral.Views
         private void partLibraryView_WorksOrderNotFound(object sender, StringEventArgs e)
         {
             OnAddPartByWorksOrder(e);
+        }
+
+        private void logoutToolStripButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

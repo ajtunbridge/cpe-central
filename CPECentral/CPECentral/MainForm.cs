@@ -1,6 +1,8 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Messages;
@@ -35,11 +37,8 @@ namespace CPECentral
                 Controls.Clear();
 
                 var loginView = new LoginView();
-
+                loginView.TabIndex = 0;
                 Controls.Add(loginView);
-
-                loginView.Select();
-                loginView.Focus();
             }
         }
 
@@ -77,6 +76,10 @@ namespace CPECentral
                 Invoke((MethodInvoker) (() => EmployeeLoggedOutMessage_Published(message)));
                 return;
             }
+
+            var formsToClose = (from Form f in Application.OpenForms where !f.Equals(this) select f).ToList();
+
+            formsToClose.ForEach(f => f.Close());
 
             Session.CurrentEmployee = null;
 

@@ -46,7 +46,7 @@ namespace Tricorn
 
         public IEnumerable<WOrder> GetWorksOrders(string userReference)
         {
-            return _entities.WOrders.Where(wo => wo.User_Reference == userReference);
+            return _entities.WOrders.Include("Customer").Where(wo => SqlFunctions.PatIndex(userReference + "%", wo.User_Reference) > 0);
         }
 
         public Material GetMaterialByReference(int materialReference)

@@ -81,7 +81,7 @@ namespace CPECentral.Presenters
             try {
                 Operation newOperation;
 
-                using (var operationDialog = new EditOperationDialog()) {
+                using (var operationDialog = new EditOperationDialog(_operationsView.SelectedMethod.Id)) {
                     Form parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {

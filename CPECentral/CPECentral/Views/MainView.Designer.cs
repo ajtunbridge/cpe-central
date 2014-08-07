@@ -111,6 +111,7 @@
             this.logoutToolStripButton.Name = "logoutToolStripButton";
             this.logoutToolStripButton.Size = new System.Drawing.Size(81, 47);
             this.logoutToolStripButton.Text = "Logout";
+            this.logoutToolStripButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
             // 
             // documentTransferStatusStrip
             // 
@@ -127,7 +128,7 @@
             // documentTransferStatusLabel
             // 
             this.documentTransferStatusLabel.Name = "documentTransferStatusLabel";
-            this.documentTransferStatusLabel.Size = new System.Drawing.Size(191, 17);
+            this.documentTransferStatusLabel.Size = new System.Drawing.Size(173, 17);
             this.documentTransferStatusLabel.Text = "No documents pending upload";
             // 
             // documentTransferToolStripProgressBar

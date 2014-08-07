@@ -17,6 +17,7 @@ namespace CPECentral.ViewModels
     public class DocumentsViewModel
     {
         private readonly List<DocumentModel> _documentModels = new List<DocumentModel>();
+        private readonly List<string> _missingFiles = new List<string>();
 
         public DocumentsViewModel(OperationType opType)
         {
@@ -29,6 +30,11 @@ namespace CPECentral.ViewModels
         }
 
         public OperationType OpType { get; set; }
+
+        public List<string> MissingFiles
+        {
+            get { return _missingFiles; }
+        }
 
         public void AddDocumentModel(Document document, string fileName)
         {

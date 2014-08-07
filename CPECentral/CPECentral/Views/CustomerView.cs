@@ -1,6 +1,8 @@
 ﻿#region Using directives
 
 using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 
@@ -16,7 +18,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            Font = Session.AppFont;
+            base.Font = Session.AppFont;
 
             base.Dock = DockStyle.Fill;
 
@@ -30,9 +32,13 @@ namespace CPECentral.Views
 
         private void CustomerView_Load(object sender, EventArgs e)
         {
-            const string message = "{0}\n\nIf you can think of anything to show here, let me know.";
+            customerNameLabel.Text = _customer.Name;
 
-            label1.Text = string.Format(message, _customer.Name);
+            if (_customer.LogoBLOB != null) {
+                using (var ms = new MemoryStream(_customer.LogoBLOB)) {
+                    logoPictureBox.Image = Image.FromStream(ms);
+                }
+            }
         }
     }
 }

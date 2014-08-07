@@ -1,7 +1,7 @@
 ﻿#region Using directives
 
 using System;
-using System.IO;
+using System.IO.Ports;
 using System.Media;
 using System.Windows.Forms;
 using CPECentral.Properties;
@@ -24,18 +24,30 @@ namespace CPECentral.Dialogs
             _serialLink.ReceiveProgress += _serialLink_ReceiveProgress;
             _serialLink.DataTransferStarted += _serialLink_DataTransferStarted;
             _serialLink.DataTransferComplete += _serialLink_DataTransferComplete;
+            _serialLink.ErrorReceived += _serialLink_ErrorReceived;
         }
+
+        public bool TransferSuccessful { get; private set; }
 
         public string ReceivedProgram
         {
             get { return programTextBox.Text; }
         }
 
+        private void _serialLink_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            BeginInvoke((MethodInvoker) delegate {
+                _dialogService.ShowError("An error occurred receiving the program file!");
+
+                DialogResult = DialogResult.Cancel;
+            });
+        }
+
         private void _serialLink_DataTransferStarted(object sender, EventArgs e)
         {
             BeginInvoke((MethodInvoker) delegate {
                 messageLabel.Text = "Receiving program...";
-                using (UnmanagedMemoryStream stream = Resources.Beep) {
+                using (var stream = Resources.Beep) {
                     using (var player = new SoundPlayer(stream)) {
                         player.Play();
                     }
@@ -45,13 +57,13 @@ namespace CPECentral.Dialogs
 
         private void _serialLink_DataTransferComplete(object sender, EventArgs e)
         {
-            BeginInvoke((MethodInvoker) Close);
+            BeginInvoke((MethodInvoker) (() => DialogResult = DialogResult.OK));
         }
 
         private void _serialLink_ReceiveProgress(object sender, ReceiveProgressEventArgs e)
         {
             // clean up whitespace
-            string cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
+            var cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
 
             Invoke((MethodInvoker) delegate {
                 programTextBox.Text += cleanValue;

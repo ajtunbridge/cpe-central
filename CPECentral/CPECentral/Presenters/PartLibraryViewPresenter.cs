@@ -136,7 +136,8 @@ namespace CPECentral.Presenters
                                     tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
                                 var parts = new List<Part>();
                                 foreach (string drawingNumber in drawingNumbers) {
-                                    parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(drawingNumber));
+                                    var cleanDrawingNumber = drawingNumber.Trim();
+                                    parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(cleanDrawingNumber));
                                 }
                                 matchingParts = parts;
                             }

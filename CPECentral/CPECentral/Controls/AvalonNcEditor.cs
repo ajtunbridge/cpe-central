@@ -315,8 +315,11 @@ namespace CPECentral.Controls
                 MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
 
                 using (var dialog = new ReceiveProgramDialog(machine.ComPort, control)) {
-                    dialog.ShowDialog(ParentForm);
-                    _editor.Text = dialog.ReceivedProgram;
+                    if (dialog.ShowDialog(ParentForm) == DialogResult.OK) {
+                        _editor.Text = dialog.ReceivedProgram;
+                        SaveChanges();
+                        _dialogService.Notify("Program has been received successfully and saved!");
+                    }
                 }
             }
         }

@@ -29,6 +29,7 @@ namespace CPECentral.Views
         event EventHandler<PartEventArgs> DeletePart;
         event EventHandler<StringEventArgs> WorksOrderNotFound;
 
+        void SelectPart(int partId);
         void RefreshLibrary();
         void DisplayLibrary(PartLibraryViewModel viewModel);
         void DisplaySearchResults(PartLibraryViewModel viewModel);
@@ -147,7 +148,7 @@ namespace CPECentral.Views
                     if (SearchField == SearchField.WorksOrderNumber) {
                         var canEditParts = AppSecurity.Check(AppPermission.ManageParts);
                         if (canEditParts) {
-                            if (DialogService.AskQuestion("No matches found!\n\nDo you want to create a new part?")) {
+                            if (DialogService.AskQuestion("No parts found for that works order number!\n\nDo you want to create a new part?")) {
                                 OnWorksOrderNotFound(new StringEventArgs(SearchValue));
                             }
                         }
@@ -282,7 +283,7 @@ namespace CPECentral.Views
             }
         }
 
-        private void SelectPart(int partId)
+        public void SelectPart(int partId)
         {
             foreach (TreeNode customerNode in enhancedTreeView.Nodes) {
                 foreach (TreeNode partNode in customerNode.Nodes) {
