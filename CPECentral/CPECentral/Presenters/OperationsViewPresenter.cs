@@ -88,25 +88,41 @@ namespace CPECentral.Presenters
                         return;
                     }
 
-                    newOperation = new Operation();
-                    newOperation.MethodId = _operationsView.SelectedMethod.Id;
-                    newOperation.Description = operationDialog.Description;
-                    newOperation.Sequence = operationDialog.Sequence;
-                    newOperation.SetupTime = operationDialog.SetupTime;
-                    newOperation.CycleTime = operationDialog.CycleTime;
-                    newOperation.MachineGroupId = operationDialog.SelectedMachineGroup.Id;
-                    newOperation.CreatedBy = Session.CurrentEmployee.Id;
-                    newOperation.ModifiedBy = Session.CurrentEmployee.Id;
-                }
+                    using (BusyCursor.Show()) {
+                        using (var cpe = new CPEUnitOfWork()) {
+                            newOperation = new Operation();
+                            newOperation.MethodId = _operationsView.SelectedMethod.Id;
+                            newOperation.Description = operationDialog.Description;
+                            newOperation.Sequence = operationDialog.Sequence;
+                            newOperation.SetupTime = operationDialog.SetupTime;
+                            newOperation.CycleTime = operationDialog.CycleTime;
+                            newOperation.MachineGroupId = operationDialog.SelectedMachineGroup.Id;
+                            newOperation.CreatedBy = Session.CurrentEmployee.Id;
+                            newOperation.ModifiedBy = Session.CurrentEmployee.Id;
 
-                using (BusyCursor.Show()) {
-                    using (var cpe = new CPEUnitOfWork()) {
-                        cpe.Operations.Add(newOperation);
-                        cpe.Commit();
+                            cpe.Operations.Add(newOperation);
+
+                            if (operationDialog.OperationToolsToCopy != null &&
+                                operationDialog.OperationToolsToCopy.Count > 0) {
+                                foreach (var opTool in operationDialog.OperationToolsToCopy) {
+                                    var newOpTool = new OperationTool();
+                                    newOpTool.Operation = newOperation;
+                                    newOpTool.Position = opTool.Position;
+                                    newOpTool.Offset = opTool.Offset;
+                                    newOpTool.ToolId = opTool.ToolId;
+                                    newOpTool.HolderId = opTool.HolderId;
+                                    newOpTool.Notes = opTool.Notes;
+                                    newOpTool.UseOnePer = opTool.UseOnePer;
+                                    cpe.OperationTools.Add(newOpTool);
+                                }
+                            }
+
+                            cpe.Commit();
+                        }
                     }
-                }
 
-                ReloadOperations();
+                    ReloadOperations();
+                }
             }
             catch (Exception ex) {
                 HandleException(ex);

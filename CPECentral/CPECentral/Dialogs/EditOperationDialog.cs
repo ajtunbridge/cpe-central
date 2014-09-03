@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
@@ -51,6 +52,8 @@ namespace CPECentral.Dialogs
             get { return descriptionTextBox.Text; }
         }
 
+        public List<OperationTool> OperationToolsToCopy { get; set; }
+
         public MachineGroup SelectedMachineGroup
         {
             get { return (MachineGroup) machineGroupComboBox.SelectedItem; }
@@ -76,6 +79,33 @@ namespace CPECentral.Dialogs
                 _dialogService.Notify(noDescriptionMessage);
 
                 return;
+            }
+
+            // if it's a new operation, determine if there is a previous operation and ask user if they
+            // want to copy the tooling information from it to this operation
+            if (_operation == null) {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+
+                        int newSequence = (int) sequenceNumericUpDown.Value;
+
+                        var previousOps = cpe.Operations.GetByMethod(_methodId).Where(op => op.Sequence < newSequence);
+
+                        if (previousOps.Any()) {
+                            var closestSequence = FindClosest(previousOps.Select(op => op.Sequence), newSequence);
+
+                            var previousOp = previousOps.Single(op => op.Sequence == closestSequence);
+
+                            var copyTools =  _dialogService.AskQuestion("Do you want to copy the tool list from the previous operation?");
+
+                            if (copyTools) {
+                                OperationToolsToCopy = new List<OperationTool>();
+                                OperationToolsToCopy.AddRange(previousOp.OperationTools.ToList());
+                            }
+                        }
+
+                    }
+                }
             }
 
             DialogResult = DialogResult.OK;
@@ -140,6 +170,16 @@ namespace CPECentral.Dialogs
 
                 DialogResult = DialogResult.Cancel;
             }
+        }
+
+        private int? FindClosest(IEnumerable<int> numbers, int x)
+        {
+            return
+                (from number in numbers
+                 let difference = Math.Abs(number - x)
+                 orderby difference, Math.Abs(number), number descending
+                 select (int?)number)
+                .FirstOrDefault();
         }
 
         private void symbolButtons_Click(object sender, EventArgs e)
