@@ -1,6 +1,6 @@
 ﻿namespace CPECentral.Views
 {
-    partial class MainView
+    sealed partial class MainView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,14 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.partLibraryView = new CPECentral.Views.PartLibraryView();
+            this.librarySelectionPanel = new System.Windows.Forms.Panel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.documentTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.documentTransferStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.documentTransferToolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,28 +55,21 @@
             this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.librarySelectionPanel = new System.Windows.Forms.Panel();
-            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.partLibraryView = new CPECentral.Views.PartLibraryView2();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // partLibraryView
+            // librarySelectionPanel
             // 
-            this.partLibraryView.BackColor = System.Drawing.SystemColors.Control;
-            this.partLibraryView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.partLibraryView.Location = new System.Drawing.Point(0, 75);
-            this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(374, 475);
-            this.partLibraryView.TabIndex = 0;
-            this.partLibraryView.CustomerSelected += new System.EventHandler<CPECentral.CustomEventArgs.CustomerEventArgs>(this.partLibraryView_CustomerSelected);
-            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
-            this.partLibraryView.WorksOrderNotFound += new System.EventHandler<CPECentral.CustomEventArgs.StringEventArgs>(this.partLibraryView_WorksOrderNotFound);
+            this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.librarySelectionPanel.Location = new System.Drawing.Point(390, 75);
+            this.librarySelectionPanel.Name = "librarySelectionPanel";
+            this.librarySelectionPanel.Size = new System.Drawing.Size(469, 475);
+            this.librarySelectionPanel.TabIndex = 4;
             // 
             // toolStrip
             // 
@@ -81,7 +79,10 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addPartToolStripButton,
             this.toolStripSeparator1,
-            this.logoutToolStripButton});
+            this.toolManagementToolStripButton,
+            this.toolStripSeparator5,
+            this.logoutToolStripButton,
+            this.toolStripSeparator4});
             this.toolStrip.Location = new System.Drawing.Point(0, 25);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(859, 50);
@@ -104,6 +105,19 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
             // 
+            // toolManagementToolStripButton
+            // 
+            this.toolManagementToolStripButton.Image = global::CPECentral.Properties.Resources.ToolsIcon_32x32;
+            this.toolManagementToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolManagementToolStripButton.Name = "toolManagementToolStripButton";
+            this.toolManagementToolStripButton.Size = new System.Drawing.Size(141, 47);
+            this.toolManagementToolStripButton.Text = "Tool management";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 50);
+            // 
             // logoutToolStripButton
             // 
             this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_32x32;
@@ -112,6 +126,11 @@
             this.logoutToolStripButton.Size = new System.Drawing.Size(81, 47);
             this.logoutToolStripButton.Text = "Logout";
             this.logoutToolStripButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 50);
             // 
             // documentTransferStatusStrip
             // 
@@ -136,6 +155,21 @@
             this.documentTransferToolStripProgressBar.Name = "documentTransferToolStripProgressBar";
             this.documentTransferToolStripProgressBar.Size = new System.Drawing.Size(150, 16);
             this.documentTransferToolStripProgressBar.Visible = false;
+            // 
+            // mainStatusStrip
+            // 
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainToolStripStatusLabel});
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 572);
+            this.mainStatusStrip.Name = "mainStatusStrip";
+            this.mainStatusStrip.Size = new System.Drawing.Size(859, 22);
+            this.mainStatusStrip.TabIndex = 6;
+            this.mainStatusStrip.Text = "statusStrip2";
+            // 
+            // mainToolStripStatusLabel
+            // 
+            this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
+            this.mainToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStrip1
             // 
@@ -250,43 +284,30 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
-            // librarySelectionPanel
+            // partLibraryView
             // 
-            this.librarySelectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.librarySelectionPanel.Location = new System.Drawing.Point(374, 75);
-            this.librarySelectionPanel.Name = "librarySelectionPanel";
-            this.librarySelectionPanel.Size = new System.Drawing.Size(485, 475);
-            this.librarySelectionPanel.TabIndex = 4;
-            // 
-            // mainStatusStrip
-            // 
-            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainToolStripStatusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 572);
-            this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(859, 22);
-            this.mainStatusStrip.TabIndex = 6;
-            this.mainStatusStrip.Text = "statusStrip2";
-            // 
-            // mainToolStripStatusLabel
-            // 
-            this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
-            this.mainToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.partLibraryView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.partLibraryView.Location = new System.Drawing.Point(0, 75);
+            this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.partLibraryView.Name = "partLibraryView";
+            this.partLibraryView.Size = new System.Drawing.Size(386, 475);
+            this.partLibraryView.TabIndex = 7;
+            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(374, 75);
+            this.splitter1.Location = new System.Drawing.Point(386, 75);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 475);
-            this.splitter1.TabIndex = 7;
+            this.splitter1.Size = new System.Drawing.Size(4, 475);
+            this.splitter1.TabIndex = 9;
             this.splitter1.TabStop = false;
             // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.librarySelectionPanel);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.partLibraryView);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.documentTransferStatusStrip);
@@ -300,10 +321,10 @@
             this.toolStrip.PerformLayout();
             this.documentTransferStatusStrip.ResumeLayout(false);
             this.documentTransferStatusStrip.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,7 +332,6 @@
 
         #endregion
 
-        private PartLibraryView partLibraryView;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip;
@@ -332,10 +352,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ToolStripMenuItem toolManagementToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem utilitiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hexagonCalculatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolManagementToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private PartLibraryView2 partLibraryView;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }

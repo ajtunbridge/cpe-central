@@ -40,6 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.useOnePerNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
+            this.toolManagementButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.positionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.useOnePerNumericUpDown)).BeginInit();
@@ -91,7 +92,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectToolButton.Location = new System.Drawing.Point(108, 112);
             this.selectToolButton.Name = "selectToolButton";
-            this.selectToolButton.Size = new System.Drawing.Size(350, 38);
+            this.selectToolButton.Size = new System.Drawing.Size(173, 38);
             this.selectToolButton.TabIndex = 3;
             this.selectToolButton.Text = "Select tool";
             this.selectToolButton.UseVisualStyleBackColor = true;
@@ -199,6 +200,18 @@
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter_CancelClicked);
             // 
+            // toolManagementButton
+            // 
+            this.toolManagementButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolManagementButton.Location = new System.Drawing.Point(287, 112);
+            this.toolManagementButton.Name = "toolManagementButton";
+            this.toolManagementButton.Size = new System.Drawing.Size(171, 38);
+            this.toolManagementButton.TabIndex = 3;
+            this.toolManagementButton.Text = "Tool management";
+            this.toolManagementButton.UseVisualStyleBackColor = true;
+            this.toolManagementButton.Click += new System.EventHandler(this.toolManagementButton_Click);
+            // 
             // EditOperationToolDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -208,6 +221,7 @@
             this.Controls.Add(this.useOnePerNumericUpDown);
             this.Controls.Add(this.offsetNumericUpDown);
             this.Controls.Add(this.positionNumericUpDown);
+            this.Controls.Add(this.toolManagementButton);
             this.Controls.Add(this.selectToolButton);
             this.Controls.Add(this.holderTextBox);
             this.Controls.Add(this.toolTextBox);
@@ -249,5 +263,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown useOnePerNumericUpDown;
         private Controls.OkayCancelFooter okayCancelFooter;
+        private System.Windows.Forms.Button toolManagementButton;
     }
 }

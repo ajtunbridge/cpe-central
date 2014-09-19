@@ -14,6 +14,38 @@ namespace CPECentral.Data.EF5.Repositories
         {
         }
 
+        public ICollection<Part> GetFuzzyDrawingNumberMatches(string value, double fuzziness)
+        {
+            var matches = new List<Part>();
+
+            foreach (var part in GetSet()) {
+                var score = FuzzySearch.Compare(part.DrawingNumber, value);
+
+                if (score > fuzziness) {
+                    matches.Add(part);
+                }
+            }
+
+            return matches;
+        }
+
+        public ICollection<Part> GetFuzzyNameMatches(string value, double fuzziness)
+        {
+            var matches = new List<Part>();
+
+            foreach (var part in GetSet())
+            {
+                var score = FuzzySearch.Compare(part.Name, value);
+
+                if (score > fuzziness)
+                {
+                    matches.Add(part);
+                }
+            }
+
+            return matches;
+        }
+
         public IEnumerable<Part> GetWhereDrawingNumberContains(string value)
         {
             return GetSet().Where(p => p.DrawingNumber.Contains(value) || (p.DrawingNumber + "-PO").Contains(value)).ToList();

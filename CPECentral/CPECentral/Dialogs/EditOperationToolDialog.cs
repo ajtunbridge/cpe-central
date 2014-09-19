@@ -107,5 +107,10 @@ namespace CPECentral.Dialogs
                 }
             }
         }
+
+        private void toolManagementButton_Click(object sender, EventArgs e)
+        {
+            new ToolManagementDialog().ShowDialog(this);
+        }
     }
 }

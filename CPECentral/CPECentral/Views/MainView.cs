@@ -23,7 +23,7 @@ namespace CPECentral.Views
         event EventHandler LoadToolManagementDialog;
     }
 
-    public partial class MainView : ViewBase, IMainView
+    public sealed partial class MainView : ViewBase, IMainView
     {
         private readonly MainViewPresenter _presenter;
 
@@ -81,7 +81,7 @@ namespace CPECentral.Views
             Invoke((MethodInvoker) (() => DialogService.ShowError(message)));
         }
 
-        protected virtual void OnAddPart()
+        private void OnAddPart()
         {
             EventHandler handler = AddPart;
             if (handler != null) {
@@ -89,7 +89,7 @@ namespace CPECentral.Views
             }
         }
 
-        protected virtual void OnAddPartByWorksOrder(StringEventArgs e)
+        private void OnAddPartByWorksOrder(StringEventArgs e)
         {
             EventHandler<StringEventArgs> handler = AddPartByWorksOrder;
             if (handler != null)
@@ -98,7 +98,7 @@ namespace CPECentral.Views
             }
         }
 
-        protected virtual void OnLoadHexagonCalculator()
+        private void OnLoadHexagonCalculator()
         {
             EventHandler handler = LoadHexagonCalculator;
             if (handler != null) {
@@ -106,7 +106,7 @@ namespace CPECentral.Views
             }
         }
 
-        protected virtual void OnLoadSettingsDialog()
+        private void OnLoadSettingsDialog()
         {
             EventHandler handler = LoadSettingsDialog;
             if (handler != null) {
@@ -114,7 +114,7 @@ namespace CPECentral.Views
             }
         }
 
-        protected virtual void OnLoadToolManagementDialog()
+        private void OnLoadToolManagementDialog()
         {
             EventHandler handler = LoadToolManagementDialog;
             if (handler != null) {
@@ -201,6 +201,9 @@ namespace CPECentral.Views
             switch (e.ClickedItem.Name) {
                 case "addPartToolStripButton":
                     OnAddPart();
+                    break;
+                case "toolManagementToolStripButton":
+                    OnLoadToolManagementDialog();
                     break;
                 case "logoutToolStripButton":
                     HandleLogout();

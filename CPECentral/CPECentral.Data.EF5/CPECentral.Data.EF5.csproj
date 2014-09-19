@@ -78,6 +78,7 @@
     <Compile Include="EmployeeGroup.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FuzzySearch.cs" />
     <Compile Include="Holder.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
