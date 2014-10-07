@@ -10,14 +10,14 @@ using NcCommunicator.Data.Repositories;
 
 namespace NcCommunicator.Data
 {
-    public class UnitOfWork : IDisposable
+    public class NcUnitOfWork : IDisposable
     {
         private MachinesDataSet _dataSet;
 
         private MachineControlRepository _machineControls;
         private MachineRepository _machines;
 
-        public UnitOfWork()
+        public NcUnitOfWork()
         {
             ReadInDataFile();
         }

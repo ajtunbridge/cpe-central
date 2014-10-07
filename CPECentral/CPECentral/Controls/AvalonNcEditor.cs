@@ -34,7 +34,7 @@ namespace CPECentral.Controls
 {
     public partial class AvalonNcEditor : UserControl
     {
-        private static UnitOfWork _machinesDb;
+        private static NcUnitOfWork _machinesDb;
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
         private readonly TextEditor _editor;
         private readonly ElementHost _host;
@@ -263,7 +263,7 @@ namespace CPECentral.Controls
         private void LoadMachineList()
         {
             if (_machinesDb == null) {
-                _machinesDb = new UnitOfWork();
+                _machinesDb = new NcUnitOfWork();
             }
 
             IOrderedEnumerable<Machine> machines = _machinesDb.Machines.GetAll().OrderBy(m => m.Name);
@@ -318,7 +318,6 @@ namespace CPECentral.Controls
                     if (dialog.ShowDialog(ParentForm) == DialogResult.OK) {
                         _editor.Text = dialog.ReceivedProgram;
                         SaveChanges();
-                        _dialogService.Notify("Program has been received successfully and saved!");
                     }
                 }
             }

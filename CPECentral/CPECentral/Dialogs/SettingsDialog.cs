@@ -33,11 +33,8 @@ namespace CPECentral.Dialogs
                 case "generalTreeNode":
                     categoryControl = new SettingsGeneralUserControl();
                     break;
-                case "employeesTreeNode":
-                    categoryControl = new SettingsEmployeesUserControl();
-                    if (!AppSecurity.Check(AppPermission.ManageEmployees, true)) {
-                        categoryControl.Enabled = false;
-                    }
+                case "machinesTreeNode":
+                    categoryControl = new SettingsMachinesUserControl();
                     break;
             }
 

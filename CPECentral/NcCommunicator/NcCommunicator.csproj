@@ -54,7 +54,7 @@
     <Compile Include="Data\Repositories\MachineControlRepository.cs" />
     <Compile Include="Data\Repositories\MachineRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
-    <Compile Include="Data\UnitOfWork.cs" />
+    <Compile Include="Data\NcUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiveProgressEventArgs.cs" />
     <Compile Include="SerialConnectionFailedException.cs" />

@@ -46,6 +46,7 @@ namespace CPECentral.Views
         private Holder _currentHolder;
         private ToolGroup _currentToolGroup;
         private bool _editMode;
+        private List<Tool> _tools;
 
         public ToolsView()
         {
@@ -132,7 +133,11 @@ namespace CPECentral.Views
         {
             Enabled = false;
 
+            _tools = new List<Tool>();
+
             toolsEnhancedListView.Items.Clear();
+
+            filterTextBox.Text = string.Empty;
 
             _currentToolGroup = toolGroup;
             _currentHolder = null;
@@ -158,8 +163,7 @@ namespace CPECentral.Views
             _currentToolGroup = null;
             _currentHolder = holder;
 
-            if (holder == null)
-            {
+            if (holder == null) {
                 toolsEnhancedListView.Items.Add("Please select a holder or tool group!");
                 return;
             }
@@ -184,7 +188,11 @@ namespace CPECentral.Views
             foreach (Tool tool in tools) {
                 ListViewItem item = toolsEnhancedListView.Items.Add(tool.Description);
                 item.Tag = tool;
+
+                _tools.Add(tool);
             }
+
+            Focus();
         }
 
         public void RefreshTools()
@@ -376,6 +384,28 @@ namespace CPECentral.Views
         private void toolsEnhancedListView_ItemDrag(object sender, ItemDragEventArgs e)
         {
             toolsEnhancedListView.DoDragDrop(toolsEnhancedListView.SelectedItems, DragDropEffects.Move);
+        }
+
+        private void filterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            toolsEnhancedListView.Items.Clear();
+
+            var searchValue = filterTextBox.Text.Trim();
+
+            var filteredTools = searchValue.Length == 0
+                ? _tools
+                : _tools.Where(t => t.Description.Contains(searchValue));
+
+            foreach (var tool in filteredTools) {
+                ListViewItem item = toolsEnhancedListView.Items.Add(tool.Description);
+                item.Tag = tool;
+            }
+        }
+
+        private void ToolsView_Enter(object sender, EventArgs e)
+        {
+            filterTextBox.Select();
+            filterTextBox.SelectAll();
         }
     }
 }

@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.toolsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewItemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -38,47 +36,20 @@
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.renameToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.filterTextBox = new System.Windows.Forms.TextBox();
             this.listViewContextMenuStrip.SuspendLayout();
             this.listViewItemContextMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolsEnhancedListView
-            // 
-            this.toolsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
-            this.toolsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4});
-            this.toolsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolsEnhancedListView.EnsureSelection = false;
-            this.toolsEnhancedListView.FullRowSelect = true;
-            this.toolsEnhancedListView.GridLines = true;
-            this.toolsEnhancedListView.HideSelection = false;
-            this.toolsEnhancedListView.IndexOfColumnToResize = 0;
-            this.toolsEnhancedListView.ItemContextMenuStrip = null;
-            this.toolsEnhancedListView.Location = new System.Drawing.Point(0, 25);
-            this.toolsEnhancedListView.MultiSelect = false;
-            this.toolsEnhancedListView.Name = "toolsEnhancedListView";
-            this.toolsEnhancedListView.ResizeColumnToFill = true;
-            this.toolsEnhancedListView.Size = new System.Drawing.Size(453, 245);
-            this.toolsEnhancedListView.TabIndex = 0;
-            this.toolsEnhancedListView.UseAlternatingBackColor = true;
-            this.toolsEnhancedListView.UseCompatibleStateImageBehavior = false;
-            this.toolsEnhancedListView.View = System.Windows.Forms.View.Details;
-            this.toolsEnhancedListView.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.toolsEnhancedListView_AfterLabelEdit);
-            this.toolsEnhancedListView.ItemActivate += new System.EventHandler(this.toolsEnhancedListView_ItemActivate);
-            this.toolsEnhancedListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.toolsEnhancedListView_ItemDrag);
-            this.toolsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.toolsEnhancedListView_SelectedIndexChanged);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Description";
-            this.columnHeader4.Width = 446;
             // 
             // listViewContextMenuStrip
             // 
@@ -131,6 +102,48 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
+            // toolsEnhancedListView
+            // 
+            this.toolsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
+            this.toolsEnhancedListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.toolsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4});
+            this.toolsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolsEnhancedListView.EnsureSelection = false;
+            this.toolsEnhancedListView.FullRowSelect = true;
+            this.toolsEnhancedListView.GridLines = true;
+            this.toolsEnhancedListView.HideSelection = false;
+            this.toolsEnhancedListView.IndexOfColumnToResize = 0;
+            this.toolsEnhancedListView.ItemContextMenuStrip = null;
+            this.toolsEnhancedListView.Location = new System.Drawing.Point(0, 25);
+            this.toolsEnhancedListView.MultiSelect = false;
+            this.toolsEnhancedListView.Name = "toolsEnhancedListView";
+            this.toolsEnhancedListView.ResizeColumnToFill = true;
+            this.toolsEnhancedListView.Size = new System.Drawing.Size(451, 222);
+            this.toolsEnhancedListView.TabIndex = 1;
+            this.toolsEnhancedListView.UseAlternatingBackColor = true;
+            this.toolsEnhancedListView.UseCompatibleStateImageBehavior = false;
+            this.toolsEnhancedListView.View = System.Windows.Forms.View.Details;
+            this.toolsEnhancedListView.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.toolsEnhancedListView_AfterLabelEdit);
+            this.toolsEnhancedListView.ItemActivate += new System.EventHandler(this.toolsEnhancedListView_ItemActivate);
+            this.toolsEnhancedListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.toolsEnhancedListView_ItemDrag);
+            this.toolsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.toolsEnhancedListView_SelectedIndexChanged);
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Description";
+            this.columnHeader4.Width = 448;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(0, 247);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(451, 3);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
+            // 
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -141,7 +154,7 @@
             this.renameToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(453, 25);
+            this.toolStrip.Size = new System.Drawing.Size(451, 25);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
@@ -194,16 +207,35 @@
             this.renameToolStripButton.Text = "Rename";
             this.renameToolStripButton.ToolTipText = "Rename the currently selected tool";
             // 
+            // filterTextBox
+            // 
+            this.filterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.filterTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.filterTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.filterTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.filterTextBox.Location = new System.Drawing.Point(0, 250);
+            this.filterTextBox.MaxLength = 50;
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(451, 18);
+            this.filterTextBox.TabIndex = 0;
+            this.filterTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
+            // 
             // ToolsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.toolsEnhancedListView);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.filterTextBox);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ToolsView";
-            this.Size = new System.Drawing.Size(453, 270);
+            this.Size = new System.Drawing.Size(451, 268);
+            this.Enter += new System.EventHandler(this.ToolsView_Enter);
             this.listViewContextMenuStrip.ResumeLayout(false);
             this.listViewItemContextMenuStrip.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
@@ -230,5 +262,7 @@
         private System.Windows.Forms.ToolStripButton editToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton renameToolStripButton;
+        private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }

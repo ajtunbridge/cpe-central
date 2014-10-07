@@ -58,6 +58,8 @@ namespace CPECentral.Presenters
 
         private void LoginWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            const string loginFailedMessage = "The credentials you provided were incorrect!";
+
             var args = (LoginArgs) e.Argument;
 
             try {
@@ -66,7 +68,7 @@ namespace CPECentral.Presenters
                 Employee employee = cpe.Employees.GetByUserName(args.UserName);
 
                 if (employee == null) {
-                    _loginView.DialogService.ShowError("There is no account associated with the user name you entered!");
+                    _loginView.DialogService.ShowError(loginFailedMessage);
                     return;
                 }
 
@@ -75,7 +77,7 @@ namespace CPECentral.Presenters
                 bool passwordOk = passwordService.AreEqual(args.Password, employee.Password, employee.Salt);
 
                 if (!passwordOk) {
-                    _loginView.DialogService.ShowError("The password you provided does not match the one on record!");
+                    _loginView.DialogService.ShowError(loginFailedMessage);
                     return;
                 }
 

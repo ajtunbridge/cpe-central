@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Employees");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Machines");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Paths");
             this.categoriesTreeView = new System.Windows.Forms.TreeView();
             this.selectedCategoryPanel = new System.Windows.Forms.Panel();
@@ -44,8 +44,8 @@
             this.categoriesTreeView.Name = "categoriesTreeView";
             treeNode1.Name = "generalTreeNode";
             treeNode1.Text = "General";
-            treeNode2.Name = "employeesTreeNode";
-            treeNode2.Text = "Employees";
+            treeNode2.Name = "machinesTreeNode";
+            treeNode2.Text = "Machines";
             treeNode3.Name = "pathsTreeNode";
             treeNode3.Text = "Paths";
             this.categoriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
