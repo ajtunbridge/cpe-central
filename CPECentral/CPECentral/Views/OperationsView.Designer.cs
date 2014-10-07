@@ -28,9 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.operationsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.sequenceColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.descriptionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.operationsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addOperationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.operationsItemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editOperationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteOperationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.methodsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addMethodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.methodsItemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editMethodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteMethodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.methodsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,6 +56,10 @@
             this.addOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.operationsContextMenuStrip.SuspendLayout();
+            this.operationsItemContextMenuStrip.SuspendLayout();
+            this.methodsContextMenuStrip.SuspendLayout();
+            this.methodsItemContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -57,6 +74,7 @@
             this.operationsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.sequenceColumnHeader,
             this.descriptionColumnHeader});
+            this.operationsEnhancedListView.ContextMenuStrip = this.operationsContextMenuStrip;
             this.operationsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.operationsEnhancedListView.Enabled = false;
             this.operationsEnhancedListView.EnsureSelection = true;
@@ -64,7 +82,7 @@
             this.operationsEnhancedListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.operationsEnhancedListView.HideSelection = false;
             this.operationsEnhancedListView.IndexOfColumnToResize = 1;
-            this.operationsEnhancedListView.ItemContextMenuStrip = null;
+            this.operationsEnhancedListView.ItemContextMenuStrip = this.operationsItemContextMenuStrip;
             this.operationsEnhancedListView.Location = new System.Drawing.Point(0, 25);
             this.operationsEnhancedListView.MultiSelect = false;
             this.operationsEnhancedListView.Name = "operationsEnhancedListView";
@@ -87,6 +105,94 @@
             // 
             this.descriptionColumnHeader.Text = "Description";
             this.descriptionColumnHeader.Width = 247;
+            // 
+            // operationsContextMenuStrip
+            // 
+            this.operationsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addOperationToolStripMenuItem});
+            this.operationsContextMenuStrip.Name = "contextMenuStrip";
+            this.operationsContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.operationsContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.operationsContextMenuStrip_ItemClicked);
+            // 
+            // addOperationToolStripMenuItem
+            // 
+            this.addOperationToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addOperationToolStripMenuItem.Name = "addOperationToolStripMenuItem";
+            this.addOperationToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.addOperationToolStripMenuItem.Text = "&Add";
+            // 
+            // operationsItemContextMenuStrip
+            // 
+            this.operationsItemContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editOperationToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.deleteOperationToolStripMenuItem});
+            this.operationsItemContextMenuStrip.Name = "itemContextMenuStrip";
+            this.operationsItemContextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.operationsItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.operationsItemContextMenuStrip_ItemClicked);
+            // 
+            // editOperationToolStripMenuItem
+            // 
+            this.editOperationToolStripMenuItem.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
+            this.editOperationToolStripMenuItem.Name = "editOperationToolStripMenuItem";
+            this.editOperationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editOperationToolStripMenuItem.Text = "E&dit";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // deleteOperationToolStripMenuItem
+            // 
+            this.deleteOperationToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteOperationToolStripMenuItem.Name = "deleteOperationToolStripMenuItem";
+            this.deleteOperationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteOperationToolStripMenuItem.Text = "&Delete";
+            // 
+            // methodsContextMenuStrip
+            // 
+            this.methodsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addMethodToolStripMenuItem});
+            this.methodsContextMenuStrip.Name = "contextMenuStrip";
+            this.methodsContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.methodsContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.methodsContextMenuStrip_ItemClicked);
+            // 
+            // addMethodToolStripMenuItem
+            // 
+            this.addMethodToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addMethodToolStripMenuItem.Name = "addMethodToolStripMenuItem";
+            this.addMethodToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.addMethodToolStripMenuItem.Text = "&Add";
+            // 
+            // methodsItemContextMenuStrip
+            // 
+            this.methodsItemContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editMethodToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.deleteMethodToolStripMenuItem});
+            this.methodsItemContextMenuStrip.Name = "itemContextMenuStrip";
+            this.methodsItemContextMenuStrip.Size = new System.Drawing.Size(114, 54);
+            this.methodsItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.methodsItemContextMenuStrip_ItemClicked);
+            // 
+            // editMethodToolStripMenuItem
+            // 
+            this.editMethodToolStripMenuItem.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
+            this.editMethodToolStripMenuItem.Name = "editMethodToolStripMenuItem";
+            this.editMethodToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.editMethodToolStripMenuItem.Text = "E&dit";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(110, 6);
+            // 
+            // deleteMethodToolStripMenuItem
+            // 
+            this.deleteMethodToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
+            this.deleteMethodToolStripMenuItem.Name = "deleteMethodToolStripMenuItem";
+            this.deleteMethodToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.deleteMethodToolStripMenuItem.Text = "&Delete";
             // 
             // splitContainer1
             // 
@@ -115,12 +221,13 @@
             this.methodsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.methodsEnhancedListView.ContextMenuStrip = this.methodsContextMenuStrip;
             this.methodsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.methodsEnhancedListView.EnsureSelection = true;
             this.methodsEnhancedListView.FullRowSelect = true;
             this.methodsEnhancedListView.HideSelection = false;
             this.methodsEnhancedListView.IndexOfColumnToResize = 0;
-            this.methodsEnhancedListView.ItemContextMenuStrip = null;
+            this.methodsEnhancedListView.ItemContextMenuStrip = this.methodsItemContextMenuStrip;
             this.methodsEnhancedListView.Location = new System.Drawing.Point(0, 25);
             this.methodsEnhancedListView.MultiSelect = false;
             this.methodsEnhancedListView.Name = "methodsEnhancedListView";
@@ -237,6 +344,10 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "OperationsView";
             this.Size = new System.Drawing.Size(331, 310);
+            this.operationsContextMenuStrip.ResumeLayout(false);
+            this.operationsItemContextMenuStrip.ResumeLayout(false);
+            this.methodsContextMenuStrip.ResumeLayout(false);
+            this.methodsItemContextMenuStrip.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -268,5 +379,17 @@
         private System.Windows.Forms.ToolStripButton editOperationToolStripButton;
         private System.Windows.Forms.ToolStripButton deleteOperationToolStripButton;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ContextMenuStrip methodsContextMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip methodsItemContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem editMethodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem deleteMethodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addMethodToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip operationsItemContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem editOperationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem deleteOperationToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip operationsContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem addOperationToolStripMenuItem;
     }
 }

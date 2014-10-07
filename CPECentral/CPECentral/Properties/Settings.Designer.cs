@@ -283,7 +283,8 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%\r\n:{prog}(DWG.{dwg} VER.{ver} OP.{op})\r\n\r\n(CUST.{cust})\r\n(NAME.{name})\r\n\r\n")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%\r\n:{prog}(DWG.{dwg} VER.{ver} OP.{op})\r\n\r\n(* NOT PROVEN *)\r\n\r\n(CUST.{cust})\r\n(NA" +
+            "ME.{name})\r\n(AUTHOR.{employee})\r\n\r\n")]
         public string TurningProgramHeaderFormat {
             get {
                 return ((string)(this["TurningProgramHeaderFormat"]));

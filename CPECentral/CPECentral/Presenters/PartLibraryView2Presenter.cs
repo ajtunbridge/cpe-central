@@ -140,7 +140,9 @@ namespace CPECentral.Presenters
                 if (worksOrders.Any()) {
                     foreach (var wo in worksOrders) {
                         var matches = cpe.Parts.GetWhereDrawingNumberMatches(wo.Drawing_Number);
+                        var fuzzyMatches = cpe.Parts.GetFuzzyDrawingNumberMatches(wo.Drawing_Number, fuzziness);
                         drawingNumberMatches.AddRange(matches);
+                        searchModel.DrawingNumberFuzzyMatches.AddRange(fuzzyMatches.Except(drawingNumberMatches));
                     }
                 }
 

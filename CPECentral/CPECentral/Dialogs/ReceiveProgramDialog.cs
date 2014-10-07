@@ -57,7 +57,6 @@ namespace CPECentral.Dialogs
 
         private void _serialLink_DataTransferComplete(object sender, EventArgs e)
         {
-            BeginInvoke((MethodInvoker) (() => DialogResult = DialogResult.OK));
         }
 
         private void _serialLink_ReceiveProgress(object sender, ReceiveProgressEventArgs e)
@@ -85,6 +84,16 @@ namespace CPECentral.Dialogs
             catch (SerialConnectionFailedException serialEx) {
                 _dialogService.ShowError(serialEx.Message);
             }
+        }
+
+        private void okayCancelFooter1_OkayClicked(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+        }
+
+        private void okayCancelFooter1_CancelClicked(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using CPECentral.Commands;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
@@ -24,13 +25,70 @@ namespace CPECentral.Presenters
             _operationsView = operationsView;
 
             _operationsView.AddMethod += OperationsView_AddMethod;
+            _operationsView.DeleteMethod += _operationsView_DeleteMethod;
             _operationsView.EditMethod += OperationsView_EditMethod;
 
             _operationsView.AddOperation += _operationsView_AddOperation;
+            _operationsView.DeleteOperation += _operationsView_DeleteOperation;
             _operationsView.EditOperation += _operationsView_EditOperation;
 
             _operationsView.ReloadMethods += OperationsView_ReloadMethods;
             _operationsView.MethodSelected += OperationsView_MethodSelected;
+        }
+
+        private void _operationsView_DeleteMethod(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
+                return;
+            }
+            var question =  "Are you sure you want to delete this method and all it's operations?\n\nThis cannot be undone!";
+
+            if (!_operationsView.DialogService.AskQuestion(question)) {
+                return;
+            }
+
+            question = "Do you want to cancel out of deleting this method?";
+
+            if (_operationsView.DialogService.AskQuestion(question)) {
+                return;
+
+            }
+            try {
+                var deleteMethodCommand = new DeleteMethodCommand();
+                deleteMethodCommand.Execute(_operationsView.SelectedMethod);
+                ReloadMethods();
+            }
+            catch (Exception ex) {
+                HandleException(ex);
+            }
+        }
+
+        private void _operationsView_DeleteOperation(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageOperations, true)) {
+                return;
+            }
+            var question = "Are you sure you want to delete this operation?\n\nThis cannot be undone!";
+
+            if (!_operationsView.DialogService.AskQuestion(question)) {
+                return;
+            } 
+            
+            question = "Do you want to cancel out of deleting this operation?";
+
+            if (_operationsView.DialogService.AskQuestion(question))
+            {
+                return;
+            }
+
+            try {
+                var deleteOperationCommand = new DeleteOperationCommand();
+                deleteOperationCommand.Execute(_operationsView.SelectedOperation);
+                ReloadOperations();
+            }
+            catch (Exception ex) {
+                HandleException(ex);
+            }
         }
 
         private void _operationsView_EditOperation(object sender, EventArgs e)
@@ -40,7 +98,7 @@ namespace CPECentral.Presenters
             }
 
             try {
-                Form parentForm = ((UserControl) _operationsView).ParentForm;
+                var parentForm = ((UserControl) _operationsView).ParentForm;
 
                 using (var operationDialog = new EditOperationDialog(_operationsView.SelectedOperation)) {
                     if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
@@ -49,7 +107,7 @@ namespace CPECentral.Presenters
 
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            Operation opToEdit = cpe.Operations.GetById(_operationsView.SelectedOperation.Id);
+                            var opToEdit = cpe.Operations.GetById(_operationsView.SelectedOperation.Id);
 
                             opToEdit.CycleTime = operationDialog.CycleTime;
                             opToEdit.Description = operationDialog.Description;
@@ -82,7 +140,7 @@ namespace CPECentral.Presenters
                 Operation newOperation;
 
                 using (var operationDialog = new EditOperationDialog(_operationsView.SelectedMethod.Id)) {
-                    Form parentForm = ((UserControl) _operationsView).ParentForm;
+                    var parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (operationDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -139,7 +197,7 @@ namespace CPECentral.Presenters
                 Method newMethod;
 
                 using (var methodDialog = new EditMethodDialog()) {
-                    Form parentForm = ((UserControl) _operationsView).ParentForm;
+                    var parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -179,7 +237,7 @@ namespace CPECentral.Presenters
 
             try {
                 using (var methodDialog = new EditMethodDialog(_operationsView.SelectedMethod)) {
-                    Form parentForm = ((UserControl) _operationsView).ParentForm;
+                    var parentForm = ((UserControl) _operationsView).ParentForm;
 
                     if (methodDialog.ShowDialog(parentForm) != DialogResult.OK) {
                         return;
@@ -187,7 +245,7 @@ namespace CPECentral.Presenters
 
                     using (BusyCursor.Show()) {
                         using (var cpe = new CPEUnitOfWork()) {
-                            Method methodToEdit = cpe.Methods.GetById(_operationsView.SelectedMethod.Id);
+                            var methodToEdit = cpe.Methods.GetById(_operationsView.SelectedMethod.Id);
                             methodToEdit.Description = methodDialog.Description;
                             methodToEdit.IsPreferred = methodDialog.IsPreferred;
 
@@ -224,7 +282,7 @@ namespace CPECentral.Presenters
                 var method = (Method) e.Argument;
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    IOrderedEnumerable<Operation> ops = cpe.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
+                    var ops = cpe.Operations.GetByMethod(method).OrderBy(op => op.Sequence);
 
                     e.Result = ops;
                 }
@@ -253,7 +311,7 @@ namespace CPECentral.Presenters
                 var partVersion = (PartVersion) e.Argument;
 
                 using (var cpe = new CPEUnitOfWork()) {
-                    IOrderedEnumerable<Method> methods = cpe.Methods.GetByPartVersion(partVersion)
+                    var methods = cpe.Methods.GetByPartVersion(partVersion)
                         .OrderByDescending(method => method.IsPreferred);
 
                     e.Result = methods;
@@ -279,10 +337,10 @@ namespace CPECentral.Presenters
 
         private void EnsureOnlyOnePreferredMethod(Method prefferedMethod, CPEUnitOfWork cpe)
         {
-            IEnumerable<Method> otherMethods = cpe.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
+            var otherMethods = cpe.Methods.GetByPartVersion(_operationsView.CurrentPartVersion)
                 .Where(m => m.Id != prefferedMethod.Id);
 
-            foreach (Method method in otherMethods) {
+            foreach (var method in otherMethods) {
                 method.IsPreferred = false;
                 cpe.Methods.Update(method);
             }

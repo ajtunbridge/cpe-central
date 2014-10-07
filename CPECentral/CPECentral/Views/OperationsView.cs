@@ -19,9 +19,11 @@ namespace CPECentral.Views
         Operation SelectedOperation { get; }
 
         event EventHandler AddMethod;
+        event EventHandler DeleteMethod;
         event EventHandler EditMethod;
 
         event EventHandler AddOperation;
+        event EventHandler DeleteOperation;
         event EventHandler EditOperation;
 
         event EventHandler ReloadMethods;
@@ -60,8 +62,11 @@ namespace CPECentral.Views
         public Operation SelectedOperation { get; private set; }
 
         public event EventHandler AddMethod;
+        public event EventHandler DeleteMethod;
         public event EventHandler EditMethod;
+
         public event EventHandler AddOperation;
+        public event EventHandler DeleteOperation;
         public event EventHandler EditOperation;
 
         public event EventHandler ReloadMethods;
@@ -97,8 +102,8 @@ namespace CPECentral.Views
 
             methodsToolStrip.Enabled = true;
 
-            foreach (Method method in methods) {
-                ListViewItem item = methodsEnhancedListView.Items.Add(method.Description);
+            foreach (var method in methods) {
+                var item = methodsEnhancedListView.Items.Add(method.Description);
                 item.SubItems.Add(method.IsPreferred ? "Yes" : "No");
                 item.Tag = method;
             }
@@ -113,8 +118,8 @@ namespace CPECentral.Views
             operationsEnhancedListView.Items.Clear();
             operationsEnhancedListView.Enabled = true;
 
-            foreach (Operation operation in operations) {
-                ListViewItem item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
+            foreach (var operation in operations) {
+                var item = operationsEnhancedListView.Items.Add(operation.Sequence.ToString("D2"));
                 item.SubItems.Add(operation.Description);
                 item.Tag = operation;
             }
@@ -126,7 +131,15 @@ namespace CPECentral.Views
 
         protected virtual void OnAddMethod()
         {
-            EventHandler handler = AddMethod;
+            var handler = AddMethod;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnDeleteMethod()
+        {
+            var handler = DeleteMethod;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -134,7 +147,7 @@ namespace CPECentral.Views
 
         protected virtual void OnEditMethod()
         {
-            EventHandler handler = EditMethod;
+            var handler = EditMethod;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -142,7 +155,15 @@ namespace CPECentral.Views
 
         protected virtual void OnAddOperation()
         {
-            EventHandler handler = AddOperation;
+            var handler = AddOperation;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnDeleteOperation()
+        {
+            var handler = DeleteOperation;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -150,7 +171,7 @@ namespace CPECentral.Views
 
         protected virtual void OnEditOperation()
         {
-            EventHandler handler = EditOperation;
+            var handler = EditOperation;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -158,7 +179,7 @@ namespace CPECentral.Views
 
         protected virtual void OnRefreshViewData()
         {
-            EventHandler handler = ReloadMethods;
+            var handler = ReloadMethods;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -166,7 +187,7 @@ namespace CPECentral.Views
 
         protected virtual void OnMethodSelected(MethodEventArgs e)
         {
-            EventHandler<MethodEventArgs> handler = MethodSelected;
+            var handler = MethodSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -174,7 +195,7 @@ namespace CPECentral.Views
 
         protected virtual void OnOperationSelected(OperationEventArgs e)
         {
-            EventHandler<OperationEventArgs> handler = OperationSelected;
+            var handler = OperationSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -226,6 +247,9 @@ namespace CPECentral.Views
                 case "addMethodToolStripButton":
                     OnAddMethod();
                     break;
+                case "deleteMethodToolStripButton":
+                    OnDeleteMethod();
+                    break;
                 case "editMethodToolStripButton":
                     OnEditMethod();
                     break;
@@ -248,7 +272,60 @@ namespace CPECentral.Views
                 case "addOperationToolStripButton":
                     OnAddOperation();
                     break;
+                case "deleteOperationToolStripButton":
+                    OnDeleteOperation();
+                    break;
                 case "editOperationToolStripButton":
+                    OnEditOperation();
+                    break;
+            }
+        }
+
+        private void methodsContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            methodsContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "addMethodToolStripMenuItem":
+                    OnAddMethod();
+                    break;
+            }
+        }
+
+        private void methodsItemContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            methodsItemContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "deleteMethodToolStripMenuItem":
+                    OnDeleteMethod();
+                    break;
+                case "editMethodToolStripMenuItem":
+                    OnEditMethod();
+                    break;
+            }
+        }
+
+        private void operationsContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            operationsContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "addOperationToolStripMenuItem":
+                    OnAddOperation();
+                    break;
+            }
+        }
+
+        private void operationsItemContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            operationsItemContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "deleteOperationToolStripMenuItem":
+                    OnDeleteOperation();
+                    break;
+                case "editOperationToolStripMenuItem":
                     OnEditOperation();
                     break;
             }

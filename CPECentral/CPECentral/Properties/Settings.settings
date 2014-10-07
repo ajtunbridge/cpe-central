@@ -75,8 +75,11 @@
       <Value Profile="(Default)">%
 :{prog}(DWG.{dwg} VER.{ver} OP.{op})
 
+(* NOT PROVEN *)
+
 (CUST.{cust})
 (NAME.{name})
+(AUTHOR.{employee})
 
 </Value>
     </Setting>

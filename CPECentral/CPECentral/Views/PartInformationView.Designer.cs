@@ -44,6 +44,7 @@
             this.versionOptionsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.versionOptionsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,6 +148,7 @@
             this.drawingNumberTextBox.Location = new System.Drawing.Point(0, 68);
             this.drawingNumberTextBox.MaxLength = 50;
             this.drawingNumberTextBox.Name = "drawingNumberTextBox";
+            this.drawingNumberTextBox.NumericCharactersOnly = false;
             this.drawingNumberTextBox.Size = new System.Drawing.Size(282, 25);
             this.drawingNumberTextBox.SuppressEnterKey = false;
             this.drawingNumberTextBox.TabIndex = 5;
@@ -162,6 +164,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(0, 116);
             this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.NumericCharactersOnly = false;
             this.nameTextBox.Size = new System.Drawing.Size(282, 25);
             this.nameTextBox.SuppressEnterKey = false;
             this.nameTextBox.TabIndex = 5;
@@ -177,6 +180,7 @@
             this.toolingLocationTextBox.Location = new System.Drawing.Point(92, 165);
             this.toolingLocationTextBox.MaxLength = 50;
             this.toolingLocationTextBox.Name = "toolingLocationTextBox";
+            this.toolingLocationTextBox.NumericCharactersOnly = false;
             this.toolingLocationTextBox.Size = new System.Drawing.Size(190, 25);
             this.toolingLocationTextBox.SuppressEnterKey = false;
             this.toolingLocationTextBox.TabIndex = 5;
@@ -187,21 +191,30 @@
             // 
             this.versionOptionsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newVersionToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.deleteToolStripMenuItem});
             this.versionOptionsContextMenuStrip.Name = "versionOptionsContextMenuStrip";
-            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(140, 48);
+            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.versionOptionsContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.versionOptionsContextMenuStrip_ItemClicked);
             // 
             // newVersionToolStripMenuItem
             // 
+            this.newVersionToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.newVersionToolStripMenuItem.Name = "newVersionToolStripMenuItem";
             this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newVersionToolStripMenuItem.Text = "&New version";
             // 
             // deleteToolStripMenuItem
             // 
+            this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // PartInformationView
             // 
@@ -244,5 +257,6 @@
         private System.Windows.Forms.ContextMenuStrip versionOptionsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem newVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }

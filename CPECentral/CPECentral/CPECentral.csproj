@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.5.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>2.5.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>2.6.0.3</MinimumRequiredVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>2.6.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -94,6 +94,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSecurity.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DeleteMethodCommand.cs" />
+    <Compile Include="Commands\DeleteOperationCommand.cs" />
+    <Compile Include="Commands\NewVersionCommand.cs" />
     <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

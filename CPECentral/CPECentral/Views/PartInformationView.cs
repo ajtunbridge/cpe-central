@@ -21,6 +21,8 @@ namespace CPECentral.Views
         event EventHandler ReloadData;
         event EventHandler<PartVersionEventArgs> VersionSelected;
         event EventHandler SaveChanges;
+        event EventHandler CreateNewVersion;
+
         void LoadPart(Part part);
         void DisplayModel(PartInformationViewModel model);
         void SaveCompleted(bool successful);
@@ -51,6 +53,15 @@ namespace CPECentral.Views
         public event EventHandler ReloadData;
         public event EventHandler<PartVersionEventArgs> VersionSelected;
         public event EventHandler SaveChanges;
+        public event EventHandler CreateNewVersion;
+
+        protected virtual void OnCreateNewVersion()
+        {
+            EventHandler handler = CreateNewVersion;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
 
         public void LoadPart(Part part)
         {
@@ -177,6 +188,17 @@ namespace CPECentral.Views
         private void versionOptionsButton_Click(object sender, EventArgs e)
         {
             versionOptionsContextMenuStrip.Show(Cursor.Position);
+        }
+
+        private void versionOptionsContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            versionOptionsContextMenuStrip.Hide();
+
+            switch (e.ClickedItem.Name) {
+                case "newVersionToolStripMenuItem":
+                    OnCreateNewVersion();
+                    break;
+            }
         }
     }
 }
