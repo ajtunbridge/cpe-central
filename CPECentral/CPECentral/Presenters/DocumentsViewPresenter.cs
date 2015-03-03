@@ -397,19 +397,23 @@ namespace CPECentral.Presenters
                         foreach (Document document in documents.OrderBy(d => d.FileName)) {
                             string pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
                             
+                            // BUG: find out why document records are being deleted on Simon's PC
+                            /*
                             if (!File.Exists(pathToFile)) {
                                 model.MissingFiles.Add(pathToFile);
                                 cpe.Documents.Delete(document);
                                 continue;
                             }
-                            
+                            */
+
                             model.AddDocumentModel(document, pathToFile);
                         }
 
                         e.Result = model;
 
                         // remove any missing document records from the database
-                        cpe.Commit();
+                        
+                        // cpe.Commit();
                     }
                 }
                 catch (Exception ex) {

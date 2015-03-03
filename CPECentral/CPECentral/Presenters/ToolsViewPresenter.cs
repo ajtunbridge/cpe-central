@@ -113,6 +113,13 @@ namespace CPECentral.Presenters
                     using (BusyCursor.Show()) {
                         cpe.Tools.Update(e.Tool);
                         IEnumerable<TricornTool> existingTricornTools = cpe.TricornTools.GetByTool(e.Tool);
+                        foreach (var existingTool in existingTricornTools) {
+                            var hasBeenRemoved = !tricornLinks.Any(t => t.Material_Reference == existingTool.TricornReference);
+                            if (!hasBeenRemoved)
+                                continue;
+                            cpe.TricornTools.Delete(existingTool);
+                        }
+
                         foreach (Material material in tricornLinks) {
                             if (existingTricornTools.Any(t => t.TricornReference == material.Material_Reference)) {
                                 continue;

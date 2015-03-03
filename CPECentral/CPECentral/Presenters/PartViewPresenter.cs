@@ -2,9 +2,11 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+using nGenLibrary;
 
 #endregion
 
@@ -19,6 +21,25 @@ namespace CPECentral.Presenters
             _partView = partView;
 
             _partView.ReloadData += _partView_ReloadData;
+            _partView.SelectedVersionChanged += _partView_SelectedVersionChanged;
+        }
+
+        void _partView_SelectedVersionChanged(object sender, CustomEventArgs.PartVersionEventArgs e)
+        {
+            try {
+                using (var cpe = new CPEUnitOfWork()) {
+                    using (BusyCursor.Show()) {
+                        var allVersions = cpe.PartVersions.GetByPart(e.PartVersion.PartId);
+                        var latestVersion = allVersions.OrderByDescending(pv => pv.VersionNumber).First();
+                        if (e.PartVersion != latestVersion) {
+                            _partView.ShowVersionWarning();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex);
+            }
         }
 
         private void _partView_ReloadData(object sender, EventArgs e)

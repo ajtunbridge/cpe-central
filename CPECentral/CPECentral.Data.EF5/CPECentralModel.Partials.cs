@@ -6,6 +6,49 @@ using System;
 
 namespace CPECentral.Data.EF5
 {
+    public partial class ClientSetting : IEntity, IEquatable<ClientSetting>
+    {
+        public bool Equals(ClientSetting other)
+        {
+            if (ReferenceEquals(null, other)) {
+                return false;
+            }
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        public static bool operator ==(ClientSetting left, ClientSetting right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(ClientSetting left, ClientSetting right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj.GetType() != this.GetType()) {
+                return false;
+            }
+            return Equals((ClientSetting) obj);
+        }    
+    }
+
     public partial class Customer : IEntity, IEquatable<Customer>
     {
         #region IEquatable<Customer> Members

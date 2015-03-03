@@ -319,7 +319,7 @@ namespace CPECentral
         private string GetEntityStorageDirectory(IEntity entity, CPEUnitOfWork cpe)
         {
             if (entity is Part) {
-                string appDir = Settings.Default.SharedAppDir;
+                string appDir = cpe.ClientSettings.GetWindowsDataDirectory();
 
                 return string.Format("{0}\\Documents\\PID{1}", appDir, entity.Id);
             }

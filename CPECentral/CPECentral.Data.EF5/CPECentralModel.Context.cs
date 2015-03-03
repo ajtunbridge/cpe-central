@@ -41,5 +41,6 @@ namespace CPECentral.Data.EF5
         public DbSet<Tool> Tools { get; set; }
         public DbSet<TricornTool> TricornTools { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<ClientSetting> ClientSettings { get; set; }
     }
 }

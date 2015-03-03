@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>2.6.0.3</MinimumRequiredVersion>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>2.6.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>2.8.0.8</MinimumRequiredVersion>
+    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationVersion>2.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -163,6 +163,12 @@
     </Compile>
     <Compile Include="Controls\PdfViewer.Designer.cs">
       <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VersionWarningPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\VersionWarningPanel.Designer.cs">
+      <DependentUpon>VersionWarningPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomEventArgs\DocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
@@ -378,6 +384,12 @@
     <Compile Include="Views\LoginView.Designer.cs">
       <DependentUpon>LoginView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MainView2.Designer.cs">
+      <DependentUpon>MainView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -475,6 +487,9 @@
     <EmbeddedResource Include="Controls\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\VersionWarningPanel.resx">
+      <DependentUpon>VersionWarningPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditOperationToolDialog.resx">
       <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -560,6 +575,9 @@
     <EmbeddedResource Include="Views\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView2.resx">
+      <DependentUpon>MainView2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -593,10 +611,10 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -644,6 +662,10 @@
     <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
       <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
       <Name>nGenLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObjectListView\ObjectListView\ObjectListView2012.csproj">
+      <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
+      <Name>ObjectListView2012</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tricorn\Tricorn.csproj">
       <Project>{ee6d6ce5-01d9-403d-8af1-4a97019e1fc9}</Project>
@@ -732,6 +754,7 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\WarningIcon.png" />
     <None Include="Resources\Machine.ico" />
     <None Include="Resources\ToolsIcon.ico" />
     <None Include="Resources\ToolsIcon_16x16.png" />

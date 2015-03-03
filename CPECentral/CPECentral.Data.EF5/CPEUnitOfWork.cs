@@ -19,6 +19,7 @@ namespace CPECentral.Data.EF5
         internal CPECentralEntities Entities = new CPECentralEntities();
         internal List<object> EntitiesToDetach = new List<object>();
 
+        private ClientSettingRepository _clientSettings;
         private CustomerRepository _customers;
         private DocumentRepository _documents;
         private EmployeeGroupRepository _employeeGroups;
@@ -39,6 +40,11 @@ namespace CPECentral.Data.EF5
         #endregion
 
         #region Properties
+
+        public ClientSettingRepository ClientSettings
+        {
+            get { return _clientSettings ?? (_clientSettings = new ClientSettingRepository(this)); }
+        }
 
         public CustomerRepository Customers
         {

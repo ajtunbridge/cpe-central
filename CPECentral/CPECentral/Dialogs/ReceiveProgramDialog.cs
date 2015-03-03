@@ -27,8 +27,6 @@ namespace CPECentral.Dialogs
             _serialLink.ErrorReceived += _serialLink_ErrorReceived;
         }
 
-        public bool TransferSuccessful { get; private set; }
-
         public string ReceivedProgram
         {
             get { return programTextBox.Text; }
@@ -38,8 +36,8 @@ namespace CPECentral.Dialogs
         {
             BeginInvoke((MethodInvoker) delegate {
                 _dialogService.ShowError("An error occurred receiving the program file!");
-
                 DialogResult = DialogResult.Cancel;
+                Close();
             });
         }
 
@@ -57,6 +55,10 @@ namespace CPECentral.Dialogs
 
         private void _serialLink_DataTransferComplete(object sender, EventArgs e)
         {
+            BeginInvoke((MethodInvoker) delegate {
+                DialogResult = DialogResult.OK;
+                Close(); 
+            });
         }
 
         private void _serialLink_ReceiveProgress(object sender, ReceiveProgressEventArgs e)
@@ -84,16 +86,6 @@ namespace CPECentral.Dialogs
             catch (SerialConnectionFailedException serialEx) {
                 _dialogService.ShowError(serialEx.Message);
             }
-        }
-
-        private void okayCancelFooter1_OkayClicked(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.OK;
-        }
-
-        private void okayCancelFooter1_CancelClicked(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
         }
     }
 }

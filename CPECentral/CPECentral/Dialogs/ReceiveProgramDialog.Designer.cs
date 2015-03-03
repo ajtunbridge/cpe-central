@@ -30,7 +30,6 @@
         {
             this.messageLabel = new System.Windows.Forms.Label();
             this.programTextBox = new System.Windows.Forms.TextBox();
-            this.okayCancelFooter1 = new CPECentral.Controls.OkayCancelFooter();
             this.SuspendLayout();
             // 
             // messageLabel
@@ -50,28 +49,14 @@
             this.programTextBox.Multiline = true;
             this.programTextBox.Name = "programTextBox";
             this.programTextBox.ReadOnly = true;
-            this.programTextBox.Size = new System.Drawing.Size(357, 192);
+            this.programTextBox.Size = new System.Drawing.Size(357, 240);
             this.programTextBox.TabIndex = 4;
-            // 
-            // okayCancelFooter1
-            // 
-            this.okayCancelFooter1.BackColor = System.Drawing.Color.White;
-            this.okayCancelFooter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.okayCancelFooter1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter1.Location = new System.Drawing.Point(0, 239);
-            this.okayCancelFooter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.okayCancelFooter1.Name = "okayCancelFooter1";
-            this.okayCancelFooter1.Size = new System.Drawing.Size(384, 45);
-            this.okayCancelFooter1.TabIndex = 5;
-            this.okayCancelFooter1.OkayClicked += new System.EventHandler(this.okayCancelFooter1_OkayClicked);
-            this.okayCancelFooter1.CancelClicked += new System.EventHandler(this.okayCancelFooter1_CancelClicked);
             // 
             // ReceiveProgramDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 284);
-            this.Controls.Add(this.okayCancelFooter1);
             this.Controls.Add(this.programTextBox);
             this.Controls.Add(this.messageLabel);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -95,6 +80,5 @@
 
         private System.Windows.Forms.Label messageLabel;
         private System.Windows.Forms.TextBox programTextBox;
-        private Controls.OkayCancelFooter okayCancelFooter1;
     }
 }

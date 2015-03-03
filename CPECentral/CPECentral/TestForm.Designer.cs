@@ -28,23 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.partLibraryView21 = new CPECentral.Views.PartLibraryView2();
+            this.mainView21 = new CPECentral.Views.MainView2();
             this.SuspendLayout();
             // 
-            // partLibraryView21
+            // mainView21
             // 
-            this.partLibraryView21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.partLibraryView21.Location = new System.Drawing.Point(0, 0);
-            this.partLibraryView21.Name = "partLibraryView21";
-            this.partLibraryView21.Size = new System.Drawing.Size(420, 612);
-            this.partLibraryView21.TabIndex = 0;
+            this.mainView21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainView21.Location = new System.Drawing.Point(0, 0);
+            this.mainView21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.mainView21.Name = "mainView21";
+            this.mainView21.Size = new System.Drawing.Size(1096, 690);
+            this.mainView21.TabIndex = 0;
             // 
             // TestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 612);
-            this.Controls.Add(this.partLibraryView21);
+            this.ClientSize = new System.Drawing.Size(1096, 690);
+            this.Controls.Add(this.mainView21);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "TestForm";
             this.Text = "TestForm";
             this.ResumeLayout(false);
@@ -53,6 +56,7 @@
 
         #endregion
 
-        private Views.PartLibraryView2 partLibraryView21;
+        private Views.MainView2 mainView21;
+
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CPECentral.Controls;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -20,10 +21,12 @@ namespace CPECentral.Views
     {
         Part Part { get; }
         event EventHandler ReloadData;
-
+        event EventHandler<PartVersionEventArgs> SelectedVersionChanged;
         void LoadPart(Part part);
 
         void DisplayModel(PartViewModel model);
+
+        void ShowVersionWarning();
     }
 
     public partial class PartView : ViewBase, IPartView
@@ -48,6 +51,15 @@ namespace CPECentral.Views
         #region IPartView Members
 
         public event EventHandler ReloadData;
+        public event EventHandler<PartVersionEventArgs> SelectedVersionChanged;
+
+        protected virtual void OnSelectedVersionChanged(PartVersionEventArgs e)
+        {
+            EventHandler<PartVersionEventArgs> handler = SelectedVersionChanged;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
 
         public Part Part { get; private set; }
 
@@ -72,6 +84,14 @@ namespace CPECentral.Views
             modifiedByLabel.Text = "Modified by: " + model.ModifiedBy;
 
             RepositionHeaderLabels();
+        }
+
+        public void ShowVersionWarning()
+        {
+            var versionWarningPanel = new VersionWarningPanel();
+            Controls.Add(versionWarningPanel);
+            versionWarningPanel.BringToFront();
+            versionWarningPanel.Dock = DockStyle.Fill;
         }
 
         #endregion
@@ -113,6 +133,8 @@ namespace CPECentral.Views
 
         private void partInformationView_VersionSelected(object sender, PartVersionEventArgs e)
         {
+            OnSelectedVersionChanged(new PartVersionEventArgs(e.PartVersion));
+
             operationsView.LoadMethods(e.PartVersion);
 
             versionDocumentsView.LoadDocuments(e.PartVersion);
