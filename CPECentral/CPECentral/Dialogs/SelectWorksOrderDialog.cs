@@ -1,12 +1,11 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Tricorn;
+
+#endregion
 
 namespace CPECentral.Dialogs
 {
@@ -14,14 +13,14 @@ namespace CPECentral.Dialogs
     {
         private readonly ICollection<WOrder> _worksOrders;
 
-        public WOrder SelectedWorksOrder { get; private set; }
-
         public SelectWorksOrderDialog(ICollection<WOrder> worksOrders)
         {
             InitializeComponent();
 
             _worksOrders = worksOrders;
         }
+
+        public WOrder SelectedWorksOrder { get; private set; }
 
         private void SelectWorksOrderDialog_Load(object sender, EventArgs e)
         {
@@ -31,7 +30,7 @@ namespace CPECentral.Dialogs
 
         private void matchesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedWorksOrder = (WOrder)matchesListBox.SelectedItem;
+            SelectedWorksOrder = (WOrder) matchesListBox.SelectedItem;
 
             customerNameTextBox.Text = SelectedWorksOrder.Customer.Name;
             drawingNumberTextBox.Text = SelectedWorksOrder.Drawing_Number;

@@ -14,8 +14,8 @@ namespace CPECentral.Dialogs
     public partial class EditOperationDialog : Form
     {
         private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
-        private readonly Operation _operation;
         private readonly int _methodId;
+        private readonly Operation _operation;
         private bool _altKeyIsDown = false;
 
         public EditOperationDialog(int methodId)
@@ -86,24 +86,25 @@ namespace CPECentral.Dialogs
             if (_operation == null) {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
+                        var newSequence = (int) sequenceNumericUpDown.Value;
 
-                        int newSequence = (int) sequenceNumericUpDown.Value;
-
-                        var previousOps = cpe.Operations.GetByMethod(_methodId).Where(op => op.Sequence < newSequence);
+                        IEnumerable<Operation> previousOps =
+                            cpe.Operations.GetByMethod(_methodId).Where(op => op.Sequence < newSequence);
 
                         if (previousOps.Any()) {
-                            var closestSequence = FindClosest(previousOps.Select(op => op.Sequence), newSequence);
+                            int? closestSequence = FindClosest(previousOps.Select(op => op.Sequence), newSequence);
 
-                            var previousOp = previousOps.Single(op => op.Sequence == closestSequence);
+                            Operation previousOp = previousOps.Single(op => op.Sequence == closestSequence);
 
-                            var copyTools =  _dialogService.AskQuestion("Do you want to copy the tool list from the previous operation?");
+                            bool copyTools =
+                                _dialogService.AskQuestion(
+                                    "Do you want to copy the tool list from the previous operation?");
 
                             if (copyTools) {
                                 OperationToolsToCopy = new List<OperationTool>();
                                 OperationToolsToCopy.AddRange(previousOp.OperationTools.ToList());
                             }
                         }
-
                     }
                 }
             }
@@ -140,7 +141,8 @@ namespace CPECentral.Dialogs
                             }
 
                             // determine the next available sequence number
-                            var existingSequences = cpe.Operations.GetByMethod(_methodId).Select(op => op.Sequence);
+                            IEnumerable<int> existingSequences =
+                                cpe.Operations.GetByMethod(_methodId).Select(op => op.Sequence);
 
                             int nextAvailable = 1;
 
@@ -176,17 +178,17 @@ namespace CPECentral.Dialogs
         {
             return
                 (from number in numbers
-                 let difference = Math.Abs(number - x)
-                 orderby difference, Math.Abs(number), number descending
-                 select (int?)number)
-                .FirstOrDefault();
+                    let difference = Math.Abs(number - x)
+                    orderby difference, Math.Abs(number), number descending
+                    select (int?) number)
+                    .FirstOrDefault();
         }
 
         private void symbolButtons_Click(object sender, EventArgs e)
         {
-            var selectionStart = descriptionTextBox.SelectionStart;
+            int selectionStart = descriptionTextBox.SelectionStart;
 
-            var newText = descriptionTextBox.Text.Insert(selectionStart, (sender as Button).Text);
+            string newText = descriptionTextBox.Text.Insert(selectionStart, (sender as Button).Text);
 
             descriptionTextBox.Text = newText;
 

@@ -133,10 +133,12 @@ namespace CPECentral.Presenters
                         case SearchField.WorksOrderNumber:
                             using (var tricorn = new TricornDataProvider()) {
                                 IEnumerable<string> drawingNumbers =
-                                    tricorn.GetWorksOrders(args.Value).Select(wo => wo.Drawing_Number).Distinct();
+                                    tricorn.GetWorksOrdersByUserReference(args.Value)
+                                        .Select(wo => wo.Drawing_Number)
+                                        .Distinct();
                                 var parts = new List<Part>();
                                 foreach (string drawingNumber in drawingNumbers) {
-                                    var cleanDrawingNumber = drawingNumber.Trim();
+                                    string cleanDrawingNumber = drawingNumber.Trim();
                                     parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(cleanDrawingNumber));
                                 }
                                 matchingParts = parts;

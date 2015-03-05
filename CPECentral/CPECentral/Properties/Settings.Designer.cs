@@ -274,7 +274,7 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("S:\\")]
         public string DefaultDirectory {
             get {
                 return ((string)(this["DefaultDirectory"]));
@@ -295,7 +295,7 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Central\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("S:\\Central")]
         public string SharedAppDir {
             get {
                 return ((string)(this["SharedAppDir"]));
@@ -328,7 +328,7 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(|)|[|]|;|:|Ø")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(|)|[|]|;|:|Ø|°")]
         public string InvalidTurningProgramCommentCharacters {
             get {
                 return ((string)(this["InvalidTurningProgramCommentCharacters"]));

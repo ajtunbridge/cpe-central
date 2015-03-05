@@ -28,17 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.startPageView1 = new CPECentral.Views.StartPageView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.partLibraryView = new CPECentral.Views.PartLibraryView3();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.switchUserToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.documentTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.documentTransferStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -59,73 +54,12 @@
             this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.employeeSessionPanel = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.ItemSize = new System.Drawing.Size(150, 22);
-            this.tabControl.Location = new System.Drawing.Point(0, 77);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1139, 780);
-            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl.TabIndex = 7;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.startPageView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1131, 750);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Start page";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // startPageView1
-            // 
-            this.startPageView1.BackColor = System.Drawing.Color.White;
-            this.startPageView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.startPageView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPageView1.Location = new System.Drawing.Point(3, 3);
-            this.startPageView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.startPageView1.Name = "startPageView1";
-            this.startPageView1.Size = new System.Drawing.Size(1125, 744);
-            this.startPageView1.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.partLibraryView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1131, 750);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Part library";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // partLibraryView
-            // 
-            this.partLibraryView.BackColor = System.Drawing.Color.White;
-            this.partLibraryView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.partLibraryView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.partLibraryView.Location = new System.Drawing.Point(3, 3);
-            this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.partLibraryView.MinimumSize = new System.Drawing.Size(925, 630);
-            this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(1125, 744);
-            this.partLibraryView.TabIndex = 0;
-            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
             // 
             // toolStrip
             // 
@@ -133,18 +67,34 @@
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPartToolStripButton,
+            this.switchUserToolStripDropDownButton,
             this.toolStripSeparator1,
-            this.toolManagementToolStripButton,
+            this.addPartToolStripButton,
             this.toolStripSeparator5,
-            this.logoutToolStripButton,
+            this.toolManagementToolStripButton,
             this.toolStripSeparator4});
             this.toolStrip.Location = new System.Drawing.Point(0, 27);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1139, 50);
+            this.toolStrip.Size = new System.Drawing.Size(1214, 50);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
+            // 
+            // switchUserToolStripDropDownButton
+            // 
+            this.switchUserToolStripDropDownButton.Enabled = false;
+            this.switchUserToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.SwitchUserIcon_32x32;
+            this.switchUserToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.switchUserToolStripDropDownButton.Name = "switchUserToolStripDropDownButton";
+            this.switchUserToolStripDropDownButton.Size = new System.Drawing.Size(118, 47);
+            this.switchUserToolStripDropDownButton.Text = "Switch user";
+            this.switchUserToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.switchUserToolStripDropDownButton_DropDownItemClicked);
+            this.switchUserToolStripDropDownButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
             // 
             // addPartToolStripButton
             // 
@@ -156,10 +106,10 @@
             this.addPartToolStripButton.Text = "New part";
             this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
             // 
-            // toolStripSeparator1
+            // toolStripSeparator5
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 50);
             // 
             // toolManagementToolStripButton
             // 
@@ -168,20 +118,6 @@
             this.toolManagementToolStripButton.Name = "toolManagementToolStripButton";
             this.toolManagementToolStripButton.Size = new System.Drawing.Size(150, 47);
             this.toolManagementToolStripButton.Text = "Tool management";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 50);
-            // 
-            // logoutToolStripButton
-            // 
-            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_32x32;
-            this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.logoutToolStripButton.Name = "logoutToolStripButton";
-            this.logoutToolStripButton.Size = new System.Drawing.Size(85, 47);
-            this.logoutToolStripButton.Text = "Logout";
-            this.logoutToolStripButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
             // 
             // toolStripSeparator4
             // 
@@ -193,9 +129,9 @@
             this.documentTransferStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentTransferStatusLabel,
             this.documentTransferToolStripProgressBar});
-            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 857);
+            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 841);
             this.documentTransferStatusStrip.Name = "documentTransferStatusStrip";
-            this.documentTransferStatusStrip.Size = new System.Drawing.Size(1139, 22);
+            this.documentTransferStatusStrip.Size = new System.Drawing.Size(1214, 22);
             this.documentTransferStatusStrip.SizingGrip = false;
             this.documentTransferStatusStrip.TabIndex = 3;
             this.documentTransferStatusStrip.Text = "statusStrip1";
@@ -216,9 +152,9 @@
             // 
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripStatusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 879);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 863);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(1139, 22);
+            this.mainStatusStrip.Size = new System.Drawing.Size(1214, 22);
             this.mainStatusStrip.TabIndex = 6;
             this.mainStatusStrip.Text = "statusStrip2";
             // 
@@ -235,7 +171,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1139, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1214, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -340,11 +276,19 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
+            // employeeSessionPanel
+            // 
+            this.employeeSessionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.employeeSessionPanel.Location = new System.Drawing.Point(0, 77);
+            this.employeeSessionPanel.Name = "employeeSessionPanel";
+            this.employeeSessionPanel.Size = new System.Drawing.Size(1214, 764);
+            this.employeeSessionPanel.TabIndex = 7;
+            // 
             // MainView2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.employeeSessionPanel);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.documentTransferStatusStrip);
             this.Controls.Add(this.mainStatusStrip);
@@ -352,10 +296,8 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainView2";
-            this.Size = new System.Drawing.Size(1139, 901);
-            this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(1214, 885);
+            this.Load += new System.EventHandler(this.MainView2_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.documentTransferStatusStrip.ResumeLayout(false);
@@ -378,7 +320,6 @@
         private System.Windows.Forms.ToolStripMenuItem addNewPartToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel documentTransferStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar documentTransferToolStripProgressBar;
-        private System.Windows.Forms.ToolStripButton logoutToolStripButton;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel mainToolStripStatusLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -397,10 +338,7 @@
         private System.Windows.Forms.ToolStripButton toolManagementToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private StartPageView startPageView1;
-        private PartLibraryView3 partLibraryView;
+        private System.Windows.Forms.ToolStripDropDownButton switchUserToolStripDropDownButton;
+        private System.Windows.Forms.Panel employeeSessionPanel;
     }
 }

@@ -49,31 +49,33 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(41, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(421, 31);
+            this.label1.Size = new System.Drawing.Size(463, 31);
             this.label1.TabIndex = 2;
             this.label1.Text = "What have we got in stock?";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 51);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Location = new System.Drawing.Point(6, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(383, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Search for";
+            this.label2.Text = "What are you looking for?";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // searchButton
             // 
+            this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.searchButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchButton.Location = new System.Drawing.Point(353, 71);
-            this.searchButton.MaximumSize = new System.Drawing.Size(475, 33);
+            this.searchButton.Location = new System.Drawing.Point(395, 71);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(99, 33);
+            this.searchButton.Size = new System.Drawing.Size(105, 43);
             this.searchButton.TabIndex = 1;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -93,11 +95,11 @@
             this.olvColumn2,
             this.olvColumn3});
             this.resultsTreeListView.FullRowSelect = true;
-            this.resultsTreeListView.Location = new System.Drawing.Point(6, 136);
+            this.resultsTreeListView.Location = new System.Drawing.Point(6, 139);
             this.resultsTreeListView.Name = "resultsTreeListView";
             this.resultsTreeListView.OwnerDraw = true;
             this.resultsTreeListView.ShowGroups = false;
-            this.resultsTreeListView.Size = new System.Drawing.Size(456, 175);
+            this.resultsTreeListView.Size = new System.Drawing.Size(494, 172);
             this.resultsTreeListView.TabIndex = 2;
             this.resultsTreeListView.UseAlternatingBackColors = true;
             this.resultsTreeListView.UseCompatibleStateImageBehavior = false;
@@ -133,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 116);
+            this.label3.Location = new System.Drawing.Point(3, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 17);
             this.label3.TabIndex = 3;
@@ -141,13 +143,13 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(465, 39);
+            this.panel1.Size = new System.Drawing.Size(507, 39);
             this.panel1.TabIndex = 7;
             // 
             // pictureBox1
@@ -166,16 +168,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchValueTextBox.DisableDoubleSpace = false;
             this.searchValueTextBox.DisableLeadingSpace = false;
-            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchValueTextBox.ForeColor = System.Drawing.Color.Gray;
+            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchValueTextBox.ForeColor = System.Drawing.Color.DimGray;
             this.searchValueTextBox.Location = new System.Drawing.Point(6, 71);
-            this.searchValueTextBox.MaximumSize = new System.Drawing.Size(550, 33);
             this.searchValueTextBox.MaxLength = 50;
             this.searchValueTextBox.Name = "searchValueTextBox";
             this.searchValueTextBox.NumericCharactersOnly = false;
-            this.searchValueTextBox.Size = new System.Drawing.Size(341, 33);
+            this.searchValueTextBox.Size = new System.Drawing.Size(382, 43);
             this.searchValueTextBox.SuppressEnterKey = true;
             this.searchValueTextBox.TabIndex = 0;
+            this.searchValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.searchValueTextBox.EnterKeyPressed += new System.EventHandler(this.searchValueTextBox_EnterKeyPressed);
             this.searchValueTextBox.SizeChanged += new System.EventHandler(this.searchValueTextBox_SizeChanged);
             // 
@@ -194,7 +196,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "CheckStockLevelsView";
-            this.Size = new System.Drawing.Size(465, 319);
+            this.Size = new System.Drawing.Size(507, 319);
             ((System.ComponentModel.ISupportInitialize)(this.resultsTreeListView)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

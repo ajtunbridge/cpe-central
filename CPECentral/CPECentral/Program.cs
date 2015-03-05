@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,6 +14,8 @@ namespace CPECentral
 {
     internal static class Program
     {
+        private const int SW_RESTORE = 9;
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -22,15 +23,13 @@ namespace CPECentral
         [DllImport("user32.dll")]
         private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
 
-        private const int SW_RESTORE = 9;
-
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
         {
-            var createdNew = true;
+            bool createdNew = true;
 
             using (var mutex = new Mutex(true, "CPECentral", out createdNew)) {
                 if (createdNew) {
@@ -46,8 +45,8 @@ namespace CPECentral
                     Application.Run(new MainForm());
                 }
                 else {
-                    var current = Process.GetCurrentProcess();
-                    foreach (var process in Process.GetProcessesByName(current.ProcessName)) {
+                    Process current = Process.GetCurrentProcess();
+                    foreach (Process process in Process.GetProcessesByName(current.ProcessName)) {
                         if (process.Id != current.Id) {
                             ShowWindow(process.MainWindowHandle, SW_RESTORE);
                             SetForegroundWindow(process.MainWindowHandle);
@@ -60,7 +59,7 @@ namespace CPECentral
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            var msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+            string msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
 
             MessageBox.Show(msg);
         }
@@ -69,7 +68,7 @@ namespace CPECentral
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
+                    EmployeeGroup adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
 
                     if (adminGroup == null) {
                         adminGroup = new EmployeeGroup();
@@ -79,7 +78,7 @@ namespace CPECentral
                         cpe.Commit();
                     }
 
-                    var adminEmployee = cpe.Employees.GetByUserName("admin");
+                    Employee adminEmployee = cpe.Employees.GetByUserName("admin");
 
                     if (adminEmployee == null) {
                         adminEmployee = new Employee();
@@ -88,7 +87,7 @@ namespace CPECentral
                         adminEmployee.UserName = "admin";
                         adminEmployee.EmployeeGroupId = adminGroup.Id;
 
-                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("5jc3ngltd");
+                        Password securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("5jc3ngltd");
 
                         adminEmployee.Password = securedPassword.Hash;
                         adminEmployee.Salt = securedPassword.Salt;
@@ -100,7 +99,7 @@ namespace CPECentral
                 }
             }
             catch (Exception ex) {
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
             }
@@ -110,7 +109,7 @@ namespace CPECentral
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var myGroup = cpe.EmployeeGroups.GetByName("Power users");
+                    EmployeeGroup myGroup = cpe.EmployeeGroups.GetByName("Power users");
 
                     if (myGroup == null) {
                         myGroup = new EmployeeGroup();
@@ -126,7 +125,7 @@ namespace CPECentral
                         cpe.Commit();
                     }
 
-                    var myEmployee = cpe.Employees.GetByUserName("adam");
+                    Employee myEmployee = cpe.Employees.GetByUserName("adam");
 
                     if (myEmployee == null) {
                         myEmployee = new Employee();
@@ -135,7 +134,7 @@ namespace CPECentral
                         myEmployee.UserName = "adam";
                         myEmployee.EmployeeGroupId = myGroup.Id;
 
-                        var securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("password");
+                        Password securedPassword = Session.GetInstanceOf<IPasswordService>().SecurePassword("password");
 
                         myEmployee.Password = securedPassword.Hash;
                         myEmployee.Salt = securedPassword.Salt;
@@ -147,7 +146,7 @@ namespace CPECentral
                 }
             }
             catch (Exception ex) {
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
             }

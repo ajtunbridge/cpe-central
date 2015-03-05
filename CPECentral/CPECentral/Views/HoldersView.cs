@@ -407,18 +407,15 @@ namespace CPECentral.Views
         }
 
         /// <summary>
-        /// Recurses through the TreeView's nodes and selects the specified <see cref="Holder"/> node if it exists
+        ///     Recurses through the TreeView's nodes and selects the specified <see cref="Holder" /> node if it exists
         /// </summary>
-        /// <param name="holder">The <see cref="Holder"/> to select</param>
+        /// <param name="holder">The <see cref="Holder" /> to select</param>
         private void SelectHolder(Holder holder)
         {
-            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes)
-            {
-                foreach (TreeNode holderNode in groupNode.Nodes)
-                {
+            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes) {
+                foreach (TreeNode holderNode in groupNode.Nodes) {
                     var currentHolder = holderNode.Tag as Holder;
-                    if (currentHolder.Equals(holder))
-                    {
+                    if (currentHolder.Equals(holder)) {
                         holdersEnhancedTreeView.SelectedNode = holderNode;
                         break;
                     }
@@ -427,16 +424,14 @@ namespace CPECentral.Views
         }
 
         /// <summary>
-        /// Recurses through the TreeView's nodes and selects the specified <see cref="HolderGroup"/> node if it exists
+        ///     Recurses through the TreeView's nodes and selects the specified <see cref="HolderGroup" /> node if it exists
         /// </summary>
-        /// <param name="holderGroup">The <see cref="HolderGroup"/> to select</param>
+        /// <param name="holderGroup">The <see cref="HolderGroup" /> to select</param>
         private void SelectHolderGroup(HolderGroup holderGroup)
         {
-            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes)
-            {
+            foreach (TreeNode groupNode in holdersEnhancedTreeView.Nodes) {
                 var currentGroup = groupNode.Tag as HolderGroup;
-                if (currentGroup.Equals(holderGroup))
-                {
+                if (currentGroup.Equals(holderGroup)) {
                     holdersEnhancedTreeView.SelectedNode = groupNode;
                     break;
                 }
@@ -444,12 +439,11 @@ namespace CPECentral.Views
         }
 
         /// <summary>
-        /// If a node is selected in the TreeView and EditMode is true, begins LabelEdit
+        ///     If a node is selected in the TreeView and EditMode is true, begins LabelEdit
         /// </summary>
         private void EditLabelOnSelectedNode()
         {
-            if (holdersEnhancedTreeView.SelectedNode != null && EditMode)
-            {
+            if (holdersEnhancedTreeView.SelectedNode != null && EditMode) {
                 holdersEnhancedTreeView.SelectedNode.BeginEdit();
             }
         }
@@ -459,24 +453,20 @@ namespace CPECentral.Views
         /// </summary>
         private void DeleteSelectedEntity()
         {
-            if (holdersEnhancedTreeView.SelectedNode == null)
-            {
+            if (holdersEnhancedTreeView.SelectedNode == null) {
                 return;
             }
 
             bool deletedOk = false;
 
-            if (_selectedHolder != null)
-            {
+            if (_selectedHolder != null) {
                 deletedOk = OnDeleteHolder(_selectedHolder);
             }
-            else if (_selectedHolderGroup != null)
-            {
+            else if (_selectedHolderGroup != null) {
                 deletedOk = OnDeleteHolderGroup(_selectedHolderGroup);
             }
 
-            if (deletedOk)
-            {
+            if (deletedOk) {
                 ReloadHolders();
             }
         }

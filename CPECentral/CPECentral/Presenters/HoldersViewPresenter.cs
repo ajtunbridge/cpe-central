@@ -35,30 +35,27 @@ namespace CPECentral.Presenters
             _view.DeleteHolderGroup += _view_DeleteHolderGroup;
         }
 
-        bool _view_DeleteHolderGroup(HolderGroup entity)
+        private bool _view_DeleteHolderGroup(HolderGroup entity)
         {
-            var userCancelled = _view.DialogService.AskQuestion("This will delete this holder group and all holders related to it!\n\nDo you want to cancel?");
+            bool userCancelled =
+                _view.DialogService.AskQuestion(
+                    "This will delete this holder group and all holders related to it!\n\nDo you want to cancel?");
 
-            if (userCancelled)
-            {
+            if (userCancelled) {
                 return false;
             }
 
-            var okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this group?");
+            bool okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this group?");
 
-            if (!okToDelete)
-            {
+            if (!okToDelete) {
                 return false;
             }
 
             bool deletedOk = false;
 
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var cpe = new CPEUnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         // all related Holders + HolderTools will be cascade deleted by the database
                         cpe.HolderGroups.Delete(entity);
                         cpe.Commit();
@@ -66,23 +63,23 @@ namespace CPECentral.Presenters
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex, entity);
             }
 
             return deletedOk;
         }
 
-        bool _view_DeleteHolder(Holder entity)
+        private bool _view_DeleteHolder(Holder entity)
         {
-            var userCancelled = _view.DialogService.AskQuestion("This will delete this holder!\n\nDo you want to cancel?");
+            bool userCancelled =
+                _view.DialogService.AskQuestion("This will delete this holder!\n\nDo you want to cancel?");
 
             if (userCancelled) {
                 return false;
             }
 
-            var okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this holder?");
+            bool okToDelete = _view.DialogService.AskQuestion("Are you sure you want to delete this holder?");
 
             if (!okToDelete) {
                 return false;

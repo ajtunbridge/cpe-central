@@ -1,11 +1,14 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -20,7 +23,7 @@ namespace CPECentral.Presenters
             _view.PerformSearch += _view_PerformSearch;
         }
 
-        void _view_PerformSearch(object sender, CustomEventArgs.StringEventArgs e)
+        private void _view_PerformSearch(object sender, StringEventArgs e)
         {
             var worker = new BackgroundWorker();
             worker.DoWork += worker_DoWork;
@@ -28,11 +31,11 @@ namespace CPECentral.Presenters
             worker.RunWorkerAsync(e.Value);
         }
 
-        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Result is Exception) {
                 var ex = e.Result as Exception;
-                var msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 _view.DialogService.ShowError(msg);
                 return;
             }
@@ -42,18 +45,18 @@ namespace CPECentral.Presenters
             _view.DisplayResults(model);
         }
 
-        void worker_DoWork(object sender, DoWorkEventArgs e)
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var drawingNumber = (string)e.Argument;
+            var drawingNumber = (string) e.Argument;
 
             var model = new StartPageFindToolBoxViewModel();
             model.Results = new List<StartPageFindToolBoxViewModelItem>();
 
             try {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var parts = cpe.Parts.GetWhereDrawingNumberContains(drawingNumber);
+                    IEnumerable<Part> parts = cpe.Parts.GetWhereDrawingNumberContains(drawingNumber);
 
-                    foreach (var part in parts) {
+                    foreach (Part part in parts) {
                         model.Results.Add(new StartPageFindToolBoxViewModelItem {
                             DrawingNumber = part.DrawingNumber,
                             Location = part.ToolingLocation

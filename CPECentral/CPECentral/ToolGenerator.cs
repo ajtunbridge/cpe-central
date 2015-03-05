@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
 using CPECentral.Data.EF5;
+
+#endregion
 
 namespace CPECentral
 {

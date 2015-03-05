@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
 using CPECentral.Data.EF5;
+
+#endregion
 
 namespace CPECentral.Commands
 {
     public sealed class NewVersionCommand : CommandBase
     {
-        public void Execute(Part part, string newVersionNumber, bool copyMethodsAndOperations, bool copyToolLists, bool copyOperationDocuments)
+        public void Execute(Part part, string newVersionNumber, bool copyMethodsAndOperations, bool copyToolLists,
+            bool copyOperationDocuments)
         {
-            var currentVersion = UnitOfWork.PartVersions.GetLatestVersion(part.Id);
+            PartVersion currentVersion = UnitOfWork.PartVersions.GetLatestVersion(part.Id);
 
             var newVersion = new PartVersion {
                 PartId = part.Id,
@@ -22,7 +23,7 @@ namespace CPECentral.Commands
             UnitOfWork.PartVersions.Add(newVersion);
 
             if (copyMethodsAndOperations) {
-                foreach (var method in currentVersion.Methods) {
+                foreach (Method method in currentVersion.Methods) {
                     var newMethod = new Method {
                         PartVersion = newVersion,
                         IsPreferred = method.IsPreferred,
@@ -33,7 +34,7 @@ namespace CPECentral.Commands
 
                     UnitOfWork.Methods.Add(newMethod);
 
-                    foreach (var operation in method.Operations) {
+                    foreach (Operation operation in method.Operations) {
                         var newOperation = new Operation {
                             CreatedBy = Session.CurrentEmployee.Id,
                             CycleTime = operation.CycleTime,
@@ -49,7 +50,7 @@ namespace CPECentral.Commands
                         UnitOfWork.Operations.Add(newOperation);
 
                         if (copyToolLists) {
-                            foreach (var opTool in operation.OperationTools) {
+                            foreach (OperationTool opTool in operation.OperationTools) {
                                 var newOpTool = new OperationTool {
                                     HolderId = opTool.HolderId,
                                     Notes = opTool.Notes,

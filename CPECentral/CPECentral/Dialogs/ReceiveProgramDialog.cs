@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.IO;
 using System.IO.Ports;
 using System.Media;
 using System.Windows.Forms;
@@ -45,7 +46,7 @@ namespace CPECentral.Dialogs
         {
             BeginInvoke((MethodInvoker) delegate {
                 messageLabel.Text = "Receiving program...";
-                using (var stream = Resources.Beep) {
+                using (UnmanagedMemoryStream stream = Resources.Beep) {
                     using (var player = new SoundPlayer(stream)) {
                         player.Play();
                     }
@@ -57,14 +58,14 @@ namespace CPECentral.Dialogs
         {
             BeginInvoke((MethodInvoker) delegate {
                 DialogResult = DialogResult.OK;
-                Close(); 
+                Close();
             });
         }
 
         private void _serialLink_ReceiveProgress(object sender, ReceiveProgressEventArgs e)
         {
             // clean up whitespace
-            var cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
+            string cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
 
             Invoke((MethodInvoker) delegate {
                 programTextBox.Text += cleanValue;

@@ -1,7 +1,8 @@
-﻿using System;
+﻿#region Using directives
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace CPECentral.ViewModels
 {
@@ -12,7 +13,8 @@ namespace CPECentral.ViewModels
             Children = new List<CheckStockLevelsViewModel>();
         }
 
-        public CheckStockLevelsViewModel(string label, string quantity, string location, List<CheckStockLevelsViewModel> children)
+        public CheckStockLevelsViewModel(string label, string quantity, string location,
+            List<CheckStockLevelsViewModel> children)
         {
             Label = label;
             Quantity = quantity;

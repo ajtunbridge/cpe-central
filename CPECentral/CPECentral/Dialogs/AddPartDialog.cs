@@ -31,8 +31,7 @@ namespace CPECentral.Dialogs
         {
             InitializeComponent();
 
-            if (!DesignMode)
-            {
+            if (!DesignMode) {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
 
                 if (!worksOrderNumber.IsNullOrWhitespace()) {
@@ -288,8 +287,7 @@ namespace CPECentral.Dialogs
                     });
 
 
-                if (_scanServerWorker.CancellationPending)
-                {
+                if (_scanServerWorker.CancellationPending) {
                     return;
                 }
 
@@ -352,7 +350,8 @@ namespace CPECentral.Dialogs
         {
             using (BusyCursor.Show()) {
                 using (var tricorn = new TricornDataProvider()) {
-                    var worksOrders = tricorn.GetWorksOrders(worksOrderEnhancedTextBox.Text.Trim()).ToList();
+                    List<WOrder> worksOrders =
+                        tricorn.GetWorksOrdersByUserReference(worksOrderEnhancedTextBox.Text.Trim()).ToList();
 
                     WOrder selectedWorksOrder = null;
                     if (worksOrders.Count() == 1) {
@@ -367,8 +366,7 @@ namespace CPECentral.Dialogs
                         }
                     }
 
-                    if (selectedWorksOrder == null)
-                    {
+                    if (selectedWorksOrder == null) {
                         _dialogService.Notify("The works order number you entered does not exist!");
                         return;
                     }

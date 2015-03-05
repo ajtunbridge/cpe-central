@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace CPECentral.Views
         event EventHandler<OperationEventArgs> AddOperationTool;
         event EventHandler<OperationToolEventArgs> EditOperationTool;
         event EventHandler<OperationToolEventArgs> DeleteOperationTool;
-        
+
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
         void RetrieveOperationTools(Operation operation);
@@ -68,7 +69,7 @@ namespace CPECentral.Views
                 item.SubItems.Add(modelItem.ToolName);
                 item.SubItems.Add(modelItem.HolderName);
 
-                var stockLevelString = (modelItem.QuantityInStock.HasValue)
+                string stockLevelString = (modelItem.QuantityInStock.HasValue)
                     ? string.Format("{0:00}", modelItem.QuantityInStock)
                     : "N/A";
 
@@ -171,7 +172,8 @@ namespace CPECentral.Views
                     OnDeleteOperationTool(new OperationToolEventArgs(_selectedOperationTool));
                     break;
                 case "viewStockLevelsToolStripButton":
-                    var toolIds = from ListViewItem item in operationToolsEnhancedListView.Items select (item.Tag as OperationTool).ToolId;
+                    IEnumerable<int> toolIds = from ListViewItem item in operationToolsEnhancedListView.Items
+                        select (item.Tag as OperationTool).ToolId;
                     using (var dialog = new StockLevelsDialog(toolIds)) {
                         dialog.ShowDialog(ParentForm);
                     }

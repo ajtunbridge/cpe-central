@@ -71,6 +71,18 @@
       <setting name="ToolSelectorDialogFormSize" serializeAs="String">
         <value>815, 520</value>
       </setting>
+      <setting name="TurningProgramHeaderFormat" serializeAs="String">
+        <value>%
+:{prog}(DWG.{dwg} VER.{ver} OP.{op})
+
+(* NOT PROVEN *)
+
+(CUST.{cust})
+(NAME.{name})
+(AUTHOR.{employee})
+
+</value>
+      </setting>
       <setting name="DrawingFileDirectory" serializeAs="String">
         <value>I:\Drawing Files\</value>
       </setting>
@@ -84,26 +96,14 @@
       <setting name="InvalidTurningProgramCommentCharacters" serializeAs="String">
         <value>(|)|[|]|;|:|Ø</value>
       </setting>
-      <setting name="TurningProgramHeaderFormat" serializeAs="String">
-        <value>%
-:{prog}(DWG.{dwg} VER.{ver} OP.{op})
-
-(* NOT PROVEN *)
-
-(CUST.{cust})
-(NAME.{name})
-(AUTHOR.{employee})
-
-</value>
-      </setting>
     </CPECentral.Properties.Settings>
   </userSettings>
   <connectionStrings>
     <add name="TricornEntities"
-         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>

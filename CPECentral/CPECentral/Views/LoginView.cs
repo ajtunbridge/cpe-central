@@ -125,7 +125,6 @@ namespace CPECentral.Views
 
         private void LoginView_VisibleChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

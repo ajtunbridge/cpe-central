@@ -1,8 +1,10 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
@@ -24,13 +26,13 @@ namespace CPECentral.Presenters
             _partView.SelectedVersionChanged += _partView_SelectedVersionChanged;
         }
 
-        void _partView_SelectedVersionChanged(object sender, CustomEventArgs.PartVersionEventArgs e)
+        private void _partView_SelectedVersionChanged(object sender, PartVersionEventArgs e)
         {
             try {
                 using (var cpe = new CPEUnitOfWork()) {
                     using (BusyCursor.Show()) {
-                        var allVersions = cpe.PartVersions.GetByPart(e.PartVersion.PartId);
-                        var latestVersion = allVersions.OrderByDescending(pv => pv.VersionNumber).First();
+                        IEnumerable<PartVersion> allVersions = cpe.PartVersions.GetByPart(e.PartVersion.PartId);
+                        PartVersion latestVersion = allVersions.OrderByDescending(pv => pv.VersionNumber).First();
                         if (e.PartVersion != latestVersion) {
                             _partView.ShowVersionWarning();
                         }

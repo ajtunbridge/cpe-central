@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary;
@@ -119,8 +118,8 @@ namespace CPECentral.Dialogs
 
         private void generateDescriptionButton_Click(object sender, EventArgs e)
         {
-            var appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            var generatorAppPath = Path.Combine(appDir, "InventoryNameGenerator.exe");
+            string appDir = Path.GetDirectoryName(Application.ExecutablePath);
+            string generatorAppPath = Path.Combine(appDir, "InventoryNameGenerator.exe");
 
             Process.Start(generatorAppPath);
         }

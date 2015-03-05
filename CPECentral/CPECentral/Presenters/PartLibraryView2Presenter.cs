@@ -10,6 +10,8 @@ using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
 using Tricorn;
+using Customer = CPECentral.Data.EF5.Customer;
+using Employee = CPECentral.Data.EF5.Employee;
 using Part = CPECentral.Data.EF5.Part;
 
 #endregion
@@ -30,11 +32,11 @@ namespace CPECentral.Presenters
             _view.DeletePart += _view_DeletePart;
         }
 
-        void _view_PartSelected(object sender, PartEventArgs e)
+        private void _view_PartSelected(object sender, PartEventArgs e)
         {
             using (BusyCursor.Show()) {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var employee = cpe.Employees.GetById(Session.CurrentEmployee.Id);
+                    Employee employee = cpe.Employees.GetById(Session.CurrentEmployee.Id);
                     employee.LastViewedPartId = e.Part.Id;
                     cpe.Employees.Update(employee);
                     cpe.Commit();
@@ -63,10 +65,9 @@ namespace CPECentral.Presenters
             retrieveLibraryWorker.RunWorkerAsync();
         }
 
-        void retrieveLibraryWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void retrieveLibraryWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Result is Exception)
-            {
+            if (e.Result is Exception) {
                 HandleException(e.Result as Exception);
                 return;
             }
@@ -76,17 +77,16 @@ namespace CPECentral.Presenters
             _view.DisplayRefreshModel(refreshModel);
         }
 
-        void retrieveLibraryWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void retrieveLibraryWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var refreshModel = new PartLibraryViewReloadModel();
             refreshModel.Results = new List<PartLibraryViewReloadModel.CustomerParts>();
 
             try {
                 using (var cpe = new CPEUnitOfWork()) {
- 
-                    var customers = cpe.Customers.GetAll().OrderBy(c => c.Name);
+                    IOrderedEnumerable<Customer> customers = cpe.Customers.GetAll().OrderBy(c => c.Name);
 
-                    foreach (var customer in customers) {
+                    foreach (Customer customer in customers) {
                         refreshModel.Results.Add(new PartLibraryViewReloadModel.CustomerParts {
                             Customer = customer,
                             Parts = customer.Parts.OrderBy(p => p.DrawingNumber).ToList()
@@ -132,28 +132,31 @@ namespace CPECentral.Presenters
                 searchModel.NameMatches = new List<Part>();
 
                 // find matches on drawing number and name
-                var drawingNumberMatches = cpe.Parts.GetWhereDrawingNumberContains(searchTerm).ToList();
-                var nameMatches = cpe.Parts.GetWhereNameContains(searchTerm);
+                List<Part> drawingNumberMatches = cpe.Parts.GetWhereDrawingNumberContains(searchTerm).ToList();
+                IEnumerable<Part> nameMatches = cpe.Parts.GetWhereNameContains(searchTerm);
 
                 // search using Tricorn works order info
-                var worksOrders = tricorn.GetWorksOrders(searchTerm);
+                IEnumerable<WOrder> worksOrders = tricorn.GetWorksOrdersByUserReference(searchTerm);
                 if (worksOrders.Any()) {
-                    foreach (var wo in worksOrders) {
-                        var matches = cpe.Parts.GetWhereDrawingNumberMatches(wo.Drawing_Number);
-                        var fuzzyMatches = cpe.Parts.GetFuzzyDrawingNumberMatches(wo.Drawing_Number, fuzziness);
+                    foreach (WOrder wo in worksOrders) {
+                        IEnumerable<Part> matches = cpe.Parts.GetWhereDrawingNumberMatches(wo.Drawing_Number);
+                        ICollection<Part> fuzzyMatches = cpe.Parts.GetFuzzyDrawingNumberMatches(wo.Drawing_Number,
+                            fuzziness);
                         drawingNumberMatches.AddRange(matches);
                         searchModel.DrawingNumberFuzzyMatches.AddRange(fuzzyMatches.Except(drawingNumberMatches));
                     }
                 }
 
                 // perform fuzzy search
-                var fuzzyDrawingNumberMatches = cpe.Parts.GetFuzzyDrawingNumberMatches(searchTerm, fuzziness);
-                var fuzzyNameMatches = cpe.Parts.GetFuzzyNameMatches(searchTerm, fuzziness);
+                ICollection<Part> fuzzyDrawingNumberMatches = cpe.Parts.GetFuzzyDrawingNumberMatches(searchTerm,
+                    fuzziness);
+                ICollection<Part> fuzzyNameMatches = cpe.Parts.GetFuzzyNameMatches(searchTerm, fuzziness);
 
                 // remove all matches that have already been matched exactly
-                var distinctFuzzyDrawingNumberMatches =
+                IOrderedEnumerable<Part> distinctFuzzyDrawingNumberMatches =
                     fuzzyDrawingNumberMatches.Except(drawingNumberMatches).OrderBy(p => p.DrawingNumber);
-                var distinctFuzzyNameMatches = fuzzyNameMatches.Except(nameMatches).OrderBy(p => p.Name);
+                IOrderedEnumerable<Part> distinctFuzzyNameMatches =
+                    fuzzyNameMatches.Except(nameMatches).OrderBy(p => p.Name);
 
                 searchModel.DrawingNumberMatches.AddRange(drawingNumberMatches.OrderBy(p => p.DrawingNumber));
                 searchModel.NameMatches.AddRange(nameMatches.OrderBy(p => p.Name));

@@ -26,16 +26,6 @@ namespace CPECentral.Views
     {
         private readonly PartLibraryView3Presenter _presenter;
 
-        public event EventHandler<PartEventArgs> PartSelected;
-
-        protected virtual void OnPartSelected(PartEventArgs e)
-        {
-            EventHandler<PartEventArgs> handler = PartSelected;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
         public PartLibraryView3()
         {
             InitializeComponent();
@@ -71,6 +61,16 @@ namespace CPECentral.Views
 
         #endregion
 
+        public event EventHandler<PartEventArgs> PartSelected;
+
+        protected virtual void OnPartSelected(PartEventArgs e)
+        {
+            EventHandler<PartEventArgs> handler = PartSelected;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
         protected virtual void OnPerformSearch(StringEventArgs e)
         {
             EventHandler<StringEventArgs> handler = PerformSearch;
@@ -102,19 +102,21 @@ namespace CPECentral.Views
         private void resultsObjectListView_SelectionChanged(object sender, EventArgs e)
         {
             if (resultsObjectListView.SelectedObject == null) {
-                pdfViewer.LoadFile(null);
-                pdfViewer.Enabled = false;
+                filePreviewPanel1.ClearPreview();
             }
             else {
                 var item = resultsObjectListView.SelectedObject as PartLibraryView3Model;
-                pdfViewer.LoadFile(item.PathToDrawingFile);
-                pdfViewer.Enabled = true;
+                if (string.IsNullOrWhiteSpace(item.PathToDrawingFile)) {
+                    filePreviewPanel1.ClearPreview();
+                    return;
+                }
+                filePreviewPanel1.ShowFile(item.PathToDrawingFile);
             }
         }
 
         private void resultsObjectListView_ItemActivate(object sender, EventArgs e)
         {
-            var part = (resultsObjectListView.SelectedObject as PartLibraryView3Model).Part;
+            Part part = (resultsObjectListView.SelectedObject as PartLibraryView3Model).Part;
 
             OnPartSelected(new PartEventArgs(part));
         }

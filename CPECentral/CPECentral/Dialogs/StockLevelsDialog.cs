@@ -29,11 +29,11 @@ namespace CPECentral.Dialogs
         {
             using (var cpe = new CPEUnitOfWork()) {
                 using (var tricorn = new TricornDataProvider()) {
-                    foreach (var toolId in _toolIds) {
-                        var tool = cpe.Tools.GetById(toolId);
-                        var groupKey = tool.Id.ToString();
+                    foreach (int toolId in _toolIds) {
+                        Tool tool = cpe.Tools.GetById(toolId);
+                        string groupKey = tool.Id.ToString();
                         ListViewGroup group = null;
-                        var alreadyAdded = false;
+                        bool alreadyAdded = false;
 
                         foreach (ListViewGroup existingGroup in enhancedListView.Groups) {
                             if (existingGroup.Name == groupKey) {
@@ -47,14 +47,14 @@ namespace CPECentral.Dialogs
                             continue;
                         }
 
-                        foreach (var tricornTool in cpe.TricornTools.GetByTool(tool)) {
-                            var batches = tricorn.GetMStocks(tricornTool.TricornReference);
+                        foreach (TricornTool tricornTool in cpe.TricornTools.GetByTool(tool)) {
+                            IEnumerable<MStock> batches = tricorn.GetMStocks(tricornTool.TricornReference);
 
                             if (!batches.Any()) {
                                 continue;
                             }
 
-                            foreach (var batch in batches) {
+                            foreach (MStock batch in batches) {
                                 if (batch.Quantity_In_Stock == 0 || !batch.Quantity_In_Stock.HasValue) {
                                     continue;
                                 }
@@ -63,7 +63,7 @@ namespace CPECentral.Dialogs
                                     group = enhancedListView.Groups.Add(groupKey, tool.Description);
                                 }
 
-                                var item = enhancedListView.Items.Add(batch.Batch_Number);
+                                ListViewItem item = enhancedListView.Items.Add(batch.Batch_Number);
                                 item.SubItems.Add(batch.Quantity_In_Stock.ToString());
                                 item.SubItems.Add(batch.Location);
                                 item.Group = group;

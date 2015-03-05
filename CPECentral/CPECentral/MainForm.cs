@@ -77,7 +77,7 @@ namespace CPECentral
                 return;
             }
 
-            var formsToClose = (from Form f in Application.OpenForms where !f.Equals(this) select f).ToList();
+            List<Form> formsToClose = (from Form f in Application.OpenForms where !f.Equals(this) select f).ToList();
 
             formsToClose.ForEach(f => f.Close());
 

@@ -122,6 +122,22 @@ namespace CPECentral.Views
             OnReloadData();
         }
 
+        public void SelectPart(int partId)
+        {
+            foreach (TreeNode customerNode in enhancedTreeView.Nodes) {
+                foreach (TreeNode partNode in customerNode.Nodes) {
+                    var nodePart = (Part) partNode.Tag;
+
+                    if (nodePart.Id != partId) {
+                        continue;
+                    }
+
+                    enhancedTreeView.SelectedNode = partNode;
+                    return;
+                }
+            }
+        }
+
         #endregion
 
         private void PartLibraryView_Load(object sender, EventArgs e)
@@ -146,9 +162,11 @@ namespace CPECentral.Views
                 if (isSearchResult) {
                     enhancedTreeView.Nodes.Add("The search returned no results!");
                     if (SearchField == SearchField.WorksOrderNumber) {
-                        var canEditParts = AppSecurity.Check(AppPermission.ManageParts);
+                        bool canEditParts = AppSecurity.Check(AppPermission.ManageParts);
                         if (canEditParts) {
-                            if (DialogService.AskQuestion("No parts found for that works order number!\n\nDo you want to create a new part?")) {
+                            if (
+                                DialogService.AskQuestion(
+                                    "No parts found for that works order number!\n\nDo you want to create a new part?")) {
                                 OnWorksOrderNotFound(new StringEventArgs(SearchValue));
                             }
                         }
@@ -242,8 +260,7 @@ namespace CPECentral.Views
         protected virtual void OnWorksOrderNotFound(StringEventArgs e)
         {
             EventHandler<StringEventArgs> handler = WorksOrderNotFound;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }
@@ -280,22 +297,6 @@ namespace CPECentral.Views
 
                 SelectedCustomer = (Customer) e.Node.Tag;
                 OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
-            }
-        }
-
-        public void SelectPart(int partId)
-        {
-            foreach (TreeNode customerNode in enhancedTreeView.Nodes) {
-                foreach (TreeNode partNode in customerNode.Nodes) {
-                    var nodePart = (Part) partNode.Tag;
-
-                    if (nodePart.Id != partId) {
-                        continue;
-                    }
-
-                    enhancedTreeView.SelectedNode = partNode;
-                    return;
-                }
             }
         }
 

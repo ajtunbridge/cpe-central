@@ -42,19 +42,19 @@ namespace CPECentral.Presenters
                         latestVersion = cpe.PartVersions.GetLatestVersion(_partInformationView.Part);
                     }
 
-                    var isNumeric = latestVersion.VersionNumber.All(char.IsNumber);
+                    bool isNumeric = latestVersion.VersionNumber.All(char.IsNumber);
 
-                    var estimatedVersionNumber = string.Empty;
+                    string estimatedVersionNumber = string.Empty;
 
                     if (isNumeric) {
-                        var number = Convert.ToInt32(latestVersion.VersionNumber);
-                        var incrementedNumber = number + 1;
+                        int number = Convert.ToInt32(latestVersion.VersionNumber);
+                        int incrementedNumber = number + 1;
                         estimatedVersionNumber = incrementedNumber.ToString("D2");
                     }
                     else {
                         // if it's a single letter, work out what the next letter is
                         if (latestVersion.VersionNumber.Length == 1) {
-                            var c = Convert.ToChar(latestVersion.VersionNumber[0]);
+                            char c = Convert.ToChar(latestVersion.VersionNumber[0]);
                             estimatedVersionNumber += (char) (c + 1);
                         }
                     }
@@ -90,7 +90,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        var part = _partInformationView.Part;
+                        Part part = _partInformationView.Part;
 
                         part.ModifiedBy = Session.CurrentEmployee.Id;
 
@@ -138,8 +138,8 @@ namespace CPECentral.Presenters
                     var part = (Part) e.Argument;
 
                     using (var cpe = new CPEUnitOfWork()) {
-                        var customer = cpe.Customers.GetById(part.CustomerId);
-                        var versions =
+                        Customer customer = cpe.Customers.GetById(part.CustomerId);
+                        IOrderedEnumerable<PartVersion> versions =
                             cpe.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
 
                         var model = new PartInformationViewModel();

@@ -6,13 +6,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Media;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Delegates;
 using CPECentral.Presenters;
 using CPECentral.Properties;
-using Color = System.Drawing.Color;
 
 #endregion
 
@@ -30,7 +28,7 @@ namespace CPECentral.Views
         event EventHandler<ToolGroupEventArgs> ToolGroupSelected;
         event UpdateResultCallbackDelegate<ToolGroup> ToolGroupRenamed;
         event EventHandler<MoveToolsToNewGroupEventArgs> MoveToolToNewGroup;
- 
+
         void DisplayGroups(IEnumerable<ToolGroup> groups);
 
         void SelectToolGroup(ToolGroup groupToSelect, bool inEditMode);
@@ -168,8 +166,7 @@ namespace CPECentral.Views
         protected virtual void OnMoveToolToNewGroup(MoveToolsToNewGroupEventArgs e)
         {
             EventHandler<MoveToolsToNewGroupEventArgs> handler = MoveToolToNewGroup;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }
@@ -314,16 +311,17 @@ namespace CPECentral.Views
         private void groupsEnhancedTreeView_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof (ListView.SelectedListViewItemCollection))) {
+                Point point = groupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
 
-                var point = groupsEnhancedTreeView.PointToClient(new Point(e.X, e.Y));
-
-                var nodeDroppedOn = groupsEnhancedTreeView.GetNodeAt(point);
+                TreeNode nodeDroppedOn = groupsEnhancedTreeView.GetNodeAt(point);
 
                 if (nodeDroppedOn == null) {
                     return;
                 }
 
-                var itemsDropped = (ListView.SelectedListViewItemCollection)e.Data.GetData(typeof (ListView.SelectedListViewItemCollection));
+                var itemsDropped =
+                    (ListView.SelectedListViewItemCollection)
+                        e.Data.GetData(typeof (ListView.SelectedListViewItemCollection));
 
                 var group = nodeDroppedOn.Tag as ToolGroup;
                 var toolsToMove = new List<Tool>();
@@ -358,7 +356,7 @@ namespace CPECentral.Views
                 }
 
                 node.BackColor = Color.LightYellow;
-                
+
                 node.Expand();
 
                 e.Effect = e.AllowedEffect;

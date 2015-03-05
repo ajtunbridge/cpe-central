@@ -30,8 +30,7 @@ namespace CPECentral.Controls
 
         public void LoadFile(string fileName)
         {
-            if (_browser != null)
-            {
+            if (_browser != null) {
                 Controls.Remove(_browser);
                 _browser.Dispose();
                 _browser = null;
@@ -40,7 +39,7 @@ namespace CPECentral.Controls
             if (fileName.IsNullOrWhitespace()) {
                 return;
             }
-            
+
             if (!File.Exists(fileName)) {
                 _dialogService.ShowError("Could not locate " + fileName);
                 return;

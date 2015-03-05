@@ -39,7 +39,7 @@
             this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.searchingBarPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pdfViewer = new CPECentral.Controls.PdfViewer();
+            this.filePreviewPanel1 = new CPECentral.Controls.FilePreviewPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -172,9 +172,9 @@
             this.searchingBarPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchingBarPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage;
-            this.searchingBarPictureBox.Location = new System.Drawing.Point(25, 97);
+            this.searchingBarPictureBox.Location = new System.Drawing.Point(25, 84);
             this.searchingBarPictureBox.Name = "searchingBarPictureBox";
-            this.searchingBarPictureBox.Size = new System.Drawing.Size(602, 19);
+            this.searchingBarPictureBox.Size = new System.Drawing.Size(602, 32);
             this.searchingBarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.searchingBarPictureBox.TabIndex = 11;
             this.searchingBarPictureBox.TabStop = false;
@@ -182,7 +182,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.pdfViewer);
+            this.groupBox1.Controls.Add(this.filePreviewPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
@@ -191,18 +191,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Drawing file";
             // 
-            // pdfViewer
+            // filePreviewPanel1
             // 
-            this.pdfViewer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pdfViewer.BackgroundImage")));
-            this.pdfViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewer.Enabled = false;
-            this.pdfViewer.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pdfViewer.Location = new System.Drawing.Point(3, 21);
-            this.pdfViewer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pdfViewer.MinimumSize = new System.Drawing.Size(400, 500);
-            this.pdfViewer.Name = "pdfViewer";
-            this.pdfViewer.Size = new System.Drawing.Size(472, 610);
-            this.pdfViewer.TabIndex = 15;
+            this.filePreviewPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("filePreviewPanel1.BackgroundImage")));
+            this.filePreviewPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.filePreviewPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filePreviewPanel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filePreviewPanel1.Location = new System.Drawing.Point(3, 21);
+            this.filePreviewPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filePreviewPanel1.Name = "filePreviewPanel1";
+            this.filePreviewPanel1.Size = new System.Drawing.Size(472, 610);
+            this.filePreviewPanel1.TabIndex = 0;
             // 
             // PartLibraryView3
             // 
@@ -235,10 +234,10 @@
         private BrightIdeasSoftware.OLVColumn drawingNumberOlvColumn;
         private BrightIdeasSoftware.OLVColumn olvColumn2;
         private BrightIdeasSoftware.OLVColumn olvColumn3;
-        private Controls.PdfViewer pdfViewer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button searchButton;
         private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
+        private Controls.FilePreviewPanel filePreviewPanel1;
     }
 }

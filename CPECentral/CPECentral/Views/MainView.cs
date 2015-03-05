@@ -7,7 +7,6 @@ using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
 using CPECentral.Presenters;
-using CPECentral.Properties;
 using nGenLibrary.IO;
 
 #endregion
@@ -92,8 +91,7 @@ namespace CPECentral.Views
         private void OnAddPartByWorksOrder(StringEventArgs e)
         {
             EventHandler<StringEventArgs> handler = AddPartByWorksOrder;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }
@@ -229,7 +227,6 @@ namespace CPECentral.Views
 
         private void logoutToolStripButton_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

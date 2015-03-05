@@ -67,17 +67,14 @@ namespace CPECentral.Dialogs
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
-            {
+            if (keyData == Keys.Enter) {
                 okayCancelFooter_OkayClicked(okayCancelFooter, EventArgs.Empty);
             }
-            else if (keyData == Keys.Escape)
-            {
+            else if (keyData == Keys.Escape) {
                 okayCancelFooter_CancelClicked(okayCancelFooter, EventArgs.Empty);
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
     }
 }

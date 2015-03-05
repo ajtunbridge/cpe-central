@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System.Collections.Generic;
 using System.Linq;
 using CPECentral.Data.EF5;
 
@@ -11,15 +12,15 @@ namespace CPECentral.Commands
     {
         public void Execute(Operation operation)
         {
-            var docsToDelete = UnitOfWork.Documents.GetByOperation(operation);
-            var opToolsToDelete = UnitOfWork.OperationTools.GetByOperation(operation);
+            IEnumerable<Document> docsToDelete = UnitOfWork.Documents.GetByOperation(operation);
+            IEnumerable<OperationTool> opToolsToDelete = UnitOfWork.OperationTools.GetByOperation(operation);
 
             if (docsToDelete != null && docsToDelete.Any()) {
                 Session.DocumentService.DeleteDocuments(docsToDelete);
             }
 
             if (opToolsToDelete != null && opToolsToDelete.Any()) {
-                foreach (var tool in opToolsToDelete) {
+                foreach (OperationTool tool in opToolsToDelete) {
                     UnitOfWork.OperationTools.Delete(tool);
                 }
             }

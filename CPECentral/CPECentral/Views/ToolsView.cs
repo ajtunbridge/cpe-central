@@ -390,13 +390,13 @@ namespace CPECentral.Views
         {
             toolsEnhancedListView.Items.Clear();
 
-            var searchValue = filterTextBox.Text.Trim();
+            string searchValue = filterTextBox.Text.Trim();
 
-            var filteredTools = searchValue.Length == 0
+            IEnumerable<Tool> filteredTools = searchValue.Length == 0
                 ? _tools
                 : _tools.Where(t => t.Description.Contains(searchValue));
 
-            foreach (var tool in filteredTools) {
+            foreach (Tool tool in filteredTools) {
                 ListViewItem item = toolsEnhancedListView.Items.Add(tool.Description);
                 item.Tag = tool;
             }

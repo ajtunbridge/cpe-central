@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -20,9 +18,9 @@ namespace CPECentral.Views
         {
             const double sin60 = 0.866;
 
-            double dia = (double)acrossFlatsNumericUpDown.Value / sin60;
+            double dia = (double) acrossFlatsNumericUpDown.Value/sin60;
 
-            var value = dia.ToString("Ø##0.00");
+            string value = dia.ToString("Ø##0.00");
 
             hexagonDiameterPanel1.Diameter = value;
         }

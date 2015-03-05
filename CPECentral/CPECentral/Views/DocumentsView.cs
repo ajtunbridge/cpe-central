@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
@@ -49,8 +47,8 @@ namespace CPECentral.Views
     public partial class DocumentsView : ViewBase, IDocumentsView
     {
         private readonly DocumentsViewPresenter _presenter;
-        private OperationType _opType;
         private bool _currentlySelecting;
+        private OperationType _opType;
 
         public DocumentsView()
         {
@@ -155,8 +153,7 @@ namespace CPECentral.Views
         protected virtual void OnSetVersionDrawingDocument(DocumentEventArgs e)
         {
             EventHandler<DocumentEventArgs> handler = SetVersionDrawingDocument;
-            if (handler != null)
-            {
+            if (handler != null) {
                 handler(this, e);
             }
         }

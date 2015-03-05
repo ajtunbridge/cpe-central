@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿#region Using directives
+
+using System;
+
+#endregion
 
 namespace CPECentral.Views
 {
-    public partial class StartPageUserInfoView : UserControl
+    public partial class StartPageUserInfoView : ViewBase
     {
         public StartPageUserInfoView()
         {
             InitializeComponent();
+        }
+
+        private void StartPageUserInfoView_Load(object sender, EventArgs e)
+        {
+            if (!IsInDesignMode) {
+                if (Session.CurrentEmployee != null) {
+                    headerLabel.Text = "Hello " + Session.CurrentEmployee.FirstName + "!";
+                }
+            }
         }
     }
 }

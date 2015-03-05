@@ -1,10 +1,13 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Presenters;
 using CPECentral.Properties;
@@ -16,16 +19,18 @@ namespace CPECentral.Views
 {
     public interface IMainView2 : IView
     {
-        event EventHandler AddPart;
-        event EventHandler<StringEventArgs> AddPartByWorksOrder;
-        event EventHandler LoadHexagonCalculator;
-        event EventHandler LoadSettingsDialog;
-        event EventHandler LoadToolManagementDialog;
+        event EventHandler RetrieveEmployeeAccounts;
+
+        void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees);
     }
 
-    public sealed partial class MainView2 : ViewBase, IMainView
+    public sealed partial class MainView2 : ViewBase, IMainView2
     {
-        private readonly MainViewPresenter _presenter;
+        private readonly MainView2Presenter _presenter;
+
+        private readonly List<EmployeeSessionView> _sessionViews = new List<EmployeeSessionView>();
+
+        private bool _alreadyLoaded;
 
         public MainView2()
         {
@@ -34,30 +39,78 @@ namespace CPECentral.Views
             base.Dock = DockStyle.Fill;
 
             Font = Session.AppFont;
-            /*
-            if (!DesignMode) {
 
-                _presenter = new MainViewPresenter(this);
+            if (!IsInDesignMode) {
+                _presenter = new MainView2Presenter(this);
 
                 Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
+                //Session.MessageBus.Subscribe<EmployeeLoggedInMessage>(EmployeeLoggedInMessage_Published);
 
                 Session.DocumentService.Error += DocumentService_Error;
                 Session.DocumentService.TransferStarted += DocumentService_TransferStarted;
                 Session.DocumentService.TransferProgress += DocumentService_TransferProgress;
                 Session.DocumentService.TransferComplete += DocumentService_TransferComplete;
+
+                /*
+                Session.MessageBus.Subscribe<PartEditedMessage>(message => {
+
+                    foreach (TabPage page in flatTabControl.TabPages) {
+                        if (page.Tag is Part) {
+                            var part = page.Tag as Part;
+                            if (part == message.EditedPart) {
+                                page.Text = message.EditedPart.DrawingNumber;
+                                return;
+                            }
+                        }
+                    }
+                });
+               * */
             }
-             * */
         }
 
-        #region IMainView Members
+        #region IMainView2 Members
 
-        public event EventHandler AddPart;
-        public event EventHandler<StringEventArgs> AddPartByWorksOrder;
-        public event EventHandler LoadHexagonCalculator;
-        public event EventHandler LoadSettingsDialog;
-        public event EventHandler LoadToolManagementDialog;
+        public event EventHandler RetrieveEmployeeAccounts;
+
+        public void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees)
+        {
+            switchUserToolStripDropDownButton.DropDownItems.Clear();
+
+            foreach (Employee employee in employees) {
+                if (employee.UserName == "admin" || employee == Session.CurrentEmployee) {
+                    //continue;
+                }
+                var menuItem = new ToolStripMenuItem(employee.ToString());
+                menuItem.Image = Resources.EmployeeIcon_32x32;
+                menuItem.Tag = employee;
+                switchUserToolStripDropDownButton.DropDownItems.Add(menuItem);
+            }
+
+            switchUserToolStripDropDownButton.Enabled = switchUserToolStripDropDownButton.DropDownItems.Count > 0;
+        }
 
         #endregion
+
+        private void EmployeeLoggedInMessage_Published(EmployeeLoggedInMessage employeeLoggedInMessage)
+        {
+            if (employeeSessionPanel.Controls.Count == 1) {
+                employeeSessionPanel.Controls.RemoveAt(0);
+            }
+
+            EmployeeSessionView sessionView =
+                _sessionViews.SingleOrDefault(v => v.SessionEmployee == employeeLoggedInMessage.Employee);
+
+            if (sessionView == null) {
+                sessionView = new EmployeeSessionView(employeeLoggedInMessage.Employee);
+                _sessionViews.Add(sessionView);
+            }
+
+            employeeSessionPanel.Controls.Add(sessionView);
+
+            switchUserToolStripDropDownButton.Enabled = false;
+
+            OnRetrieveEmployeeAccounts();
+        }
 
         private void StatusUpdateMessage_Published(StatusUpdateMessage message)
         {
@@ -83,42 +136,10 @@ namespace CPECentral.Views
             Invoke((MethodInvoker) (() => DialogService.ShowError(message)));
         }
 
-        private void OnAddPart()
-        {
-            EventHandler handler = AddPart;
-            if (handler != null) {
-                handler(this, EventArgs.Empty);
-            }
-        }
 
-        private void OnAddPartByWorksOrder(StringEventArgs e)
+        private void OnRetrieveEmployeeAccounts()
         {
-            EventHandler<StringEventArgs> handler = AddPartByWorksOrder;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        private void OnLoadHexagonCalculator()
-        {
-            EventHandler handler = LoadHexagonCalculator;
-            if (handler != null) {
-                handler(this, EventArgs.Empty);
-            }
-        }
-
-        private void OnLoadSettingsDialog()
-        {
-            EventHandler handler = LoadSettingsDialog;
-            if (handler != null) {
-                handler(this, EventArgs.Empty);
-            }
-        }
-
-        private void OnLoadToolManagementDialog()
-        {
-            EventHandler handler = LoadToolManagementDialog;
+            EventHandler handler = RetrieveEmployeeAccounts;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -130,16 +151,12 @@ namespace CPECentral.Views
 
             switch (menuItem.Name) {
                 case "addNewPartToolStripMenuItem":
-                    OnAddPart();
                     break;
                 case "toolManagementToolStripMenuItem":
-                    OnLoadToolManagementDialog();
                     break;
                 case "hexagonCalculatorToolStripMenuItem":
-                    OnLoadHexagonCalculator();
                     break;
                 case "settingsToolStripMenuItem":
-                    OnLoadSettingsDialog();
                     break;
                 case "logoutToolStripMenuItem":
                     HandleLogout();
@@ -180,10 +197,10 @@ namespace CPECentral.Views
         {
             switch (e.ClickedItem.Name) {
                 case "addPartToolStripButton":
-                    OnAddPart();
+                    //OnAddPart();
                     break;
                 case "toolManagementToolStripButton":
-                    OnLoadToolManagementDialog();
+                    //OnLoadToolManagementDialog();
                     break;
                 case "logoutToolStripButton":
                     HandleLogout();
@@ -204,20 +221,50 @@ namespace CPECentral.Views
 
         private void logoutToolStripButton_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void partLibraryView_PartSelected(object sender, PartEventArgs e)
+        private void MainView2_Load(object sender, EventArgs e)
         {
-            var tabPage = new TabPage(e.Part.DrawingNumber);
-            
-            var partView = new PartView();
-            partView.Dock = DockStyle.Fill;
-            tabPage.Controls.Add(partView);
-            partView.LoadPart(e.Part);
+            if (!IsInDesignMode) {
+                if (!_alreadyLoaded) {
+                    OnRetrieveEmployeeAccounts();
 
-            tabControl.TabPages.Add(tabPage);
-            tabControl.SelectedTab = tabPage;
+                    var sessionView = new EmployeeSessionView(Session.CurrentEmployee);
+                    _sessionViews.Add(sessionView);
+                    employeeSessionPanel.Controls.Add(sessionView);
+
+                    _alreadyLoaded = true;
+                }
+            }
+        }
+
+        private void switchUserToolStripDropDownButton_DropDownItemClicked(object sender,
+            ToolStripItemClickedEventArgs e)
+        {
+            var employee = e.ClickedItem.Tag as Employee;
+
+            using (var passwordDialog = new SwitchEmployeeDialog(employee)) {
+                if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
+                    return;
+                }
+
+                if (employeeSessionPanel.Controls.Count == 1) {
+                    employeeSessionPanel.Controls.RemoveAt(0);
+                }
+
+                EmployeeSessionView sessionView = _sessionViews.SingleOrDefault(v => v.SessionEmployee == employee);
+
+                if (sessionView == null) {
+                    sessionView = new EmployeeSessionView(employee);
+                    _sessionViews.Add(sessionView);
+                }
+
+                employeeSessionPanel.Controls.Add(sessionView);
+
+                switchUserToolStripDropDownButton.Enabled = false;
+
+                OnRetrieveEmployeeAccounts();
+            }
         }
     }
 }

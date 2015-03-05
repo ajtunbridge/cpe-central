@@ -152,7 +152,6 @@ namespace CPECentral.Presenters
                         .ThenBy(t => t.Offset);
 
                     foreach (OperationTool opTool in opTools) {
-
                         var item = new OperationToolsViewModelItem();
                         item.OperationTool = opTool;
 
@@ -165,12 +164,13 @@ namespace CPECentral.Presenters
                         double? stockCount = null;
 
                         using (var tricorn = new TricornDataProvider()) {
-                            var tricornTools = cpe.TricornTools.GetByTool(opTool.Tool).ToList();
+                            List<TricornTool> tricornTools = cpe.TricornTools.GetByTool(opTool.Tool).ToList();
 
                             if (tricornTools.Any()) {
                                 stockCount = 0;
                                 foreach (TricornTool tricornTool in tricornTools) {
-                                    var tricornStock = tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
+                                    double? tricornStock =
+                                        tricorn.GetMStocks(tricornTool.TricornReference).Sum(ms => ms.Quantity_In_Stock);
                                     stockCount += tricornStock;
                                 }
                             }

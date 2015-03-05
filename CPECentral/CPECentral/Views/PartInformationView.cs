@@ -55,14 +55,6 @@ namespace CPECentral.Views
         public event EventHandler SaveChanges;
         public event EventHandler CreateNewVersion;
 
-        protected virtual void OnCreateNewVersion()
-        {
-            EventHandler handler = CreateNewVersion;
-            if (handler != null) {
-                handler(this, EventArgs.Empty);
-            }
-        }
-
         public void LoadPart(Part part)
         {
             Part = part;
@@ -126,6 +118,14 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnCreateNewVersion()
+        {
+            EventHandler handler = CreateNewVersion;
+            if (handler != null) {
+                handler(this, EventArgs.Empty);
+            }
+        }
 
         protected virtual void OnSaveChanges()
         {

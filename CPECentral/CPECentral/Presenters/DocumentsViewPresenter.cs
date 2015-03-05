@@ -279,21 +279,22 @@ namespace CPECentral.Presenters
                         var header = new StringBuilder(Settings.Default.TurningProgramHeaderFormat);
                         header.Replace("{prog}", group.NextNumber.ToString("D4"));
 
-                        var cleanDrawingNumber = RemoveInvalidMachineCharacters(method.PartVersion.Part.DrawingNumber);
+                        string cleanDrawingNumber = RemoveInvalidMachineCharacters(method.PartVersion.Part.DrawingNumber);
                         header.Replace("{dwg}", cleanDrawingNumber);
 
-                        var cleanVersionNumber = RemoveInvalidMachineCharacters(method.PartVersion.VersionNumber);
+                        string cleanVersionNumber = RemoveInvalidMachineCharacters(method.PartVersion.VersionNumber);
                         header.Replace("{ver}", cleanVersionNumber);
 
                         header.Replace("{op}", op.Sequence.ToString("D2"));
 
-                        var cleanCustomerName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Customer.Name);
+                        string cleanCustomerName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Customer.Name);
                         header.Replace("{cust}", cleanCustomerName);
 
-                        var cleanPartName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Name);
+                        string cleanPartName = RemoveInvalidMachineCharacters(method.PartVersion.Part.Name);
                         header.Replace("{name}", cleanPartName);
 
-                        var cleanEmployeeName = RemoveInvalidMachineCharacters(Session.CurrentEmployee.ToString().ToUpper());
+                        string cleanEmployeeName =
+                            RemoveInvalidMachineCharacters(Session.CurrentEmployee.ToString().ToUpper());
                         header.Replace("{employee}", cleanEmployeeName);
 
                         IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(
@@ -307,15 +308,16 @@ namespace CPECentral.Presenters
                                 lineBuilder.Replace("{position}", opTool.Position.ToString("00"));
                                 lineBuilder.Replace("{offset}", opTool.Offset.ToString("00"));
 
-                                var cleanToolName = RemoveInvalidMachineCharacters(opTool.Tool.Description);
+                                string cleanToolName = RemoveInvalidMachineCharacters(opTool.Tool.Description);
                                 lineBuilder.Replace("{tool}", cleanToolName);
 
                                 header.AppendLine(lineBuilder.ToString());
 
                                 if (opTool.HolderId.HasValue) {
-                                    var holderLineBuilder = new StringBuilder(Settings.Default.TurningProgramHolderFormat);
+                                    var holderLineBuilder =
+                                        new StringBuilder(Settings.Default.TurningProgramHolderFormat);
 
-                                    var cleanHolderName = RemoveInvalidMachineCharacters(opTool.Holder.Name);
+                                    string cleanHolderName = RemoveInvalidMachineCharacters(opTool.Holder.Name);
                                     holderLineBuilder.Replace("{holder}", cleanHolderName);
 
                                     header.AppendLine(holderLineBuilder.ToString());
@@ -418,7 +420,7 @@ namespace CPECentral.Presenters
 
                         foreach (Document document in documents.OrderBy(d => d.FileName)) {
                             string pathToFile = Session.DocumentService.GetPathToDocument(document, cpe);
-                            
+
                             // BUG: find out why document records are being deleted on Simon's PC
                             /*
                             if (!File.Exists(pathToFile)) {
@@ -434,7 +436,7 @@ namespace CPECentral.Presenters
                         e.Result = model;
 
                         // remove any missing document records from the database
-                        
+
                         // cpe.Commit();
                     }
                 }
@@ -503,7 +505,7 @@ namespace CPECentral.Presenters
         {
             var builder = new StringBuilder(dirtyString);
 
-            var invalidChars = Settings.Default.InvalidTurningProgramCommentCharacters.Split
+            string[] invalidChars = Settings.Default.InvalidTurningProgramCommentCharacters.Split
                 (new[] {"|"}, StringSplitOptions.RemoveEmptyEntries);
 
             Array.ForEach(invalidChars, (c => builder.Replace(c, string.Empty)));

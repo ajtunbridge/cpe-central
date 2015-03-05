@@ -315,13 +315,12 @@ namespace CPECentral.Controls
             if (e.ClickedItem.Tag is Machine) {
                 var machine = e.ClickedItem.Tag as Machine;
                 MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
-                
+
                 if (!_dialogService.AskQuestion("Are you sure you want to overwrite this program?")) {
                     return;
                 }
 
                 using (var dialog = new ReceiveProgramDialog(machine.ComPort, control)) {
-                    
                     dialog.ShowDialog(ParentForm);
 
                     _editor.Text = dialog.ReceivedProgram;

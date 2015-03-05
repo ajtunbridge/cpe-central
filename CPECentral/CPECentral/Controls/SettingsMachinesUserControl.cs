@@ -1,22 +1,22 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.Properties;
 using NcCommunicator.Data;
 using NcCommunicator.Data.Model;
 
+#endregion
+
 namespace CPECentral.Controls
 {
     public partial class SettingsMachinesUserControl : UserControl
     {
-        private NcUnitOfWork _machinesDb = new NcUnitOfWork();
         private readonly IDialogService _dialogService;
+        private readonly NcUnitOfWork _machinesDb = new NcUnitOfWork();
 
         public SettingsMachinesUserControl()
         {
@@ -52,15 +52,15 @@ namespace CPECentral.Controls
 
         private void AddMachine()
         {
-            var machineControls = _machinesDb.MachineControls.GetAll();
+            IEnumerable<MachineControl> machineControls = _machinesDb.MachineControls.GetAll();
 
             if (!machineControls.Any()) {
                 _dialogService.Notify("There must be at least 1 machine control defined before adding any machines.");
                 return;
             }
 
-            var defaultControl = machineControls.First();
-            var machines = _machinesDb.Machines.GetAll();
+            MachineControl defaultControl = machineControls.First();
+            IEnumerable<Machine> machines = _machinesDb.Machines.GetAll();
 
             string newMachineName = "New Machine 01";
             int counter = 1;
@@ -84,9 +84,9 @@ namespace CPECentral.Controls
 
         private void AddControl()
         {
-            var controls = _machinesDb.MachineControls.GetAll();
+            IEnumerable<MachineControl> controls = _machinesDb.MachineControls.GetAll();
 
-            var newControlName = "New Control 01";
+            string newControlName = "New Control 01";
             int counter = 1;
             while (controls.Any(c => c.Name == newControlName)) {
                 counter++;
@@ -102,10 +102,10 @@ namespace CPECentral.Controls
                 Parity = Parity.Even,
                 RtsEnable = true,
                 StopBits = StopBits.Two,
-                XOnChar = (char)17,
-                XOffChar = (char)19,
-                XOnChar2 = (char)18,
-                XOffChar2 = (char)20,
+                XOnChar = (char) 17,
+                XOffChar = (char) 19,
+                XOnChar2 = (char) 18,
+                XOffChar2 = (char) 20,
                 ProgramStartChar = Convert.ToChar("%"),
                 ProgramEndChar = Convert.ToChar("%"),
                 NewLine = "\r\n\n"
@@ -122,8 +122,7 @@ namespace CPECentral.Controls
         {
             enhancedListView1.Items.Clear();
 
-            foreach (var mc in _machinesDb.Machines.GetAll())
-            {
+            foreach (Machine mc in _machinesDb.Machines.GetAll()) {
                 ListViewItem item = enhancedListView1.Items.Add(mc.Name);
                 item.ImageIndex = 0;
                 item.Tag = mc;
@@ -136,7 +135,7 @@ namespace CPECentral.Controls
         {
             enhancedListView2.Items.Clear();
 
-            foreach (var control in _machinesDb.MachineControls.GetAll()) {
+            foreach (MachineControl control in _machinesDb.MachineControls.GetAll()) {
                 ListViewItem item = enhancedListView2.Items.Add(control.Name);
                 item.Tag = control;
             }
@@ -146,13 +145,13 @@ namespace CPECentral.Controls
 
         private void PopulateComboBox()
         {
-            var stopBits = Enum.GetNames(typeof (StopBits));
+            string[] stopBits = Enum.GetNames(typeof (StopBits));
             stopBitsComboBox.Items.AddRange(stopBits);
 
-            var parity = Enum.GetNames(typeof (Parity));
+            string[] parity = Enum.GetNames(typeof (Parity));
             parityComboBox.Items.AddRange(parity);
 
-            var handshake = Enum.GetNames(typeof (Handshake));
+            string[] handshake = Enum.GetNames(typeof (Handshake));
             handshakeComboBox.Items.AddRange(handshake);
 
             var dataBits = new object[] {5, 6, 7, 8, 9};

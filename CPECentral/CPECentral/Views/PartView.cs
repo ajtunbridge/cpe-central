@@ -53,26 +53,18 @@ namespace CPECentral.Views
         public event EventHandler ReloadData;
         public event EventHandler<PartVersionEventArgs> SelectedVersionChanged;
 
-        protected virtual void OnSelectedVersionChanged(PartVersionEventArgs e)
-        {
-            EventHandler<PartVersionEventArgs> handler = SelectedVersionChanged;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
         public Part Part { get; private set; }
 
         public void LoadPart(Part part)
         {
             using (NoFlicker.On(this)) {
-                filePreviewTabControl.Clear();
+                //filePreviewTabControl.Clear();
 
                 Part = part;
-
+                partDescriptionLabel.Text = string.Format("{0} - {1}", part.DrawingNumber, part.Name);
                 partInformationView.LoadPart(Part);
                 partDocumentsView.LoadDocuments(Part);
-                operationDocumentsView.ClearDocuments();
+                //operationDocumentsView.ClearDocuments();
 
                 RefreshData();
             }
@@ -80,9 +72,6 @@ namespace CPECentral.Views
 
         public void DisplayModel(PartViewModel model)
         {
-            createdByLabel.Text = "Created by: " + model.CreatedBy;
-            modifiedByLabel.Text = "Modified by: " + model.ModifiedBy;
-
             RepositionHeaderLabels();
         }
 
@@ -95,6 +84,14 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnSelectedVersionChanged(PartVersionEventArgs e)
+        {
+            EventHandler<PartVersionEventArgs> handler = SelectedVersionChanged;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
 
         protected virtual void OnReloadData()
         {
@@ -110,15 +107,13 @@ namespace CPECentral.Views
                 return;
             }
 
-            RefreshData();
+            partDescriptionLabel.Text = string.Format("{0} - {1}", message.EditedPart.DrawingNumber,
+                message.EditedPart.Name);
         }
 
         private void RefreshData()
         {
-            filePreviewTabControl.Clear();
-
-            createdByLabel.Text = "Created by: N/A";
-            modifiedByLabel.Text = "Modified by: N/A";
+            //filePreviewTabControl.Clear();
 
             RepositionHeaderLabels();
 
@@ -127,34 +122,31 @@ namespace CPECentral.Views
 
         private void RepositionHeaderLabels()
         {
-            createdByLabel.Left = Right - createdByLabel.Width - 3;
-            modifiedByLabel.Left = Right - modifiedByLabel.Width - 3;
         }
 
         private void partInformationView_VersionSelected(object sender, PartVersionEventArgs e)
         {
             OnSelectedVersionChanged(new PartVersionEventArgs(e.PartVersion));
 
-            operationsView.LoadMethods(e.PartVersion);
+            //operationsView.LoadMethods(e.PartVersion);
 
             versionDocumentsView.LoadDocuments(e.PartVersion);
 
-            operationToolsView1.RetrieveOperationTools(null);
+            //operationToolsView1.RetrieveOperationTools(null);
         }
 
         private void operationsView_OperationSelected(object sender, OperationEventArgs e)
         {
-            operationToolsView1.RetrieveOperationTools(e.Operation);
+            //operationToolsView1.RetrieveOperationTools(e.Operation);
 
             if (e.Operation == null) {
-                operationDescriptionLabel.Text = string.Empty;
-                operationsTabControl.Enabled = false;
-                return;
+                //operationDescriptionLabel.Text = string.Empty;
+                //operationsTabControl.Enabled = false;
             }
 
-            operationDescriptionLabel.Text = e.Operation.Description;
-            operationsTabControl.Enabled = true;
-            operationDocumentsView.LoadDocuments(e.Operation);
+            //operationDescriptionLabel.Text = e.Operation.Description;
+            //operationsTabControl.Enabled = true;
+            //operationDocumentsView.LoadDocuments(e.Operation);
         }
 
         private void documentsView_OpenDocument(object sender, EventArgs e)
@@ -176,7 +168,7 @@ namespace CPECentral.Views
             ThreadPool.QueueUserWorkItem(delegate {
                 string pathToDocument = Session.DocumentService.GetPathToDocument(doc);
 
-                filePreviewTabControl.InvokeEx(() => filePreviewTabControl.ShowFile(pathToDocument));
+                //filePreviewTabControl.InvokeEx(() => filePreviewTabControl.ShowFile(pathToDocument));
             });
         }
 
@@ -192,6 +184,10 @@ namespace CPECentral.Views
             catch (Exception ex) {
                 _dialogService.ShowError(ex.Message);
             }
+        }
+
+        private void operationsView1_OperationSelected(object sender, OperationEventArgs e)
+        {
         }
     }
 }

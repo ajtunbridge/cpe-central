@@ -30,20 +30,16 @@ namespace CPECentral.Presenters
             _view.MoveToolToNewGroup += _view_MoveToolToNewGroup;
         }
 
-        void _view_MoveToolToNewGroup(object sender, MoveToolsToNewGroupEventArgs e)
+        private void _view_MoveToolToNewGroup(object sender, MoveToolsToNewGroupEventArgs e)
         {
-
-            try
-            {
-                using (BusyCursor.Show())
-                {
-                    using (var cpe = new CPEUnitOfWork())
-                    {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
                         var groupTreeBuilder = new StringBuilder();
 
                         groupTreeBuilder.Append(e.NewGroup.Name);
 
-                        var parentGroup = e.NewGroup.ParentGroupId.HasValue
+                        ToolGroup parentGroup = e.NewGroup.ParentGroupId.HasValue
                             ? cpe.ToolGroups.GetById(e.NewGroup.ParentGroupId.Value)
                             : null;
 
@@ -54,11 +50,13 @@ namespace CPECentral.Presenters
                                 : null;
                         }
 
-                        if (!_view.DialogService.AskQuestion("Are you sure you want to move this tool to this group?\n\n" + groupTreeBuilder)) {
+                        if (
+                            !_view.DialogService.AskQuestion(
+                                "Are you sure you want to move this tool to this group?\n\n" + groupTreeBuilder)) {
                             return;
                         }
 
-                        foreach (var tool in e.ToolsToMove) {
+                        foreach (Tool tool in e.ToolsToMove) {
                             tool.ToolGroup = null;
                             tool.ToolGroupId = e.NewGroup.Id;
                             cpe.Tools.Update(tool);
@@ -68,8 +66,7 @@ namespace CPECentral.Presenters
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 HandleException(ex);
             }
         }

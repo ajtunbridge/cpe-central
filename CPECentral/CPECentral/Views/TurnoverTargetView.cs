@@ -10,7 +10,7 @@ using CPECentral.ViewModels;
 
 namespace CPECentral.Views
 {
-    public interface ITurnoverTargetView
+    public interface ITurnoverTargetView : IView
     {
         event EventHandler RefreshData;
 
@@ -25,11 +25,10 @@ namespace CPECentral.Views
         private readonly Color _mediumColorEnd = Color.Gold;
         private readonly Color _mediumColorStart = Color.LightGoldenrodYellow;
         private readonly TurnoverTargetViewPresenter _presenter;
+        private readonly Timer _refreshTimer;
 
         private readonly Color _targetReachedColorEnd = Color.LightGreen;
         private readonly Color _targetReachedColorStart = Color.ForestGreen;
-
-        private readonly Timer _refreshTimer = null;
 
         public TurnoverTargetView()
         {
@@ -43,11 +42,6 @@ namespace CPECentral.Views
                 _refreshTimer.Tick += (o, e) => OnRefreshData();
                 _refreshTimer.Start();
             }
-        }
-
-        ~TurnoverTargetView()
-        {
-            _refreshTimer.Dispose();
         }
 
         #region ITurnoverTargetView Members
@@ -90,6 +84,11 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        ~TurnoverTargetView()
+        {
+            _refreshTimer.Dispose();
+        }
 
         private void OnRefreshData()
         {

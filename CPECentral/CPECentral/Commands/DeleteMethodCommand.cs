@@ -1,8 +1,9 @@
-﻿using System;
+﻿#region Using directives
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CPECentral.Data.EF5;
+
+#endregion
 
 namespace CPECentral.Commands
 {
@@ -10,11 +11,11 @@ namespace CPECentral.Commands
     {
         public void Execute(Method method)
         {
-            var ops = UnitOfWork.Operations.GetByMethod(method);
+            IEnumerable<Operation> ops = UnitOfWork.Operations.GetByMethod(method);
 
             var deleteOperationCommand = new DeleteOperationCommand();
 
-            foreach (var op in ops) {
+            foreach (Operation op in ops) {
                 deleteOperationCommand.Execute(op);
             }
 

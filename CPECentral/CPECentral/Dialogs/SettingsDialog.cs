@@ -3,7 +3,6 @@
 using System;
 using System.Windows.Forms;
 using CPECentral.Controls;
-using CPECentral.Data.EF5;
 
 #endregion
 

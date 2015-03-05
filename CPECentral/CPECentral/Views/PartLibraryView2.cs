@@ -47,16 +47,15 @@ namespace CPECentral.Views
 
         public Part SelectedPart
         {
-            get {
+            get
+            {
                 if (partsTreeView.SelectedNode == null) {
                     return null;
                 }
-                else if (partsTreeView.SelectedNode.Tag is Part) {
+                if (partsTreeView.SelectedNode.Tag is Part) {
                     return partsTreeView.SelectedNode.Tag as Part;
                 }
-                else {
-                    return null;
-                }
+                return null;
             }
         }
 
@@ -74,14 +73,14 @@ namespace CPECentral.Views
 
             TreeNode nodeToSelect = null;
 
-            foreach (var result in reloadModel.Results) {
-                var customerNode = partsTreeView.Nodes.Add(result.Customer.Name);
+            foreach (PartLibraryViewReloadModel.CustomerParts result in reloadModel.Results) {
+                TreeNode customerNode = partsTreeView.Nodes.Add(result.Customer.Name);
                 customerNode.Tag = result.Customer;
                 customerNode.ImageIndex = 2;
                 customerNode.SelectedImageIndex = 2;
 
-                foreach (var part in result.Parts) {
-                    var partNode = customerNode.Nodes.Add(part.DrawingNumber);
+                foreach (Part part in result.Parts) {
+                    TreeNode partNode = customerNode.Nodes.Add(part.DrawingNumber);
                     partNode.ToolTipText = part.Name;
                     partNode.Tag = part;
 
@@ -105,39 +104,39 @@ namespace CPECentral.Views
             partsTreeView.Nodes.Clear();
 
             if (searchModel.DrawingNumberMatches.Count > 0) {
-                var rootNode = partsTreeView.Nodes.Add("Matched by drawing number");
-                foreach (var part in searchModel.DrawingNumberMatches) {
-                    var partNode = rootNode.Nodes.Add(part.DrawingNumber);
+                TreeNode rootNode = partsTreeView.Nodes.Add("Matched by drawing number");
+                foreach (Part part in searchModel.DrawingNumberMatches) {
+                    TreeNode partNode = rootNode.Nodes.Add(part.DrawingNumber);
                     partNode.Tag = part;
                 }
             }
 
             if (searchModel.DrawingNumberFuzzyMatches.Count > 0) {
-                var rootNode = partsTreeView.Nodes.Add("Similar drawing numbers");
-                foreach (var part in searchModel.DrawingNumberFuzzyMatches) {
-                    var partNode = rootNode.Nodes.Add(part.DrawingNumber);
+                TreeNode rootNode = partsTreeView.Nodes.Add("Similar drawing numbers");
+                foreach (Part part in searchModel.DrawingNumberFuzzyMatches) {
+                    TreeNode partNode = rootNode.Nodes.Add(part.DrawingNumber);
                     partNode.Tag = part;
                 }
             }
 
             if (searchModel.NameMatches.Count > 0) {
-                var rootNode = partsTreeView.Nodes.Add("Matched by part name");
-                foreach (var part in searchModel.NameMatches) {
-                    var partNode = rootNode.Nodes.Add(string.Format("{0} ({1})", part.Name, part.DrawingNumber));
+                TreeNode rootNode = partsTreeView.Nodes.Add("Matched by part name");
+                foreach (Part part in searchModel.NameMatches) {
+                    TreeNode partNode = rootNode.Nodes.Add(string.Format("{0} ({1})", part.Name, part.DrawingNumber));
                     partNode.Tag = part;
                 }
             }
 
             if (searchModel.NameFuzzyMatches.Count > 0) {
-                var rootNode = partsTreeView.Nodes.Add("Similar part names");
-                foreach (var part in searchModel.NameFuzzyMatches) {
-                    var partNode = rootNode.Nodes.Add(string.Format("{0} ({1})", part.Name, part.DrawingNumber));
+                TreeNode rootNode = partsTreeView.Nodes.Add("Similar part names");
+                foreach (Part part in searchModel.NameFuzzyMatches) {
+                    TreeNode partNode = rootNode.Nodes.Add(string.Format("{0} ({1})", part.Name, part.DrawingNumber));
                     partNode.Tag = part;
                 }
             }
 
             if (partsTreeView.Nodes.Count == 0) {
-                var rootNode = partsTreeView.Nodes.Add("Search returned no results!");
+                TreeNode rootNode = partsTreeView.Nodes.Add("Search returned no results!");
             }
             else if (partsTreeView.Nodes.Count == 1) {
                 // select the first node in the first node
@@ -162,7 +161,7 @@ namespace CPECentral.Views
 
         protected virtual void OnDeletePart()
         {
-            var handler = DeletePart;
+            EventHandler handler = DeletePart;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -170,7 +169,7 @@ namespace CPECentral.Views
 
         protected virtual void OnRetrieveLibrary()
         {
-            var handler = RetrieveLibrary;
+            EventHandler handler = RetrieveLibrary;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
             }
@@ -178,7 +177,7 @@ namespace CPECentral.Views
 
         protected virtual void OnFindParts(StringEventArgs e)
         {
-            var handler = FindParts;
+            EventHandler<StringEventArgs> handler = FindParts;
             if (handler != null) {
                 handler(this, e);
             }
@@ -186,7 +185,7 @@ namespace CPECentral.Views
 
         protected virtual void OnPartSelected(PartEventArgs e)
         {
-            var handler = PartSelected;
+            EventHandler<PartEventArgs> handler = PartSelected;
             if (handler != null) {
                 handler(this, e);
             }
@@ -197,7 +196,7 @@ namespace CPECentral.Views
             partsTreeView.Nodes.Clear();
             partsTreeView.Nodes.Add("searching for parts....");
 
-            var searchValue = searchValueTextBox.Text.Trim();
+            string searchValue = searchValueTextBox.Text.Trim();
 
             OnFindParts(new StringEventArgs(searchValue));
         }
@@ -207,7 +206,7 @@ namespace CPECentral.Views
             ReloadLibrary();
         }
 
-        private void searchValueTextBox_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void searchValueTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) {
                 searchButton.PerformClick();
@@ -235,8 +234,7 @@ namespace CPECentral.Views
 
         private void PartEditedMessage_Published(PartEditedMessage message)
         {
-            if (SelectedPart == message.EditedPart)
-            {
+            if (SelectedPart == message.EditedPart) {
                 TreeNode selectedNode = partsTreeView.SelectedNode;
 
                 selectedNode.Text = message.EditedPart.DrawingNumber;
@@ -244,6 +242,5 @@ namespace CPECentral.Views
                 selectedNode.Tag = message.EditedPart;
             }
         }
-
     }
 }

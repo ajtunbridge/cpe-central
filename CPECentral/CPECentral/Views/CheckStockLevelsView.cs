@@ -1,15 +1,13 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Presenters;
 using CPECentral.Properties;
 using CPECentral.ViewModels;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -22,16 +20,7 @@ namespace CPECentral.Views
 
     public partial class CheckStockLevelsView : ViewBase, ICheckStockLevelsView
     {
-        public event EventHandler<StringEventArgs> PerformSearch;
         private readonly CheckStockLevelsViewPresenter _presenter;
-
-        protected virtual void OnPerformSearch(StringEventArgs e)
-        {
-            EventHandler<StringEventArgs> handler = PerformSearch;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
 
         public CheckStockLevelsView()
         {
@@ -45,19 +34,9 @@ namespace CPECentral.Views
             }
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
-        {
-            if (searchValueTextBox.Text.Length == 0) {
-                DialogService.Notify("You have not entered a search value!");
-                return;
-            }
+        #region ICheckStockLevelsView Members
 
-            searchButton.Text = "searching...";
-
-            searchButton.Enabled = false;
-
-            OnPerformSearch(new StringEventArgs(searchValueTextBox.Text));
-        }
+        public event EventHandler<StringEventArgs> PerformSearch;
 
         public void DisplayResults(List<CheckStockLevelsViewModel> modelItems)
         {
@@ -75,6 +54,30 @@ namespace CPECentral.Views
 
             searchButton.Text = "Search";
             searchButton.Enabled = true;
+        }
+
+        #endregion
+
+        protected virtual void OnPerformSearch(StringEventArgs e)
+        {
+            EventHandler<StringEventArgs> handler = PerformSearch;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            if (searchValueTextBox.Text.Length == 0) {
+                DialogService.Notify("You have not entered a search value!");
+                return;
+            }
+
+            searchButton.Text = "searching...";
+
+            searchButton.Enabled = false;
+
+            OnPerformSearch(new StringEventArgs(searchValueTextBox.Text));
         }
 
         private object ImageGetter(object rowObject)
@@ -96,7 +99,6 @@ namespace CPECentral.Views
         private void searchValueTextBox_SizeChanged(object sender, EventArgs e)
         {
             searchButton.Left = searchValueTextBox.Right + 10;
-
         }
     }
 }
