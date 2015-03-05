@@ -81,6 +81,16 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIconImage_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("AppIconImage_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon ApplicationIcon {
@@ -91,11 +101,31 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BatchImage_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("BatchImage_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Beep {
             get {
                 return ResourceManager.GetStream("Beep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CalculatorImage_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("CalculatorImage_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -332,6 +362,26 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PartIcon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("PartIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PartIcon_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("PartIcon_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PreloaderImage {
             get {
                 object obj = ResourceManager.GetObject("PreloaderImage", resourceCulture);
@@ -422,6 +472,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SearchIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("SearchIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SettingsIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("SettingsIcon_16x16", resourceCulture);
@@ -435,6 +495,36 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap StockIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("StockIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StockMaterialImage_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("StockMaterialImage_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StockMaterialImage_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("StockMaterialImage_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TargetImage_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("TargetImage_128x128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

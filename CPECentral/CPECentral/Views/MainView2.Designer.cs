@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.startPageView1 = new CPECentral.Views.StartPageView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.partLibraryView = new CPECentral.Views.PartLibraryView3();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -55,24 +59,73 @@
             this.hexagonCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.treeListView1 = new BrightIdeasSoftware.TreeListView();
-            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.ItemSize = new System.Drawing.Size(150, 22);
+            this.tabControl.Location = new System.Drawing.Point(0, 77);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(1139, 780);
+            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl.TabIndex = 7;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.startPageView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1131, 750);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Start page";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // startPageView1
+            // 
+            this.startPageView1.BackColor = System.Drawing.Color.White;
+            this.startPageView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.startPageView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startPageView1.Location = new System.Drawing.Point(3, 3);
+            this.startPageView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.startPageView1.Name = "startPageView1";
+            this.startPageView1.Size = new System.Drawing.Size(1125, 744);
+            this.startPageView1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.partLibraryView);
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1131, 750);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Part library";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // partLibraryView
+            // 
+            this.partLibraryView.BackColor = System.Drawing.Color.White;
+            this.partLibraryView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.partLibraryView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.partLibraryView.Location = new System.Drawing.Point(3, 3);
+            this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.partLibraryView.MinimumSize = new System.Drawing.Size(925, 630);
+            this.partLibraryView.Name = "partLibraryView";
+            this.partLibraryView.Size = new System.Drawing.Size(1125, 744);
+            this.partLibraryView.TabIndex = 0;
+            this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
             // 
             // toolStrip
             // 
@@ -88,7 +141,7 @@
             this.toolStripSeparator4});
             this.toolStrip.Location = new System.Drawing.Point(0, 27);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(859, 50);
+            this.toolStrip.Size = new System.Drawing.Size(1139, 50);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
@@ -140,9 +193,9 @@
             this.documentTransferStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentTransferStatusLabel,
             this.documentTransferToolStripProgressBar});
-            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 550);
+            this.documentTransferStatusStrip.Location = new System.Drawing.Point(0, 857);
             this.documentTransferStatusStrip.Name = "documentTransferStatusStrip";
-            this.documentTransferStatusStrip.Size = new System.Drawing.Size(859, 22);
+            this.documentTransferStatusStrip.Size = new System.Drawing.Size(1139, 22);
             this.documentTransferStatusStrip.SizingGrip = false;
             this.documentTransferStatusStrip.TabIndex = 3;
             this.documentTransferStatusStrip.Text = "statusStrip1";
@@ -163,9 +216,9 @@
             // 
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripStatusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 572);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 879);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(859, 22);
+            this.mainStatusStrip.Size = new System.Drawing.Size(1139, 22);
             this.mainStatusStrip.TabIndex = 6;
             this.mainStatusStrip.Text = "statusStrip2";
             // 
@@ -182,7 +235,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(859, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1139, 27);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -287,105 +340,11 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.MainMenuStrip_ItemClicked);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 77);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(859, 473);
-            this.tabControl1.TabIndex = 7;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.treeListView1);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(851, 443);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Part library";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // treeListView1
-            // 
-            this.treeListView1.AllColumns.Add(this.olvColumn1);
-            this.treeListView1.AllColumns.Add(this.olvColumn2);
-            this.treeListView1.AllColumns.Add(this.olvColumn3);
-            this.treeListView1.AllColumns.Add(this.olvColumn4);
-            this.treeListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumn1,
-            this.olvColumn2,
-            this.olvColumn3,
-            this.olvColumn4});
-            this.treeListView1.Location = new System.Drawing.Point(9, 54);
-            this.treeListView1.Name = "treeListView1";
-            this.treeListView1.OwnerDraw = true;
-            this.treeListView1.ShowGroups = false;
-            this.treeListView1.Size = new System.Drawing.Size(836, 383);
-            this.treeListView1.TabIndex = 3;
-            this.treeListView1.UseCompatibleStateImageBehavior = false;
-            this.treeListView1.View = System.Windows.Forms.View.Details;
-            this.treeListView1.VirtualMode = true;
-            // 
-            // olvColumn1
-            // 
-            this.olvColumn1.CellPadding = null;
-            this.olvColumn1.Text = "Customer";
-            // 
-            // olvColumn2
-            // 
-            this.olvColumn2.CellPadding = null;
-            this.olvColumn2.Text = "Drawing number";
-            // 
-            // olvColumn3
-            // 
-            this.olvColumn3.CellPadding = null;
-            this.olvColumn3.Text = "Name";
-            // 
-            // olvColumn4
-            // 
-            this.olvColumn4.CellPadding = null;
-            this.olvColumn4.Text = "Name";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(443, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 25);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Go";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Search";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(9, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(428, 25);
-            this.textBox1.TabIndex = 0;
-            // 
             // MainView2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.documentTransferStatusStrip);
             this.Controls.Add(this.mainStatusStrip);
@@ -393,7 +352,10 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainView2";
-            this.Size = new System.Drawing.Size(859, 594);
+            this.Size = new System.Drawing.Size(1139, 901);
+            this.tabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.documentTransferStatusStrip.ResumeLayout(false);
@@ -402,10 +364,6 @@
             this.mainStatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,15 +397,10 @@
         private System.Windows.Forms.ToolStripButton toolManagementToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private BrightIdeasSoftware.TreeListView treeListView1;
-        private BrightIdeasSoftware.OLVColumn olvColumn1;
-        private BrightIdeasSoftware.OLVColumn olvColumn2;
-        private BrightIdeasSoftware.OLVColumn olvColumn3;
-        private BrightIdeasSoftware.OLVColumn olvColumn4;
+        private System.Windows.Forms.TabPage tabPage2;
+        private StartPageView startPageView1;
+        private PartLibraryView3 partLibraryView;
     }
 }

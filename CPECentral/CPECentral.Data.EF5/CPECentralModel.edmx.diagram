@@ -15,11 +15,9 @@
         <EntityTypeShape EntityType="CPECentralModel.Method" Width="1.5" PointX="1.5" PointY="18.25" />
         <EntityTypeShape EntityType="CPECentralModel.Operation" Width="1.5" PointX="3.75" PointY="19" />
         <EntityTypeShape EntityType="CPECentralModel.OperationTool" Width="1.5" PointX="6" PointY="4.25" />
-        <EntityTypeShape EntityType="CPECentralModel.Part" Width="1.5" PointX="1.5" PointY="26.125" />
         <EntityTypeShape EntityType="CPECentralModel.PartVersion" Width="1.5" PointX="1.5" PointY="22.25" />
         <EntityTypeShape EntityType="CPECentralModel.ToolGroup" Width="1.5" PointX="1.5" PointY="0.75" />
         <EntityTypeShape EntityType="CPECentralModel.Tool" Width="1.5" PointX="0.75" PointY="4.5" />
-        <AssociationConnector Association="CPECentralModel.FK_Parts_Customers" />
         <AssociationConnector Association="CPECentralModel.FK_Employees_EmployeeGroups" />
         <AssociationConnector Association="CPECentralModel.FK_Holders_HolderGroups" />
         <AssociationConnector Association="CPECentralModel.FK_HolderTools_Holders" />
@@ -30,16 +28,18 @@
         <AssociationConnector Association="CPECentralModel.FK_Operations_Methods" />
         <AssociationConnector Association="CPECentralModel.FK_OperationTools_Operations" />
         <AssociationConnector Association="CPECentralModel.FK_OperationTools_Tools" />
-        <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
         <AssociationConnector Association="CPECentralModel.FK_ToolGroups_ToolGroups" />
         <AssociationConnector Association="CPECentralModel.FK_Tools_ToolGroups" />
         <EntityTypeShape EntityType="CPECentralModel.TricornTool" Width="1.5" PointX="3" PointY="11.5" />
         <AssociationConnector Association="CPECentralModel.FK_TricornTools_Tools" />
         <EntityTypeShape EntityType="CPECentralModel.Document" Width="1.5" PointX="6" PointY="22.375" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_Operations" />
-        <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_PartVersions" />
         <EntityTypeShape EntityType="CPECentralModel.ClientSetting" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CPECentralModel.Part" Width="1.5" PointX="3.75" PointY="30.125" />
+        <AssociationConnector Association="CPECentralModel.FK_Parts_Customers" />
+        <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" />
+        <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

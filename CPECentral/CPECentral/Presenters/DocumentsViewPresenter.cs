@@ -41,11 +41,33 @@ namespace CPECentral.Presenters
             _documentsView.PasteDocuments += _documentsView_PasteDocuments;
             _documentsView.RefreshDocuments += _documentsView_RefreshDocuments;
 
+            _documentsView.SetVersionDrawingDocument += _documentsView_SetVersionDrawingDocument;
+
             _documentsView.NewFeatureCAMFile += _documentsView_NewFeatureCAMFile;
             _documentsView.NewTurningProgram += _documentsView_NewTurningProgram;
             _documentsView.ImportMillingFile += _documentsView_ImportMillingFile;
 
             _documentsView.RenameDocument += _documentsView_RenameDocument;
+        }
+
+        private void _documentsView_SetVersionDrawingDocument(object sender, DocumentEventArgs e)
+        {
+            try {
+                using (BusyCursor.Show()) {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        var version = _documentsView.CurrentEntity as PartVersion;
+                        if (version == null) {
+                            throw new ArgumentException("Entity is not of the correct type!");
+                        }
+                        version.DrawingDocumentId = e.Document.Id;
+                        cpe.PartVersions.Update(version);
+                        cpe.Commit();
+                    }
+                }
+            }
+            catch (Exception ex) {
+                HandleException(ex);
+            }
         }
 
         private void _documentsView_PasteDocuments(object sender, EventArgs e)

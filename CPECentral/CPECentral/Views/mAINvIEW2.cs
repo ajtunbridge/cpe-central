@@ -206,5 +206,18 @@ namespace CPECentral.Views
         {
 
         }
+
+        private void partLibraryView_PartSelected(object sender, PartEventArgs e)
+        {
+            var tabPage = new TabPage(e.Part.DrawingNumber);
+            
+            var partView = new PartView();
+            partView.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(partView);
+            partView.LoadPart(e.Part);
+
+            tabControl.TabPages.Add(tabPage);
+            tabControl.SelectedTab = tabPage;
+        }
     }
 }

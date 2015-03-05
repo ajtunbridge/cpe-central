@@ -26,6 +26,7 @@ namespace CPECentral.Views
         int SelectionCount { get; }
         OperationType OpType { get; }
 
+        event EventHandler<DocumentEventArgs> SetVersionDrawingDocument;
         event EventHandler AddDocuments;
         event EventHandler CopyDocuments;
         event EventHandler DeleteSelectedDocuments;
@@ -83,6 +84,8 @@ namespace CPECentral.Views
             get { return _opType; }
         }
 
+        public event EventHandler<DocumentEventArgs> SetVersionDrawingDocument;
+
         public event EventHandler AddDocuments;
         public event EventHandler DeleteSelectedDocuments;
         public event EventHandler OpenDocument;
@@ -119,6 +122,13 @@ namespace CPECentral.Views
 
             OnSelectionChanged();
 
+            if (!(CurrentEntity is PartVersion)) {
+                makePrimaryDrawingFileForThisVersionToolStripMenuItem.Visible = false;
+            }
+            else {
+                makePrimaryDrawingFileForThisVersionToolStripMenuItem.Visible = true;
+            }
+
             // TODO: (Optional) - Notify user if any documents were missing and removed from database
         }
 
@@ -141,6 +151,15 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnSetVersionDrawingDocument(DocumentEventArgs e)
+        {
+            EventHandler<DocumentEventArgs> handler = SetVersionDrawingDocument;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
 
         protected virtual void OnAddDocuments()
         {
@@ -358,6 +377,9 @@ namespace CPECentral.Views
                     break;
                 case "openToolStripMenuItem":
                     OnOpenDocument();
+                    break;
+                case "makePrimaryDrawingFileForThisVersionToolStripMenuItem":
+                    OnSetVersionDrawingDocument(new DocumentEventArgs(SelectedDocuments.First()));
                     break;
                 case "deleteToolStripMenuItem":
                     OnDeleteSelectedDocuments();

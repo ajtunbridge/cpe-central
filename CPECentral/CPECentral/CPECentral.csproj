@@ -70,6 +70,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
@@ -115,6 +116,12 @@
     </Compile>
     <Compile Include="Controls\FilesListView.Designer.cs">
       <DependentUpon>FilesListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HexagonDiameterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HexagonDiameterPanel.Designer.cs">
+      <DependentUpon>HexagonDiameterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImageViewer.cs">
       <SubType>UserControl</SubType>
@@ -218,10 +225,10 @@
     <Compile Include="Dialogs\EditToolDialog.Designer.cs">
       <DependentUpon>EditToolDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\HexagonPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Controls\HexagonPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dialogs\HexagonPanel.Designer.cs">
+    <Compile Include="Controls\HexagonPanel.Designer.cs">
       <DependentUpon>HexagonPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\HexDiaCalculatorDialog.cs">
@@ -306,6 +313,7 @@
     <Compile Include="Messages\StatusUpdateMessage.cs" />
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
+    <Compile Include="Presenters\CheckStockLevelsViewPresenter.cs" />
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
     <Compile Include="Presenters\HoldersViewPresenter.cs" />
     <Compile Include="Presenters\HolderToolsViewPresenter.cs" />
@@ -314,11 +322,14 @@
     <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryView2Presenter.cs" />
+    <Compile Include="Presenters\PartLibraryView3Presenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="Presenters\StartPageFindToolBoxViewPresenter.cs" />
     <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
     <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
     <Compile Include="Presenters\ToolsViewPresenter.cs" />
+    <Compile Include="Presenters\TurnoverTargetViewPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,14 +356,24 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolGenerator.cs" />
+    <Compile Include="ViewModels\CheckStockLevelsViewModel.cs" />
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
     <Compile Include="ViewModels\HolderToolsViewModel.cs" />
     <Compile Include="ViewModels\OperationsToolViewModel.cs" />
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartLibraryView2SearchModel.cs" />
+    <Compile Include="ViewModels\PartLibraryView3Model.cs" />
     <Compile Include="ViewModels\PartLibraryViewReloadModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
+    <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
+    <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="Views\CheckStockLevelsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CheckStockLevelsView.Designer.cs">
+      <DependentUpon>CheckStockLevelsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CustomerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -364,6 +385,18 @@
     </Compile>
     <Compile Include="Views\DocumentsView.Designer.cs">
       <DependentUpon>DocumentsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineerToolsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EngineerToolsView.Designer.cs">
+      <DependentUpon>EngineerToolsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HexagonDiameterCalculatorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\HexagonDiameterCalculatorView.Designer.cs">
+      <DependentUpon>HexagonDiameterCalculatorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\HoldersView.cs">
       <SubType>UserControl</SubType>
@@ -427,17 +460,47 @@
     <Compile Include="Views\PartLibraryView2.Designer.cs">
       <DependentUpon>PartLibraryView2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PartLibraryView3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartLibraryView3.Designer.cs">
+      <DependentUpon>PartLibraryView3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PartView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\PartView.Designer.cs">
       <DependentUpon>PartView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StartPageFindToolBoxView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageFindToolBoxView.Designer.cs">
+      <DependentUpon>StartPageFindToolBoxView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageUserInfoView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageUserInfoView.Designer.cs">
+      <DependentUpon>StartPageUserInfoView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageView.Designer.cs">
+      <DependentUpon>StartPageView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StockLevelsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\StockLevelsView.Designer.cs">
       <DependentUpon>StockLevelsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TurnoverTargetView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TurnoverTargetView.Designer.cs">
+      <DependentUpon>TurnoverTargetView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ToolGroupsView.cs">
       <SubType>UserControl</SubType>
@@ -462,6 +525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FilesListView.resx">
       <DependentUpon>FilesListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HexagonDiameterPanel.resx">
+      <DependentUpon>HexagonDiameterPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
@@ -560,11 +626,20 @@
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CheckStockLevelsView.resx">
+      <DependentUpon>CheckStockLevelsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CustomerView.resx">
       <DependentUpon>CustomerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DocumentsView.resx">
       <DependentUpon>DocumentsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EngineerToolsView.resx">
+      <DependentUpon>EngineerToolsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HexagonDiameterCalculatorView.resx">
+      <DependentUpon>HexagonDiameterCalculatorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HoldersView.resx">
       <DependentUpon>HoldersView.cs</DependentUpon>
@@ -596,11 +671,26 @@
     <EmbeddedResource Include="Views\PartLibraryView2.resx">
       <DependentUpon>PartLibraryView2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartLibraryView3.resx">
+      <DependentUpon>PartLibraryView3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PartView.resx">
       <DependentUpon>PartView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\StartPageFindToolBoxView.resx">
+      <DependentUpon>StartPageFindToolBoxView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StartPageUserInfoView.resx">
+      <DependentUpon>StartPageUserInfoView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StartPageView.resx">
+      <DependentUpon>StartPageView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\StockLevelsView.resx">
       <DependentUpon>StockLevelsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\TurnoverTargetView.resx">
+      <DependentUpon>TurnoverTargetView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolGroupsView.resx">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
@@ -646,6 +736,10 @@
     <ProjectReference Include="..\Cyotek.Windows.Forms.ImageBox\Cyotek.Windows.Forms.ImageBox.csproj">
       <Project>{4159c8d3-c18d-4bed-8be6-9bad1b0ca4f6}</Project>
       <Name>Cyotek.Windows.Forms.ImageBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyProgressBar\EasyProgressBar.csproj">
+      <Project>{02D66E01-6C72-4ABA-BE37-1E749ABA8818}</Project>
+      <Name>EasyProgressBar</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
@@ -754,6 +848,16 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\PartIcon_16x16.png" />
+    <None Include="Resources\PartIcon_64x64.png" />
+    <None Include="Resources\AppIconImage_64x64.png" />
+    <None Include="Resources\SearchIcon_32x32.png" />
+    <None Include="Resources\CalculatorImage_32x32.png" />
+    <None Include="Resources\StockMaterialImage_16x16.png" />
+    <None Include="Resources\StockMaterialImage_32x32.png" />
+    <None Include="Resources\BatchImage_16x16.png" />
+    <None Include="Resources\MaterialImage_16x16.png" />
+    <None Include="Resources\TargetImage_128x128.png" />
     <None Include="Resources\WarningIcon.png" />
     <None Include="Resources\Machine.ico" />
     <None Include="Resources\ToolsIcon.ico" />

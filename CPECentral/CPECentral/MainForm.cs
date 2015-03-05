@@ -47,7 +47,7 @@ namespace CPECentral
             using (NoFlicker.On(this)) {
                 Controls.Clear();
 
-                var mainView = new MainView();
+                var mainView = new MainView2();
 
                 Controls.Add(mainView);
 

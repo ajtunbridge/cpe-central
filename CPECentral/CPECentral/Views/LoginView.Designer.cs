@@ -178,7 +178,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LoginView";
-            this.Size = new System.Drawing.Size(628, 544);
+            this.Size = new System.Drawing.Size(714, 603);
             this.Load += new System.EventHandler(this.LoginView_Load);
             this.Resize += new System.EventHandler(this.LoginView_Resize);
             this.centralPanel.ResumeLayout(false);

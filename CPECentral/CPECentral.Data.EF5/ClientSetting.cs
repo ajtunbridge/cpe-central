@@ -16,5 +16,6 @@ namespace CPECentral.Data.EF5
     {
         public int Id { get; set; }
         public string WindowsDataDirectory { get; set; }
+        public decimal TargetTurnoverAmount { get; set; }
     }
 }

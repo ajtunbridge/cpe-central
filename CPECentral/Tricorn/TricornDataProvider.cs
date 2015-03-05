@@ -61,6 +61,28 @@ namespace Tricorn
                     .Sum(stock => stock.Quantity_In_Stock);
         }
 
+        public decimal? GetTurnoverThisMonth()
+        {
+            var startDate = DateTime.Today.AddDays(DateTime.Today.Day * -1).AddDays(1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+            return GetTurnoverForPeriod(startDate, endDate);
+        }
+
+        public decimal? GetTurnoverLastMonth()
+        {
+            var startDate = DateTime.Today.AddDays(DateTime.Today.Day * -1).AddDays(1).AddMonths(-1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+            return GetTurnoverForPeriod(startDate, endDate);
+        }
+
+        public decimal? GetTurnoverForPeriod(DateTime startDate, DateTime endDate)
+        {
+            return
+                _entities.Invoices.Where(i => i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
+        }
+
         public IEnumerable<MStock> GetMStocks(int materialReference)
         {
             return

@@ -25,9 +25,10 @@ namespace CPECentral.Data.EF5
         public int PartId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
+        public Nullable<int> DrawingDocumentId { get; set; }
     
         public virtual ICollection<Method> Methods { get; set; }
-        public virtual Part Part { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual Part Part { get; set; }
     }
 }

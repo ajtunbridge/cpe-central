@@ -12,6 +12,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WindowsDataDirectory" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TargetTurnoverAmount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -149,6 +150,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VersionNumber" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="PartId" Type="int" Nullable="false" />
+          <Property Name="DrawingDocumentId" Type="int" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
         </EntityType>
@@ -511,14 +513,9 @@
           <EntitySet Name="Methods" EntityType="CPECentralModel.Method" />
           <EntitySet Name="Operations" EntityType="CPECentralModel.Operation" />
           <EntitySet Name="OperationTools" EntityType="CPECentralModel.OperationTool" />
-          <EntitySet Name="Parts" EntityType="CPECentralModel.Part" />
           <EntitySet Name="PartVersions" EntityType="CPECentralModel.PartVersion" />
           <EntitySet Name="ToolGroups" EntityType="CPECentralModel.ToolGroup" />
           <EntitySet Name="Tools" EntityType="CPECentralModel.Tool" />
-          <AssociationSet Name="FK_Parts_Customers" Association="CPECentralModel.FK_Parts_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Part" EntitySet="Parts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employees_EmployeeGroups" Association="CPECentralModel.FK_Employees_EmployeeGroups">
             <End Role="EmployeeGroup" EntitySet="EmployeeGroups" />
             <End Role="Employee" EntitySet="Employees" />
@@ -560,10 +557,6 @@
             <End Role="Tool" EntitySet="Tools" />
             <End Role="OperationTool" EntitySet="OperationTools" />
           </AssociationSet>
-          <AssociationSet Name="FK_PartVersions_Parts" Association="CPECentralModel.FK_PartVersions_Parts">
-            <End Role="Part" EntitySet="Parts" />
-            <End Role="PartVersion" EntitySet="PartVersions" />
-          </AssociationSet>
           <AssociationSet Name="FK_ToolGroups_ToolGroups" Association="CPECentralModel.FK_ToolGroups_ToolGroups">
             <End Role="ToolGroup" EntitySet="ToolGroups" />
             <End Role="ToolGroup1" EntitySet="ToolGroups" />
@@ -582,15 +575,24 @@
             <End Role="Operation" EntitySet="Operations" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documents_Parts" Association="CPECentralModel.FK_Documents_Parts">
-            <End Role="Part" EntitySet="Parts" />
-            <End Role="Document" EntitySet="Documents" />
-          </AssociationSet>
           <AssociationSet Name="FK_Documents_PartVersions" Association="CPECentralModel.FK_Documents_PartVersions">
             <End Role="PartVersion" EntitySet="PartVersions" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <EntitySet Name="ClientSettings" EntityType="CPECentralModel.ClientSetting" />
+          <EntitySet Name="Parts" EntityType="CPECentralModel.Part" />
+          <AssociationSet Name="FK_Parts_Customers" Association="CPECentralModel.FK_Parts_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Part" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Parts" Association="CPECentralModel.FK_Documents_Parts">
+            <End Role="Part" EntitySet="Parts" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartVersions_Parts" Association="CPECentralModel.FK_PartVersions_Parts">
+            <End Role="Part" EntitySet="Parts" />
+            <End Role="PartVersion" EntitySet="PartVersions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -600,10 +602,9 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="CreatedBy" Nullable="false" />
           <Property Type="Int32" Name="ModifiedBy" Nullable="false" />
-          <NavigationProperty Name="Parts" Relationship="CPECentralModel.FK_Parts_Customers" FromRole="Customer"
-                              ToRole="Part" />
           <Property Name="TricornReference" Type="Int32" />
           <Property Name="LogoBLOB" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Parts" Relationship="CPECentralModel.FK_Parts_Customers" FromRole="Customer" ToRole="Part" />
         </EntityType>
         <EntityType Name="EmployeeGroup">
           <Key>
@@ -734,24 +735,6 @@
           <NavigationProperty Name="Tool" Relationship="CPECentralModel.FK_OperationTools_Tools"
                               FromRole="OperationTool" ToRole="Tool" />
         </EntityType>
-        <EntityType Name="Part">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="DrawingNumber" Nullable="false" MaxLength="50" FixedLength="false"
-                    Unicode="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ToolingLocation" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="CustomerId" Nullable="false" />
-          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
-          <Property Type="Int32" Name="ModifiedBy" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="CPECentralModel.FK_Parts_Customers" FromRole="Part"
-                              ToRole="Customer" />
-          <NavigationProperty Name="PartVersions" Relationship="CPECentralModel.FK_PartVersions_Parts" FromRole="Part"
-                              ToRole="PartVersion" />
-          <NavigationProperty Name="Documents" Relationship="CPECentralModel.FK_Documents_Parts" FromRole="Part" ToRole="Document" />
-        </EntityType>
         <EntityType Name="PartVersion">
           <Key>
             <PropertyRef Name="Id" />
@@ -764,9 +747,9 @@
           <Property Type="Int32" Name="ModifiedBy" Nullable="false" />
           <NavigationProperty Name="Methods" Relationship="CPECentralModel.FK_Methods_PartVersions"
                               FromRole="PartVersion" ToRole="Method" />
-          <NavigationProperty Name="Part" Relationship="CPECentralModel.FK_PartVersions_Parts" FromRole="PartVersion"
-                              ToRole="Part" />
           <NavigationProperty Name="Documents" Relationship="CPECentralModel.FK_Documents_PartVersions" FromRole="PartVersion" ToRole="Document" />
+          <Property Name="DrawingDocumentId" Type="Int32" />
+          <NavigationProperty Name="Part" Relationship="CPECentralModel.FK_PartVersions_Parts" FromRole="PartVersion" ToRole="Part" />
         </EntityType>
         <EntityType Name="ToolGroup">
           <Key>
@@ -800,18 +783,6 @@
                               ToRole="TricornTool" />
           <Property Name="PhotoBytes" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Parts_Customers">
-          <End Type="CPECentralModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Part">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employees_EmployeeGroups">
           <End Type="CPECentralModel.EmployeeGroup" Role="EmployeeGroup" Multiplicity="1" />
           <End Type="CPECentralModel.Employee" Role="Employee" Multiplicity="*" />
@@ -936,18 +907,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PartVersions_Parts">
-          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="1" />
-          <End Type="CPECentralModel.PartVersion" Role="PartVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Part">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PartVersion">
-              <PropertyRef Name="PartId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ToolGroups_ToolGroups">
           <End Type="CPECentralModel.ToolGroup" Role="ToolGroup" Multiplicity="0..1" />
           <End Type="CPECentralModel.ToolGroup" Role="ToolGroup1" Multiplicity="*" />
@@ -1008,8 +967,8 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Operation" Relationship="CPECentralModel.FK_Documents_Operations" FromRole="Document" ToRole="Operation" />
-          <NavigationProperty Name="Part" Relationship="CPECentralModel.FK_Documents_Parts" FromRole="Document" ToRole="Part" />
           <NavigationProperty Name="PartVersion" Relationship="CPECentralModel.FK_Documents_PartVersions" FromRole="Document" ToRole="PartVersion" />
+          <NavigationProperty Name="Part" Relationship="CPECentralModel.FK_Documents_Parts" FromRole="Document" ToRole="Part" />
         </EntityType>
         <Association Name="FK_Documents_Operations">
           <End Type="CPECentralModel.Operation" Role="Operation" Multiplicity="0..1" />
@@ -1020,18 +979,6 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="OperationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Documents_Parts">
-          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="0..1" />
-          <End Type="CPECentralModel.Document" Role="Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Part">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="PartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1053,7 +1000,59 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WindowsDataDirectory" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TargetTurnoverAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="Part">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="DrawingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToolingLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="CPECentralModel.FK_Parts_Customers" FromRole="Part" ToRole="Customer" />
+          <NavigationProperty Name="Documents" Relationship="CPECentralModel.FK_Documents_Parts" FromRole="Part" ToRole="Document" />
+          <NavigationProperty Name="PartVersions" Relationship="CPECentralModel.FK_PartVersions_Parts" FromRole="Part" ToRole="PartVersion" />
+        </EntityType>
+        <Association Name="FK_Parts_Customers">
+          <End Type="CPECentralModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Part">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Parts">
+          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="0..1" />
+          <End Type="CPECentralModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Part">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartVersions_Parts">
+          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="1" />
+          <End Type="CPECentralModel.PartVersion" Role="PartVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Part">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartVersion">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1173,23 +1172,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Parts">
-      <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.Part)">
-        <MappingFragment StoreEntitySet="Parts">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="DrawingNumber" ColumnName="DrawingNumber" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ToolingLocation" ColumnName="ToolingLocation" />
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PartVersions">
       <EntityTypeMapping TypeName="IsTypeOf(CPECentralModel.PartVersion)">
         <MappingFragment StoreEntitySet="PartVersions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DrawingDocumentId" ColumnName="DrawingDocumentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
           <ScalarProperty Name="PartId" ColumnName="PartId" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -1243,7 +1230,21 @@
           <EntitySetMapping Name="ClientSettings">
             <EntityTypeMapping TypeName="CPECentralModel.ClientSetting">
               <MappingFragment StoreEntitySet="ClientSettings">
+                <ScalarProperty Name="TargetTurnoverAmount" ColumnName="TargetTurnoverAmount" />
                 <ScalarProperty Name="WindowsDataDirectory" ColumnName="WindowsDataDirectory" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parts">
+            <EntityTypeMapping TypeName="CPECentralModel.Part">
+              <MappingFragment StoreEntitySet="Parts">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ToolingLocation" ColumnName="ToolingLocation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DrawingNumber" ColumnName="DrawingNumber" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -16,20 +16,20 @@ namespace CPECentral.Data.EF5
     {
         public Part()
         {
-            this.PartVersions = new HashSet<PartVersion>();
             this.Documents = new HashSet<Document>();
+            this.PartVersions = new HashSet<PartVersion>();
         }
     
         public int Id { get; set; }
+        public int CustomerId { get; set; }
         public string DrawingNumber { get; set; }
         public string Name { get; set; }
         public string ToolingLocation { get; set; }
-        public int CustomerId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual ICollection<PartVersion> PartVersions { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<PartVersion> PartVersions { get; set; }
     }
 }

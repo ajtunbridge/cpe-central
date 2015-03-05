@@ -1,4 +1,6 @@
-﻿namespace CPECentral.Dialogs
+﻿using CPECentral.Controls;
+
+namespace CPECentral.Dialogs
 {
     partial class HexDiaCalculatorDialog
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.hexagonPanel1 = new CPECentral.Dialogs.HexagonPanel();
+            this.hexagonPanel1 = new HexagonPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.acrossFlatsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();

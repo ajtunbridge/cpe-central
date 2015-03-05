@@ -15,5 +15,10 @@ namespace CPECentral.Data.EF5.Repositories
         {
             return UnitOfWork.Entities.ClientSettings.First().WindowsDataDirectory;
         }
+
+        public decimal GetTurnoverTargetAmount()
+        {
+            return UnitOfWork.Entities.ClientSettings.First().TargetTurnoverAmount;
+        }
     }
 }

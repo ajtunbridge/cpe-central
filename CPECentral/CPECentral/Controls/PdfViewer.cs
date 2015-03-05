@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -18,7 +19,7 @@ namespace CPECentral.Controls
         {
             InitializeComponent();
 
-            if (!DesignMode) {
+            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime) {
                 _dialogService = Session.GetInstanceOf<IDialogService>();
             }
         }
@@ -29,18 +30,23 @@ namespace CPECentral.Controls
 
         public void LoadFile(string fileName)
         {
+            if (_browser != null)
+            {
+                Controls.Remove(_browser);
+                _browser.Dispose();
+                _browser = null;
+            }
+
+            if (fileName.IsNullOrWhitespace()) {
+                return;
+            }
+            
             if (!File.Exists(fileName)) {
                 _dialogService.ShowError("Could not locate " + fileName);
                 return;
             }
 
             _fileName = fileName;
-
-            if (_browser != null) {
-                Controls.Remove(_browser);
-                _browser.Dispose();
-                _browser = null;
-            }
 
             _browser = new WebBrowser();
             _browser.Dock = DockStyle.Fill;
