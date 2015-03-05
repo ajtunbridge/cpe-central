@@ -81,6 +81,86 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AppIcon2 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon2", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AppIcon3 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon3", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIcon3Image_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon3Image_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AppIcon4 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon4", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIcon4Image_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon4Image_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AppIcon5 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon5", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIcon5Image_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon5Image_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AppIconImage_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("AppIconImage_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AppIconImage_64x64 {
@@ -305,6 +385,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap LoginHeaderImage {
             get {
                 object obj = ResourceManager.GetObject("LoginHeaderImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginHeaderImage2 {
+            get {
+                object obj = ResourceManager.GetObject("LoginHeaderImage2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

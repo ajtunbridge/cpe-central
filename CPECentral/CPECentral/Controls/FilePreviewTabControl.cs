@@ -63,7 +63,7 @@ namespace CPECentral.Controls
             string extension = fileName.Substring(indexOfLastDot).ToLower();
 
             if (!tabPagesImageList.Images.ContainsKey(extension)) {
-                Bitmap smallIcon = Win32.GetIconForFileExtension(extension, false, false).ToBitmap();
+                Bitmap smallIcon = nGenLibrary.Win32.GetIconForFileExtension(extension, false, false).ToBitmap();
                 tabPagesImageList.Images.Add(extension, smallIcon);
             }
 

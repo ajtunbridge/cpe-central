@@ -62,8 +62,8 @@ namespace CPECentral.Controls
                     imageKey = fileInfo.Extension.ToLower();
 
                     if (!_smallIconImageList.Images.ContainsKey(imageKey)) {
-                        Icon smallIcon = Win32.GetIconForFileExtension(imageKey, false, false);
-                        Icon largeIcon = Win32.GetIconForFileExtension(imageKey, true, false);
+                        Icon smallIcon = nGenLibrary.Win32.GetIconForFileExtension(imageKey, false, false);
+                        Icon largeIcon = nGenLibrary.Win32.GetIconForFileExtension(imageKey, true, false);
 
                         _smallIconImageList.Images.Add(imageKey, smallIcon);
                         _largeIconImageList.Images.Add(imageKey, largeIcon);

@@ -13,7 +13,7 @@ using System.Resources;
 [assembly: AssemblyTitle("CPECentral")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Court Precision Engineering Ltd")]
+[assembly: AssemblyCompany("CPE Chelmsford Ltd")]
 [assembly: AssemblyProduct("CPECentral")]
 [assembly: AssemblyCopyright("Copyright © Adam Tunbridge 2013")]
 [assembly: AssemblyTrademark("")]
@@ -40,6 +40,6 @@ using System.Resources;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("2.8.0.8")]
-[assembly: AssemblyFileVersion("2.8.0.8")]
+[assembly: AssemblyVersion("3.0.0.0")]
+[assembly: AssemblyFileVersion("3.0.0.0")]
 [assembly: NeutralResourcesLanguage("en-GB")]

@@ -301,4 +301,31 @@
   <data name="PartLibraryIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PartLibraryIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AppIcon2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon3Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon3Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon4.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon4Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon4Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon5.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIcon5Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIcon5Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppIconImage_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppIconImage_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginHeaderImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginHeaderImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

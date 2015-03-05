@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\ApplicationIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\AppIcon5.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E39141BC63617D2D105A305088864631B3E76A61</ManifestCertificateThumbprint>
@@ -874,6 +874,15 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\LoginHeaderImage2.png" />
+    <None Include="Resources\AppIcon5.ico" />
+    <None Include="Resources\AppIcon4Image_128x128.png" />
+    <None Include="Resources\AppIcon4.ico" />
+    <None Include="Resources\AppIcon3Image_128x128.png" />
+    <None Include="Resources\AppIcon3.ico" />
+    <None Include="Resources\AppIcon5Image_128x128.png" />
+    <None Include="Resources\AppIconImage_128x128.png" />
+    <None Include="Resources\AppIcon2.ico" />
     <None Include="Resources\HomeIcon_16x16.png" />
     <None Include="Resources\PartLibraryIcon_16x16.png" />
     <None Include="Resources\EmployeeIcon_32x32.png" />
