@@ -137,6 +137,7 @@
             this.resultsObjectListView.UseAlternatingBackColors = true;
             this.resultsObjectListView.UseCompatibleStateImageBehavior = false;
             this.resultsObjectListView.View = System.Windows.Forms.View.Details;
+            this.resultsObjectListView.CellOver += new System.EventHandler<BrightIdeasSoftware.CellOverEventArgs>(this.resultsObjectListView_CellOver);
             this.resultsObjectListView.SelectionChanged += new System.EventHandler(this.resultsObjectListView_SelectionChanged);
             this.resultsObjectListView.ItemActivate += new System.EventHandler(this.resultsObjectListView_ItemActivate);
             // 

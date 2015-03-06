@@ -316,6 +316,12 @@
     <Compile Include="DocumentService.cs" />
     <Compile Include="Delegates\UpdateResultCallbackDelegate.cs" />
     <Compile Include="IDialogService.cs" />
+    <Compile Include="ImagePopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImagePopupForm.Designer.cs">
+      <DependentUpon>ImagePopupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\ToolRenamedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
@@ -629,6 +635,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
       <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagePopupForm.resx">
+      <DependentUpon>ImagePopupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
