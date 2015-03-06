@@ -411,10 +411,9 @@ namespace CPECentral.Controls
         {
             base.OnMouseDown(e);
 
-            //Looping through the controls.
-            for (int i = 0; i < TabPages.Count; i++) {
+            //Looping through the pages starting at the 3rd tab.
+            for (int i = 2; i < TabPages.Count; i++) {
                 Rectangle r = GetTabRect(i);
-
                 //Getting the position of the "x" mark.
                 var closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
                 if (closeButton.Contains(e.Location)) {

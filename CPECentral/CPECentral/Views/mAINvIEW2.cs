@@ -248,6 +248,8 @@ namespace CPECentral.Views
                     return;
                 }
 
+                Session.CurrentEmployee = employee;
+
                 if (employeeSessionPanel.Controls.Count == 1) {
                     employeeSessionPanel.Controls.RemoveAt(0);
                 }
@@ -264,6 +266,8 @@ namespace CPECentral.Views
                 switchUserToolStripDropDownButton.Enabled = false;
 
                 OnRetrieveEmployeeAccounts();
+
+                //Session.MessageBus.Publish(new EmployeeLoggedInMessage(employee));
             }
         }
     }

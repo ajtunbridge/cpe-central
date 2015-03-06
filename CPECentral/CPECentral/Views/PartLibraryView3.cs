@@ -123,6 +123,7 @@ namespace CPECentral.Views
 
         private void resultsObjectListView_CellOver(object sender, BrightIdeasSoftware.CellOverEventArgs e)
         {
+            /*
             if (e.Item == null) {
                 return;
             }
@@ -132,6 +133,7 @@ namespace CPECentral.Views
             var imageView = new ImagePopupForm(Resources.EmployeeIcon_32x32);
             imageView.Location = new Point(MousePosition.X-1, MousePosition.Y-1);
             imageView.Show();
+             * */
         }
     }
 }

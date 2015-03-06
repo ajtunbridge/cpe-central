@@ -29,7 +29,10 @@ namespace CPECentral.Presenters
             worker.DoWork += (o, args) => {
                 try {
                     using (var cpe = new CPEUnitOfWork()) {
-                        IOrderedEnumerable<Employee> employees = cpe.Employees.GetAll().OrderBy(emp => emp.FirstName);
+                        IOrderedEnumerable<Employee> employees = cpe.Employees.GetAll()
+                            .Where(emp => emp.UserName != "admin")
+                            .Where(emp => emp.Id != Session.CurrentEmployee.Id)
+                            .OrderBy(emp => emp.FirstName);
                         args.Result = employees;
                     }
                 }
