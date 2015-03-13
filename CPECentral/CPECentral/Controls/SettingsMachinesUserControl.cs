@@ -22,7 +22,7 @@ namespace CPECentral.Controls
         {
             InitializeComponent();
 
-            machinesImageList.Images.Add(Resources.MachineIcon);
+            //machinesImageList.Images.Add(Resources.MachineIcon);
 
             _dialogService = Session.GetInstanceOf<IDialogService>();
         }
@@ -124,7 +124,7 @@ namespace CPECentral.Controls
 
             foreach (Machine mc in _machinesDb.Machines.GetAll()) {
                 ListViewItem item = enhancedListView1.Items.Add(mc.Name);
-                item.ImageIndex = 0;
+                //item.ImageIndex = 0;
                 item.Tag = mc;
             }
 

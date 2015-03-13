@@ -1,8 +1,10 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
-using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.Messages;
@@ -21,39 +23,19 @@ namespace CPECentral.Presenters
         {
             _view = view;
 
-            _view.AddPart += View_AddPart;
-            _view.AddPartByWorksOrder += View_AddPartByWorksOrder;
-            _view.LoadHexagonCalculator += View_LoadHexagonCalculator;
-            _view.LoadSettingsDialog += View_LoadSettingsDialog;
-            _view.LoadToolManagementDialog += View_LoadToolManagementDialog;
+            _view.AddNewPart += _view_AddNewPart;
+            _view.LoadToolManagementDialog += _view_LoadToolManagementDialog;
+            _view.RetrieveEmployeeAccounts += _view_RetrieveEmployeeAccounts;
         }
 
-        private void View_LoadToolManagementDialog(object sender, EventArgs e)
+        void _view_LoadToolManagementDialog(object sender, EventArgs e)
         {
-            using (var toolManagementDialog = new ToolManagementDialog()) {
-                toolManagementDialog.ShowDialog(_view.ParentForm);
-            }
-        }
-
-        private void View_LoadSettingsDialog(object sender, EventArgs e)
-        {
-            if (!AppSecurity.Check(AppPermission.EditSettings, true)) {
-                return;
-            }
-
-            using (var settingsDialog = new SettingsDialog()) {
-                settingsDialog.ShowDialog(_view.ParentForm);
-            }
-        }
-
-        private void View_LoadHexagonCalculator(object sender, EventArgs e)
-        {
-            using (var dialog = new HexDiaCalculatorDialog()) {
+            using (var dialog = new ToolManagementDialog()) {
                 dialog.ShowDialog(_view.ParentForm);
             }
         }
 
-        private void View_AddPart(object sender, EventArgs e)
+        private void _view_AddNewPart(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
@@ -70,21 +52,36 @@ namespace CPECentral.Presenters
             }
         }
 
-        private void View_AddPartByWorksOrder(object sender, StringEventArgs e)
+        private void _view_RetrieveEmployeeAccounts(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
-                return;
-            }
+            var worker = new BackgroundWorker();
 
-            using (var addPartDialog = new AddPartDialog(e.Value)) {
-                Form parent = _view.ParentForm;
+            worker.DoWork += (o, args) => {
+                try {
+                    using (var cpe = new CPEUnitOfWork()) {
+                        IOrderedEnumerable<Employee> employees = cpe.Employees.GetAll()
+                            .Where(emp => emp.UserName != "admin")
+                            .Where(emp => emp.IsEnabled)
+                            .Where(emp => emp.Id != Session.CurrentEmployee.Id)
+                            .OrderBy(emp => emp.FirstName);
+                        args.Result = employees;
+                    }
+                }
+                catch (Exception ex) {
+                    args.Result = ex;
+                }
+            };
 
-                if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
+            worker.RunWorkerCompleted += (o, args) => {
+                if (args.Result is Exception) {
+                    HandleException(args.Result as Exception);
                     return;
                 }
+                var employees = args.Result as IEnumerable<Employee>;
+                _view.PopulateSwitchUserDropDownButton(employees);
+            };
 
-                AddNewPart(addPartDialog);
-            }
+            worker.RunWorkerAsync();
         }
 
         private void AddNewPart(AddPartDialog addPartDialog)
@@ -146,6 +143,13 @@ namespace CPECentral.Presenters
                 string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
                 _view.DialogService.ShowError(msg);
             }
+        }
+
+        private void HandleException(Exception ex)
+        {
+            string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+            _view.DialogService.ShowError(msg);
         }
     }
 }

@@ -27,9 +27,11 @@ namespace CPECentral.Controls
         private readonly Container components = null;
 
         private readonly ImageList leftRightImages;
+
         private bool bUpDown; // true when the button UpDown is required
         private Color mBackColor = SystemColors.Control;
         private SubClass scUpDown;
+        private int _closableAfterIndex = -1;
 
         public FlatTabControl()
         {
@@ -143,8 +145,7 @@ namespace CPECentral.Controls
             //----------------------------
             // draw background to cover flat border areas
             if (SelectedTab != null) {
-                TabPage tabPage = SelectedTab;
-                Color color = tabPage.BackColor;
+                Color color = SelectedTab.BackColor;
                 border = new Pen(color);
 
                 TabArea.Offset(1, 1);
@@ -189,7 +190,7 @@ namespace CPECentral.Controls
             }
 
             //----------------------------
-            // fill this tab with background color
+            // fill this tab with background color          
             Brush br = new SolidBrush(tabPage.BackColor);
             g.FillPolygon(br, pt);
             br.Dispose();
@@ -257,7 +258,7 @@ namespace CPECentral.Controls
             g.DrawString(tabPage.Text, Font, br, tabTextArea, stringFormat);
             //----------------------------
 
-            if (nIndex > 1) {
+            if (nIndex > _closableAfterIndex) {
                 //This code will render a "x" mark at the end of the Tab caption. 
                 g.DrawString("x", new Font(Font, FontStyle.Bold), Brushes.DimGray, recBounds.Right - 15, recBounds.Top);
             }
@@ -411,13 +412,13 @@ namespace CPECentral.Controls
         {
             base.OnMouseDown(e);
 
-            //Looping through the pages starting at the 3rd tab.
-            for (int i = 2; i < TabPages.Count; i++) {
+            for (int i = _closableAfterIndex + 1; i < TabPages.Count; i++) {
                 Rectangle r = GetTabRect(i);
                 //Getting the position of the "x" mark.
                 var closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
                 if (closeButton.Contains(e.Location)) {
                     if (
+                        
                         MessageBox.Show("Are you sure you want to close this tab?", "Confirm", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question) == DialogResult.Yes) {
                         TabPages.RemoveAt(i);
@@ -521,6 +522,14 @@ namespace CPECentral.Controls
             }
         }
 
+        public int ClosableAfterIndex
+        {
+            get { return _closableAfterIndex; }
+            set { 
+                _closableAfterIndex = value;
+                Refresh();
+            }
+        }
         #endregion
 
         #region TabpageExCollectionEditor

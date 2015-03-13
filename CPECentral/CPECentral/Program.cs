@@ -2,10 +2,13 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.QMS;
+using NcCommunicator.Data;
 using nGenLibrary.Security;
 
 #endregion

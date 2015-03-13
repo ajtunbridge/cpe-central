@@ -28,199 +28,247 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.enhancedTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshButton = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PartLibraryView));
+            this.groupOlvColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.searchFieldComboBox = new System.Windows.Forms.ComboBox();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.searchValueTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchButton = new System.Windows.Forms.Button();
-            this.enhancedTreeView = new nGenLibrary.Controls.EnhancedTreeView();
-            this.contextMenuStrip.SuspendLayout();
+            this.label2 = new System.Windows.Forms.Label();
+            this.resultsObjectListView = new BrightIdeasSoftware.ObjectListView();
+            this.drawingNumberOlvColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.searchingBarPictureBox = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.filePreviewPanel1 = new CPECentral.Controls.FilePreviewPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resultsObjectListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // enhancedTreeViewImageList
+            // groupOlvColumn
             // 
-            this.enhancedTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.enhancedTreeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.enhancedTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(108, 26);
-            this.contextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip_ItemClicked);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.deleteToolStripMenuItem.Text = "&Delete";
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.refreshButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshButton.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
-            this.refreshButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.refreshButton.Location = new System.Drawing.Point(0, 25);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(215, 36);
-            this.refreshButton.TabIndex = 6;
-            this.refreshButton.Text = "Reload library";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.groupOlvColumn.AspectName = "Group";
+            this.groupOlvColumn.CellPadding = null;
+            this.groupOlvColumn.IsVisible = false;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.searchFieldComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.searchValueTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.searchButton);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.resultsObjectListView);
+            this.splitContainer1.Panel1.Controls.Add(this.searchingBarPictureBox);
+            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(10);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(215, 25);
-            this.splitContainer1.SplitterDistance = 105;
-            this.splitContainer1.TabIndex = 5;
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(10);
+            this.splitContainer1.Size = new System.Drawing.Size(1142, 654);
+            this.splitContainer1.SplitterDistance = 640;
+            this.splitContainer1.TabIndex = 17;
             // 
-            // searchFieldComboBox
+            // label1
             // 
-            this.searchFieldComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchFieldComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.searchFieldComboBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchFieldComboBox.FormattingEnabled = true;
-            this.searchFieldComboBox.Items.AddRange(new object[] {
-            "Works order number",
-            "Drawing number",
-            "Name"});
-            this.searchFieldComboBox.Location = new System.Drawing.Point(0, 0);
-            this.searchFieldComboBox.Name = "searchFieldComboBox";
-            this.searchFieldComboBox.Size = new System.Drawing.Size(105, 25);
-            this.searchFieldComboBox.TabIndex = 2;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer2.IsSplitterFixed = true;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.searchValueTextBox);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.searchButton);
-            this.splitContainer2.Size = new System.Drawing.Size(106, 25);
-            this.splitContainer2.SplitterDistance = 80;
-            this.splitContainer2.SplitterWidth = 1;
-            this.splitContainer2.TabIndex = 5;
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(22, 617);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(605, 29);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Hold down the \'Ctrl\' key and hover over the drawing number to view a photo of the" +
+    " part";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // searchValueTextBox
             // 
-            this.searchValueTextBox.AcceptsReturn = true;
-            this.searchValueTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.searchValueTextBox.DisableDoubleSpace = true;
+            this.searchValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchValueTextBox.DisableDoubleSpace = false;
             this.searchValueTextBox.DisableLeadingSpace = false;
-            this.searchValueTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchValueTextBox.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.searchValueTextBox.Location = new System.Drawing.Point(0, 0);
+            this.searchValueTextBox.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchValueTextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.searchValueTextBox.Location = new System.Drawing.Point(25, 35);
             this.searchValueTextBox.MaxLength = 50;
             this.searchValueTextBox.Name = "searchValueTextBox";
             this.searchValueTextBox.NumericCharactersOnly = false;
-            this.searchValueTextBox.Size = new System.Drawing.Size(80, 25);
+            this.searchValueTextBox.Size = new System.Drawing.Size(479, 43);
             this.searchValueTextBox.SuppressEnterKey = true;
-            this.searchValueTextBox.TabIndex = 5;
+            this.searchValueTextBox.TabIndex = 14;
             this.searchValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.searchValueTextBox.EnterKeyPressed += new System.EventHandler(this.searchValueTextBox_EnterKeyPressed);
+            this.searchValueTextBox.TextChanged += new System.EventHandler(this.searchValueTextBox_TextChanged);
             // 
             // searchButton
             // 
-            this.searchButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchButton.Image = global::CPECentral.Properties.Resources.SearchIcon_16x16;
-            this.searchButton.Location = new System.Drawing.Point(0, 0);
+            this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchButton.Location = new System.Drawing.Point(510, 35);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(25, 25);
-            this.searchButton.TabIndex = 0;
+            this.searchButton.Size = new System.Drawing.Size(117, 43);
+            this.searchButton.TabIndex = 13;
+            this.searchButton.Text = "Go";
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // enhancedTreeView
+            // label2
             // 
-            this.enhancedTreeView.ContextMenuStrip = this.contextMenuStrip;
-            this.enhancedTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.enhancedTreeView.HideSelection = false;
-            this.enhancedTreeView.ImageIndex = 0;
-            this.enhancedTreeView.ImageList = this.enhancedTreeViewImageList;
-            this.enhancedTreeView.Location = new System.Drawing.Point(0, 61);
-            this.enhancedTreeView.Name = "enhancedTreeView";
-            this.enhancedTreeView.SelectedImageIndex = 0;
-            this.enhancedTreeView.ShowNodeToolTips = true;
-            this.enhancedTreeView.Size = new System.Drawing.Size(215, 219);
-            this.enhancedTreeView.TabIndex = 0;
-            this.enhancedTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.enhancedTreeView_AfterSelect);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.label2.Location = new System.Drawing.Point(32, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(472, 17);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Enter drawing number, part name or works order number";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // resultsObjectListView
+            // 
+            this.resultsObjectListView.AllColumns.Add(this.drawingNumberOlvColumn);
+            this.resultsObjectListView.AllColumns.Add(this.olvColumn2);
+            this.resultsObjectListView.AllColumns.Add(this.olvColumn3);
+            this.resultsObjectListView.AllColumns.Add(this.groupOlvColumn);
+            this.resultsObjectListView.AlternateRowBackColor = System.Drawing.Color.Ivory;
+            this.resultsObjectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resultsObjectListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.drawingNumberOlvColumn,
+            this.olvColumn2,
+            this.olvColumn3});
+            this.resultsObjectListView.EmptyListMsg = "";
+            this.resultsObjectListView.EmptyListMsgFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultsObjectListView.FullRowSelect = true;
+            this.resultsObjectListView.Location = new System.Drawing.Point(25, 122);
+            this.resultsObjectListView.MultiSelect = false;
+            this.resultsObjectListView.Name = "resultsObjectListView";
+            this.resultsObjectListView.OwnerDraw = true;
+            this.resultsObjectListView.ShowItemCountOnGroups = true;
+            this.resultsObjectListView.Size = new System.Drawing.Size(602, 492);
+            this.resultsObjectListView.TabIndex = 12;
+            this.resultsObjectListView.UseAlternatingBackColors = true;
+            this.resultsObjectListView.UseCompatibleStateImageBehavior = false;
+            this.resultsObjectListView.View = System.Windows.Forms.View.Details;
+            this.resultsObjectListView.CellToolTipShowing += new System.EventHandler<BrightIdeasSoftware.ToolTipShowingEventArgs>(this.resultsObjectListView_CellToolTipShowing);
+            this.resultsObjectListView.SelectionChanged += new System.EventHandler(this.resultsObjectListView_SelectionChanged);
+            this.resultsObjectListView.ItemActivate += new System.EventHandler(this.resultsObjectListView_ItemActivate);
+            // 
+            // drawingNumberOlvColumn
+            // 
+            this.drawingNumberOlvColumn.AspectName = "DrawingNumber";
+            this.drawingNumberOlvColumn.CellPadding = null;
+            this.drawingNumberOlvColumn.FillsFreeSpace = true;
+            this.drawingNumberOlvColumn.Groupable = false;
+            this.drawingNumberOlvColumn.Text = "Drawing number";
+            this.drawingNumberOlvColumn.Width = 231;
+            // 
+            // olvColumn2
+            // 
+            this.olvColumn2.AspectName = "CurrentVersion";
+            this.olvColumn2.CellPadding = null;
+            this.olvColumn2.Groupable = false;
+            this.olvColumn2.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn2.Text = "Current version";
+            this.olvColumn2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn2.Width = 130;
+            // 
+            // olvColumn3
+            // 
+            this.olvColumn3.AspectName = "Name";
+            this.olvColumn3.CellPadding = null;
+            this.olvColumn3.FillsFreeSpace = true;
+            this.olvColumn3.Groupable = false;
+            this.olvColumn3.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn3.Text = "Name";
+            this.olvColumn3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn3.Width = 325;
+            // 
+            // searchingBarPictureBox
+            // 
+            this.searchingBarPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchingBarPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
+            this.searchingBarPictureBox.Location = new System.Drawing.Point(25, 84);
+            this.searchingBarPictureBox.Name = "searchingBarPictureBox";
+            this.searchingBarPictureBox.Size = new System.Drawing.Size(602, 22);
+            this.searchingBarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.searchingBarPictureBox.TabIndex = 11;
+            this.searchingBarPictureBox.TabStop = false;
+            this.searchingBarPictureBox.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.filePreviewPanel1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(10, 10);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(478, 634);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Drawing file";
+            // 
+            // filePreviewPanel1
+            // 
+            this.filePreviewPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("filePreviewPanel1.BackgroundImage")));
+            this.filePreviewPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.filePreviewPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filePreviewPanel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filePreviewPanel1.Location = new System.Drawing.Point(3, 21);
+            this.filePreviewPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filePreviewPanel1.Name = "filePreviewPanel1";
+            this.filePreviewPanel1.Size = new System.Drawing.Size(472, 610);
+            this.filePreviewPanel1.TabIndex = 0;
             // 
             // PartLibraryView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.enhancedTreeView);
-            this.Controls.Add(this.refreshButton);
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.splitContainer1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(925, 630);
             this.Name = "PartLibraryView";
-            this.Size = new System.Drawing.Size(215, 280);
-            this.Load += new System.EventHandler(this.PartLibraryView_Load);
-            this.contextMenuStrip.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(1142, 654);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.resultsObjectListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private nGenLibrary.Controls.EnhancedTreeView enhancedTreeView;
-        private System.Windows.Forms.ImageList enhancedTreeViewImageList;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox searchingBarPictureBox;
+        private BrightIdeasSoftware.ObjectListView resultsObjectListView;
+        private BrightIdeasSoftware.OLVColumn drawingNumberOlvColumn;
+        private BrightIdeasSoftware.OLVColumn olvColumn2;
+        private BrightIdeasSoftware.OLVColumn olvColumn3;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ComboBox searchFieldComboBox;
-        private System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
+        private Controls.FilePreviewPanel filePreviewPanel1;
+        private System.Windows.Forms.Label label1;
+        private BrightIdeasSoftware.OLVColumn groupOlvColumn;
     }
 }

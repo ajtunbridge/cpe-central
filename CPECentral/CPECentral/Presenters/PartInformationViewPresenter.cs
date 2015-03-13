@@ -143,8 +143,9 @@ namespace CPECentral.Presenters
                             cpe.PartVersions.GetByPart(part).OrderByDescending(v => v.VersionNumber);
 
                         var model = new PartInformationViewModel();
+                        model.AllCustomers = cpe.Customers.GetAll();
                         model.AllVersions = versions;
-                        model.Customer = customer.Name;
+                        model.Customer = customer;
                         model.DrawingNumber = part.DrawingNumber;
                         model.Name = part.Name;
                         model.ToolingLocation = part.ToolingLocation;

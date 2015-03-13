@@ -142,9 +142,6 @@
   <data name="RenameIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RenameIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ApplicationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ApplicationIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AddIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,9 +174,6 @@
   </data>
   <data name="CustomerIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CustomerIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PreloaderImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PreloaderImage.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Beep" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beep.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -217,9 +211,6 @@
   <data name="DocumentPreviewBgTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocumentPreviewBgTile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LoginHeaderImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LoginHeaderImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="StockIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StockIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -250,14 +241,8 @@
   <data name="ToolsIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ToolsIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MachineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Machine.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="WarningIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WarningIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TargetImage_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TargetImage_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BatchImage_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BatchImage_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -267,12 +252,6 @@
   </data>
   <data name="StockMaterialImage_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StockMaterialImage_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CalculatorImage_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CalculatorImage_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIconImage_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIconImage_64x64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PartIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PartIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -295,37 +274,73 @@
   <data name="EmployeeIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EmployeeIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HomeIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HomeIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PartLibraryIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PartLibraryIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIcon2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIcon2.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIcon3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIcon3.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIcon3Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIcon3Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIcon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIcon4.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AppIcon4Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIcon4Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AppIcon5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AppIcon5.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AppIcon5Image_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AppIcon5Image_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AppIconImage_128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppIconImage_128x128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PreloaderImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PreloaderImage2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LoginHeaderImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LoginHeaderImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CalculatorIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CalculatorIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PartLibraryTabIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PartLibraryTabIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PartViewIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PartViewIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PartViewTabIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PartViewTabIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StartPageFindToolBoxViewIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartPageFindToolBoxViewIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StartPageTabIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartPageTabIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TurnoverTargetViewIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TurnoverTargetViewIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginHeader4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginHeader4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WarningIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WarningIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NonConformanceIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NonConformanceIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FavouriteMachineIconHighlighted_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FavouriteMachineIconHighlighted_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FavouriteMachineIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FavouriteMachineIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MachineTransferQueueIconHighlighted_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MachineTransferQueueIconHighlighted_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MachineTransferQueueIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MachineTransferQueueIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MachineTransferQueueIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MachineTransferQueueIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoMachineImageAvailable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoMachineImageAvailable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotFavouriteMachineIconHighlighted_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotFavouriteMachineIconHighlighted_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotFavouriteMachineIcon_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotFavouriteMachineIcon_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NonConformanceWarningImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NonConformanceWarningImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginHeader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

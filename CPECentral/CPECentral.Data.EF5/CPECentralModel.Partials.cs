@@ -772,6 +772,11 @@ namespace CPECentral.Data.EF5
         }
     }
 
+    public partial class RecentPart : IEntity
+    {
+        
+    }
+
     public partial class Tool : IEntity, IEquatable<Tool>
     {
         #region IEquatable<Tool> Members

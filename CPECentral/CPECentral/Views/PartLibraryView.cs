@@ -1,9 +1,11 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
+using CPECentral.Controls;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -17,221 +19,56 @@ namespace CPECentral.Views
 {
     public interface IPartLibraryView : IView
     {
-        Part SelectedPart { get; }
-        Customer SelectedCustomer { get; }
-        SearchField SearchField { get; }
-        string SearchValue { get; }
-
-        event EventHandler<PartSearchEventArgs> Search;
-        event EventHandler ReloadData;
-        event EventHandler<CustomerEventArgs> CustomerSelected;
-        event EventHandler<PartEventArgs> PartSelected;
-        event EventHandler<PartEventArgs> DeletePart;
-        event EventHandler<StringEventArgs> WorksOrderNotFound;
-
-        void SelectPart(int partId);
-        void RefreshLibrary();
-        void DisplayLibrary(PartLibraryViewModel viewModel);
-        void DisplaySearchResults(PartLibraryViewModel viewModel);
+        event EventHandler<StringEventArgs> PerformSearch;
+        void DisplayResults(IEnumerable<PartLibraryViewModel> results);
     }
 
     [DefaultEvent("PartSelected")]
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryViewPresenter _presenter;
-        private Part _partToSelect;
 
         public PartLibraryView()
         {
             InitializeComponent();
 
-            Font = Session.AppFont;
-
-            enhancedTreeViewImageList.Images.Add("CustomerIcon", Resources.CustomerIcon_16x16);
-            enhancedTreeViewImageList.Images.Add("PartIcon", Resources.OpenIcon_16x16);
-
             if (!IsInDesignMode) {
                 _presenter = new PartLibraryViewPresenter(this);
 
-                Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
-                Session.MessageBus.Subscribe<PartAddedMessage>(PartAddedMessage_Published);
+                resultsObjectListView.SmallImageList = new ImageList {
+                    ColorDepth = ColorDepth.Depth32Bit,
+                    ImageSize = new Size(16, 16)
+                };
+
+                resultsObjectListView.SmallImageList.Images.Add("PartIcon", Resources.PartIcon_16x16);
             }
         }
 
         #region IPartLibraryView Members
 
-        public Part SelectedPart { get; private set; }
-        public Customer SelectedCustomer { get; private set; }
+        public event EventHandler<StringEventArgs> PerformSearch;
 
-        public SearchField SearchField
+        public void DisplayResults(IEnumerable<PartLibraryViewModel> results)
         {
-            get
-            {
-                switch (searchFieldComboBox.Text) {
-                    case "Works order number":
-                        return SearchField.WorksOrderNumber;
-                    case "Drawing number":
-                        return SearchField.DrawingNumber;
-                    case "Name":
-                        return SearchField.Name;
-                    default:
-                        return SearchField.DrawingNumber;
-                }
-            }
-        }
+            resultsObjectListView.EmptyListMsg = "No parts found!";
 
-        public string SearchValue
-        {
-            get { return searchValueTextBox.Text; }
-        }
+            searchButton.Enabled = true;
 
-        public event EventHandler<PartSearchEventArgs> Search;
+            searchButton.Text = "Go";
 
-        public event EventHandler ReloadData;
-        public event EventHandler<CustomerEventArgs> CustomerSelected;
-        public event EventHandler<PartEventArgs> PartSelected;
-        public event EventHandler<PartEventArgs> DeletePart;
-        public event EventHandler<StringEventArgs> WorksOrderNotFound;
+            searchingBarPictureBox.Visible = false;
 
-        public void DisplayLibrary(PartLibraryViewModel viewModel)
-        {
-            DisplayModel(viewModel, false);
+            drawingNumberOlvColumn.ImageKey = "PartIcon";
 
-            if (_partToSelect != null) {
-                SelectPart(_partToSelect.Id);
-                _partToSelect = null;
-            }
-            else if (viewModel.LastViewedPartId.HasValue) {
-                SelectPart(viewModel.LastViewedPartId.Value);
-            }
-        }
+            resultsObjectListView.SetObjects(results);
 
-        public void DisplaySearchResults(PartLibraryViewModel viewModel)
-        {
-            DisplayModel(viewModel, true);
-
-            enhancedTreeView.ExpandAll();
-        }
-
-        public void RefreshLibrary()
-        {
-            enhancedTreeView.Nodes.Clear();
-            enhancedTreeView.Nodes.Add("loading....");
-            enhancedTreeView.Enabled = false;
-
-            OnReloadData();
-        }
-
-        public void SelectPart(int partId)
-        {
-            foreach (TreeNode customerNode in enhancedTreeView.Nodes) {
-                foreach (TreeNode partNode in customerNode.Nodes) {
-                    var nodePart = (Part) partNode.Tag;
-
-                    if (nodePart.Id != partId) {
-                        continue;
-                    }
-
-                    enhancedTreeView.SelectedNode = partNode;
-                    return;
-                }
-            }
+            resultsObjectListView.AlwaysGroupByColumn = groupOlvColumn;
+            resultsObjectListView.BuildGroups();
         }
 
         #endregion
 
-        private void PartLibraryView_Load(object sender, EventArgs e)
-        {
-            searchFieldComboBox.SelectedIndex = 0;
-
-            RefreshLibrary();
-        }
-
-        private void DisplayModel(PartLibraryViewModel viewModel, bool isSearchResult)
-        {
-            enhancedTreeView.Nodes.Clear();
-
-            enhancedTreeView.Enabled = true;
-
-            if (viewModel == null) {
-                enhancedTreeView.Nodes.Add("Error loading library!");
-                return;
-            }
-
-            if (!viewModel.Customers.Any()) {
-                if (isSearchResult) {
-                    enhancedTreeView.Nodes.Add("The search returned no results!");
-                    if (SearchField == SearchField.WorksOrderNumber) {
-                        bool canEditParts = AppSecurity.Check(AppPermission.ManageParts);
-                        if (canEditParts) {
-                            if (
-                                DialogService.AskQuestion(
-                                    "No parts found for that works order number!\n\nDo you want to create a new part?")) {
-                                OnWorksOrderNotFound(new StringEventArgs(SearchValue));
-                            }
-                        }
-                    }
-                }
-                else {
-                    enhancedTreeView.Nodes.Add("There are no parts in the library!");
-                }
-
-                return;
-            }
-
-            int partCount = 0;
-
-            TreeNode nodeToSelect = null;
-
-            foreach (Customer customer in viewModel.Customers.OrderBy(c => c.Name)) {
-                TreeNode customerNode = enhancedTreeView.Nodes.Add(customer.Name);
-                customerNode.ImageKey = "CustomerIcon";
-                customerNode.SelectedImageKey = "CustomerIcon";
-                customerNode.Tag = customer;
-
-                IOrderedEnumerable<Part> customerParts = viewModel.Parts.Where(p => p.CustomerId == customer.Id)
-                    .OrderBy(p => p.DrawingNumber);
-
-                foreach (Part part in customerParts) {
-                    partCount++;
-
-                    string nodeText;
-
-                    if (isSearchResult && SearchField == SearchField.Name) {
-                        nodeText = part.DrawingNumber + " (" + part.Name + ")";
-                    }
-                    else {
-                        nodeText = part.DrawingNumber;
-                    }
-
-                    TreeNode partNode = customerNode.Nodes.Add(nodeText);
-                    partNode.ImageKey = "PartIcon";
-                    partNode.SelectedImageKey = "PartIcon";
-                    partNode.ToolTipText = part.Name;
-                    partNode.Tag = part;
-                }
-            }
-
-            string status = "Found " + partCount + " parts";
-
-            Session.MessageBus.Publish(new StatusUpdateMessage(status));
-        }
-
-        protected virtual void OnReloadData()
-        {
-            EventHandler handler = ReloadData;
-            if (handler != null) {
-                handler(this, EventArgs.Empty);
-            }
-        }
-
-        protected virtual void OnCustomerSelected(CustomerEventArgs e)
-        {
-            EventHandler<CustomerEventArgs> handler = CustomerSelected;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
+        public event EventHandler<PartEventArgs> PartSelected;
 
         protected virtual void OnPartSelected(PartEventArgs e)
         {
@@ -241,78 +78,30 @@ namespace CPECentral.Views
             }
         }
 
-        protected virtual void OnDeletePart(PartEventArgs e)
+        protected virtual void OnPerformSearch(StringEventArgs e)
         {
-            EventHandler<PartEventArgs> handler = DeletePart;
+            EventHandler<StringEventArgs> handler = PerformSearch;
             if (handler != null) {
                 handler(this, e);
-            }
-        }
-
-        protected virtual void OnSearch(PartSearchEventArgs e)
-        {
-            EventHandler<PartSearchEventArgs> handler = Search;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnWorksOrderNotFound(StringEventArgs e)
-        {
-            EventHandler<StringEventArgs> handler = WorksOrderNotFound;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
-
-        private void PartAddedMessage_Published(PartAddedMessage message)
-        {
-            _partToSelect = message.NewPart;
-
-            OnReloadData();
-        }
-
-        private void PartEditedMessage_Published(PartEditedMessage message)
-        {
-            if (SelectedPart == message.EditedPart) {
-                TreeNode selectedNode = enhancedTreeView.SelectedNode;
-
-                selectedNode.Text = message.EditedPart.DrawingNumber;
-                selectedNode.ToolTipText = message.EditedPart.Name;
-                selectedNode.Tag = message.EditedPart;
-            }
-        }
-
-        private void enhancedTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node.Tag is Part) {
-                contextMenuStrip.Enabled = true;
-
-                SelectedPart = (Part) e.Node.Tag;
-
-                OnPartSelected(new PartEventArgs(SelectedPart));
-            }
-            else if (e.Node.Tag is Customer) {
-                contextMenuStrip.Enabled = false;
-
-                SelectedCustomer = (Customer) e.Node.Tag;
-                OnCustomerSelected(new CustomerEventArgs(SelectedCustomer));
             }
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            enhancedTreeView.Nodes.Clear();
-            enhancedTreeView.Nodes.Add("searching...");
+            resultsObjectListView.SetObjects(null);
+            resultsObjectListView.EmptyListMsg = "Searching  for " + searchValueTextBox.Text;
 
-            var args = new PartSearchArgs(SearchField, SearchValue);
+            searchButton.Text = "Searching...";
 
-            OnSearch(new PartSearchEventArgs(args));
+            searchButton.Enabled = false;
+
+            searchingBarPictureBox.Visible = true;
+
+            OnPerformSearch(new StringEventArgs(searchValueTextBox.Text));
         }
 
-        private void refreshButton_Click(object sender, EventArgs e)
+        private void searchValueTextBox_TextChanged(object sender, EventArgs e)
         {
-            RefreshLibrary();
         }
 
         private void searchValueTextBox_EnterKeyPressed(object sender, EventArgs e)
@@ -320,34 +109,50 @@ namespace CPECentral.Views
             searchButton.PerformClick();
         }
 
-        private void contextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void resultsObjectListView_SelectionChanged(object sender, EventArgs e)
         {
-            contextMenuStrip.Hide();
-
-            switch (e.ClickedItem.Name) {
-                case "deleteToolStripMenuItem":
-                    OnDeletePart(new PartEventArgs(SelectedPart));
-                    break;
+            if (resultsObjectListView.SelectedObject == null) {
+                filePreviewPanel1.ClearPreview();
+            }
+            else {
+                var item = resultsObjectListView.SelectedObject as PartLibraryViewModel;
+                if (string.IsNullOrWhiteSpace(item.PathToDrawingFile)) {
+                    filePreviewPanel1.ClearPreview();
+                    return;
+                }
+                filePreviewPanel1.ShowFile(item.PathToDrawingFile);
             }
         }
-    }
 
-    public class PartSearchArgs
-    {
-        public PartSearchArgs(SearchField field, string value)
+        private void resultsObjectListView_ItemActivate(object sender, EventArgs e)
         {
-            Field = field;
-            Value = value;
+            Part part = (resultsObjectListView.SelectedObject as PartLibraryViewModel).Part;
+
+            Session.MessageBus.Publish(new LoadPartMessage(part));
         }
 
-        public SearchField Field { get; set; }
-        public string Value { get; set; }
-    }
+        private void resultsObjectListView_CellToolTipShowing(object sender, BrightIdeasSoftware.ToolTipShowingEventArgs e)
+        {
+            // only display popup image if control key is pressed
+            if (Control.ModifierKeys != Keys.Control) {
+                return;
+            }
 
-    public enum SearchField
-    {
-        DrawingNumber,
-        Name,
-        WorksOrderNumber
+            if (e.ColumnIndex != 0)
+            {
+                return;
+            }
+
+            var versionPhoto = (e.Item.RowObject as PartLibraryViewModel).CurrentVersionPhoto;
+
+            if (versionPhoto == null)
+            {
+                return;
+            }
+
+            var popupForm = new ImagePopupForm(versionPhoto);
+            popupForm.Location = new Point(MousePosition.X - 1, MousePosition.Y - 1);
+            popupForm.Show();
+        }
     }
 }

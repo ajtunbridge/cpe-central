@@ -40,6 +40,9 @@
         <AssociationConnector Association="CPECentralModel.FK_Parts_Customers" />
         <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" />
         <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
+        <EntityTypeShape EntityType="CPECentralModel.RecentPart" Width="1.5" PointX="13.25" PointY="16.25" />
+        <AssociationConnector Association="CPECentralModel.FK_RecentParts_Employees" />
+        <AssociationConnector Association="CPECentralModel.FK_RecentParts_Parts" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

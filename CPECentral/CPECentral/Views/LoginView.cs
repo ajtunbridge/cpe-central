@@ -95,8 +95,6 @@ namespace CPECentral.Views
 
         private void LoginView_Load(object sender, EventArgs e)
         {
-            versionLabel.Text = string.Format("version {0}", Application.ProductVersion);
-
             string lastUserName = Settings.Default.LastUserName;
 
             if (string.IsNullOrWhiteSpace(lastUserName)) {

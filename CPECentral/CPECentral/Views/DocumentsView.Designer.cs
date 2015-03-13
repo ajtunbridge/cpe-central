@@ -40,6 +40,7 @@
             this.listViewItemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openExternallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,7 +57,8 @@
             this.newTurningProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newFeatureCAMFileToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.filesListView = new CPECentral.Controls.FilesListView();
-            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scanServerForDrawingsmodelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.listViewContextMenuStrip.SuspendLayout();
             this.listViewItemContextMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -66,12 +68,14 @@
             // 
             this.listViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addDocumentsToolStripMenuItem,
+            this.scanServerForDrawingsmodelsToolStripMenuItem,
+            this.toolStripSeparator4,
             this.viewToolStripMenuItem,
             this.refreshToolStripMenuItem,
             this.toolStripSeparator2,
             this.pasteToolStripMenuItem});
             this.listViewContextMenuStrip.Name = "listViewContextMenuStrip";
-            this.listViewContextMenuStrip.Size = new System.Drawing.Size(169, 98);
+            this.listViewContextMenuStrip.Size = new System.Drawing.Size(270, 148);
             this.listViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.listViewContextMenuStrip_Opening);
             this.listViewContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
             // 
@@ -79,7 +83,7 @@
             // 
             this.addDocumentsToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.addDocumentsToolStripMenuItem.Name = "addDocumentsToolStripMenuItem";
-            this.addDocumentsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.addDocumentsToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.addDocumentsToolStripMenuItem.Text = "&Add documents";
             // 
             // viewToolStripMenuItem
@@ -88,38 +92,38 @@
             this.largeIconsToolStripMenuItem,
             this.detailsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.viewToolStripMenuItem.Text = "&View";
             this.viewToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
             // 
             // largeIconsToolStripMenuItem
             // 
             this.largeIconsToolStripMenuItem.Name = "largeIconsToolStripMenuItem";
-            this.largeIconsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.largeIconsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.largeIconsToolStripMenuItem.Text = "&Large icons";
             // 
             // detailsToolStripMenuItem
             // 
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
-            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.detailsToolStripMenuItem.Text = "&Details";
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Image = global::CPECentral.Properties.Resources.ReloadIcon_16x16;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(266, 6);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.pasteToolStripMenuItem.Text = "&Paste";
             // 
             // listViewItemContextMenuStrip
@@ -133,7 +137,7 @@
             this.toolStripSeparator5,
             this.copyToolStripMenuItem});
             this.listViewItemContextMenuStrip.Name = "listViewContextMenuStrip";
-            this.listViewItemContextMenuStrip.Size = new System.Drawing.Size(321, 148);
+            this.listViewItemContextMenuStrip.Size = new System.Drawing.Size(321, 126);
             this.listViewItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
             // 
             // openToolStripMenuItem
@@ -148,6 +152,12 @@
             this.openExternallyToolStripMenuItem.Name = "openExternallyToolStripMenuItem";
             this.openExternallyToolStripMenuItem.Size = new System.Drawing.Size(320, 22);
             this.openExternallyToolStripMenuItem.Text = "Open &externally";
+            // 
+            // makePrimaryDrawingFileForThisVersionToolStripMenuItem
+            // 
+            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Name = "makePrimaryDrawingFileForThisVersionToolStripMenuItem";
+            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Size = new System.Drawing.Size(320, 22);
+            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Text = "Make primary drawing file for this version";
             // 
             // toolStripSeparator3
             // 
@@ -311,11 +321,16 @@
             this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
             this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
             // 
-            // makePrimaryDrawingFileForThisVersionToolStripMenuItem
+            // scanServerForDrawingsmodelsToolStripMenuItem
             // 
-            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Name = "makePrimaryDrawingFileForThisVersionToolStripMenuItem";
-            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Size = new System.Drawing.Size(320, 22);
-            this.makePrimaryDrawingFileForThisVersionToolStripMenuItem.Text = "Make primary drawing file for this version";
+            this.scanServerForDrawingsmodelsToolStripMenuItem.Name = "scanServerForDrawingsmodelsToolStripMenuItem";
+            this.scanServerForDrawingsmodelsToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.scanServerForDrawingsmodelsToolStripMenuItem.Text = "Scan server for drawings/models";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(266, 6);
             // 
             // DocumentsView
             // 
@@ -367,5 +382,7 @@
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem makePrimaryDrawingFileForThisVersionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scanServerForDrawingsmodelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }

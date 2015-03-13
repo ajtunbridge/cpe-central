@@ -43,8 +43,9 @@
             this.toolingLocationTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.versionOptionsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersComboBox = new System.Windows.Forms.ComboBox();
             this.versionOptionsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,7 +143,6 @@
             // 
             this.drawingNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.drawingNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.drawingNumberTextBox.DisableDoubleSpace = true;
             this.drawingNumberTextBox.DisableLeadingSpace = false;
             this.drawingNumberTextBox.Location = new System.Drawing.Point(0, 68);
@@ -158,7 +158,6 @@
             // 
             this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nameTextBox.DisableDoubleSpace = true;
             this.nameTextBox.DisableLeadingSpace = false;
             this.nameTextBox.Location = new System.Drawing.Point(0, 116);
@@ -174,7 +173,6 @@
             // 
             this.toolingLocationTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.toolingLocationTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolingLocationTextBox.DisableDoubleSpace = false;
             this.toolingLocationTextBox.DisableLeadingSpace = false;
             this.toolingLocationTextBox.Location = new System.Drawing.Point(92, 165);
@@ -194,30 +192,43 @@
             this.toolStripMenuItem1,
             this.deleteToolStripMenuItem});
             this.versionOptionsContextMenuStrip.Name = "versionOptionsContextMenuStrip";
-            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(149, 54);
             this.versionOptionsContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.versionOptionsContextMenuStrip_ItemClicked);
             // 
             // newVersionToolStripMenuItem
             // 
             this.newVersionToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.newVersionToolStripMenuItem.Name = "newVersionToolStripMenuItem";
-            this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.newVersionToolStripMenuItem.Text = "&New version";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
-            // toolStripMenuItem1
+            // customersComboBox
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.customersComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.customersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.customersComboBox.FormattingEnabled = true;
+            this.customersComboBox.Location = new System.Drawing.Point(0, 20);
+            this.customersComboBox.Name = "customersComboBox";
+            this.customersComboBox.Size = new System.Drawing.Size(282, 25);
+            this.customersComboBox.TabIndex = 6;
+            this.customersComboBox.SelectedIndexChanged += new System.EventHandler(this.customersComboBox_SelectedIndexChanged);
             // 
             // PartInformationView
             // 
+            this.Controls.Add(this.customersComboBox);
             this.Controls.Add(this.toolingLocationTextBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.drawingNumberTextBox);
@@ -258,5 +269,6 @@
         private System.Windows.Forms.ToolStripMenuItem newVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ComboBox customersComboBox;
     }
 }

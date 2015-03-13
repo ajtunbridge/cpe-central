@@ -13,10 +13,11 @@ namespace CPECentral.ViewModels
             Children = new List<CheckStockLevelsViewModel>();
         }
 
-        public CheckStockLevelsViewModel(string label, string quantity, string location,
+        public CheckStockLevelsViewModel(string label, string specification, string quantity, string location,
             List<CheckStockLevelsViewModel> children)
         {
             Label = label;
+            Specification = specification;
             Quantity = quantity;
             Location = location;
             Children = children;
@@ -25,6 +26,8 @@ namespace CPECentral.ViewModels
         public List<CheckStockLevelsViewModel> Children { get; private set; }
 
         public string Label { get; set; }
+
+        public string Specification { get; set; }
 
         public string Quantity { get; set; }
 

@@ -26,6 +26,7 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
         public Nullable<int> DrawingDocumentId { get; set; }
+        public byte[] PhotoBytes { get; set; }
     
         public virtual ICollection<Method> Methods { get; set; }
         public virtual ICollection<Document> Documents { get; set; }

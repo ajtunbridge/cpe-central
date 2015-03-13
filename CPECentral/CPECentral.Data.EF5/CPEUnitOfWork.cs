@@ -33,6 +33,7 @@ namespace CPECentral.Data.EF5
         private OperationRepository _operations;
         private PartVersionRepository _partVersions;
         private PartRepository _parts;
+        private RecentPartRepository _recentParts;
         private ToolGroupRepository _toolGroups;
         private ToolRepository _tools;
         private TricornToolRepository _tricornTools;
@@ -104,6 +105,11 @@ namespace CPECentral.Data.EF5
         public PartRepository Parts
         {
             get { return _parts ?? (_parts = new PartRepository(this)); }
+        }
+
+        public RecentPartRepository RecentParts
+        {
+            get { return _recentParts ?? (_recentParts = new RecentPartRepository(this)); }
         }
 
         public PartVersionRepository PartVersions

@@ -14,6 +14,11 @@ namespace CPECentral.Data.EF5
     
     public partial class Employee
     {
+        public Employee()
+        {
+            this.RecentParts = new HashSet<RecentPart>();
+        }
+    
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,7 +28,9 @@ namespace CPECentral.Data.EF5
         public int EmployeeGroupId { get; set; }
         public Nullable<int> LastViewedPartId { get; set; }
         public Nullable<int> PreferredMachineGroup { get; set; }
+        public bool IsEnabled { get; set; }
     
         public virtual EmployeeGroup EmployeeGroup { get; set; }
+        public virtual ICollection<RecentPart> RecentParts { get; set; }
     }
 }

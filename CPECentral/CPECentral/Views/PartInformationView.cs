@@ -77,13 +77,16 @@ namespace CPECentral.Views
             if (model != null) {
                 Enabled = true;
 
-                customerTextBox.ReadOnly = model.ReadOnly;
+                customersComboBox.Enabled = !model.ReadOnly;
                 drawingNumberTextBox.ReadOnly = model.ReadOnly;
                 nameTextBox.ReadOnly = model.ReadOnly;
                 toolingLocationTextBox.ReadOnly = model.ReadOnly;
                 versionOptionsButton.Enabled = !model.ReadOnly;
 
-                customerTextBox.Text = model.Customer;
+                customersComboBox.Items.AddRange(model.AllCustomers.ToArray());
+
+                customersComboBox.SelectedItem = model.Customer;
+
                 drawingNumberTextBox.Text = model.DrawingNumber;
                 nameTextBox.Text = model.Name;
                 toolingLocationTextBox.Text = model.ToolingLocation;
@@ -199,6 +202,19 @@ namespace CPECentral.Views
                     OnCreateNewVersion();
                     break;
             }
+        }
+
+        private void customersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_isLoadingData)
+            {
+                return;
+            }
+
+            Part.CustomerId = ((Customer)customersComboBox.SelectedItem).Id;
+
+            saveChangesButton.Text = "Save changes";
+            saveChangesButton.Enabled = true;
         }
     }
 }

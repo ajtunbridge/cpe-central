@@ -42,5 +42,6 @@ namespace CPECentral.Data.EF5
         public DbSet<Document> Documents { get; set; }
         public DbSet<ClientSetting> ClientSettings { get; set; }
         public DbSet<Part> Parts { get; set; }
+        public DbSet<RecentPart> RecentParts { get; set; }
     }
 }

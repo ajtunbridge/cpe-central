@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPECentral.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="LastUserName" Type="System.String" Scope="User">
@@ -50,7 +48,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ViewInternallyFileExtensions" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</Value>
+      <Value Profile="(Default)">.txt|.nc|.h</Value>
     </Setting>
     <Setting Name="TurningProgramHolderFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">(HOLDER - {holder})</Value>
@@ -70,14 +68,11 @@
     <Setting Name="ToolSelectorDialogFormSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">815, 520</Value>
     </Setting>
-    <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">S:\</Value>
-    </Setting>
     <Setting Name="DrawingFileDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">I:\Drawing Files\</Value>
     </Setting>
     <Setting Name="SharedAppDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">S:\Central</Value>
+      <Value Profile="(Default)">I:\Central\</Value>
     </Setting>
     <Setting Name="TurningProgramToolFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">
@@ -103,6 +98,12 @@
         (AUTHOR.{employee})
 
       </Value>
+    </Setting>
+    <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">I:\</Value>
+    </Setting>
+    <Setting Name="NonConformanceFormSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1200, 750</Value>
     </Setting>
   </Settings>
 </SettingsFile>

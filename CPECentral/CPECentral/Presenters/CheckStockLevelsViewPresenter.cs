@@ -57,7 +57,7 @@ namespace CPECentral.Presenters
 
                     double? totalQuantity = 0;
 
-                    var parent = new CheckStockLevelsViewModel(material.Name, null, null,
+                    var parent = new CheckStockLevelsViewModel(material.Name, material.Specification, null, null,
                         new List<CheckStockLevelsViewModel>());
 
                     if (!batchesGreaterThanZero.Any()) {
@@ -66,7 +66,7 @@ namespace CPECentral.Presenters
 
                     foreach (MStock batch in batchesGreaterThanZero) {
                         totalQuantity += batch.Quantity_In_Stock;
-                        var child = new CheckStockLevelsViewModel(batch.Batch_Number, batch.Quantity_In_Stock.ToString(),
+                        var child = new CheckStockLevelsViewModel(batch.Batch_Number, null, batch.Quantity_In_Stock.ToString(),
                             batch.Location, null);
                         parent.Children.Add(child);
                     }

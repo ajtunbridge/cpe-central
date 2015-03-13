@@ -31,19 +31,26 @@ namespace CPECentral.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.flatTabControl = new FlatTabControl();
+            this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
+            this.flatTabControl = new CPECentral.Controls.FlatTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.startPageView = new CPECentral.Views.StartPageView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.partLibraryView = new CPECentral.Views.PartLibraryView3();
-            this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
+            this.partLibraryView = new CPECentral.Views.PartLibraryView();
             this.flatTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
+            // tabPageImageList
+            // 
+            this.tabPageImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.tabPageImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.tabPageImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // flatTabControl
             // 
+            this.flatTabControl.ClosableAfterIndex = 1;
             this.flatTabControl.Controls.Add(this.tabPage1);
             this.flatTabControl.Controls.Add(this.tabPage2);
             this.flatTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -60,7 +67,7 @@ namespace CPECentral.Views
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage1.Controls.Add(this.startPageView);
             this.tabPage1.Location = new System.Drawing.Point(4, 36);
             this.tabPage1.Name = "tabPage1";
@@ -81,7 +88,7 @@ namespace CPECentral.Views
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage2.Controls.Add(this.partLibraryView);
             this.tabPage2.Location = new System.Drawing.Point(4, 36);
             this.tabPage2.Name = "tabPage2";
@@ -101,12 +108,6 @@ namespace CPECentral.Views
             this.partLibraryView.Size = new System.Drawing.Size(1169, 775);
             this.partLibraryView.TabIndex = 0;
             this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
-            // 
-            // tabPageImageList
-            // 
-            this.tabPageImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.tabPageImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // EmployeeSessionView
             // 
@@ -130,7 +131,7 @@ namespace CPECentral.Views
         private System.Windows.Forms.TabPage tabPage1;
         private StartPageView startPageView;
         private System.Windows.Forms.TabPage tabPage2;
-        private PartLibraryView3 partLibraryView;
+        private PartLibraryView partLibraryView;
         private System.Windows.Forms.ImageList tabPageImageList;
     }
 }

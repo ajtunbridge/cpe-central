@@ -1,4 +1,7 @@
-﻿namespace NcCommunicator.Data.Model
+﻿using System.Drawing;
+using System.Net.Mime;
+
+namespace NcCommunicator.Data.Model
 {
     public class Machine
     {
@@ -6,6 +9,8 @@
         public string Name { get; set; }
         public string ComPort { get; set; }
         public int MachineControlId { get; set; }
+
+        public Image Photo { get; set; }
 
         public override string ToString()
         {

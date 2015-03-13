@@ -10,7 +10,8 @@ namespace CPECentral.ViewModels
     public sealed class PartInformationViewModel
     {
         public IEnumerable<PartVersion> AllVersions { get; set; }
-        public string Customer { get; set; }
+        public IEnumerable<Customer> AllCustomers { get; set; }
+        public Customer Customer { get; set; }
         public string DrawingNumber { get; set; }
         public string Name { get; set; }
         public string ToolingLocation { get; set; }

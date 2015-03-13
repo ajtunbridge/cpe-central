@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,15 +20,9 @@ namespace CPECentral
         {
             InitializeComponent();
             Font = Settings.Default.AppFont;
-        }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                //cp.ExStyle |= 0x02000000;
-                return cp;
+            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime) {
+                Session.MessageBus.Subscribe<EmployeeSwitchedMessage>(msg => Text = "CPE Central: Logged in as " + msg.Employee);
             }
         }
 
@@ -47,7 +42,7 @@ namespace CPECentral
             using (NoFlicker.On(this)) {
                 Controls.Clear();
 
-                var mainView = new MainView2();
+                var mainView = new MainView();
 
                 Controls.Add(mainView);
 

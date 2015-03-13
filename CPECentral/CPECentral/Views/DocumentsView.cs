@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
@@ -38,6 +39,7 @@ namespace CPECentral.Views
         event EventHandler NewFeatureCAMFile;
         event EventHandler ImportMillingFile;
         event EventHandler<RenameDocumentEventArgs> RenameDocument;
+        event EventHandler<DocumentEventArgs> TextFileSelected;
 
         void LoadDocuments(IEntity entity);
         void DisplayDocuments(DocumentsViewModel model);
@@ -97,6 +99,7 @@ namespace CPECentral.Views
         public event EventHandler NewFeatureCAMFile;
         public event EventHandler ImportMillingFile;
         public event EventHandler<RenameDocumentEventArgs> RenameDocument;
+        public event EventHandler<DocumentEventArgs> TextFileSelected;
 
         public void DisplayDocuments(DocumentsViewModel model)
         {
@@ -122,9 +125,11 @@ namespace CPECentral.Views
 
             if (!(CurrentEntity is PartVersion)) {
                 makePrimaryDrawingFileForThisVersionToolStripMenuItem.Visible = false;
+                scanServerForDrawingsmodelsToolStripMenuItem.Visible = false;
             }
             else {
                 makePrimaryDrawingFileForThisVersionToolStripMenuItem.Visible = true;
+                scanServerForDrawingsmodelsToolStripMenuItem.Visible = true;
             }
 
             // TODO: (Optional) - Notify user if any documents were missing and removed from database
@@ -149,6 +154,15 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnTextFileSelected(DocumentEventArgs e)
+        {
+            EventHandler<DocumentEventArgs> handler = TextFileSelected;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
 
         protected virtual void OnSetVersionDrawingDocument(DocumentEventArgs e)
         {
@@ -287,6 +301,18 @@ namespace CPECentral.Views
             _currentlySelecting = false;
 
             OnSelectionChanged();
+
+            if (selectionCount == 1) {
+                var doc = filesListView.SelectedItems[0].Tag as Document;
+                var extension = Path.GetExtension(doc.FileName);
+
+                string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] { "|" },
+                    StringSplitOptions.None);
+
+                if (validTextExtensions.Any(textExt => textExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
+                    OnTextFileSelected(new DocumentEventArgs(doc));
+                }
+            }
         }
 
         private void filesListView_DragEnter(object sender, DragEventArgs e)

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainView21 = new CPECentral.Views.MainView2();
+            this.mainView21 = new CPECentral.Views.MainView();
             this.SuspendLayout();
             // 
             // mainView21
@@ -56,7 +56,7 @@
 
         #endregion
 
-        private Views.MainView2 mainView21;
+        private Views.MainView mainView21;
 
     }
 }

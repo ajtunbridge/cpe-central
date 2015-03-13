@@ -22,15 +22,15 @@ namespace CPECentral.Views
 
             if (!IsInDesignMode) {
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
-
+                Session.MessageBus.Subscribe<LoadPartMessage>(LoadPartMessage_Published);
                 flatTabControl.ImageList = tabPageImageList;
 
-                tabPageImageList.Images.Add("StartIcon", Resources.HomeIcon_16x16);
-                tabPageImageList.Images.Add("PartLibraryIcon", Resources.PartLibraryIcon_16x16);
-                tabPageImageList.Images.Add("PartIcon", Resources.PartIcon_16x16);
+                tabPageImageList.Images.Add("StartIcon", Resources.StartPageTabIcon_16x16);
+                tabPageImageList.Images.Add("PartLibraryIcon", Resources.PartLibraryTabIcon_16x16);
+                tabPageImageList.Images.Add("PartIcon", Resources.PartViewTabIcon_16x16);
 
-                tabPage1.ImageIndex = 0;
-                tabPage2.ImageIndex = 1;
+                //tabPage1.ImageIndex = 0;
+                //tabPage2.ImageIndex = 1;
             }
         }
 
@@ -49,12 +49,20 @@ namespace CPECentral.Views
             }
         }
 
-        private void partLibraryView_PartSelected(object sender, PartEventArgs e)
+        private void LoadPartMessage_Published(LoadPartMessage obj)
         {
-            foreach (TabPage existingTab in flatTabControl.TabPages) {
-                if (existingTab.Tag is Part) {
+            // we don't want to load other employees parts
+            if (SessionEmployee != Session.CurrentEmployee) {
+                return;
+            }
+
+            foreach (TabPage existingTab in flatTabControl.TabPages)
+            {
+                if (existingTab.Tag is Part)
+                {
                     var part = existingTab.Tag as Part;
-                    if (part != e.Part) {
+                    if (part != obj.PartToLoad)
+                    {
                         continue;
                     }
                     flatTabControl.SelectTab(existingTab);
@@ -62,20 +70,24 @@ namespace CPECentral.Views
                 }
             }
 
-            var newTab = new TabPage(e.Part.DrawingNumber);
-            newTab.Tag = e.Part;
-            newTab.ImageIndex = 2;
+            var newTab = new TabPage(obj.PartToLoad.DrawingNumber);
+            newTab.Tag = obj.PartToLoad;
+            //newTab.ImageIndex = 2;
 
             var partView = new PartView();
             partView.Dock = DockStyle.Fill;
 
             newTab.Controls.Add(partView);
 
-            partView.LoadPart(e.Part);
+            partView.LoadPart(obj.PartToLoad);
 
             flatTabControl.TabPages.Add(newTab);
 
             flatTabControl.SelectTab(newTab);
+        }
+
+        private void partLibraryView_PartSelected(object sender, PartEventArgs e)
+        {
         }
     }
 }

@@ -3,240 +3,119 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Properties;
 using CPECentral.ViewModels;
 using CPECentral.Views;
-using nGenLibrary;
 using Tricorn;
-using Customer = CPECentral.Data.EF5.Customer;
-using Employee = CPECentral.Data.EF5.Employee;
 using Part = CPECentral.Data.EF5.Part;
 
 #endregion
 
 namespace CPECentral.Presenters
 {
-    public sealed class PartLibraryViewPresenter
+    public class PartLibraryViewPresenter
     {
-        private readonly IPartLibraryView _libraryView;
-        private BackgroundWorker _searchWorker;
+        private readonly IPartLibraryView _view;
 
-        public PartLibraryViewPresenter(IPartLibraryView libraryView)
+        public PartLibraryViewPresenter(IPartLibraryView view)
         {
-            _libraryView = libraryView;
+            _view = view;
 
-            _libraryView.ReloadData += LibraryViewReloadData;
-            _libraryView.DeletePart += _libraryView_DeletePart;
-            _libraryView.PartSelected += _libraryView_PartSelected;
-            _libraryView.Search += _libraryView_Search;
+            _view.PerformSearch += View_PerformSearch;
         }
 
-        private void _libraryView_PartSelected(object sender, PartEventArgs e)
+        private void View_PerformSearch(object sender, StringEventArgs e)
         {
-            try {
-                using (BusyCursor.Show()) {
+            var searchWorker = new BackgroundWorker();
+
+            searchWorker.DoWork += (x, y) => {
+                try {
                     using (var cpe = new CPEUnitOfWork()) {
-                        Employee emp = cpe.Employees.GetById(Session.CurrentEmployee.Id);
-                        emp.LastViewedPartId = e.Part.Id;
-                        cpe.Employees.Update(emp);
-                        cpe.Commit();
-                    }
-                }
-            }
-            catch (Exception ex) {
-                HandleException(ex);
-            }
-        }
+                        var results = new List<PartLibraryViewModel>();
 
-        private void _libraryView_DeletePart(object sender, PartEventArgs e)
-        {
-            if (e.Part == null) {
-                _libraryView.DialogService.ShowError("No part selected!");
-                return;
-            }
+                        IOrderedEnumerable<Part> matchedByDrawingNumber = cpe.Parts.GetWhereDrawingNumberMatches(e.Value)
+                            .OrderBy(p => p.DrawingNumber);
+                        
+                        var matchedByName = cpe.Parts.GetWhereNameMatches(e.Value);
 
-            if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
-                return;
-            }
+                        results.AddRange(GenerateModelFromResults("Matched by drawing number", matchedByDrawingNumber, cpe));
+                        results.AddRange(GenerateModelFromResults("Matched by part name", matchedByName, cpe));
 
-            const string warningMessage =
-                "WARNING!\n\nThis will delete all information pertaining to this part!\n\nDo you want to cancel?";
-
-            if (_libraryView.DialogService.AskQuestion(warningMessage)) {
-                return;
-            }
-
-            const string confirmationQuestion = "WARNING!\n\nAre you sure you want to proceed?";
-
-            if (!_libraryView.DialogService.AskQuestion(confirmationQuestion)) {
-                return;
-            }
-
-            using (var cpe = new CPEUnitOfWork()) {
-                using (BusyCursor.Show()) {
-                    var documents = new List<Document>();
-
-                    Part part = _libraryView.SelectedPart;
-
-                    documents.AddRange(cpe.Documents.GetByPart(part));
-
-                    List<PartVersion> versions = cpe.PartVersions.GetByPart(part).ToList();
-
-                    var methods = new List<Method>();
-                    foreach (PartVersion version in versions) {
-                        methods.AddRange(cpe.Methods.GetByPartVersion(version));
-                        documents.AddRange(cpe.Documents.GetByPartVersion(version));
-                    }
-
-                    var operations = new List<Operation>();
-                    foreach (Method method in methods) {
-                        operations.AddRange(cpe.Operations.GetByMethod(method));
-                    }
-
-                    foreach (Operation operation in operations) {
-                        documents.AddRange(cpe.Documents.GetByOperation(operation));
-                    }
-
-                    Session.DocumentService.DeleteDocuments(documents);
-
-                    operations.ForEach(op => cpe.Operations.Delete(op));
-                    methods.ForEach(m => cpe.Methods.Delete(m));
-                    versions.ForEach(v => cpe.PartVersions.Delete(v));
-                    cpe.Parts.Delete(part);
-
-                    cpe.Commit();
-
-                    LibraryViewReloadData(sender, e);
-                }
-            }
-        }
-
-        private void _libraryView_Search(object sender, PartSearchEventArgs e)
-        {
-            _searchWorker = new BackgroundWorker();
-            _searchWorker.DoWork += _searchWorker_DoWork;
-            _searchWorker.RunWorkerCompleted += _searchWorker_RunWorkerCompleted;
-            _searchWorker.RunWorkerAsync(e.SearchArgs);
-        }
-
-        private void _searchWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var args = (PartSearchArgs) e.Argument;
-
-            try {
-                using (var cpe = new CPEUnitOfWork()) {
-                    IEnumerable<Part> matchingParts;
-
-                    switch (args.Field) {
-                        case SearchField.WorksOrderNumber:
-                            using (var tricorn = new TricornDataProvider()) {
-                                IEnumerable<string> drawingNumbers =
-                                    tricorn.GetWorksOrdersByUserReference(args.Value)
-                                        .Select(wo => wo.Drawing_Number)
-                                        .Distinct();
-                                var parts = new List<Part>();
-                                foreach (string drawingNumber in drawingNumbers) {
-                                    string cleanDrawingNumber = drawingNumber.Trim();
-                                    parts.AddRange(cpe.Parts.GetWhereDrawingNumberContains(cleanDrawingNumber));
-                                }
-                                matchingParts = parts;
+                        using (var tricorn = new TricornDataProvider()) {
+                            var worksOrder = tricorn.GetWorksOrdersByUserReference(e.Value).FirstOrDefault();
+                            if (worksOrder != null) {
+                                var matchedByWorksOrderNumber = cpe.Parts.GetWhereDrawingNumberMatches(worksOrder.Drawing_Number);
+                                results.AddRange(GenerateModelFromResults("Matched by works order number", matchedByWorksOrderNumber, cpe));
                             }
-                            break;
-                        case SearchField.DrawingNumber:
-                            matchingParts = cpe.Parts.GetWhereDrawingNumberMatches(args.Value);
-                            break;
-                        case SearchField.Name:
-                            matchingParts = cpe.Parts.GetWhereNameMatches(args.Value);
-                            break;
-                        default:
-                            matchingParts = cpe.Parts.GetWhereDrawingNumberMatches(args.Value);
-                            break;
+                        }
+
+                        y.Result = results;
                     }
-
-                    List<Customer> customers = matchingParts.Select(part => part.Customer).Distinct().ToList();
-
-                    var model = new PartLibraryViewModel();
-                    model.Customers = customers;
-                    model.Parts = matchingParts;
-
-                    e.Result = model;
                 }
-            }
-            catch (Exception ex) {
-                e.Result = ex;
-            }
-        }
-
-        private void _searchWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Result is Exception) {
-                HandleException(e.Result as Exception);
-                _libraryView.RefreshLibrary();
-                return;
-            }
-
-            var viewModel = (PartLibraryViewModel) e.Result;
-
-            _libraryView.DisplaySearchResults(viewModel);
-        }
-
-        private void LibraryViewReloadData(object sender, EventArgs e)
-        {
-            var getPartsWorker = new BackgroundWorker();
-            getPartsWorker.DoWork += GetPartsWorker_DoWork;
-            getPartsWorker.RunWorkerCompleted += GetPartsWorker_RunWorkerCompleted;
-            getPartsWorker.RunWorkerAsync();
-        }
-
-        private void GetPartsWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Result is Exception) {
-                HandleException(e.Result as Exception);
-                _libraryView.RefreshLibrary();
-                return;
-            }
-
-            var viewModel = (PartLibraryViewModel) e.Result;
-
-            _libraryView.DisplayLibrary(viewModel);
-        }
-
-        private void GetPartsWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try {
-                using (var cpe = new CPEUnitOfWork()) {
-                    IEnumerable<Customer> customers = cpe.Customers.GetAll();
-                    IEnumerable<Part> parts = cpe.Parts.GetAll();
-                    int? lastViewedPartId = cpe.Employees.GetById(Session.CurrentEmployee.Id).LastViewedPartId;
-
-                    var viewModel = new PartLibraryViewModel {
-                        Customers = customers,
-                        Parts = parts,
-                        LastViewedPartId = lastViewedPartId
-                    };
-
-                    e.Result = viewModel;
+                catch (Exception ex) {
+                    y.Result = ex;
                 }
-            }
-            catch (Exception ex) {
-                e.Result = ex;
-            }
+            };
+
+            searchWorker.RunWorkerCompleted += (x, y) => {
+                if (y.Result is Exception) {
+                    var ex = y.Result as Exception;
+                    string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                    _view.DialogService.ShowError(msg);
+                    return;
+                }
+                var results = y.Result as IEnumerable<PartLibraryViewModel>;
+                _view.DisplayResults(results);
+            };
+
+            searchWorker.RunWorkerAsync();
         }
 
-        private void HandleException(Exception ex)
+        private IEnumerable<PartLibraryViewModel> GenerateModelFromResults(string group, IEnumerable<Part> parts, CPEUnitOfWork cpe)
         {
-            string message;
+            var results = new List<PartLibraryViewModel>();
 
-            if (ex is DataProviderException) {
-                message = ex.Message;
-            }
-            else {
-                message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            var docService = new DocumentService();
+
+            foreach (Part part in parts)
+            {
+                PartVersion latestVersion = cpe.PartVersions.GetLatestVersion(part);
+
+                Image latestVersionPhoto = null;
+
+                if (latestVersion.PhotoBytes != null)
+                {
+                    using (var ms = new MemoryStream(latestVersion.PhotoBytes))
+                    {
+                        latestVersionPhoto = Image.FromStream(ms);
+                    }
+                }
+
+                Document drawingDocument = latestVersion.DrawingDocumentId.HasValue
+                    ? cpe.Documents.GetById(latestVersion.DrawingDocumentId.Value)
+                    : null;
+
+                var result = new PartLibraryViewModel
+                {
+                    Group = group,
+                    DrawingNumber = part.DrawingNumber,
+                    CurrentVersion = latestVersion.VersionNumber,
+                    Name = part.Name,
+                    CurrentVersionPhoto = latestVersionPhoto,
+                    PathToDrawingFile =
+                        drawingDocument == null ? null : docService.GetPathToDocument(drawingDocument, cpe),
+                    Part = part
+                };
+
+                results.Add(result);
             }
 
-            _libraryView.DialogService.ShowError(message);
+            return results;
         }
     }
 }

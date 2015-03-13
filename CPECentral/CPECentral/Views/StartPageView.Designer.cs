@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.turnoverTargetView1 = new CPECentral.Views.TurnoverTargetView();
-            this.engineerToolsView1 = new CPECentral.Views.EngineerToolsView();
+            this.turnoverTargetView1 = new CPECentral.Views.StartPageTargetView();
+            this.engineerToolsView1 = new CPECentral.Views.StartPageCalculatorSelectView();
             this.startPageFindToolBoxView1 = new CPECentral.Views.StartPageFindToolBoxView();
-            this.checkStockLevelsView1 = new CPECentral.Views.CheckStockLevelsView();
+            this.checkStockLevelsView1 = new CPECentral.Views.StartPageCheckStockView();
             this.startPageUserInfoView1 = new CPECentral.Views.StartPageUserInfoView();
             this.SuspendLayout();
             // 
@@ -59,7 +59,7 @@
             this.engineerToolsView1.Location = new System.Drawing.Point(682, 450);
             this.engineerToolsView1.Margin = new System.Windows.Forms.Padding(10);
             this.engineerToolsView1.Name = "engineerToolsView1";
-            this.engineerToolsView1.Size = new System.Drawing.Size(334, 305);
+            this.engineerToolsView1.Size = new System.Drawing.Size(334, 347);
             this.engineerToolsView1.TabIndex = 3;
             // 
             // startPageFindToolBoxView1
@@ -87,7 +87,7 @@
             this.checkStockLevelsView1.Location = new System.Drawing.Point(10, 327);
             this.checkStockLevelsView1.Margin = new System.Windows.Forms.Padding(10);
             this.checkStockLevelsView1.Name = "checkStockLevelsView1";
-            this.checkStockLevelsView1.Size = new System.Drawing.Size(652, 428);
+            this.checkStockLevelsView1.Size = new System.Drawing.Size(652, 470);
             this.checkStockLevelsView1.TabIndex = 1;
             // 
             // startPageUserInfoView1
@@ -116,7 +116,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "StartPageView";
-            this.Size = new System.Drawing.Size(1026, 765);
+            this.Size = new System.Drawing.Size(1026, 807);
             this.ResumeLayout(false);
 
         }
@@ -124,10 +124,10 @@
         #endregion
 
         private StartPageUserInfoView startPageUserInfoView1;
-        private CheckStockLevelsView checkStockLevelsView1;
+        private StartPageCheckStockView checkStockLevelsView1;
         private StartPageFindToolBoxView startPageFindToolBoxView1;
-        private EngineerToolsView engineerToolsView1;
-        private TurnoverTargetView turnoverTargetView1;
+        private StartPageCalculatorSelectView engineerToolsView1;
+        private StartPageTargetView turnoverTargetView1;
 
 
 
