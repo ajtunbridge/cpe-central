@@ -61,7 +61,7 @@ namespace CPECentral.Views
             this.flatTabControl.myBackColor = System.Drawing.SystemColors.Control;
             this.flatTabControl.Name = "flatTabControl";
             this.flatTabControl.SelectedIndex = 0;
-            this.flatTabControl.Size = new System.Drawing.Size(1177, 815);
+            this.flatTabControl.Size = new System.Drawing.Size(900, 821);
             this.flatTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.flatTabControl.TabIndex = 8;
             // 
@@ -71,7 +71,7 @@ namespace CPECentral.Views
             this.tabPage1.Controls.Add(this.startPageView);
             this.tabPage1.Location = new System.Drawing.Point(4, 36);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1169, 775);
+            this.tabPage1.Size = new System.Drawing.Size(892, 781);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Start page";
             // 
@@ -83,7 +83,7 @@ namespace CPECentral.Views
             this.startPageView.Location = new System.Drawing.Point(0, 0);
             this.startPageView.Margin = new System.Windows.Forms.Padding(0);
             this.startPageView.Name = "startPageView";
-            this.startPageView.Size = new System.Drawing.Size(1169, 775);
+            this.startPageView.Size = new System.Drawing.Size(892, 781);
             this.startPageView.TabIndex = 0;
             // 
             // tabPage2
@@ -117,7 +117,7 @@ namespace CPECentral.Views
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "EmployeeSessionView";
-            this.Size = new System.Drawing.Size(1177, 815);
+            this.Size = new System.Drawing.Size(900, 821);
             this.flatTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

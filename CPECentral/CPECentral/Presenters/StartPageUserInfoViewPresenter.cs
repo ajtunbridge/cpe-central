@@ -1,13 +1,16 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -20,23 +23,33 @@ namespace CPECentral.Presenters
             _view = view;
 
             _view.RefreshRecentPartsList += _view_RefreshRecentPartsList;
+            _view.ChangeEmployeePassword += _view_ChangeEmployeePassword;
         }
 
-        void _view_RefreshRecentPartsList(object sender, EventArgs e)
+        private void _view_ChangeEmployeePassword(object sender, EventArgs e)
+        {
+            using (var passwordDialog = new SetPasswordDialog()) {
+                passwordDialog.ShowDialog(_view.ParentForm);
+            }
+        }
+
+        private void _view_RefreshRecentPartsList(object sender, EventArgs e)
         {
             using (BusyCursor.Show()) {
                 using (var cpe = new CPEUnitOfWork()) {
-                    var recentParts = cpe.RecentParts.GetRecentParts(Session.CurrentEmployee);
+                    IEnumerable<Part> recentParts = cpe.RecentParts.GetRecentParts(Session.CurrentEmployee);
 
                     var model = new List<RecentPartsViewModel>();
-                    foreach (var part in recentParts) {
+                    foreach (Part part in recentParts) {
                         var item = new RecentPartsViewModel();
                         item.Part = part;
-                        var currentVersion = cpe.PartVersions.GetLatestVersion(part);
-                        if (currentVersion.PhotoBytes != null) {
-                            using (var ms = new MemoryStream(currentVersion.PhotoBytes))
-                            {
-                                item.CurrentVersionPhoto = Image.FromStream(ms);
+                        PartVersion currentVersion = cpe.PartVersions.GetLatestVersion(part);
+
+                        byte[] photoBytes = cpe.Photos.GetByPartVersion(currentVersion);
+
+                        if (photoBytes != null) {
+                            using (var ms = new MemoryStream(photoBytes)) {
+                                Session.PartPartPhotoCache.CreateOrUpdate(part.Id, Image.FromStream(ms));
                             }
                         }
                         model.Add(item);

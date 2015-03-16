@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.changePasswordLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.headerLabel = new System.Windows.Forms.Label();
             this.recentPartsGroupBox = new System.Windows.Forms.GroupBox();
@@ -39,6 +40,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.changePasswordLabel);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.headerLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -46,6 +48,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(541, 39);
             this.panel1.TabIndex = 9;
+            // 
+            // changePasswordLabel
+            // 
+            this.changePasswordLabel.AutoSize = true;
+            this.changePasswordLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.changePasswordLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changePasswordLabel.ForeColor = System.Drawing.Color.Blue;
+            this.changePasswordLabel.Location = new System.Drawing.Point(207, 13);
+            this.changePasswordLabel.Name = "changePasswordLabel";
+            this.changePasswordLabel.Size = new System.Drawing.Size(127, 13);
+            this.changePasswordLabel.TabIndex = 3;
+            this.changePasswordLabel.Text = "Change your password";
+            this.changePasswordLabel.Click += new System.EventHandler(this.changePasswordLabel_Click);
             // 
             // pictureBox1
             // 
@@ -61,14 +76,16 @@
             // 
             this.headerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.headerLabel.AutoSize = true;
             this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.headerLabel.ForeColor = System.Drawing.Color.Black;
-            this.headerLabel.Location = new System.Drawing.Point(41, 3);
+            this.headerLabel.Location = new System.Drawing.Point(41, 9);
             this.headerLabel.Name = "headerLabel";
-            this.headerLabel.Size = new System.Drawing.Size(497, 31);
+            this.headerLabel.Size = new System.Drawing.Size(160, 21);
             this.headerLabel.TabIndex = 2;
             this.headerLabel.Text = "Hello {USERNAME}!";
             this.headerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.headerLabel.SizeChanged += new System.EventHandler(this.headerLabel_SizeChanged);
             // 
             // recentPartsGroupBox
             // 
@@ -96,6 +113,7 @@
             this.Size = new System.Drawing.Size(541, 270);
             this.Load += new System.EventHandler(this.StartPageUserInfoView_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -107,5 +125,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.GroupBox recentPartsGroupBox;
+        private System.Windows.Forms.Label changePasswordLabel;
     }
 }

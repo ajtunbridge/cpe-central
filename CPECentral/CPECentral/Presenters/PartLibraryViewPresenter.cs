@@ -40,17 +40,20 @@ namespace CPECentral.Presenters
 
                         IOrderedEnumerable<Part> matchedByDrawingNumber = cpe.Parts.GetWhereDrawingNumberMatches(e.Value)
                             .OrderBy(p => p.DrawingNumber);
-                        
+
                         var matchedByName = cpe.Parts.GetWhereNameMatches(e.Value);
 
-                        results.AddRange(GenerateModelFromResults("Matched by drawing number", matchedByDrawingNumber, cpe));
+                        results.AddRange(GenerateModelFromResults("Matched by drawing number", matchedByDrawingNumber,
+                            cpe));
                         results.AddRange(GenerateModelFromResults("Matched by part name", matchedByName, cpe));
 
                         using (var tricorn = new TricornDataProvider()) {
                             var worksOrder = tricorn.GetWorksOrdersByUserReference(e.Value).FirstOrDefault();
                             if (worksOrder != null) {
-                                var matchedByWorksOrderNumber = cpe.Parts.GetWhereDrawingNumberMatches(worksOrder.Drawing_Number);
-                                results.AddRange(GenerateModelFromResults("Matched by works order number", matchedByWorksOrderNumber, cpe));
+                                var matchedByWorksOrderNumber =
+                                    cpe.Parts.GetWhereDrawingNumberMatches(worksOrder.Drawing_Number);
+                                results.AddRange(GenerateModelFromResults("Matched by works order number",
+                                    matchedByWorksOrderNumber, cpe));
                             }
                         }
 
@@ -76,23 +79,24 @@ namespace CPECentral.Presenters
             searchWorker.RunWorkerAsync();
         }
 
-        private IEnumerable<PartLibraryViewModel> GenerateModelFromResults(string group, IEnumerable<Part> parts, CPEUnitOfWork cpe)
+        private IEnumerable<PartLibraryViewModel> GenerateModelFromResults(string group, IEnumerable<Part> parts,
+            CPEUnitOfWork cpe)
         {
             var results = new List<PartLibraryViewModel>();
 
             var docService = new DocumentService();
 
-            foreach (Part part in parts)
-            {
+            foreach (Part part in parts) {
                 PartVersion latestVersion = cpe.PartVersions.GetLatestVersion(part);
 
-                Image latestVersionPhoto = null;
+                var cachedPhoto = Session.PartPartPhotoCache[part.Id];
 
-                if (latestVersion.PhotoBytes != null)
-                {
-                    using (var ms = new MemoryStream(latestVersion.PhotoBytes))
-                    {
-                        latestVersionPhoto = Image.FromStream(ms);
+                if (cachedPhoto == null) {
+                    var photoBytes = cpe.Photos.GetByPartVersion(latestVersion);
+                    if (photoBytes != null) {
+                        using (var ms = new MemoryStream(photoBytes)) {
+                            Session.PartPartPhotoCache.CreateOrUpdate(part.Id, Image.FromStream(ms));
+                        }
                     }
                 }
 
@@ -100,13 +104,11 @@ namespace CPECentral.Presenters
                     ? cpe.Documents.GetById(latestVersion.DrawingDocumentId.Value)
                     : null;
 
-                var result = new PartLibraryViewModel
-                {
+                var result = new PartLibraryViewModel {
                     Group = group,
                     DrawingNumber = part.DrawingNumber,
                     CurrentVersion = latestVersion.VersionNumber,
                     Name = part.Name,
-                    CurrentVersionPhoto = latestVersionPhoto,
                     PathToDrawingFile =
                         drawingDocument == null ? null : docService.GetPathToDocument(drawingDocument, cpe),
                     Part = part

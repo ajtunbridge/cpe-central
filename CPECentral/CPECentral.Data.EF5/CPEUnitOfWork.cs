@@ -33,6 +33,7 @@ namespace CPECentral.Data.EF5
         private OperationRepository _operations;
         private PartVersionRepository _partVersions;
         private PartRepository _parts;
+        private PhotoRepository _photos;
         private RecentPartRepository _recentParts;
         private ToolGroupRepository _toolGroups;
         private ToolRepository _tools;
@@ -115,6 +116,11 @@ namespace CPECentral.Data.EF5
         public PartVersionRepository PartVersions
         {
             get { return _partVersions ?? (_partVersions = new PartVersionRepository(this)); }
+        }
+
+        public PhotoRepository Photos
+        {
+            get { return _photos ?? (_photos = new PhotoRepository(this)); }
         }
 
         public ToolGroupRepository ToolGroups

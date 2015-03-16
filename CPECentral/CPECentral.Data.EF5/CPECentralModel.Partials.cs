@@ -772,6 +772,11 @@ namespace CPECentral.Data.EF5
         }
     }
 
+    public partial class Photo : IEntity
+    {
+        
+    }
+
     public partial class RecentPart : IEntity
     {
         

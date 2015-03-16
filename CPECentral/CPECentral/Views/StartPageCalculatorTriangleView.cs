@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using System;
 using System.Windows.Forms;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -30,6 +28,13 @@ namespace CPECentral.Views
                 : Convert.ToDouble(adjTextBox.Text);
         }
 
+        private void hypTextBox_TextChanged(object sender, EventArgs e)
+        {
+            trianglePanel.Hypotenuse = string.IsNullOrWhiteSpace(hypTextBox.Text)
+                ? 0d
+                : Convert.ToDouble(hypTextBox.Text);
+        }
+
         private void angleATextBox_TextChanged(object sender, EventArgs e)
         {
             trianglePanel.AngleA = string.IsNullOrWhiteSpace(angleATextBox.Text)
@@ -46,21 +51,27 @@ namespace CPECentral.Views
 
         private void oppTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 8) return;
+            if (e.KeyChar == 8) {
+                return;
+            }
 
             if (char.IsNumber(e.KeyChar) || e.KeyChar == 46) {
                 var textBox = (TextBox) sender;
 
-                if (e.KeyChar == 46 && textBox.Text.Contains("."))
+                if (e.KeyChar == 46 && textBox.Text.Contains(".")) {
                     e.Handled = true;
+                }
 
                 if (textBox.Text.Contains(".")) {
-                    var decimalPlaces = textBox.Text.Length - textBox.Text.IndexOf(".");
-                    if (decimalPlaces == 4)
+                    int decimalPlaces = textBox.Text.Length - textBox.Text.IndexOf(".");
+                    if (decimalPlaces == 4) {
                         e.Handled = true;
+                    }
                 }
                 else {
-                    if (textBox.Text.Length == 4 && e.KeyChar != 46) e.Handled = true;
+                    if (textBox.Text.Length == 4 && e.KeyChar != 46) {
+                        e.Handled = true;
+                    }
                 }
 
                 return;

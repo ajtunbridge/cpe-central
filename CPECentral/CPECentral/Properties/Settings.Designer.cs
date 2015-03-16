@@ -363,5 +363,29 @@ namespace CPECentral.Properties {
                 this["NonConformanceFormSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("All")]
+        public string DefaultMachineTransferView {
+            get {
+                return ((string)(this["DefaultMachineTransferView"]));
+            }
+            set {
+                this["DefaultMachineTransferView"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\SJCSRV1\\Data\\Quality\\QMS DATABASE2008.mdb")]
+        public string PathToQMSDatabase {
+            get {
+                return ((string)(this["PathToQMSDatabase"]));
+            }
+            set {
+                this["PathToQMSDatabase"] = value;
+            }
+        }
     }
 }

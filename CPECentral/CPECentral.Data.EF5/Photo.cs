@@ -12,21 +12,10 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class Method
+    public partial class Photo
     {
-        public Method()
-        {
-            this.Operations = new HashSet<Operation>();
-        }
-    
         public int Id { get; set; }
-        public string Description { get; set; }
-        public bool IsPreferred { get; set; }
-        public int PartVersionId { get; set; }
-        public int CreatedBy { get; set; }
-        public int ModifiedBy { get; set; }
-    
-        public virtual ICollection<Operation> Operations { get; set; }
-        public virtual PartVersion PartVersion { get; set; }
+        public string Address { get; set; }
+        public byte[] Data { get; set; }
     }
 }

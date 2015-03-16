@@ -16,6 +16,7 @@ namespace CPECentral
     {
         private static StandardKernel _kernel;
         private static Font _appFont;
+        private static PartPhotoCache _partPhotoCache;
 
         internal static IMessageBus MessageBus
         {
@@ -27,7 +28,12 @@ namespace CPECentral
             get { return _appFont; }
         }
 
-        internal static Employee CurrentEmployee { get; set; }
+        internal static PartPhotoCache PartPartPhotoCache
+        {
+            get { return _partPhotoCache; }
+        }
+            
+            internal static Employee CurrentEmployee { get; set; }
 
         internal static DocumentService DocumentService { get; private set; }
 
@@ -46,6 +52,8 @@ namespace CPECentral
                 : Settings.Default.AppFont;
 
             DocumentService = new DocumentService();
+
+            _partPhotoCache = new PartPhotoCache();
         }
 
         internal static T GetInstanceOf<T>()

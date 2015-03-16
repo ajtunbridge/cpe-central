@@ -105,5 +105,11 @@
     <Setting Name="NonConformanceFormSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">1200, 750</Value>
     </Setting>
+    <Setting Name="DefaultMachineTransferView" Type="System.String" Scope="User">
+      <Value Profile="(Default)">All</Value>
+    </Setting>
+    <Setting Name="PathToQMSDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\SJCSRV1\Data\Quality\QMS DATABASE2008.mdb</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

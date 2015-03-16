@@ -16,20 +16,19 @@ namespace CPECentral.Data.EF5
     {
         public PartVersion()
         {
-            this.Methods = new HashSet<Method>();
             this.Documents = new HashSet<Document>();
+            this.Methods = new HashSet<Method>();
         }
     
         public int Id { get; set; }
         public string VersionNumber { get; set; }
         public int PartId { get; set; }
+        public Nullable<int> DrawingDocumentId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
-        public Nullable<int> DrawingDocumentId { get; set; }
-        public byte[] PhotoBytes { get; set; }
     
-        public virtual ICollection<Method> Methods { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<Method> Methods { get; set; }
         public virtual Part Part { get; set; }
     }
 }

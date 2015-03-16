@@ -10,7 +10,5 @@ namespace CPECentral.ViewModels
     public class RecentPartsViewModel
     {
         public Part Part { get; set; }
-
-        public Image CurrentVersionPhoto { get; set; }
     }
 }

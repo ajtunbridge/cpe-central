@@ -62,17 +62,16 @@ namespace CPECentral.Views
 
                 Session.MessageBus.Subscribe<PartVersionPhotoChangedMessage>(msg => {
                     if (partInformationView.SelectedVersion == msg.PartVersion) {
-                        if (msg.PartVersion.PhotoBytes == null) {
+                        var image = Session.PartPartPhotoCache[msg.PartVersion.PartId];
+                        if (image == null) {
                             partPhotoPictureBox.Image = Resources.NoImageAvailableImage;
                             partPhotoPictureBox.BackgroundImage = null;
                             removeImageButton.Enabled = false;
                         }
                         else {
-                            using (var ms = new MemoryStream(msg.PartVersion.PhotoBytes)) {
-                                partPhotoPictureBox.Image = Image.FromStream(ms);
-                                partPhotoPictureBox.BackgroundImage = Resources.DocumentPreviewBgTile;
-                                removeImageButton.Enabled = true;
-                            }
+                            partPhotoPictureBox.Image = image;
+                            partPhotoPictureBox.BackgroundImage = Resources.DocumentPreviewBgTile;
+                            removeImageButton.Enabled = true;
                         }
                     }
                 });
@@ -213,17 +212,17 @@ namespace CPECentral.Views
 
             versionDocumentsView.LoadDocuments(e.PartVersion);
 
-            if (e.PartVersion.PhotoBytes == null) {
+            var photo = Session.PartPartPhotoCache[e.PartVersion.PartId];
+
+            if (photo == null) {
                 partPhotoPictureBox.Image = Resources.NoImageAvailableImage;
                 partPhotoPictureBox.BackgroundImage = null;
                 removeImageButton.Enabled = false;
             }
             else {
-                using (var ms = new MemoryStream(e.PartVersion.PhotoBytes)) {
-                    partPhotoPictureBox.Image = Image.FromStream(ms);
-                    partPhotoPictureBox.BackgroundImage = Resources.DocumentPreviewBgTile;
-                    removeImageButton.Enabled = true;
-                }
+                partPhotoPictureBox.Image = photo;
+                partPhotoPictureBox.BackgroundImage = Resources.DocumentPreviewBgTile;
+                removeImageButton.Enabled = true;
             }
         }
 
@@ -294,11 +293,13 @@ namespace CPECentral.Views
 
         private void operationDocumentsView_TextFileSelected(object sender, DocumentEventArgs e)
         {
+            /*
             machineTransferView.RefreshMachineList();
             
             if (machineTransferView.MachineCount > 0) {
                 machineTransferView.Visible = true;
             }
+             * */
         }
 
         private void operationDocumentsView_SelectionChanged(object sender, EventArgs e)

@@ -41,7 +41,7 @@
             // 
             this.machineNameLabel.BackColor = System.Drawing.Color.Gainsboro;
             this.machineNameLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.machineNameLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.machineNameLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.machineNameLabel.ForeColor = System.Drawing.Color.Black;
             this.machineNameLabel.Location = new System.Drawing.Point(0, 0);
             this.machineNameLabel.Name = "machineNameLabel";

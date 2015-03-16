@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using CPECentral.Properties;
 using CPECentral.QMS.Model;
 
 #endregion
@@ -16,9 +17,10 @@ namespace CPECentral.QMS
 
         public QMSDataProvider()
         {
-            _connection =
-                new OleDbConnection(
-                    @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\SJCSRV1\Data\Quality\QMS DATABASE2008.mdb;Persist Security Info=False;");
+            var connString =  string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Persist Security Info=False;",
+                    Settings.Default.PathToQMSDatabase);
+
+            _connection = new OleDbConnection(connString);
         }
 
         public bool HasNonConformances(string drawingNumber)

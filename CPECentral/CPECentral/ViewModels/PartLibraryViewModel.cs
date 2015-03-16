@@ -19,8 +19,6 @@ namespace CPECentral.ViewModels
 
         public string PathToDrawingFile { get; set; }
 
-        public Image CurrentVersionPhoto { get; set; }
-
         public Part Part { get; set; }
     }
 }

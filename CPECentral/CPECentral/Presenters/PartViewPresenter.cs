@@ -73,21 +73,19 @@ namespace CPECentral.Presenters
                 return;
             }
 
-            byte[] originalPhotoBytes = _partView.SelectedPartVersion.PhotoBytes;
-
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        _partView.SelectedPartVersion.PhotoBytes = null;
-                        cpe.PartVersions.Update(_partView.SelectedPartVersion);
+                        cpe.Photos.Delete(_partView.SelectedPartVersion);
                         cpe.Commit();
                     }
                 }
 
+                Session.PartPartPhotoCache.CreateOrUpdate(_partView.Part.Id, null);
+
                 Session.MessageBus.Publish(new PartVersionPhotoChangedMessage(_partView.SelectedPartVersion));
             }
             catch (Exception ex) {
-                _partView.SelectedPartVersion.PhotoBytes = originalPhotoBytes;
                 HandleException(ex);
             }
         }
@@ -97,8 +95,6 @@ namespace CPECentral.Presenters
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
                 return;
             }
-
-            byte[] originalPhotoBytes = _partView.SelectedPartVersion.PhotoBytes;
 
             try {
                 Image photoImage = null;
@@ -118,18 +114,18 @@ namespace CPECentral.Presenters
                     using (var cpe = new CPEUnitOfWork()) {
                         using (var ms = new MemoryStream()) {
                             photoImage.Save(ms, ImageFormat.Jpeg);
-                            _partView.SelectedPartVersion.PhotoBytes = ms.ToArray();
-                            cpe.PartVersions.Update(_partView.SelectedPartVersion);
+                            cpe.Photos.Add(_partView.SelectedPartVersion, ms.ToArray());
                             cpe.Commit();
                         }
                     }
                 }
 
+                Session.PartPartPhotoCache.CreateOrUpdate(_partView.Part.Id, photoImage);
+
                 Session.MessageBus.Publish(new PartVersionPhotoChangedMessage(_partView.SelectedPartVersion));
             }
             catch (Exception ex) {
                 HandleException(ex);
-                _partView.SelectedPartVersion.PhotoBytes = originalPhotoBytes;
             }
         }
 

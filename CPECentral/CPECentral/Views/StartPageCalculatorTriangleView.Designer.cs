@@ -121,6 +121,7 @@
             this.hypTextBox.Size = new System.Drawing.Size(76, 25);
             this.hypTextBox.TabIndex = 2;
             this.hypTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.hypTextBox.TextChanged += new System.EventHandler(this.hypTextBox_TextChanged);
             this.hypTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.oppTextBox_KeyPress);
             // 
             // label3

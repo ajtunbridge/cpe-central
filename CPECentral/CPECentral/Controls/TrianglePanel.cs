@@ -183,6 +183,14 @@ namespace CPECentral.Controls
                 (int) adjTextSize.Width + 10,
                 (int) adjTextSize.Height + 2);
 
+            var adjHypXDiff = (int)((adjTextSize.Width - hypTextSize.Width)/2);
+
+            var hypRect = new Rectangle(
+                adjRect.X + adjHypXDiff,
+                oppRect.Top,
+                (int) hypTextSize.Width + 10,
+                (int) hypTextSize.Height);
+
             var angleARect = new Rectangle(
                 right - ((int) angleATextSize.Width)/2 - 10,
                 bottom - (_lineWidth/2) - ((int) angleATextSize.Height/2),
@@ -206,6 +214,9 @@ namespace CPECentral.Controls
             g.FillRectangle(Brushes.White, adjRect);
             g.DrawRectangle(Pens.Black, adjRect);
 
+            g.FillRectangle(Brushes.White, hypRect);
+            g.DrawRectangle(Pens.Black, hypRect);
+
             g.FillRectangle(Brushes.White, angleARect);
             g.DrawRectangle(Pens.Black, angleARect);
 
@@ -215,6 +226,8 @@ namespace CPECentral.Controls
             g.DrawString(_oppText, Font, new SolidBrush(ForeColor), oppRect, stringFormat);
 
             g.DrawString(_adjText, Font, new SolidBrush(ForeColor), adjRect, stringFormat);
+
+            g.DrawString(_hypText, Font, new SolidBrush(ForeColor), hypRect, stringFormat);
 
             g.DrawString(_angleAText, Font, new SolidBrush(ForeColor), angleARect, stringFormat);
 

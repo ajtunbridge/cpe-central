@@ -35,7 +35,6 @@ namespace CPECentral.Data.EF5
         public DbSet<Method> Methods { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<OperationTool> OperationTools { get; set; }
-        public DbSet<PartVersion> PartVersions { get; set; }
         public DbSet<ToolGroup> ToolGroups { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<TricornTool> TricornTools { get; set; }
@@ -43,5 +42,7 @@ namespace CPECentral.Data.EF5
         public DbSet<ClientSetting> ClientSettings { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<RecentPart> RecentParts { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<PartVersion> PartVersions { get; set; }
     }
 }

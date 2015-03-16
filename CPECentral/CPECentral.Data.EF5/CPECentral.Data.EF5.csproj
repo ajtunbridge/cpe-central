@@ -110,6 +110,9 @@
     <Compile Include="PartVersion.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Photo.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecentPart.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
@@ -128,6 +131,7 @@
     <Compile Include="Repositories\OperationToolRepository.cs" />
     <Compile Include="Repositories\PartRepository.cs" />
     <Compile Include="Repositories\PartVersionRepository.cs" />
+    <Compile Include="Repositories\PhotoRepository.cs" />
     <Compile Include="Repositories\RecentPartRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\ToolGroupRepository.cs" />

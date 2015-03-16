@@ -133,25 +133,22 @@ namespace CPECentral.Views
 
         private void resultsObjectListView_CellToolTipShowing(object sender, BrightIdeasSoftware.ToolTipShowingEventArgs e)
         {
-            // only display popup image if control key is pressed
-            if (Control.ModifierKeys != Keys.Control) {
-                return;
-            }
-
             if (e.ColumnIndex != 0)
             {
                 return;
             }
 
-            var versionPhoto = (e.Item.RowObject as PartLibraryViewModel).CurrentVersionPhoto;
+            var part = (e.Item.RowObject as PartLibraryViewModel).Part;
 
-            if (versionPhoto == null)
+            var photo = Session.PartPartPhotoCache[part.Id];
+
+            if (photo == null)
             {
                 return;
             }
 
-            var popupForm = new ImagePopupForm(versionPhoto);
-            popupForm.Location = new Point(MousePosition.X - 1, MousePosition.Y - 1);
+            var popupForm = new ImagePopupForm(photo);
+            popupForm.Location = new Point(MousePosition.X + 20, MousePosition.Y + 20);
             popupForm.Show();
         }
     }

@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.0.0.9</MinimumRequiredVersion>
-    <ApplicationRevision>12</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>3.1.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -99,9 +99,6 @@
     <Compile Include="Commands\DeleteMethodCommand.cs" />
     <Compile Include="Commands\DeleteOperationCommand.cs" />
     <Compile Include="Commands\NewVersionCommand.cs" />
-    <Compile Include="Controls\PartVersionPhotoToolTip.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -292,6 +289,12 @@
     <Compile Include="Dialogs\SelectWorksOrderDialog.Designer.cs">
       <DependentUpon>SelectWorksOrderDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SetPasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SetPasswordDialog.Designer.cs">
+      <DependentUpon>SetPasswordDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,8 +350,10 @@
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
     <Compile Include="Messages\StatusUpdateMessage.cs" />
+    <Compile Include="MouseHook.cs" />
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
+    <Compile Include="PartPhotoCache.cs" />
     <Compile Include="Presenters\CheckStockLevelsViewPresenter.cs" />
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
     <Compile Include="Presenters\HoldersViewPresenter.cs" />
@@ -659,6 +664,9 @@
     <EmbeddedResource Include="Dialogs\SelectWorksOrderDialog.resx">
       <DependentUpon>SelectWorksOrderDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SetPasswordDialog.resx">
+      <DependentUpon>SetPasswordDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -797,6 +805,7 @@
     </None>
     <None Include="CncLanguages\fanuc_syntax.xshd" />
     <None Include="CPECentral_TemporaryKey.pfx" />
+    <None Include="EHSMB.TTF" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

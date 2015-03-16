@@ -27,11 +27,11 @@ namespace CPECentral.Controls
         private readonly Container components = null;
 
         private readonly ImageList leftRightImages;
+        private int _closableAfterIndex = -1;
 
         private bool bUpDown; // true when the button UpDown is required
         private Color mBackColor = SystemColors.Control;
         private SubClass scUpDown;
-        private int _closableAfterIndex = -1;
 
         public FlatTabControl()
         {
@@ -412,19 +412,29 @@ namespace CPECentral.Controls
         {
             base.OnMouseDown(e);
 
-            for (int i = _closableAfterIndex + 1; i < TabPages.Count; i++) {
-                Rectangle r = GetTabRect(i);
+            TabPage tabToRemove = null;
+
+            foreach (TabPage page in TabPages) {
+                int index = TabPages.IndexOf(page);
+                if (index <= _closableAfterIndex) {
+                    continue;
+                }
+
+                Rectangle r = GetTabRect(index);
+
                 //Getting the position of the "x" mark.
                 var closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
                 if (closeButton.Contains(e.Location)) {
-                    if (
-                        
-                        MessageBox.Show("Are you sure you want to close this tab?", "Confirm", MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question) == DialogResult.Yes) {
-                        TabPages.RemoveAt(i);
+                    if (MessageBox.Show("Are you sure you want to close this tab?", "Confirm", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes) {
+                        tabToRemove = page;
                         break;
                     }
                 }
+            }
+
+            if (tabToRemove != null) {
+                TabPages.Remove(tabToRemove);
             }
         }
 
@@ -525,11 +535,13 @@ namespace CPECentral.Controls
         public int ClosableAfterIndex
         {
             get { return _closableAfterIndex; }
-            set { 
+            set
+            {
                 _closableAfterIndex = value;
                 Refresh();
             }
         }
+
         #endregion
 
         #region TabpageExCollectionEditor
