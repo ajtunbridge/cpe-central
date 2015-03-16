@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 
 <configuration>
   <configSections>
@@ -75,38 +75,47 @@
         <value>I:\Drawing Files\</value>
       </setting>
       <setting name="SharedAppDir" serializeAs="String">
-        <value>S:\Central</value>
+        <value>I:\Central\</value>
       </setting>
       <setting name="TurningProgramToolFormat" serializeAs="String">
         <value>
-          (T{position}{offset})
-          ({tool})
-        </value>
+        (T{position}{offset})
+        ({tool})
+      </value>
       </setting>
       <setting name="InvalidTurningProgramCommentCharacters" serializeAs="String">
         <value>(|)|[|]|;|:|Ø|°</value>
       </setting>
       <setting name="TurningProgramHeaderFormat" serializeAs="String">
         <value>
-          %
-          :{prog}(DWG.{dwg} VER.{ver} OP.{op})
+        %
+        :{prog}(DWG.{dwg} VER.{ver} OP.{op})
 
-          (* NOT PROVEN *)
+        (* NOT PROVEN *)
 
-          (CUST.{cust})
-          (NAME.{name})
-          (AUTHOR.{employee})
+        (CUST.{cust})
+        (NAME.{name})
+        (AUTHOR.{employee})
 
-        </value>
+      </value>
+      </setting>
+      <setting name="NonConformanceFormSize" serializeAs="String">
+        <value>1200, 750</value>
+      </setting>
+      <setting name="DefaultMachineTransferView" serializeAs="String">
+        <value>All</value>
+      </setting>
+      <setting name="PathToQMSDatabase" serializeAs="String">
+        <value>\\SJCSRV1\Data\Quality\QMS DATABASE2008.mdb</value>
       </setting>
     </CPECentral.Properties.Settings>
   </userSettings>
   <connectionStrings>
     <add name="TricornEntities"
-         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SJCSRV1;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>
@@ -124,13 +133,13 @@
         <value>\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</value>
       </setting>
       <setting name="ViewInternallyFileExtensions" serializeAs="String">
-        <value>.pdf|.txt|.nc|.h|.tif|.tiff|.png|.bmp|.jpeg|.jpg</value>
-      </setting>
-      <setting name="DefaultDirectory" serializeAs="String">
-        <value>S:\</value>
+        <value>.txt|.nc|.h</value>
       </setting>
       <setting name="AppFont" serializeAs="String">
         <value>Segoe UI, 9.75pt</value>
+      </setting>
+      <setting name="DefaultDirectory" serializeAs="String">
+        <value>I:\</value>
       </setting>
     </CPECentral.Properties.Settings>
   </applicationSettings>

@@ -277,6 +277,12 @@
     <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.Designer.cs">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SelectTricornMaterialDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -369,6 +375,7 @@
     <Compile Include="Presenters\StartPageUserInfoViewPresenter.cs" />
     <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
     <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
+    <Compile Include="Presenters\ToolSelectorViewPresenter.cs" />
     <Compile Include="Presenters\ToolsViewPresenter.cs" />
     <Compile Include="Presenters\TurnoverTargetViewPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
@@ -576,6 +583,12 @@
     <Compile Include="ViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\ToolSelectorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ToolSelectorView.Designer.cs">
+      <DependentUpon>ToolSelectorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -657,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectTricornMaterialDialog.resx">
       <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
@@ -791,13 +807,16 @@
     <EmbeddedResource Include="ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ToolSelectorView.resx">
+      <DependentUpon>ToolSelectorView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -950,7 +969,9 @@
     <None Include="Resources\MachineTransferQueueIcon_32x32.png" />
     <None Include="Resources\NoMachineImageAvailable.jpg" />
     <None Include="Resources\NonConformanceIcon_32x32.png" />
-    <None Include="QMS.mdb" />
+    <Content Include="QMS DATABASE2008.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\WarningIcon_32x32.png" />
     <None Include="Resources\LoginHeader4.jpg" />
     <None Include="Resources\PartViewIcon_32x32.png" />

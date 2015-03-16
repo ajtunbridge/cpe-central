@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
 using System.Linq;
 
 #endregion
@@ -51,6 +52,15 @@ namespace CPECentral.Data.EF5.Repositories
 
             return holder.HolderTools.Select(ht => ht.Tool).ToList();
         }
+
+        public IEnumerable<Tool> GetWhereDescriptionMatches(string value)
+        {
+            if (!value.Contains("%")) {
+                value = "%" + value + "%";
+            }
+
+            return GetSet().Where(t => SqlFunctions.PatIndex(value, t.Description) > 0).OrderBy(t => t.Description);
+        } 
 
         public IEnumerable<Tool> GetByOperation(Operation operation)
         {

@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.QMS;
 using NcCommunicator.Data;
 using nGenLibrary.Security;

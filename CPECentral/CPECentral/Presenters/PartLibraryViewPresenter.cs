@@ -33,6 +33,17 @@ namespace CPECentral.Presenters
         {
             var searchWorker = new BackgroundWorker();
 
+            var wildcards = new[] {"%", "_"};
+
+            bool isHeavyQuery = e.Value.All(c => wildcards.Any(wc => Convert.ToChar(wc) == c));
+
+            if (isHeavyQuery)
+            {
+                _view.DisplayResults(null);
+                _view.DialogService.Notify("This search would take too long to run so it has been aborted!");
+                return;
+            }
+
             searchWorker.DoWork += (x, y) => {
                 try {
                     using (var cpe = new CPEUnitOfWork()) {
