@@ -416,6 +416,7 @@
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
+    <Compile Include="ViewModels\ToolsView2Model.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
     <Compile Include="Views\MachineTransferQueueView.cs">
       <SubType>UserControl</SubType>
@@ -594,6 +595,12 @@
     </Compile>
     <Compile Include="Views\ToolsView.Designer.cs">
       <DependentUpon>ToolsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ToolsView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ToolsView2.Designer.cs">
+      <DependentUpon>ToolsView2.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
@@ -813,6 +820,9 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ToolsView2.resx">
+      <DependentUpon>ToolsView2.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -824,7 +834,6 @@
     </None>
     <None Include="CncLanguages\fanuc_syntax.xshd" />
     <None Include="CPECentral_TemporaryKey.pfx" />
-    <None Include="EHSMB.TTF" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -45,8 +45,9 @@ namespace CPECentral
                     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                     Application.ThreadException += Application_ThreadException;
 
-                    //Application.Run(new TestForm());
-                    Application.Run(new MainForm());
+                    var form = new SelectToolDialog();
+
+                    Application.Run(form);
                 }
                 else {
                     Process current = Process.GetCurrentProcess();

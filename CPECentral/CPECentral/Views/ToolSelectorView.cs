@@ -33,7 +33,13 @@ namespace CPECentral.Views
 
             if (!IsInDesignMode) {
                 _presenter = new ToolSelectorViewPresenter(this);
+                Disposed += ToolSelectorView_Disposed;
             }
+        }
+
+        void ToolSelectorView_Disposed(object sender, EventArgs e)
+        {
+            _presenter.Dispose();
         }
 
         #region IToolSelectorView Members

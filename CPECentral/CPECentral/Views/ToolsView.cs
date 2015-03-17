@@ -20,6 +20,7 @@ namespace CPECentral.Views
         ToolGroup CurrentToolGroup { get; }
 
         Holder CurrentHolder { get; }
+
         Tool SelectedTool { get; }
 
         IEnumerable<Tool> SelectedTools { get; }

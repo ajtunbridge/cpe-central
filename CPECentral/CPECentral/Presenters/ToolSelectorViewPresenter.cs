@@ -12,9 +12,11 @@ using CPECentral.Views;
 
 namespace CPECentral.Presenters
 {
-    public class ToolSelectorViewPresenter
+    public class ToolSelectorViewPresenter : IDisposable
     {
+        private readonly CPEUnitOfWork _cpe = new CPEUnitOfWork();
         private readonly IToolSelectorView _view;
+        private bool _disposed;
 
         public ToolSelectorViewPresenter(IToolSelectorView view)
         {
@@ -22,6 +24,16 @@ namespace CPECentral.Presenters
 
             _view.FilterTools += _view_FilterTools;
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
 
         private void _view_FilterTools(object sender, StringEventArgs e)
         {
@@ -36,10 +48,8 @@ namespace CPECentral.Presenters
 
             worker.DoWork += (o, args) => {
                 try {
-                    using (var cpe = new CPEUnitOfWork()) {
-                        IEnumerable<Tool> results = cpe.Tools.GetWhereDescriptionMatches(filterText).ToList();
-                        args.Result = results;
-                    }
+                    IEnumerable<Tool> results = _cpe.Tools.GetWhereDescriptionMatches(filterText).ToList();
+                    args.Result = results;
                 }
                 catch (Exception ex) {
                     args.Result = ex;
@@ -66,6 +76,24 @@ namespace CPECentral.Presenters
             string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
             _view.DialogService.ShowError(msg);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) {
+                return;
+            }
+
+            if (disposing) {
+                _cpe.Dispose();
+            }
+
+            _disposed = true;
+        }
+
+        ~ToolSelectorViewPresenter()
+        {
+            Dispose(false);
         }
     }
 }
