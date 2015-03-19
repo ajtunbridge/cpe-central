@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.1.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>2</ApplicationRevision>
+    <MinimumRequiredVersion>3.1.0.7</MinimumRequiredVersion>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -99,6 +99,18 @@
     <Compile Include="Commands\DeleteMethodCommand.cs" />
     <Compile Include="Commands\DeleteOperationCommand.cs" />
     <Compile Include="Commands\NewVersionCommand.cs" />
+    <Compile Include="Controls\ClosableTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ClosableTabControl.Designer.cs">
+      <DependentUpon>ClosableTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClosableTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ClosableTabPage.Designer.cs">
+      <DependentUpon>ClosableTabPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,9 +128,6 @@
     </Compile>
     <Compile Include="Controls\FilesListView.Designer.cs">
       <DependentUpon>FilesListView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FlatTabControl.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HexagonDiameterPanel.cs">
       <SubType>UserControl</SubType>
@@ -313,11 +322,11 @@
     <Compile Include="Dialogs\StockLevelsDialog.Designer.cs">
       <DependentUpon>StockLevelsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SwitchEmployeeDialog.cs">
+    <Compile Include="Dialogs\EmployeeLoginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\SwitchEmployeeDialog.Designer.cs">
-      <DependentUpon>SwitchEmployeeDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\EmployeeLoginDialog.Designer.cs">
+      <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
@@ -364,6 +373,7 @@
     <Compile Include="Presenters\DocumentsViewPresenter.cs" />
     <Compile Include="Presenters\HoldersViewPresenter.cs" />
     <Compile Include="Presenters\HolderToolsViewPresenter.cs" />
+    <Compile Include="Presenters\LoginView2Presenter.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs" />
     <Compile Include="Presenters\NonConformanceSelectorViewPresenter.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />
@@ -371,6 +381,7 @@
     <Compile Include="Presenters\PartInformationViewPresenter.cs" />
     <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
     <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="Presenters\PartWorksOrdersViewPresenter.cs" />
     <Compile Include="Presenters\StartPageFindToolBoxViewPresenter.cs" />
     <Compile Include="Presenters\StartPageUserInfoViewPresenter.cs" />
     <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
@@ -413,11 +424,17 @@
     <Compile Include="ViewModels\PartInformationViewModel.cs" />
     <Compile Include="ViewModels\PartLibraryViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
+    <Compile Include="ViewModels\PartWorksOrdersViewModel.cs" />
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
-    <Compile Include="ViewModels\ToolsView2Model.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="Views\LoginView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\LoginView2.Designer.cs">
+      <DependentUpon>LoginView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MachineTransferQueueView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -447,6 +464,12 @@
     </Compile>
     <Compile Include="Views\NonConformanceView.Designer.cs">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartWorksOrdersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartWorksOrdersView.Designer.cs">
+      <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageCheckStockView.cs">
       <SubType>UserControl</SubType>
@@ -575,6 +598,12 @@
     <Compile Include="Views\StartPageTargetView.Designer.cs">
       <DependentUpon>StartPageTargetView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StockNameGeneratorCutterView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StockNameGeneratorCutterView.Designer.cs">
+      <DependentUpon>StockNameGeneratorCutterView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolGroupsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -596,12 +625,15 @@
     <Compile Include="Views\ToolsView.Designer.cs">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ToolsView2.cs">
+    <Compile Include="Views\WorksOrderView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ToolsView2.Designer.cs">
-      <DependentUpon>ToolsView2.cs</DependentUpon>
+    <Compile Include="Views\WorksOrderView.Designer.cs">
+      <DependentUpon>WorksOrderView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ClosableTabControl.resx">
+      <DependentUpon>ClosableTabControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\FilePreviewPanel.resx">
       <DependentUpon>FilePreviewPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -610,10 +642,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FilesListView.resx">
       <DependentUpon>FilesListView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FlatTabControl.resx">
-      <DependentUpon>FlatTabControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\HexagonDiameterPanel.resx">
       <DependentUpon>HexagonDiameterPanel.cs</DependentUpon>
@@ -696,8 +724,8 @@
     <EmbeddedResource Include="Dialogs\StockLevelsDialog.resx">
       <DependentUpon>StockLevelsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SwitchEmployeeDialog.resx">
-      <DependentUpon>SwitchEmployeeDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\EmployeeLoginDialog.resx">
+      <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
@@ -730,6 +758,9 @@
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\LoginView2.resx">
+      <DependentUpon>LoginView2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MachineTransferQueueView.resx">
       <DependentUpon>MachineTransferQueueView.cs</DependentUpon>
     </EmbeddedResource>
@@ -744,6 +775,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceView.resx">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartWorksOrdersView.resx">
+      <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StartPageCheckStockView.resx">
       <DependentUpon>StartPageCheckStockView.cs</DependentUpon>
@@ -808,6 +842,9 @@
     <EmbeddedResource Include="Views\StartPageTargetView.resx">
       <DependentUpon>StartPageTargetView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\StockNameGeneratorCutterView.resx">
+      <DependentUpon>StockNameGeneratorCutterView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolGroupsView.resx">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -820,13 +857,13 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ToolsView2.resx">
-      <DependentUpon>ToolsView2.cs</DependentUpon>
+    <EmbeddedResource Include="Views\WorksOrderView.resx">
+      <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -967,6 +1004,14 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\CloseIconHighlighted_16x16.png" />
+    <None Include="Resources\CloseIconNotHighlighted_16x16.png" />
+    <None Include="Resources\CirclePreloader_32x32.png" />
+    <None Include="Resources\TickIcon_32x32.png" />
+    <None Include="Resources\LoginIndicatorArrow_1024x512.png" />
+    <None Include="Resources\LoginIndicatorArrow_512x512.png" />
+    <None Include="Resources\LoginIcon_32x32.png" />
+    <None Include="Resources\LogoutIcon_32x32.png" />
     <None Include="Resources\LoginHeader.png" />
     <None Include="Resources\NonConformanceWarningImage.png" />
     <None Include="Resources\NotFavouriteMachineIconHighlighted_16x16.png" />
@@ -978,9 +1023,7 @@
     <None Include="Resources\MachineTransferQueueIcon_32x32.png" />
     <None Include="Resources\NoMachineImageAvailable.jpg" />
     <None Include="Resources\NonConformanceIcon_32x32.png" />
-    <Content Include="QMS DATABASE2008.mdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="QMS DATABASE2008.mdb" />
     <None Include="Resources\WarningIcon_32x32.png" />
     <None Include="Resources\LoginHeader4.jpg" />
     <None Include="Resources\PartViewIcon_32x32.png" />
@@ -1012,7 +1055,6 @@
     <None Include="Resources\ToolsIcon.ico" />
     <None Include="Resources\ToolsIcon_16x16.png" />
     <None Include="Resources\ToolsIcon_32x32.png" />
-    <None Include="Resources\LogoutIcon_32x32.png" />
     <None Include="Resources\HolderIcon_16x16.png" />
     <None Include="Resources\FolderOpenIcon_16x16.png" />
     <None Include="Resources\FolderClosedIcon_16x16.png" />
@@ -1053,6 +1095,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

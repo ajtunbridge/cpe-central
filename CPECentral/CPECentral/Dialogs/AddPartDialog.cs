@@ -156,7 +156,7 @@ namespace CPECentral.Dialogs
                 ? "N/A"
                 : toolingLocationTextBox.Text;
 
-            message.Append("Customer:\t\t").AppendLine(customerName);
+            message.Append("Customer:\t").AppendLine(customerName);
             message.Append("Drawing number:\t").AppendLine(drawingNumberTextBox.Text);
             message.Append("Version:\t\t").AppendLine(versionTextBox.Text);
             message.Append("Name:\t\t").AppendLine(nameTextBox.Text);

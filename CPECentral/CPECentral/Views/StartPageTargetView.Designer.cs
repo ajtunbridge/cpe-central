@@ -144,6 +144,8 @@
             // 
             // loadingPictureBox
             // 
+            this.loadingPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.loadingPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
             this.loadingPictureBox.Location = new System.Drawing.Point(6, 164);
             this.loadingPictureBox.Name = "loadingPictureBox";

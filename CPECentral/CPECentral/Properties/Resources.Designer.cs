@@ -132,6 +132,36 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CirclePreloader_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("CirclePreloader_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CloseIconHighlighted_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("CloseIconHighlighted_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CloseIconNotHighlighted_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("CloseIconNotHighlighted_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CompanyLogo {
             get {
                 object obj = ResourceManager.GetObject("CompanyLogo", resourceCulture);
@@ -325,6 +355,36 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap LoginHeader4 {
             get {
                 object obj = ResourceManager.GetObject("LoginHeader4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("LoginIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginIndicatorArrow_1024x512 {
+            get {
+                object obj = ResourceManager.GetObject("LoginIndicatorArrow_1024x512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginIndicatorArrow_512x512 {
+            get {
+                object obj = ResourceManager.GetObject("LoginIndicatorArrow_512x512", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -705,6 +765,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap SwitchUserIcon_32x32 {
             get {
                 object obj = ResourceManager.GetObject("SwitchUserIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TickIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("TickIcon_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

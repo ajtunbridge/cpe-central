@@ -29,11 +29,8 @@
         private void InitializeComponent()
         {
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.switchUserToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.documentTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.documentTransferStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,6 +38,11 @@
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.employeeSessionPanel = new System.Windows.Forms.Panel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.switchUserToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
@@ -57,7 +59,9 @@
             this.addPartToolStripButton,
             this.toolStripSeparator5,
             this.toolManagementToolStripButton,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.logoutToolStripButton,
+            this.toolStripSeparator2});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1214, 50);
@@ -65,44 +69,15 @@
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip_ItemClicked);
             // 
-            // switchUserToolStripDropDownButton
-            // 
-            this.switchUserToolStripDropDownButton.Enabled = false;
-            this.switchUserToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.SwitchUserIcon_32x32;
-            this.switchUserToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.switchUserToolStripDropDownButton.Name = "switchUserToolStripDropDownButton";
-            this.switchUserToolStripDropDownButton.Size = new System.Drawing.Size(126, 47);
-            this.switchUserToolStripDropDownButton.Text = "  Switch user";
-            this.switchUserToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.switchUserToolStripDropDownButton_DropDownItemClicked);
-            this.switchUserToolStripDropDownButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
             // 
-            // addPartToolStripButton
-            // 
-            this.addPartToolStripButton.AutoToolTip = false;
-            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_32x32;
-            this.addPartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addPartToolStripButton.Name = "addPartToolStripButton";
-            this.addPartToolStripButton.Size = new System.Drawing.Size(104, 47);
-            this.addPartToolStripButton.Text = "  Add part";
-            this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
-            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 50);
-            // 
-            // toolManagementToolStripButton
-            // 
-            this.toolManagementToolStripButton.Image = global::CPECentral.Properties.Resources.StartPageFindToolBoxViewIcon_32x32;
-            this.toolManagementToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolManagementToolStripButton.Name = "toolManagementToolStripButton";
-            this.toolManagementToolStripButton.Size = new System.Drawing.Size(158, 47);
-            this.toolManagementToolStripButton.Text = "  Tool management";
             // 
             // toolStripSeparator4
             // 
@@ -156,6 +131,49 @@
             this.employeeSessionPanel.Size = new System.Drawing.Size(1214, 791);
             this.employeeSessionPanel.TabIndex = 7;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
+            // 
+            // switchUserToolStripDropDownButton
+            // 
+            this.switchUserToolStripDropDownButton.Enabled = false;
+            this.switchUserToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.SwitchUserIcon_32x32;
+            this.switchUserToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.switchUserToolStripDropDownButton.Name = "switchUserToolStripDropDownButton";
+            this.switchUserToolStripDropDownButton.Size = new System.Drawing.Size(126, 47);
+            this.switchUserToolStripDropDownButton.Text = "  Switch user";
+            this.switchUserToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.switchUserToolStripDropDownButton_DropDownItemClicked);
+            this.switchUserToolStripDropDownButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
+            // 
+            // addPartToolStripButton
+            // 
+            this.addPartToolStripButton.AutoToolTip = false;
+            this.addPartToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_32x32;
+            this.addPartToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addPartToolStripButton.Name = "addPartToolStripButton";
+            this.addPartToolStripButton.Size = new System.Drawing.Size(104, 47);
+            this.addPartToolStripButton.Text = "  Add part";
+            this.addPartToolStripButton.ToolTipText = "Add a new part to the library";
+            // 
+            // toolManagementToolStripButton
+            // 
+            this.toolManagementToolStripButton.Image = global::CPECentral.Properties.Resources.StartPageFindToolBoxViewIcon_32x32;
+            this.toolManagementToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolManagementToolStripButton.Name = "toolManagementToolStripButton";
+            this.toolManagementToolStripButton.Size = new System.Drawing.Size(158, 47);
+            this.toolManagementToolStripButton.Text = "  Tool management";
+            // 
+            // logoutToolStripButton
+            // 
+            this.logoutToolStripButton.Enabled = false;
+            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_32x32;
+            this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.logoutToolStripButton.Name = "logoutToolStripButton";
+            this.logoutToolStripButton.Size = new System.Drawing.Size(85, 47);
+            this.logoutToolStripButton.Text = "Logout";
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -195,5 +213,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripDropDownButton switchUserToolStripDropDownButton;
         private System.Windows.Forms.Panel employeeSessionPanel;
+        private System.Windows.Forms.ToolStripButton logoutToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

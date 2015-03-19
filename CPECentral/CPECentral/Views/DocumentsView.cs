@@ -107,9 +107,12 @@ namespace CPECentral.Views
 
             _opType = model.OpType;
 
-            importMillingProgramToolStripButton.Visible = _opType == OperationType.Milling;
-            newTurningProgramToolStripButton.Visible = _opType == OperationType.Turning;
-            newFeatureCAMFileToolStripButton.Visible = _opType != OperationType.None;
+            importMillingProgramToolStripButton.Visible = _opType == OperationType.CncMilling;
+
+            newTurningProgramToolStripButton.Visible = _opType == OperationType.CncTurning;
+
+            newFeatureCAMFileToolStripButton.Visible = _opType == OperationType.CncMilling ||
+                                                       _opType == OperationType.CncTurning;
 
             foreach (DocumentModel documentModel in model.DocumentModels) {
                 filesListView.AddFile(documentModel.FileName, documentModel.Document);

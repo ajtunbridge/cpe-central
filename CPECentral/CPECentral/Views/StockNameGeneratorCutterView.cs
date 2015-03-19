@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace CPECentral.Views
 {
-    public partial class ToolsView2 : ViewBase
+    public partial class StockNameGeneratorCutterView : UserControl
     {
-        public ToolsView2()
+        public StockNameGeneratorCutterView()
         {
             InitializeComponent();
         }

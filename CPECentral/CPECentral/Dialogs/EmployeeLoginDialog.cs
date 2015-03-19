@@ -9,27 +9,25 @@ using nGenLibrary.Security;
 
 namespace CPECentral.Dialogs
 {
-    public partial class SwitchEmployeeDialog : Form
+    public partial class EmployeeLoginDialog : Form
     {
-        private readonly Employee _employeeToSwitchTo;
+        private readonly Employee _employeeToLogin;
 
-        public SwitchEmployeeDialog(Employee employeeToSwitchTo)
+        public EmployeeLoginDialog(Employee employeeToLogin)
         {
             InitializeComponent();
 
-            _employeeToSwitchTo = employeeToSwitchTo;
+            _employeeToLogin = employeeToLogin;
 
-            employeeNameLabel.Text = string.Format("Switching to {0}", _employeeToSwitchTo);
+            employeeNameLabel.Text = string.Format("Logging in as {0}", _employeeToLogin);
         }
 
         private void okayCancelFooter_OkayClicked(object sender, EventArgs e)
         {
             var passwordService = Session.GetInstanceOf<IPasswordService>();
 
-            if (passwordService.AreEqual(passwordEnhancedTextBox.Text, _employeeToSwitchTo.Password,
-                _employeeToSwitchTo.Salt)) {
-                //Session.MessageBus.Publish(new EmployeeLoggedInMessage(_employeeToSwitchTo));
-
+            if (passwordService.AreEqual(passwordEnhancedTextBox.Text, _employeeToLogin.Password,
+                _employeeToLogin.Salt)) {
                 DialogResult = DialogResult.OK;
             }
             else {

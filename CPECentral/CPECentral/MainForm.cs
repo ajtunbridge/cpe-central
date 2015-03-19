@@ -31,8 +31,9 @@ namespace CPECentral
             using (NoFlicker.On(this)) {
                 Controls.Clear();
 
-                var loginView = new LoginView();
+                var loginView = new LoginView2();
                 loginView.TabIndex = 0;
+                loginView.Dock = DockStyle.Fill;
                 Controls.Add(loginView);
             }
         }

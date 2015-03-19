@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System;
 using System.Collections.Generic;
 using CPECentral.Data.EF5;
 
@@ -7,11 +8,12 @@ using CPECentral.Data.EF5;
 
 namespace CPECentral.ViewModels
 {
+    [Flags]
     public enum OperationType
     {
-        Milling,
-        Turning,
-        None
+        CncMilling = 2,
+        CncTurning = 4,
+        NotSpecified = 0
     }
 
     public class DocumentsViewModel

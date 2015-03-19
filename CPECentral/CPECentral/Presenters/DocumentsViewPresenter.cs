@@ -22,8 +22,8 @@ namespace CPECentral.Presenters
 {
     public class DocumentsViewPresenter
     {
-        private const string MillingGroupName = "MILLS";
-        private const string TurningGroupName = "LATHES";
+        private const string CncMillingGroupName = "CNC Milling";
+        private const string CncTurningGroupName = "CNC Turning";
 
         private readonly IDocumentsView _documentsView;
         private readonly object _refreshLocker = new object();
@@ -213,11 +213,11 @@ namespace CPECentral.Presenters
 
                         string templateFileName = null;
 
-                        switch (machineGroup.ToLower()) {
-                            case "mills":
+                        switch (machineGroup) {
+                            case CncMillingGroupName:
                                 templateFileName = Settings.Default.CamTemplateMilling;
                                 break;
-                            case "lathes":
+                            case CncTurningGroupName:
                                 templateFileName = Settings.Default.CamTemplateTurning;
                                 break;
                         }
@@ -262,7 +262,7 @@ namespace CPECentral.Presenters
             try {
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
-                        MachineGroup group = cpe.MachineGroups.GetByName("LATHES");
+                        MachineGroup group = cpe.MachineGroups.GetByName("cnc turning");
 
                         if (group == null) {
                             throw new InvalidOperationException("There isn't a machine group for lathes!");
@@ -393,20 +393,20 @@ namespace CPECentral.Presenters
 
                         IEnumerable<Document> documents = null;
 
-                        var model = new DocumentsViewModel(OperationType.None);
+                        var model = new DocumentsViewModel(OperationType.NotSpecified);
 
                         if (entity is Operation) {
                             var op = entity as Operation;
 
                             MachineGroup machineGroup = cpe.MachineGroups.GetById(op.MachineGroupId);
 
-                            model.OpType = OperationType.None;
+                            model.OpType = OperationType.NotSpecified;
 
-                            if (machineGroup.Name == MillingGroupName) {
-                                model.OpType = OperationType.Milling;
+                            if (machineGroup.Name == CncMillingGroupName) {
+                                model.OpType = OperationType.CncMilling;
                             }
-                            else if (machineGroup.Name == TurningGroupName) {
-                                model.OpType = OperationType.Turning;
+                            else if (machineGroup.Name == CncTurningGroupName) {
+                                model.OpType = OperationType.CncTurning;
                             }
 
                             documents = cpe.Documents.GetByOperation(entity.Id);

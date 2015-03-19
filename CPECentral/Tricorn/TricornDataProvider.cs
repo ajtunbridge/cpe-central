@@ -52,11 +52,7 @@ namespace Tricorn
 
         public IEnumerable<WOrder> GetWorksOrdersByDrawingNumber(string drawingNumber)
         {
-            return _entities.WOrders.Where(wo => SqlFunctions.PatIndex(drawingNumber, wo.Drawing_Number) > 0)
-                .Include(
-                    w =>
-                        w.WOWCentres.Select(
-                            wc => _entities.WOOperActs.Where(woo => woo.WOWCentre_Reference == wc.WCentre_Reference)));
+            return _entities.WOrders.Where(wo => SqlFunctions.PatIndex(drawingNumber, wo.Drawing_Number) > 0);
         } 
 
         public Material GetMaterialByReference(int materialReference)

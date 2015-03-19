@@ -99,9 +99,9 @@ namespace CPECentral.Views
                 machineTransferView.Visible = false;
                 Part = part;
                 partDescriptionLabel.Text = string.Format("{0} - {1}", part.DrawingNumber, part.Name);
-                partInformationView.LoadPart(Part);
-                partDocumentsView.LoadDocuments(Part);
-
+                partInformationView.LoadPart(part);
+                partDocumentsView.LoadDocuments(part);
+                partWorksOrdersView.InitializeView(part);
                 RefreshData();
             }
         }
@@ -245,14 +245,14 @@ namespace CPECentral.Views
             ThreadPool.QueueUserWorkItem(delegate {
                 string pathToDocument = Session.DocumentService.GetPathToDocument(doc);
 
-                operationDocumentsFlatTabControl.InvokeEx(() => {
-                    var tabPage = new TabPage(doc.FileName);
+                operationDocumentsTabControl.InvokeEx(() => {
+                    var tabPage = new ClosableTabPage(doc.FileName);
                     var editorPanel = new AvalonNcEditor();
                     tabPage.Controls.Add(editorPanel);
                     editorPanel.Dock = DockStyle.Fill;
                     editorPanel.LoadFile(pathToDocument);
-                    operationDocumentsFlatTabControl.TabPages.Add(tabPage);
-                    operationDocumentsFlatTabControl.SelectedTab = tabPage;
+                    operationDocumentsTabControl.TabPages.Add(tabPage);
+                    operationDocumentsTabControl.SelectedTab = tabPage;
                 });
             });
         }
@@ -274,9 +274,13 @@ namespace CPECentral.Views
         private void operationsView1_OperationSelected(object sender, OperationEventArgs e)
         {
             if (e.Operation == null) {
+                selectedOperationTabControl.Enabled = false;
+                operationDocumentsView.ClearDocuments();
+                operationToolsView.RetrieveOperationTools(null);
                 return;
             }
 
+            selectedOperationTabControl.Enabled = true;
             operationDocumentsView.LoadDocuments(e.Operation);
             operationToolsView.RetrieveOperationTools(e.Operation);
         }
@@ -293,13 +297,11 @@ namespace CPECentral.Views
 
         private void operationDocumentsView_TextFileSelected(object sender, DocumentEventArgs e)
         {
-            /*
-            machineTransferView.RefreshMachineList();
+            //machineTransferView.RefreshMachineList();
             
-            if (machineTransferView.MachineCount > 0) {
-                machineTransferView.Visible = true;
-            }
-             * */
+            //if (machineTransferView.MachineCount > 0) {
+            //    machineTransferView.Visible = true;
+            //}
         }
 
         private void operationDocumentsView_SelectionChanged(object sender, EventArgs e)

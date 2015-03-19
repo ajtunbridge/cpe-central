@@ -1,4 +1,5 @@
-﻿using CPECentral.Controls;
+﻿using System.Windows.Forms;
+using CPECentral.Controls;
 
 namespace CPECentral.Views
 {
@@ -32,12 +33,12 @@ namespace CPECentral.Views
         {
             this.components = new System.ComponentModel.Container();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
-            this.flatTabControl = new CPECentral.Controls.FlatTabControl();
+            this.tabControl = new CPECentral.Controls.ClosableTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.startPageView = new CPECentral.Views.StartPageView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.partLibraryView = new CPECentral.Views.PartLibraryView();
-            this.flatTabControl.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
@@ -48,31 +49,32 @@ namespace CPECentral.Views
             this.tabPageImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.tabPageImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // flatTabControl
+            // tabControl
             // 
-            this.flatTabControl.ClosableAfterIndex = 1;
-            this.flatTabControl.Controls.Add(this.tabPage1);
-            this.flatTabControl.Controls.Add(this.tabPage2);
-            this.flatTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flatTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.flatTabControl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flatTabControl.ItemSize = new System.Drawing.Size(150, 32);
-            this.flatTabControl.Location = new System.Drawing.Point(0, 0);
-            this.flatTabControl.myBackColor = System.Drawing.SystemColors.Control;
-            this.flatTabControl.Name = "flatTabControl";
-            this.flatTabControl.SelectedIndex = 0;
-            this.flatTabControl.Size = new System.Drawing.Size(900, 821);
-            this.flatTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.flatTabControl.TabIndex = 8;
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl.ItemSize = new System.Drawing.Size(150, 32);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(901, 744);
+            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl.TabIndex = 8;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage1.Controls.Add(this.startPageView);
+            this.tabPage1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage1.ForeColor = System.Drawing.Color.Black;
             this.tabPage1.Location = new System.Drawing.Point(4, 36);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(892, 781);
+            this.tabPage1.Size = new System.Drawing.Size(893, 704);
             this.tabPage1.TabIndex = 0;
+            this.tabPage1.Tag = "false";
             this.tabPage1.Text = "Start page";
             // 
             // startPageView
@@ -83,17 +85,20 @@ namespace CPECentral.Views
             this.startPageView.Location = new System.Drawing.Point(0, 0);
             this.startPageView.Margin = new System.Windows.Forms.Padding(0);
             this.startPageView.Name = "startPageView";
-            this.startPageView.Size = new System.Drawing.Size(892, 781);
+            this.startPageView.Size = new System.Drawing.Size(893, 704);
             this.startPageView.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage2.Controls.Add(this.partLibraryView);
+            this.tabPage2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage2.ForeColor = System.Drawing.Color.Black;
             this.tabPage2.Location = new System.Drawing.Point(4, 36);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1169, 775);
+            this.tabPage2.Size = new System.Drawing.Size(893, 704);
             this.tabPage2.TabIndex = 1;
+            this.tabPage2.Tag = "false";
             this.tabPage2.Text = "Part library";
             // 
             // partLibraryView
@@ -105,7 +110,7 @@ namespace CPECentral.Views
             this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partLibraryView.MinimumSize = new System.Drawing.Size(925, 630);
             this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(1169, 775);
+            this.partLibraryView.Size = new System.Drawing.Size(925, 704);
             this.partLibraryView.TabIndex = 0;
             this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
             // 
@@ -113,12 +118,12 @@ namespace CPECentral.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flatTabControl);
+            this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "EmployeeSessionView";
-            this.Size = new System.Drawing.Size(900, 821);
-            this.flatTabControl.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(901, 744);
+            this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -127,10 +132,10 @@ namespace CPECentral.Views
 
         #endregion
 
-        private FlatTabControl flatTabControl;
-        private System.Windows.Forms.TabPage tabPage1;
+        private ClosableTabControl tabControl;
+        private new System.Windows.Forms.TabPage tabPage1;
         private StartPageView startPageView;
-        private System.Windows.Forms.TabPage tabPage2;
+        private new System.Windows.Forms.TabPage tabPage2;
         private PartLibraryView partLibraryView;
         private System.Windows.Forms.ImageList tabPageImageList;
     }

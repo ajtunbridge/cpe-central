@@ -211,7 +211,7 @@ namespace CPECentral.Views
         {
             var employee = e.ClickedItem.Tag as Employee;
 
-            using (var passwordDialog = new SwitchEmployeeDialog(employee)) {
+            using (var passwordDialog = new EmployeeLoginDialog(employee)) {
                 if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
                     return;
                 }

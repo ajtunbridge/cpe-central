@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System.Windows.Forms;
+using CPECentral.Controls;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Messages;
@@ -23,7 +24,7 @@ namespace CPECentral.Views
             if (!IsInDesignMode) {
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
                 Session.MessageBus.Subscribe<LoadPartMessage>(LoadPartMessage_Published);
-                flatTabControl.ImageList = tabPageImageList;
+                tabControl.ImageList = tabPageImageList;
 
                 tabPageImageList.Images.Add("StartIcon", Resources.StartPageTabIcon_16x16);
                 tabPageImageList.Images.Add("PartLibraryIcon", Resources.PartLibraryTabIcon_16x16);
@@ -38,7 +39,7 @@ namespace CPECentral.Views
 
         private void PartEditedMessage_Published(PartEditedMessage partEditedMessage)
         {
-            foreach (TabPage tabPage in flatTabControl.TabPages) {
+            foreach (TabPage tabPage in tabControl.TabPages) {
                 if (tabPage.Tag is Part) {
                     var part = tabPage.Tag as Part;
                     if (part == partEditedMessage.EditedPart) {
@@ -56,7 +57,7 @@ namespace CPECentral.Views
                 return;
             }
 
-            foreach (TabPage existingTab in flatTabControl.TabPages)
+            foreach (TabPage existingTab in tabControl.TabPages)
             {
                 if (existingTab.Tag is Part)
                 {
@@ -65,12 +66,12 @@ namespace CPECentral.Views
                     {
                         continue;
                     }
-                    flatTabControl.SelectTab(existingTab);
+                    tabControl.SelectTab(existingTab);
                     return;
                 }
             }
 
-            var newTab = new TabPage(obj.PartToLoad.DrawingNumber);
+            var newTab = new ClosableTabPage(obj.PartToLoad.DrawingNumber);
             newTab.Tag = obj.PartToLoad;
             //newTab.ImageIndex = 2;
 
@@ -81,9 +82,9 @@ namespace CPECentral.Views
 
             partView.LoadPart(obj.PartToLoad);
 
-            flatTabControl.TabPages.Add(newTab);
+            tabControl.TabPages.Add(newTab);
 
-            flatTabControl.SelectTab(newTab);
+            tabControl.SelectTab(newTab);
         }
 
         private void partLibraryView_PartSelected(object sender, PartEventArgs e)

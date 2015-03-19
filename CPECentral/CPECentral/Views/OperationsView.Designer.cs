@@ -49,10 +49,14 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.methodsToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteMethodToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.operationsToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.addOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.editOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteOperationToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -70,7 +74,7 @@
             // 
             // operationsEnhancedListView
             // 
-            this.operationsEnhancedListView.AlternateBackColor = System.Drawing.Color.Azure;
+            this.operationsEnhancedListView.AlternateBackColor = System.Drawing.Color.Ivory;
             this.operationsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.sequenceColumnHeader,
             this.descriptionColumnHeader});
@@ -88,7 +92,7 @@
             this.operationsEnhancedListView.Name = "operationsEnhancedListView";
             this.operationsEnhancedListView.ResizeColumnToFill = true;
             this.operationsEnhancedListView.ShowItemToolTips = true;
-            this.operationsEnhancedListView.Size = new System.Drawing.Size(331, 146);
+            this.operationsEnhancedListView.Size = new System.Drawing.Size(331, 145);
             this.operationsEnhancedListView.TabIndex = 1;
             this.operationsEnhancedListView.UseAlternatingBackColor = true;
             this.operationsEnhancedListView.UseCompatibleStateImageBehavior = false;
@@ -128,26 +132,26 @@
             this.toolStripSeparator1,
             this.deleteOperationToolStripMenuItem});
             this.operationsItemContextMenuStrip.Name = "itemContextMenuStrip";
-            this.operationsItemContextMenuStrip.Size = new System.Drawing.Size(153, 76);
+            this.operationsItemContextMenuStrip.Size = new System.Drawing.Size(114, 54);
             this.operationsItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.operationsItemContextMenuStrip_ItemClicked);
             // 
             // editOperationToolStripMenuItem
             // 
             this.editOperationToolStripMenuItem.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
             this.editOperationToolStripMenuItem.Name = "editOperationToolStripMenuItem";
-            this.editOperationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editOperationToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.editOperationToolStripMenuItem.Text = "E&dit";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
             // 
             // deleteOperationToolStripMenuItem
             // 
             this.deleteOperationToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteOperationToolStripMenuItem.Name = "deleteOperationToolStripMenuItem";
-            this.deleteOperationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteOperationToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.deleteOperationToolStripMenuItem.Text = "&Delete";
             // 
             // methodsContextMenuStrip
@@ -211,13 +215,13 @@
             this.splitContainer1.Panel2.Controls.Add(this.operationsEnhancedListView);
             this.splitContainer1.Panel2.Controls.Add(this.operationsToolStrip);
             this.splitContainer1.Size = new System.Drawing.Size(331, 310);
-            this.splitContainer1.SplitterDistance = 134;
+            this.splitContainer1.SplitterDistance = 135;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
             // methodsEnhancedListView
             // 
-            this.methodsEnhancedListView.AlternateBackColor = System.Drawing.Color.Azure;
+            this.methodsEnhancedListView.AlternateBackColor = System.Drawing.Color.Ivory;
             this.methodsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -233,7 +237,7 @@
             this.methodsEnhancedListView.Name = "methodsEnhancedListView";
             this.methodsEnhancedListView.ResizeColumnToFill = true;
             this.methodsEnhancedListView.ShowItemToolTips = true;
-            this.methodsEnhancedListView.Size = new System.Drawing.Size(331, 109);
+            this.methodsEnhancedListView.Size = new System.Drawing.Size(331, 110);
             this.methodsEnhancedListView.TabIndex = 2;
             this.methodsEnhancedListView.UseAlternatingBackColor = true;
             this.methodsEnhancedListView.UseCompatibleStateImageBehavior = false;
@@ -243,19 +247,21 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Method";
-            this.columnHeader1.Width = 244;
+            this.columnHeader1.Text = "Description";
+            this.columnHeader1.Width = 240;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Preferred?";
+            this.columnHeader2.Text = "Is preferred";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 80;
+            this.columnHeader2.Width = 85;
             // 
             // methodsToolStrip
             // 
             this.methodsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.methodsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.toolStripSeparator2,
             this.addMethodToolStripButton,
             this.editMethodToolStripButton,
             this.deleteMethodToolStripButton});
@@ -265,6 +271,17 @@
             this.methodsToolStrip.TabIndex = 1;
             this.methodsToolStrip.Text = "toolStrip1";
             this.methodsToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.methodsToolStrip_ItemClicked);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(60, 22);
+            this.toolStripLabel1.Text = "Methods";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // addMethodToolStripButton
             // 
@@ -299,6 +316,8 @@
             // 
             this.operationsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.operationsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel2,
+            this.toolStripSeparator3,
             this.addOperationToolStripButton,
             this.editOperationToolStripButton,
             this.deleteOperationToolStripButton});
@@ -308,6 +327,17 @@
             this.operationsToolStrip.TabIndex = 5;
             this.operationsToolStrip.Text = "toolStrip1";
             this.operationsToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.operationsToolStrip_ItemClicked);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(73, 22);
+            this.toolStripLabel2.Text = "Operations";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // addOperationToolStripButton
             // 
@@ -391,5 +421,9 @@
         private System.Windows.Forms.ToolStripMenuItem deleteOperationToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip operationsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addOperationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

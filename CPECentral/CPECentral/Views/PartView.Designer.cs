@@ -1,4 +1,5 @@
-﻿using CPECentral.Controls;
+﻿using System.Windows.Forms;
+using CPECentral.Controls;
 
 namespace CPECentral.Views
 {
@@ -30,16 +31,16 @@ namespace CPECentral.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.partDocumentsFlatTabControl = new CPECentral.Controls.FlatTabControl();
+            this.partDocumentsTabControl = new CPECentral.Controls.ClosableTabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.versionDocumentsView = new CPECentral.Views.DocumentsView();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.partDocumentsView = new CPECentral.Views.DocumentsView();
-            this.operationDocumentsFlatTabControl = new CPECentral.Controls.FlatTabControl();
+            this.operationDocumentsTabControl = new CPECentral.Controls.ClosableTabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.operationsView = new CPECentral.Views.OperationsView();
-            this.selectedOperationTabControl = new CPECentral.Controls.FlatTabControl();
+            this.selectedOperationTabControl = new CPECentral.Controls.ClosableTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.operationDocumentsView = new CPECentral.Views.DocumentsView();
             this.machineTransferView = new CPECentral.Views.MachineTransferView();
@@ -57,10 +58,14 @@ namespace CPECentral.Views
             this.partPhotoPictureBox = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.partInformationView = new CPECentral.Views.PartInformationView();
-            this.partDocumentsFlatTabControl.SuspendLayout();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.TabControl1 = new CPECentral.Controls.ClosableTabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.partWorksOrdersView = new CPECentral.Views.PartWorksOrdersView();
+            this.partDocumentsTabControl.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
-            this.operationDocumentsFlatTabControl.SuspendLayout();
+            this.operationDocumentsTabControl.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -75,24 +80,27 @@ namespace CPECentral.Views
             ((System.ComponentModel.ISupportInitialize)(this.nonConformanceWarningPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partPhotoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.TabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // partDocumentsFlatTabControl
+            // partDocumentsTabControl
             // 
-            this.partDocumentsFlatTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.partDocumentsFlatTabControl.ClosableAfterIndex = 1;
-            this.partDocumentsFlatTabControl.Controls.Add(this.tabPage6);
-            this.partDocumentsFlatTabControl.Controls.Add(this.tabPage7);
-            this.partDocumentsFlatTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.partDocumentsFlatTabControl.ItemSize = new System.Drawing.Size(175, 30);
-            this.partDocumentsFlatTabControl.Location = new System.Drawing.Point(9, 309);
-            this.partDocumentsFlatTabControl.myBackColor = System.Drawing.Color.White;
-            this.partDocumentsFlatTabControl.Name = "partDocumentsFlatTabControl";
-            this.partDocumentsFlatTabControl.SelectedIndex = 0;
-            this.partDocumentsFlatTabControl.Size = new System.Drawing.Size(692, 521);
-            this.partDocumentsFlatTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.partDocumentsFlatTabControl.TabIndex = 11;
+            this.partDocumentsTabControl.Controls.Add(this.tabPage6);
+            this.partDocumentsTabControl.Controls.Add(this.tabPage7);
+            this.partDocumentsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.partDocumentsTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.partDocumentsTabControl.ItemSize = new System.Drawing.Size(175, 30);
+            this.partDocumentsTabControl.Location = new System.Drawing.Point(0, 0);
+            this.partDocumentsTabControl.Name = "partDocumentsTabControl";
+            this.partDocumentsTabControl.SelectedIndex = 0;
+            this.partDocumentsTabControl.Size = new System.Drawing.Size(692, 220);
+            this.partDocumentsTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.partDocumentsTabControl.TabIndex = 11;
             // 
             // tabPage6
             // 
@@ -101,8 +109,9 @@ namespace CPECentral.Views
             this.tabPage6.Location = new System.Drawing.Point(4, 34);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(684, 483);
+            this.tabPage6.Size = new System.Drawing.Size(684, 182);
             this.tabPage6.TabIndex = 0;
+            this.tabPage6.Tag = "false";
             this.tabPage6.Text = "Version documents";
             // 
             // versionDocumentsView
@@ -113,7 +122,7 @@ namespace CPECentral.Views
             this.versionDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.versionDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.versionDocumentsView.Name = "versionDocumentsView";
-            this.versionDocumentsView.Size = new System.Drawing.Size(678, 477);
+            this.versionDocumentsView.Size = new System.Drawing.Size(678, 176);
             this.versionDocumentsView.TabIndex = 0;
             this.versionDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
             this.versionDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
@@ -125,8 +134,9 @@ namespace CPECentral.Views
             this.tabPage7.Location = new System.Drawing.Point(4, 34);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(684, 483);
+            this.tabPage7.Size = new System.Drawing.Size(684, 182);
             this.tabPage7.TabIndex = 1;
+            this.tabPage7.Tag = "false";
             this.tabPage7.Text = "Part documents";
             // 
             // partDocumentsView
@@ -137,27 +147,25 @@ namespace CPECentral.Views
             this.partDocumentsView.Location = new System.Drawing.Point(3, 3);
             this.partDocumentsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partDocumentsView.Name = "partDocumentsView";
-            this.partDocumentsView.Size = new System.Drawing.Size(678, 477);
+            this.partDocumentsView.Size = new System.Drawing.Size(678, 176);
             this.partDocumentsView.TabIndex = 1;
             this.partDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
             this.partDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
             // 
-            // operationDocumentsFlatTabControl
+            // operationDocumentsTabControl
             // 
-            this.operationDocumentsFlatTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.operationDocumentsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.operationDocumentsFlatTabControl.ClosableAfterIndex = 0;
-            this.operationDocumentsFlatTabControl.Controls.Add(this.tabPage5);
-            this.operationDocumentsFlatTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.operationDocumentsFlatTabControl.ItemSize = new System.Drawing.Size(150, 30);
-            this.operationDocumentsFlatTabControl.Location = new System.Drawing.Point(707, 58);
-            this.operationDocumentsFlatTabControl.myBackColor = System.Drawing.Color.White;
-            this.operationDocumentsFlatTabControl.Name = "operationDocumentsFlatTabControl";
-            this.operationDocumentsFlatTabControl.SelectedIndex = 0;
-            this.operationDocumentsFlatTabControl.Size = new System.Drawing.Size(481, 772);
-            this.operationDocumentsFlatTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.operationDocumentsFlatTabControl.TabIndex = 3;
+            this.operationDocumentsTabControl.Controls.Add(this.tabPage5);
+            this.operationDocumentsTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.operationDocumentsTabControl.ItemSize = new System.Drawing.Size(150, 30);
+            this.operationDocumentsTabControl.Location = new System.Drawing.Point(707, 58);
+            this.operationDocumentsTabControl.Name = "operationDocumentsTabControl";
+            this.operationDocumentsTabControl.SelectedIndex = 0;
+            this.operationDocumentsTabControl.Size = new System.Drawing.Size(481, 772);
+            this.operationDocumentsTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.operationDocumentsTabControl.TabIndex = 3;
             // 
             // tabPage5
             // 
@@ -168,7 +176,8 @@ namespace CPECentral.Views
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(473, 734);
             this.tabPage5.TabIndex = 0;
-            this.tabPage5.Text = "Operations";
+            this.tabPage5.Tag = "false";
+            this.tabPage5.Text = "Manufacturing";
             // 
             // splitContainer3
             // 
@@ -200,14 +209,12 @@ namespace CPECentral.Views
             // 
             // selectedOperationTabControl
             // 
-            this.selectedOperationTabControl.ClosableAfterIndex = 1;
             this.selectedOperationTabControl.Controls.Add(this.tabPage1);
             this.selectedOperationTabControl.Controls.Add(this.tabPage2);
             this.selectedOperationTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedOperationTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.selectedOperationTabControl.ItemSize = new System.Drawing.Size(150, 30);
+            this.selectedOperationTabControl.ItemSize = new System.Drawing.Size(165, 30);
             this.selectedOperationTabControl.Location = new System.Drawing.Point(0, 0);
-            this.selectedOperationTabControl.myBackColor = System.Drawing.Color.White;
             this.selectedOperationTabControl.Name = "selectedOperationTabControl";
             this.selectedOperationTabControl.SelectedIndex = 0;
             this.selectedOperationTabControl.Size = new System.Drawing.Size(473, 293);
@@ -224,6 +231,7 @@ namespace CPECentral.Views
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(465, 255);
             this.tabPage1.TabIndex = 0;
+            this.tabPage1.Tag = "false";
             this.tabPage1.Text = "Operation documents";
             // 
             // operationDocumentsView
@@ -261,6 +269,7 @@ namespace CPECentral.Views
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(465, 255);
             this.tabPage2.TabIndex = 1;
+            this.tabPage2.Tag = "false";
             this.tabPage2.Text = "Tool list";
             // 
             // operationToolsView
@@ -407,11 +416,65 @@ namespace CPECentral.Views
             this.partInformationView.TabIndex = 1;
             this.partInformationView.VersionSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartVersionEventArgs>(this.partInformationView_VersionSelected);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.splitContainer1.Location = new System.Drawing.Point(9, 309);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.partDocumentsTabControl);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.TabControl1);
+            this.splitContainer1.Size = new System.Drawing.Size(692, 521);
+            this.splitContainer1.SplitterDistance = 220;
+            this.splitContainer1.TabIndex = 12;
+            // 
+            // TabControl1
+            // 
+            this.TabControl1.Controls.Add(this.tabPage3);
+            this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.TabControl1.ItemSize = new System.Drawing.Size(175, 30);
+            this.TabControl1.Location = new System.Drawing.Point(0, 0);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(692, 297);
+            this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.TabControl1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabPage3.Controls.Add(this.partWorksOrdersView);
+            this.tabPage3.Location = new System.Drawing.Point(4, 34);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(684, 259);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Tag = "false";
+            this.tabPage3.Text = "Works orders";
+            // 
+            // partWorksOrdersView
+            // 
+            this.partWorksOrdersView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.partWorksOrdersView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.partWorksOrdersView.Location = new System.Drawing.Point(3, 3);
+            this.partWorksOrdersView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.partWorksOrdersView.Name = "partWorksOrdersView";
+            this.partWorksOrdersView.Size = new System.Drawing.Size(678, 253);
+            this.partWorksOrdersView.TabIndex = 0;
+            // 
             // PartView
             // 
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.partDocumentsFlatTabControl);
-            this.Controls.Add(this.operationDocumentsFlatTabControl);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.operationDocumentsTabControl);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
@@ -419,10 +482,10 @@ namespace CPECentral.Views
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "PartView";
             this.Size = new System.Drawing.Size(1195, 833);
-            this.partDocumentsFlatTabControl.ResumeLayout(false);
+            this.partDocumentsTabControl.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
-            this.operationDocumentsFlatTabControl.ResumeLayout(false);
+            this.operationDocumentsTabControl.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -438,6 +501,12 @@ namespace CPECentral.Views
             ((System.ComponentModel.ISupportInitialize)(this.nonConformanceWarningPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.partPhotoPictureBox)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.TabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -455,22 +524,26 @@ namespace CPECentral.Views
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label partDescriptionLabel;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private FlatTabControl operationDocumentsFlatTabControl;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private OperationsView operationsView;
-        private FlatTabControl selectedOperationTabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private DocumentsView operationDocumentsView;
         private System.Windows.Forms.TabPage tabPage2;
         private OperationToolsView operationToolsView;
-        private FlatTabControl partDocumentsFlatTabControl;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.Label checkingQMSLabel;
         private System.Windows.Forms.PictureBox checkingQMSPictureBox;
         private MachineTransferView machineTransferView;
         private System.Windows.Forms.PictureBox nonConformanceWarningPictureBox;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private PartWorksOrdersView partWorksOrdersView;
+        private ClosableTabControl operationDocumentsTabControl;
+        private ClosableTabControl selectedOperationTabControl;
+        private ClosableTabControl partDocumentsTabControl;
+        private ClosableTabControl TabControl1;
 
 
     }

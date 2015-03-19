@@ -1,6 +1,6 @@
 ﻿namespace CPECentral.Dialogs
 {
-    partial class SwitchEmployeeDialog
+    partial class EmployeeLoginDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -107,7 +107,7 @@
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter_CancelClicked);
             // 
-            // SwitchEmployeeDialog
+            // EmployeeLoginDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,11 +121,11 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SwitchEmployeeDialog";
+            this.Name = "EmployeeLoginDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Switching user";
+            this.Text = "Log in";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

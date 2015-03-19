@@ -343,4 +343,25 @@
   <data name="LoginHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LoginHeader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LoginIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginIndicatorArrow_1024x512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginIndicatorArrow_1024x512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginIndicatorArrow_512x512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LoginIndicatorArrow_512x512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CirclePreloader_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CirclePreloader_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TickIcon_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TickIcon_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseIconHighlighted_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseIconHighlighted_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseIconNotHighlighted_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseIconNotHighlighted_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
