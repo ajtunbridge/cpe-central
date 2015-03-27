@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO.Ports;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.QMS;
 using NcCommunicator.Data;
+using NcCommunicator.Data.Model;
 using nGenLibrary.Security;
 
 #endregion
@@ -35,6 +37,31 @@ namespace CPECentral
         {
             bool createdNew = true;
 
+            string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+            //var db = new MachinesDataProvider(commonAppDir);
+
+            //var serialMachine = new SerialMachine();
+            //serialMachine.Name = "Hardinge T42";
+            //serialMachine.ComPort = "COM3";
+            //serialMachine.StopBits = StopBits.Two;
+            //serialMachine.Parity = Parity.Even;
+            //serialMachine.Handshake = Handshake.XOnXOff;
+            //serialMachine.DataBits = 7;
+            //serialMachine.BaudRate = 9600;
+            //serialMachine.DtrEnable = true;
+            //serialMachine.RtsEnable = true;
+            //serialMachine.XOnChar = 17;
+            //serialMachine.XOffChar = 19;
+            //serialMachine.AltXOnChar = 18;
+            //serialMachine.AltXOffChar = 20;
+            //serialMachine.ProgramStart = "%";
+            //serialMachine.ProgramEnd = "M30";
+            //serialMachine.NewLine = @"\r\n\n";
+            //serialMachine.Photo = null;
+
+            //db.Insert(serialMachine);
+
             using (var mutex = new Mutex(true, "CPECentral", out createdNew)) {
                 if (createdNew) {
                     Application.EnableVisualStyles();
@@ -45,6 +72,8 @@ namespace CPECentral
                     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                     Application.ThreadException += Application_ThreadException;
 
+                    var image = Image.FromFile(@"C:\Users\atunbridge\Pictures\pic2.jpg");
+                    
                     var form = new MainForm();
 
                     Application.Run(form);

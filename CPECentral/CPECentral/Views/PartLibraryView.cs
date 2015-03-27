@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
 using CPECentral.Controls;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
@@ -35,9 +37,18 @@ namespace CPECentral.Views
             if (!IsInDesignMode) {
                 _presenter = new PartLibraryViewPresenter(this);
 
+                autoShowDrawingCheckBox.Checked = Settings.Default.AutomaticallyShowDrawing;
+
                 resultsObjectListView.SmallImageList = new ImageList {
                     ColorDepth = ColorDepth.Depth32Bit,
                     ImageSize = new Size(16, 16)
+                };
+
+                resultsObjectListView.RowFormatter = (listItem) => {
+                    var model = listItem.RowObject as PartLibraryViewModel;
+                    if (!string.IsNullOrWhiteSpace(model.PathToDrawingFile)) {
+                        listItem.ForeColor = Color.Firebrick;
+                    }
                 };
 
                 resultsObjectListView.SmallImageList.Images.Add("PartIcon", Resources.PartIcon_16x16);
@@ -111,16 +122,13 @@ namespace CPECentral.Views
 
         private void resultsObjectListView_SelectionChanged(object sender, EventArgs e)
         {
-            if (resultsObjectListView.SelectedObject == null) {
-                filePreviewPanel1.ClearPreview();
-            }
-            else {
-                var item = resultsObjectListView.SelectedObject as PartLibraryViewModel;
-                if (string.IsNullOrWhiteSpace(item.PathToDrawingFile)) {
-                    filePreviewPanel1.ClearPreview();
-                    return;
+            filePreviewPanel1.ClearPreview();
+
+            if (resultsObjectListView.SelectedItem != null && Settings.Default.AutomaticallyShowDrawing) {
+                var model = resultsObjectListView.SelectedItem.RowObject as PartLibraryViewModel;
+                if (!string.IsNullOrWhiteSpace(model.PathToDrawingFile)) {
+                    filePreviewPanel1.ShowFile(model.PathToDrawingFile);
                 }
-                filePreviewPanel1.ShowFile(item.PathToDrawingFile);
             }
         }
 
@@ -131,7 +139,7 @@ namespace CPECentral.Views
             Session.MessageBus.Publish(new LoadPartMessage(part));
         }
 
-        private void resultsObjectListView_CellToolTipShowing(object sender, BrightIdeasSoftware.ToolTipShowingEventArgs e)
+        private void resultsObjectListView_CellToolTipShowing(object sender, ToolTipShowingEventArgs e)
         {
             if (e.ColumnIndex != 0)
             {
@@ -150,6 +158,12 @@ namespace CPECentral.Views
             var popupForm = new ImagePopupForm(photo);
             popupForm.Location = new Point(MousePosition.X + 20, MousePosition.Y + 20);
             popupForm.Show();
+        }
+
+        private void autoShowDrawingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.AutomaticallyShowDrawing = autoShowDrawingCheckBox.Checked;
+            Settings.Default.Save();
         }
     }
 }

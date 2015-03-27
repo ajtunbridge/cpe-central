@@ -12,6 +12,7 @@ using NcCommunicator.Data.Model;
 
 namespace NcCommunicator
 {
+    /*
     public class SerialLink : IDisposable
     {
         private const byte DefaultBlockSize = 16;
@@ -247,4 +248,5 @@ namespace NcCommunicator
             return builder.ToString();
         }
     }
+     * */
 }

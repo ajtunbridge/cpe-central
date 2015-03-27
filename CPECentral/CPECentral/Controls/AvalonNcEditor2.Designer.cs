@@ -1,6 +1,6 @@
 ﻿namespace CPECentral.Controls
 {
-    partial class AvalonNcEditor
+    partial class AvalonNcEditor2
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,24 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AvalonNcEditor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AvalonNcEditor2));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.languageToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.transmitToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.receiveToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.findReplaceToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.gotoNextToolCallToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findReplaceToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,9 +56,6 @@
             this.saveToolStripButton,
             this.toolStripSeparator4,
             this.findReplaceToolStripButton,
-            this.toolStripSeparator5,
-            this.transmitToolStripDropDownButton,
-            this.receiveToolStripDropDownButton,
             this.toolStripSeparator2,
             this.gotoNextToolCallToolStripButton,
             this.toolStripSeparator3,
@@ -69,7 +63,7 @@
             this.toolStripSeparator1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(428, 25);
+            this.toolStrip.Size = new System.Drawing.Size(586, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip_ItemClicked);
@@ -77,12 +71,13 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(59, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
             this.toolStripLabel1.Text = "Language";
             // 
             // languageToolStripComboBox
             // 
             this.languageToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.languageToolStripComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.languageToolStripComboBox.MaxDropDownItems = 3;
             this.languageToolStripComboBox.Name = "languageToolStripComboBox";
             this.languageToolStripComboBox.Size = new System.Drawing.Size(121, 25);
@@ -92,26 +87,6 @@
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // saveToolStripButton
             // 
@@ -123,27 +98,24 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
             // 
-            // transmitToolStripDropDownButton
+            // toolStripSeparator4
             // 
-            this.transmitToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.transmitToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.UploadIcon_16x16;
-            this.transmitToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.transmitToolStripDropDownButton.Name = "transmitToolStripDropDownButton";
-            this.transmitToolStripDropDownButton.Size = new System.Drawing.Size(29, 22);
-            this.transmitToolStripDropDownButton.Text = "Transmit";
-            this.transmitToolStripDropDownButton.ToolTipText = "Transmit this program to a machine";
-            this.transmitToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.transmitToolStripDropDownButton_DropDownItemClicked);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
-            // receiveToolStripDropDownButton
+            // findReplaceToolStripButton
             // 
-            this.receiveToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.receiveToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.DownloadIcon_16x16;
-            this.receiveToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.receiveToolStripDropDownButton.Name = "receiveToolStripDropDownButton";
-            this.receiveToolStripDropDownButton.Size = new System.Drawing.Size(29, 22);
-            this.receiveToolStripDropDownButton.Text = "Receive";
-            this.receiveToolStripDropDownButton.ToolTipText = "Receive program from machine";
-            this.receiveToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.receiveToolStripDropDownButton_DropDownItemClicked);
+            this.findReplaceToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.findReplaceToolStripButton.Image = global::CPECentral.Properties.Resources.ReplaceTextIcon_16x16;
+            this.findReplaceToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.findReplaceToolStripButton.Name = "findReplaceToolStripButton";
+            this.findReplaceToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.findReplaceToolStripButton.Text = "Find and replace text";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // gotoNextToolCallToolStripButton
             // 
@@ -153,6 +125,11 @@
             this.gotoNextToolCallToolStripButton.Name = "gotoNextToolCallToolStripButton";
             this.gotoNextToolCallToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.gotoNextToolCallToolStripButton.Text = "Goto next tool call";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // printToolStripButton
             // 
@@ -170,38 +147,29 @@
             // programToolStripMenuItem
             // 
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
-            this.programToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.programToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.programToolStripMenuItem.Text = "&Program";
             // 
             // toolListToolStripMenuItem
             // 
             this.toolListToolStripMenuItem.Name = "toolListToolStripMenuItem";
-            this.toolListToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.toolListToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.toolListToolStripMenuItem.Text = "&Tool list";
             // 
-            // findReplaceToolStripButton
+            // toolStripSeparator1
             // 
-            this.findReplaceToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findReplaceToolStripButton.Image = global::CPECentral.Properties.Resources.ReplaceTextIcon_16x16;
-            this.findReplaceToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.findReplaceToolStripButton.Name = "findReplaceToolStripButton";
-            this.findReplaceToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.findReplaceToolStripButton.Text = "Find and replace text";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // AvalonNcEditor
+            // AvalonNcEditor2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "AvalonNcEditor";
-            this.Size = new System.Drawing.Size(428, 360);
+            this.Name = "AvalonNcEditor2";
+            this.Size = new System.Drawing.Size(586, 616);
             this.Load += new System.EventHandler(this.AvalonNcEditor_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
@@ -222,13 +190,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripDropDownButton transmitToolStripDropDownButton;
-        private System.Windows.Forms.ToolStripDropDownButton receiveToolStripDropDownButton;
         private System.Windows.Forms.ToolStripDropDownButton printToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem programToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolListToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton findReplaceToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿#region Using directives
+
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using CPECentral.Properties;
+
+#endregion
 
 namespace CPECentral.Controls
 {
     public partial class ClosableTabControl : TabControl
     {
-        private Color _selectedTabBackColor = Color.WhiteSmoke;
-        private Color _unselectedTabBackColor = Color.Gainsboro;
+        private readonly Color _selectedTabBackColor = Color.WhiteSmoke;
+        private readonly Color _unselectedTabBackColor = Color.Gainsboro;
 
         public ClosableTabControl()
         {
@@ -33,11 +30,13 @@ namespace CPECentral.Controls
         {
             base.OnDrawItem(e);
 
-            var tabPage = TabPages[e.Index];
-            var rectArea = GetTabRect(e.Index);
+            TabPage tabPage = TabPages[e.Index];
+            Rectangle rectArea = GetTabRect(e.Index);
             bool isSelected = SelectedIndex == e.Index;
 
-            var fillBrush = isSelected ? new SolidBrush(_selectedTabBackColor) : new SolidBrush(_unselectedTabBackColor);
+            SolidBrush fillBrush = isSelected
+                ? new SolidBrush(_selectedTabBackColor)
+                : new SolidBrush(_unselectedTabBackColor);
 
             using (fillBrush) {
                 e.Graphics.FillRectangle(fillBrush, rectArea);
@@ -47,7 +46,7 @@ namespace CPECentral.Controls
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
-            var textColor = isSelected ? tabPage.ForeColor : Color.DimGray;
+            Color textColor = isSelected ? tabPage.ForeColor : Color.DimGray;
 
             using (var brush = new SolidBrush(textColor)) {
                 e.Graphics.DrawString(tabPage.Text, tabPage.Font, brush, rectArea, stringFormat);
@@ -55,8 +54,8 @@ namespace CPECentral.Controls
 
             // yuk. hacky I know. set the Tag for each TabPage you don't want to show the close
             // button on to 'true'
-            if (!(tabPage.Tag is string && (string)tabPage.Tag != "true")){
-                var closeImage = e.Index == SelectedIndex
+            if (!(tabPage.Tag is string && (string) tabPage.Tag != "true")) {
+                Bitmap closeImage = e.Index == SelectedIndex
                     ? Resources.CloseIconHighlighted_16x16
                     : Resources.CloseIconNotHighlighted_16x16;
 
@@ -76,7 +75,7 @@ namespace CPECentral.Controls
                 }
 
                 int index = TabPages.IndexOf(tab);
-                
+
                 Rectangle r = GetTabRect(index);
 
                 if (e.Button == MouseButtons.Middle && r.Contains(e.Location)) {

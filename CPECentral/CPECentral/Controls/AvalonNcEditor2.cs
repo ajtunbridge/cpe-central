@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -32,10 +33,9 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace CPECentral.Controls
 {
-    public partial class AvalonNcEditor : UserControl
+    public partial class AvalonNcEditor2 : UserControl
     {
-        private static NcUnitOfWork _machinesDb;
-        private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private readonly IDialogService _dialogService;
         private readonly TextEditor _editor;
         private readonly ElementHost _host;
         private string _currentFileName;
@@ -43,7 +43,7 @@ namespace CPECentral.Controls
         private bool _isLoadingFile;
         private StringReader _stringToPrint;
 
-        public AvalonNcEditor()
+        public AvalonNcEditor2()
         {
             InitializeComponent();
 
@@ -62,6 +62,11 @@ namespace CPECentral.Controls
             _editor.KeyDown += Editor_KeyDown;
             _editor.HorizontalAlignment = HorizontalAlignment.Stretch;
             _editor.VerticalAlignment = VerticalAlignment.Stretch;
+            _host.BringToFront();
+
+            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime) {
+                _dialogService = Session.GetInstanceOf<IDialogService>();
+            }
         }
 
         private void Editor_KeyDown(object sender, KeyEventArgs e)
@@ -81,7 +86,7 @@ namespace CPECentral.Controls
             saveToolStripButton.Enabled = true;
         }
 
-        public void LoadFile(string fileName)
+        public void LoadFile(string fileName, Operation operation)
         {
             _isLoadingFile = true;
 
@@ -129,12 +134,13 @@ namespace CPECentral.Controls
 
         private void AvalonNcEditor_Load(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, false)) {
-                _editor.IsReadOnly = true;
-            }
+            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime) {
+                if (!AppSecurity.Check(AppPermission.ManageDocuments, false)) {
+                    _editor.IsReadOnly = true;
+                }
 
-            LoadLanguageList();
-            LoadMachineList();
+                LoadLanguageList();
+            }
         }
 
         private void LanguageToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -260,25 +266,6 @@ namespace CPECentral.Controls
             }
         }
 
-        private void LoadMachineList()
-        {
-            if (_machinesDb == null) {
-                _machinesDb = new NcUnitOfWork();
-            }
-
-            IOrderedEnumerable<Machine> machines = _machinesDb.Machines.GetAll().OrderBy(m => m.Name);
-            foreach (Machine machine in machines) {
-                var transmitItem = new ToolStripMenuItem(machine.Name);
-                var receiveItem = new ToolStripMenuItem(machine.Name);
-
-                transmitItem.Tag = machine;
-                receiveItem.Tag = machine;
-
-                transmitToolStripDropDownButton.DropDownItems.Add(transmitItem);
-                receiveToolStripDropDownButton.DropDownItems.Add(receiveItem);
-            }
-        }
-
         private void ApplySyntaxHighlighting(string syntaxFile)
         {
             string storageDir = Settings.Default.SharedAppDir;
@@ -292,39 +279,6 @@ namespace CPECentral.Controls
             using (FileStream stream = File.OpenRead(fileName)) {
                 using (var reader = new XmlTextReader(stream)) {
                     _editor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-                }
-            }
-        }
-
-        private void transmitToolStripDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Tag is Machine) {
-                var machine = e.ClickedItem.Tag as Machine;
-                MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
-
-                using (var dialog = new TransmitProgramDialog(_editor.Text, machine.ComPort, control)) {
-                    dialog.ShowDialog(ParentForm);
-                }
-            }
-        }
-
-        private void receiveToolStripDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            receiveToolStripDropDownButton.HideDropDown();
-
-            if (e.ClickedItem.Tag is Machine) {
-                var machine = e.ClickedItem.Tag as Machine;
-                MachineControl control = _machinesDb.MachineControls.GetById(machine.MachineControlId);
-
-                if (!_dialogService.AskQuestion("Are you sure you want to overwrite this program?")) {
-                    return;
-                }
-
-                using (var dialog = new ReceiveProgramDialog(machine.ComPort, control)) {
-                    dialog.ShowDialog(ParentForm);
-
-                    _editor.Text = dialog.ReceivedProgram;
-                    SaveChanges();
                 }
             }
         }

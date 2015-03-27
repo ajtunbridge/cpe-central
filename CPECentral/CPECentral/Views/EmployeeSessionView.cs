@@ -71,9 +71,8 @@ namespace CPECentral.Views
                 }
             }
 
-            var newTab = new ClosableTabPage(obj.PartToLoad.DrawingNumber);
+            var newTab = new TabPage(obj.PartToLoad.DrawingNumber);
             newTab.Tag = obj.PartToLoad;
-            //newTab.ImageIndex = 2;
 
             var partView = new PartView();
             partView.Dock = DockStyle.Fill;
