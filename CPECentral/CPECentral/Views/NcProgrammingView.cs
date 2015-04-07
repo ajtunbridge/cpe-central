@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿#region Using directives
+
+using System;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using NcCommunicator.Data;
 using NcCommunicator.Data.Model;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -15,6 +14,13 @@ namespace CPECentral.Views
         public NcProgrammingView()
         {
             InitializeComponent();
+
+            if (!IsInDesignMode) {
+                string dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                var machines = new MachinesDataProvider(dir);
+                machinesComboBox.Items.AddRange(machines.GetAllMachines().OrderBy(m => m.Name).ToArray());
+            }
         }
 
         private void machinesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -24,6 +30,7 @@ namespace CPECentral.Views
             if (mc is SerialMachine) {
                 var c = new SerialMachineTransferView(mc);
                 splitContainer2.Panel2.Controls.Add(c);
+                c.BringToFront();
             }
         }
     }

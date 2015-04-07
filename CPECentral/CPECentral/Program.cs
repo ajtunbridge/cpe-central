@@ -37,7 +37,7 @@ namespace CPECentral
         {
             bool createdNew = true;
 
-            string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            //string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
             //var db = new MachinesDataProvider(commonAppDir);
 
@@ -59,6 +59,16 @@ namespace CPECentral
             //serialMachine.ProgramEnd = "M30";
             //serialMachine.NewLine = @"\r\n\n";
             //serialMachine.Photo = null;
+
+            //db.Insert(serialMachine);
+
+            //serialMachine.Name = "Hardinge T42-A";
+            //serialMachine.ComPort = "COM4";
+
+            //db.Insert(serialMachine);
+
+            //serialMachine.Name = "Hardinge C42";
+            //serialMachine.ComPort = "COM3";
 
             //db.Insert(serialMachine);
 

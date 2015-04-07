@@ -81,9 +81,9 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 164);
+            this.label4.Location = new System.Drawing.Point(50, 164);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(265, 13);
+            this.label4.Size = new System.Drawing.Size(175, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "refreshing data....";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,7 +96,7 @@
             this.lastMonthEasyProgressBar.DigitBoxGradient.ColorEnd = System.Drawing.Color.WhiteSmoke;
             this.lastMonthEasyProgressBar.DisplayFormat = "of target produced";
             this.lastMonthEasyProgressBar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastMonthEasyProgressBar.ForeColor = System.Drawing.Color.DimGray;
+            this.lastMonthEasyProgressBar.ForeColor = System.Drawing.Color.Black;
             this.lastMonthEasyProgressBar.Location = new System.Drawing.Point(6, 128);
             this.lastMonthEasyProgressBar.Name = "lastMonthEasyProgressBar";
             this.lastMonthEasyProgressBar.ProgressGradient.ColorEnd = System.Drawing.Color.Gold;
@@ -114,7 +114,7 @@
             this.currentMonthEasyProgressBar.DigitBoxGradient.ColorEnd = System.Drawing.Color.WhiteSmoke;
             this.currentMonthEasyProgressBar.DisplayFormat = "of target produced";
             this.currentMonthEasyProgressBar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentMonthEasyProgressBar.ForeColor = System.Drawing.Color.DimGray;
+            this.currentMonthEasyProgressBar.ForeColor = System.Drawing.Color.Black;
             this.currentMonthEasyProgressBar.Location = new System.Drawing.Point(6, 72);
             this.currentMonthEasyProgressBar.Name = "currentMonthEasyProgressBar";
             this.currentMonthEasyProgressBar.ProgressGradient.ColorEnd = System.Drawing.Color.LightGreen;
@@ -147,9 +147,9 @@
             this.loadingPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.loadingPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
-            this.loadingPictureBox.Location = new System.Drawing.Point(6, 164);
+            this.loadingPictureBox.Location = new System.Drawing.Point(78, 164);
             this.loadingPictureBox.Name = "loadingPictureBox";
-            this.loadingPictureBox.Size = new System.Drawing.Size(262, 15);
+            this.loadingPictureBox.Size = new System.Drawing.Size(118, 15);
             this.loadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.loadingPictureBox.TabIndex = 9;
             this.loadingPictureBox.TabStop = false;
