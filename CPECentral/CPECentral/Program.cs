@@ -51,10 +51,10 @@ namespace CPECentral
             //serialMachine.BaudRate = 9600;
             //serialMachine.DtrEnable = true;
             //serialMachine.RtsEnable = true;
-            //serialMachine.XOnChar = 17;
-            //serialMachine.XOffChar = 19;
-            //serialMachine.AltXOnChar = 18;
-            //serialMachine.AltXOffChar = 20;
+            //serialMachine.SendXOnChar = 17;
+            //serialMachine.SendXOffChar = 19;
+            //serialMachine.ReceiveXOnChar = 18;
+            //serialMachine.ReceiveXOffChar = 20;
             //serialMachine.ProgramStart = "%";
             //serialMachine.ProgramEnd = "M30";
             //serialMachine.NewLine = @"\r\n\n";
@@ -82,8 +82,6 @@ namespace CPECentral
                     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                     Application.ThreadException += Application_ThreadException;
 
-                    var image = Image.FromFile(@"C:\Users\atunbridge\Pictures\pic2.jpg");
-                    
                     var form = new MainForm();
 
                     Application.Run(form);

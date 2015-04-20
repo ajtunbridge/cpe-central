@@ -30,10 +30,10 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.avalonNcEditor21 = new CPECentral.Controls.AvalonNcEditor2();
+            this.avalonNcEditor = new CPECentral.Controls.AvalonNcEditor2();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.machinesComboBox = new System.Windows.Forms.ComboBox();
-            this.operationToolsView1 = new CPECentral.Views.OperationToolsView();
+            this.operationToolsView = new CPECentral.Views.OperationToolsView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,7 +58,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.operationToolsView1);
+            this.splitContainer1.Panel2.Controls.Add(this.operationToolsView);
             this.splitContainer1.Size = new System.Drawing.Size(859, 833);
             this.splitContainer1.SplitterDistance = 566;
             this.splitContainer1.TabIndex = 0;
@@ -71,24 +71,24 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.avalonNcEditor21);
+            this.splitContainer2.Panel1.Controls.Add(this.avalonNcEditor);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer2.Size = new System.Drawing.Size(859, 566);
-            this.splitContainer2.SplitterDistance = 513;
+            this.splitContainer2.SplitterDistance = 622;
             this.splitContainer2.TabIndex = 0;
             // 
-            // avalonNcEditor21
+            // avalonNcEditor
             // 
-            this.avalonNcEditor21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.avalonNcEditor21.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avalonNcEditor21.Location = new System.Drawing.Point(0, 0);
-            this.avalonNcEditor21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.avalonNcEditor21.Name = "avalonNcEditor21";
-            this.avalonNcEditor21.Size = new System.Drawing.Size(513, 566);
-            this.avalonNcEditor21.TabIndex = 0;
+            this.avalonNcEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.avalonNcEditor.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avalonNcEditor.Location = new System.Drawing.Point(0, 0);
+            this.avalonNcEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.avalonNcEditor.Name = "avalonNcEditor";
+            this.avalonNcEditor.Size = new System.Drawing.Size(622, 566);
+            this.avalonNcEditor.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -96,7 +96,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(342, 56);
+            this.groupBox1.Size = new System.Drawing.Size(233, 56);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select a machine";
@@ -109,19 +109,19 @@
             this.machinesComboBox.FormattingEnabled = true;
             this.machinesComboBox.Location = new System.Drawing.Point(6, 24);
             this.machinesComboBox.Name = "machinesComboBox";
-            this.machinesComboBox.Size = new System.Drawing.Size(330, 25);
+            this.machinesComboBox.Size = new System.Drawing.Size(221, 25);
             this.machinesComboBox.TabIndex = 0;
             this.machinesComboBox.SelectedIndexChanged += new System.EventHandler(this.machinesComboBox_SelectedIndexChanged);
             // 
-            // operationToolsView1
+            // operationToolsView
             // 
-            this.operationToolsView1.CurrentOperation = null;
-            this.operationToolsView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.operationToolsView1.Location = new System.Drawing.Point(0, 0);
-            this.operationToolsView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.operationToolsView1.Name = "operationToolsView1";
-            this.operationToolsView1.Size = new System.Drawing.Size(859, 263);
-            this.operationToolsView1.TabIndex = 0;
+            this.operationToolsView.CurrentOperation = null;
+            this.operationToolsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.operationToolsView.Location = new System.Drawing.Point(0, 0);
+            this.operationToolsView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.operationToolsView.Name = "operationToolsView";
+            this.operationToolsView.Size = new System.Drawing.Size(859, 263);
+            this.operationToolsView.TabIndex = 0;
             // 
             // NcProgrammingView
             // 
@@ -149,8 +149,8 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private OperationToolsView operationToolsView1;
-        private Controls.AvalonNcEditor2 avalonNcEditor21;
+        private OperationToolsView operationToolsView;
+        private Controls.AvalonNcEditor2 avalonNcEditor;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox machinesComboBox;
 

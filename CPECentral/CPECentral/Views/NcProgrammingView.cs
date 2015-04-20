@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using CPECentral.Data.EF5;
 using NcCommunicator.Data;
 using NcCommunicator.Data.Model;
 
@@ -11,15 +12,29 @@ namespace CPECentral.Views
 {
     public partial class NcProgrammingView : ViewBase
     {
-        public NcProgrammingView()
+        public NcProgrammingView(Operation operation, string pathToNcFile)
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                string dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                LoadMachines();
+                avalonNcEditor.LoadFile(pathToNcFile);
+                operationToolsView.RetrieveOperationTools(operation);
+            }
+        }
 
-                var machines = new MachinesDataProvider(dir);
-                machinesComboBox.Items.AddRange(machines.GetAllMachines().OrderBy(m => m.Name).ToArray());
+        private void LoadMachines()
+        {
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+            var machines = new MachinesDataProvider(dir);
+
+            foreach (var machine in machines.GetAllMachines().OrderBy(m => m.Name)) {
+                machinesComboBox.Items.Add(machine);
+            }
+
+            if (machinesComboBox.Items.Count > 0) {
+                machinesComboBox.SelectedIndex = 0;
             }
         }
 

@@ -344,6 +344,7 @@
     <Compile Include="Messages\OperationToolListChangedMessage.cs" />
     <Compile Include="Messages\PartVersionPhotoChangedMessage.cs" />
     <Compile Include="Messages\RecentPartsChangedMessage.cs" />
+    <Compile Include="Messages\SerialMachineLogUpdatedMessage.cs" />
     <Compile Include="Messages\ToolRenamedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />

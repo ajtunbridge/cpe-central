@@ -246,7 +246,7 @@ namespace CPECentral.Views
 
                 operationDocumentsTabControl.InvokeEx(() => {
                     var tabPage = new TabPage(doc.FileName);
-                    var editorPanel = new NcProgrammingView();
+                    var editorPanel = new NcProgrammingView(operationsView.SelectedOperation, pathToDocument);
                     tabPage.Controls.Add(editorPanel);
                     editorPanel.Dock = DockStyle.Fill;
                     operationDocumentsTabControl.TabPages.Add(tabPage);

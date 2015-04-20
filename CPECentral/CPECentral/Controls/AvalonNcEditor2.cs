@@ -86,7 +86,7 @@ namespace CPECentral.Controls
             saveToolStripButton.Enabled = true;
         }
 
-        public void LoadFile(string fileName, Operation operation)
+        public void LoadFile(string fileName)
         {
             _isLoadingFile = true;
 

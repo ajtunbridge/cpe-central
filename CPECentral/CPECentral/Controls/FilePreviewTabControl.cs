@@ -104,22 +104,6 @@ namespace CPECentral.Controls
                 return;
             }
 
-            string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"},
-                StringSplitOptions.None);
-
-            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
-                var ncEditor = new NcProgrammingView();
-                ncEditor.Dock = DockStyle.Fill;
-                newPage.Controls.Add(ncEditor);
-                ncEditor.BringToFront();
-                //ncEditor.LoadFile(fileName);
-
-                tabControl.TabPages.Add(newPage);
-                tabControl.SelectedTab = newPage;
-
-                return;
-            }
-
             string[] imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
                 StringSplitOptions.RemoveEmptyEntries);
 

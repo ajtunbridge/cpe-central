@@ -24,13 +24,13 @@ namespace NcCommunicator.Data.Model
 
         public bool RtsEnable { get; set; }
 
-        public byte XOnChar { get; set; }
+        public byte SendXOnChar { get; set; }
 
-        public byte XOffChar { get; set; }
+        public byte SendXOffChar { get; set; }
 
-        public byte AltXOnChar { get; set; }
+        public byte ReceiveXOnChar { get; set; }
 
-        public byte AltXOffChar { get; set; }
+        public byte ReceiveXOffChar { get; set; }
 
         public string ProgramStart { get; set; }
 
