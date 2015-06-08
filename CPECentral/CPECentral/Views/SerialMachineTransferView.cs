@@ -30,6 +30,11 @@ namespace CPECentral.Views
         private readonly SerialMachine _machine;
         private readonly SerialMachineTransferViewPresenter _presenter;
 
+        public SerialMachineTransferView()
+        {
+            InitializeComponent();
+        }
+
         public SerialMachineTransferView(Machine machine)
         {
             InitializeComponent();

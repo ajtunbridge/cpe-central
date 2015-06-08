@@ -426,6 +426,12 @@
     <Compile Include="Views\NcProgrammingView.Designer.cs">
       <DependentUpon>NcProgrammingView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PartView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PartView2.Designer.cs">
+      <DependentUpon>PartView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\SerialMachineTransferView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -736,6 +742,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NcProgrammingView.resx">
       <DependentUpon>NcProgrammingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartView2.resx">
+      <DependentUpon>PartView2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SerialMachineTransferView.resx">
       <DependentUpon>SerialMachineTransferView.cs</DependentUpon>
