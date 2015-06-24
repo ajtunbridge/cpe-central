@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.1.0.7</MinimumRequiredVersion>
-    <ApplicationRevision>8</ApplicationRevision>
+    <MinimumRequiredVersion>3.1.0.9</MinimumRequiredVersion>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -99,17 +99,17 @@
     <Compile Include="Commands\DeleteMethodCommand.cs" />
     <Compile Include="Commands\DeleteOperationCommand.cs" />
     <Compile Include="Commands\NewVersionCommand.cs" />
+    <Compile Include="Controls\AvalonNcEditor2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AvalonNcEditor2.Designer.cs">
+      <DependentUpon>AvalonNcEditor2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ClosableTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ClosableTabControl.Designer.cs">
       <DependentUpon>ClosableTabControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ClosableTabPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ClosableTabPage.Designer.cs">
-      <DependentUpon>ClosableTabPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
@@ -153,23 +153,11 @@
     <Compile Include="Controls\OkayCancelFooter.Designer.cs">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AvalonNcEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\AvalonNcEditor.Designer.cs">
-      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SettingsGeneralUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\SettingsGeneralUserControl.Designer.cs">
       <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SettingsMachinesUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SettingsMachinesUserControl.Designer.cs">
-      <DependentUpon>SettingsMachinesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SettingsPathsUserControl.cs">
       <SubType>UserControl</SubType>
@@ -280,11 +268,11 @@
     <Compile Include="Dialogs\NonConformanceViewerDialog.Designer.cs">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ReceiveProgramDialog.cs">
+    <Compile Include="Dialogs\PhotoEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
-      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\PhotoEditorDialog.Designer.cs">
+      <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SelectToolDialog.cs">
       <SubType>Form</SubType>
@@ -340,12 +328,6 @@
     <Compile Include="Dialogs\ToolSelectorDialog.Designer.cs">
       <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\TransmitProgramDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\TransmitProgramDialog.Designer.cs">
-      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="DocumentService.cs" />
     <Compile Include="Delegates\UpdateResultCallbackDelegate.cs" />
     <Compile Include="IDialogService.cs" />
@@ -359,8 +341,10 @@
     <Compile Include="Messages\EmployeeSwitchedMessage.cs" />
     <Compile Include="Messages\FavouriteMachinesChangedMessage.cs" />
     <Compile Include="Messages\LoadPartMessage.cs" />
+    <Compile Include="Messages\OperationToolListChangedMessage.cs" />
     <Compile Include="Messages\PartVersionPhotoChangedMessage.cs" />
     <Compile Include="Messages\RecentPartsChangedMessage.cs" />
+    <Compile Include="Messages\SerialMachineLogUpdatedMessage.cs" />
     <Compile Include="Messages\ToolRenamedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
@@ -375,6 +359,7 @@
     <Compile Include="Presenters\HolderToolsViewPresenter.cs" />
     <Compile Include="Presenters\LoginView2Presenter.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs" />
+    <Compile Include="Presenters\SerialMachineTransferViewPresenter.cs" />
     <Compile Include="Presenters\NonConformanceSelectorViewPresenter.cs" />
     <Compile Include="Presenters\OperationsViewPresenter.cs" />
     <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
@@ -435,23 +420,23 @@
     <Compile Include="Views\LoginView2.Designer.cs">
       <DependentUpon>LoginView2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MachineTransferQueueView.cs">
+    <Compile Include="Views\NcProgrammingView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\MachineTransferQueueView.Designer.cs">
-      <DependentUpon>MachineTransferQueueView.cs</DependentUpon>
+    <Compile Include="Views\NcProgrammingView.Designer.cs">
+      <DependentUpon>NcProgrammingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MachineTransferView.cs">
+    <Compile Include="Views\PartView2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\MachineTransferView.Designer.cs">
-      <DependentUpon>MachineTransferView.cs</DependentUpon>
+    <Compile Include="Views\PartView2.Designer.cs">
+      <DependentUpon>PartView2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MachineView.cs">
+    <Compile Include="Views\SerialMachineTransferView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\MachineView.Designer.cs">
-      <DependentUpon>MachineView.cs</DependentUpon>
+    <Compile Include="Views\SerialMachineTransferView.Designer.cs">
+      <DependentUpon>SerialMachineTransferView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\NonConformanceSelectorView.cs">
       <SubType>UserControl</SubType>
@@ -631,6 +616,9 @@
     <Compile Include="Views\WorksOrderView.Designer.cs">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\AvalonNcEditor2.resx">
+      <DependentUpon>AvalonNcEditor2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ClosableTabControl.resx">
       <DependentUpon>ClosableTabControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,14 +643,8 @@
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AvalonNcEditor.resx">
-      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsGeneralUserControl.resx">
       <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SettingsMachinesUserControl.resx">
-      <DependentUpon>SettingsMachinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsPathsUserControl.resx">
       <DependentUpon>SettingsPathsUserControl.cs</DependentUpon>
@@ -703,8 +685,8 @@
     <EmbeddedResource Include="Dialogs\NonConformanceViewerDialog.resx">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
-      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\PhotoEditorDialog.resx">
+      <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
       <DependentUpon>SelectToolDialog.cs</DependentUpon>
@@ -733,9 +715,6 @@
     <EmbeddedResource Include="Dialogs\ToolSelectorDialog.resx">
       <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
-      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImagePopupForm.resx">
       <DependentUpon>ImagePopupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -761,14 +740,14 @@
     <EmbeddedResource Include="Views\LoginView2.resx">
       <DependentUpon>LoginView2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MachineTransferQueueView.resx">
-      <DependentUpon>MachineTransferQueueView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\NcProgrammingView.resx">
+      <DependentUpon>NcProgrammingView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MachineTransferView.resx">
-      <DependentUpon>MachineTransferView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PartView2.resx">
+      <DependentUpon>PartView2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MachineView.resx">
-      <DependentUpon>MachineView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\SerialMachineTransferView.resx">
+      <DependentUpon>SerialMachineTransferView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceSelectorView.resx">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
@@ -1004,6 +983,9 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\SaveIcon_32x32.png" />
+    <None Include="Resources\RefreshIcon_32x32.png" />
+    <None Include="Resources\CropIcon_32x32.png" />
     <None Include="Resources\CloseIconHighlighted_16x16.png" />
     <None Include="Resources\CloseIconNotHighlighted_16x16.png" />
     <None Include="Resources\CirclePreloader_32x32.png" />

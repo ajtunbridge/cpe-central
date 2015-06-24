@@ -96,7 +96,6 @@ namespace CPECentral.Views
         public void LoadPart(Part part)
         {
             using (NoFlicker.On(this)) {
-                machineTransferView.Visible = false;
                 Part = part;
                 partDescriptionLabel.Text = string.Format("{0} - {1}", part.DrawingNumber, part.Name);
                 partInformationView.LoadPart(part);
@@ -246,11 +245,10 @@ namespace CPECentral.Views
                 string pathToDocument = Session.DocumentService.GetPathToDocument(doc);
 
                 operationDocumentsTabControl.InvokeEx(() => {
-                    var tabPage = new ClosableTabPage(doc.FileName);
-                    var editorPanel = new AvalonNcEditor();
+                    var tabPage = new TabPage(doc.FileName);
+                    var editorPanel = new NcProgrammingView(operationsView.SelectedOperation, pathToDocument);
                     tabPage.Controls.Add(editorPanel);
                     editorPanel.Dock = DockStyle.Fill;
-                    editorPanel.LoadFile(pathToDocument);
                     operationDocumentsTabControl.TabPages.Add(tabPage);
                     operationDocumentsTabControl.SelectedTab = tabPage;
                 });
@@ -306,7 +304,6 @@ namespace CPECentral.Views
 
         private void operationDocumentsView_SelectionChanged(object sender, EventArgs e)
         {
-            machineTransferView.Visible = false;
         }
 
         private void nonConformanceWarningPictureBox_Click(object sender, EventArgs e)

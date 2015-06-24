@@ -12,6 +12,7 @@ using NcCommunicator.Data.Model;
 
 namespace NcCommunicator
 {
+    /*
     public class SerialLink : IDisposable
     {
         private const byte DefaultBlockSize = 16;
@@ -120,7 +121,7 @@ namespace NcCommunicator
                 }
 
                 bool receivedXOnChar = line.IndexOfAny(new[] {
-                    _control.XOnChar, _control.XOnChar2
+                    _control.SendXOnChar, _control.XOnChar2
                 }) >= 0;
 
                 if (receivedXOnChar) {
@@ -132,7 +133,7 @@ namespace NcCommunicator
                 }
 
                 bool receivedXoffChar = line.IndexOfAny(new[] {
-                    _control.XOffChar, _control.XOffChar2
+                    _control.SendXOffChar, _control.XOffChar2
                 }) >= 0;
 
                 // if finished uploading data
@@ -247,4 +248,5 @@ namespace NcCommunicator
             return builder.ToString();
         }
     }
+     * */
 }

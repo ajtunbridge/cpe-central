@@ -172,6 +172,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CropIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("CropIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CustomerIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("CustomerIcon_16x16", resourceCulture);
@@ -622,6 +632,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RefreshIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("RefreshIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReloadIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("ReloadIcon_16x16", resourceCulture);
@@ -665,6 +685,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap SaveIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("SaveIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveIcon_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("SaveIcon_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

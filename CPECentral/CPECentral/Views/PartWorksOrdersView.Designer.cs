@@ -34,6 +34,7 @@
             this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn5 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.worksOrdersObjectListView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,6 +42,7 @@
             // 
             this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn1);
             this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn2);
+            this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn6);
             this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn3);
             this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn4);
             this.worksOrdersObjectListView.AllColumns.Add(this.olvColumn5);
@@ -48,6 +50,7 @@
             this.worksOrdersObjectListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColumn1,
             this.olvColumn2,
+            this.olvColumn6,
             this.olvColumn3,
             this.olvColumn4,
             this.olvColumn5});
@@ -79,7 +82,7 @@
             this.olvColumn2.CellPadding = null;
             this.olvColumn2.FillsFreeSpace = true;
             this.olvColumn2.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn2.Text = "Due on";
+            this.olvColumn2.Text = "Delivery";
             this.olvColumn2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn2.Width = 100;
             // 
@@ -113,6 +116,14 @@
             this.olvColumn5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn5.Width = 130;
             // 
+            // olvColumn6
+            // 
+            this.olvColumn6.AspectName = "Version";
+            this.olvColumn6.CellPadding = null;
+            this.olvColumn6.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn6.Text = "Version";
+            this.olvColumn6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // PartWorksOrdersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -135,5 +146,6 @@
         private BrightIdeasSoftware.OLVColumn olvColumn3;
         private BrightIdeasSoftware.OLVColumn olvColumn4;
         private BrightIdeasSoftware.OLVColumn olvColumn5;
+        private BrightIdeasSoftware.OLVColumn olvColumn6;
     }
 }

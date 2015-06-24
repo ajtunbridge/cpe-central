@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace CPECentral.Views
 {
-    public partial class MachineTransferQueueView : ViewBase
+    public partial class PartView2 : UserControl
     {
-        public MachineTransferQueueView()
+        public PartView2()
         {
             InitializeComponent();
         }

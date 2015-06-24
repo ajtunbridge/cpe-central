@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
+using CPECentral.Messages;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using nGenLibrary;
@@ -46,6 +47,8 @@ namespace CPECentral.Presenters
                         _view.RefreshOperationTools();
                     }
                 }
+
+                Session.MessageBus.Publish(new OperationToolListChangedMessage(_view.CurrentOperation));
             }
             catch (Exception ex) {
                 HandleException(ex);
@@ -78,6 +81,8 @@ namespace CPECentral.Presenters
                             _view.RefreshOperationTools();
                         }
                     }
+
+                    Session.MessageBus.Publish(new OperationToolListChangedMessage(_view.CurrentOperation));
                 }
                 catch (Exception ex) {
                     HandleException(ex);
@@ -111,6 +116,8 @@ namespace CPECentral.Presenters
                             _view.RefreshOperationTools();
                         }
                     }
+
+                    Session.MessageBus.Publish(new OperationToolListChangedMessage(_view.CurrentOperation));
                 }
                 catch (Exception ex) {
                     HandleException(ex);

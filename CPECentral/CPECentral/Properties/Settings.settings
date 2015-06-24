@@ -111,5 +111,8 @@
     <Setting Name="PathToQMSDatabase" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\SJCSRV1\Data\Quality\QMS DATABASE2008.mdb</Value>
     </Setting>
+    <Setting Name="AutomaticallyShowDrawing" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
