@@ -24,6 +24,7 @@ namespace CPECentral.Views
             if (!IsInDesignMode) {
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
                 Session.MessageBus.Subscribe<LoadPartMessage>(LoadPartMessage_Published);
+                Session.MessageBus.Subscribe<PartAddedMessage>(PartAddedMessage_Published);
                 tabControl.ImageList = tabPageImageList;
 
                 tabPageImageList.Images.Add("StartIcon", Resources.StartPageTabIcon_16x16);
@@ -36,6 +37,11 @@ namespace CPECentral.Views
         }
 
         public Employee SessionEmployee { get; private set; }
+
+        private void PartAddedMessage_Published(PartAddedMessage message)
+        {
+
+        }
 
         private void PartEditedMessage_Published(PartEditedMessage partEditedMessage)
         {

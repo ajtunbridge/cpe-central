@@ -23,13 +23,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\SJCSRV1\Data\Central\ClickOnce\</InstallUrl>
+    <InstallUrl>\\CPE-SRV1\Data\Central\ClickOnce\</InstallUrl>
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.1.0.7</MinimumRequiredVersion>
-    <ApplicationRevision>8</ApplicationRevision>
-    <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -279,6 +279,12 @@
     </Compile>
     <Compile Include="Dialogs\NonConformanceViewerDialog.Designer.cs">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PhotoEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PhotoEditorDialog.designer.cs">
+      <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ReceiveProgramDialog.cs">
       <SubType>Form</SubType>
@@ -703,6 +709,9 @@
     <EmbeddedResource Include="Dialogs\NonConformanceViewerDialog.resx">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PhotoEditorDialog.resx">
+      <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -1004,6 +1013,9 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\SaveIcon_32x32.png" />
+    <None Include="Resources\RefreshIcon_32x32.png" />
+    <None Include="Resources\CropIcon_32x32.png" />
     <None Include="Resources\CloseIconHighlighted_16x16.png" />
     <None Include="Resources\CloseIconNotHighlighted_16x16.png" />
     <None Include="Resources\CirclePreloader_32x32.png" />

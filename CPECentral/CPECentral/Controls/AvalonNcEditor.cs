@@ -321,7 +321,10 @@ namespace CPECentral.Controls
                 }
 
                 using (var dialog = new ReceiveProgramDialog(machine.ComPort, control)) {
-                    dialog.ShowDialog(ParentForm);
+                    if (dialog.ShowDialog(ParentForm) != DialogResult.OK)
+                    {
+                        return;
+                    }
 
                     _editor.Text = dialog.ReceivedProgram;
                     SaveChanges();

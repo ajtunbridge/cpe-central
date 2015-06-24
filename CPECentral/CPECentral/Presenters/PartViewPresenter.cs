@@ -11,6 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.QMS;
 using CPECentral.ViewModels;
@@ -101,12 +102,23 @@ namespace CPECentral.Presenters
 
                 using (var openFileDialog = new OpenFileDialog()) {
                     openFileDialog.Filter = "Image files|*.jpg;*.jpeg;*.png";
-                    openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                    openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     openFileDialog.Multiselect = false;
                     if (openFileDialog.ShowDialog() != DialogResult.OK) {
                         return;
                     }
                     Image img = Image.FromFile(openFileDialog.FileName);
+
+                    using (var photoEditorDialog = new PhotoEditorDialog(img))
+                    {
+                        if (photoEditorDialog.ShowDialog(_partView.ParentForm) != DialogResult.OK) 
+                        {
+                            return;
+                        }
+
+                        img = photoEditorDialog.EditedImage;
+                    }
+
                     photoImage = ResizePartVersionImageToStandardResolution(img);
                 }
 

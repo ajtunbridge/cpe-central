@@ -130,6 +130,8 @@ namespace CPECentral.Presenters
                         foreach (string file in addPartDialog.FilesToImport) {
                             Session.DocumentService.QueueUpload(file, version);
                         }
+
+                        Session.MessageBus.Publish(new LoadPartMessage(part));
                     }
                 }
             }
