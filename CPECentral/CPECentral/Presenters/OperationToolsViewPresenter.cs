@@ -111,6 +111,10 @@ namespace CPECentral.Presenters
                             _view.RefreshOperationTools();
                         }
                     }
+                    if (_view.DialogService.AskQuestion("Do you want to add another tool?"))
+                    {
+                        _view_AddOperationTool(sender, e);
+                    }
                 }
                 catch (Exception ex) {
                     HandleException(ex);

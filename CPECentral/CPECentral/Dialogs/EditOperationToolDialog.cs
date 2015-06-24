@@ -106,6 +106,10 @@ namespace CPECentral.Dialogs
                     }
                 }
             }
+            else
+            {
+
+            }
         }
 
         private void toolManagementButton_Click(object sender, EventArgs e)
