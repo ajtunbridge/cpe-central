@@ -26,8 +26,6 @@ namespace CPECentral.Views
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
         void RetrieveOperationTools(Operation operation);
-
-        Operation CurrentOperation { get; set; }
     }
 
     public partial class OperationToolsView : ViewBase, IOperationToolsView
@@ -44,14 +42,7 @@ namespace CPECentral.Views
 
             if (!IsInDesignMode) {
                 _presenter = new OperationToolsViewPresenter(this);
-
                 Session.MessageBus.Subscribe<ToolRenamedMessage>(ToolRenamedMessageHandler);
-
-                Session.MessageBus.Subscribe<OperationToolListChangedMessage>(args => {
-                    if (_currentOperation == args.Operation) {
-                        RefreshOperationTools();
-                    }
-                });
             }
         }
 
@@ -118,18 +109,6 @@ namespace CPECentral.Views
             operationToolsEnhancedListView.Items.Add("retrieving...");
 
             OnLoadOperationTools(new OperationEventArgs(operation));
-        }
-
-        public Operation CurrentOperation
-        {
-            get { return _currentOperation; }
-            set
-            {
-                _currentOperation = value;
-                if (value != null) {
-                    RetrieveOperationTools(value);
-                }
-            }
         }
 
         #endregion

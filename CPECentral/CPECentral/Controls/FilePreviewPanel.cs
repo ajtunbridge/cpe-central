@@ -3,10 +3,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using CPECentral.Properties;
-using CPECentral.Views;
 using nGenLibrary;
 
 #endregion
@@ -38,14 +36,28 @@ namespace CPECentral.Controls
             string extension = fileName.Substring(indexOfLastDot).ToLower();
 
             if (extension == ".pdf") {
+                using (BusyCursor.Show()) {
+                    string tempFile = Path.GetTempFileName() + extension;
+
+                    File.Copy(fileName, tempFile, true);
+
                     var pdfViewer = new PdfViewer();
                     pdfViewer.Dock = DockStyle.Fill;
-                    pdfViewer.AllowDrop = true;
-                    pdfViewer.DragEnter += FilePreviewPanel_DragEnter;
-                    pdfViewer.DragDrop += FilePreviewPanel_DragDrop;
-                    pdfViewer.LoadFile(fileName);
                     Controls.Add(pdfViewer);
+                    pdfViewer.LoadFile(tempFile);
+                }
                 return;
+            }
+
+            string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.None);
+
+            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
+                var ncEditor = new AvalonNcEditor();
+                ncEditor.Dock = DockStyle.Fill;
+                Controls.Add(ncEditor);
+                ncEditor.BringToFront();
+                ncEditor.LoadFile(fileName);
             }
 
             string[] imageExtensions = Settings.Default.ImageFileExtensions.Split(new[] {"|"},
@@ -54,9 +66,6 @@ namespace CPECentral.Controls
             if (imageExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
                 var imageViewer = new ImageViewer();
                 imageViewer.Dock = DockStyle.Fill;
-                imageViewer.AllowDrop = true;
-                imageViewer.DragEnter += FilePreviewPanel_DragEnter;
-                imageViewer.DragDrop += FilePreviewPanel_DragDrop;
                 Controls.Add(imageViewer);
                 imageViewer.LoadFile(fileName);
             }
@@ -65,14 +74,6 @@ namespace CPECentral.Controls
         public void Clear()
         {
             Controls.Clear();
-        }
-
-        private void FilePreviewPanel_DragDrop(object sender, DragEventArgs e)
-        {
-        }
-
-        private void FilePreviewPanel_DragEnter(object sender, DragEventArgs e)
-        {
         }
     }
 }

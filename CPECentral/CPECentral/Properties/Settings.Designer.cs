@@ -387,17 +387,5 @@ namespace CPECentral.Properties {
                 this["PathToQMSDatabase"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutomaticallyShowDrawing {
-            get {
-                return ((bool)(this["AutomaticallyShowDrawing"]));
-            }
-            set {
-                this["AutomaticallyShowDrawing"] = value;
-            }
-        }
     }
 }

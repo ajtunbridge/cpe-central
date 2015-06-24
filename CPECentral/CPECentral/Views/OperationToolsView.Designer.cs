@@ -134,7 +134,7 @@
             // 
             // operationToolsEnhancedListView
             // 
-            this.operationToolsEnhancedListView.AlternateBackColor = System.Drawing.Color.Ivory;
+            this.operationToolsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
             this.operationToolsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -175,7 +175,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 132;
+            this.columnHeader3.Width = 130;
             // 
             // columnHeader4
             // 

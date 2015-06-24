@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,13 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Data.SQLite, Version=1.0.91.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\System.Data.SQLite\NET40\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,39 +41,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Model\MachineControl.cs" />
     <Compile Include="Data\Model\Machine.cs" />
-    <Compile Include="Data\Model\SerialMachine.cs" />
-    <Compile Include="Data\Model\SmbMachine.cs" />
-    <Compile Include="Data\MachinesDataProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
+    <Compile Include="Data\Model\MachinesDataSet.cs">
+      <DependentUpon>MachinesDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\Model\MachinesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MachinesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Repositories\MachineControlRepository.cs" />
+    <Compile Include="Data\Repositories\MachineRepository.cs" />
+    <Compile Include="Data\Repositories\RepositoryBase.cs" />
+    <Compile Include="Data\NcUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiveProgressEventArgs.cs" />
     <Compile Include="SerialConnectionFailedException.cs" />
     <Compile Include="SerialLink.cs" />
-    <Compile Include="SerialMachineLink.cs" />
     <Compile Include="TransmitProgressEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <EmbeddedResource Include="Data\Model\machines.sqlite" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Include="Data\Model\MachinesDataSet.xsc">
+      <DependentUpon>MachinesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Data\Model\MachinesDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MachinesDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Data\Model\MachinesDataSet.xss">
+      <DependentUpon>MachinesDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
-      <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
-      <Name>nGenLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

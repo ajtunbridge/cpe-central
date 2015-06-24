@@ -33,6 +33,7 @@ namespace CPECentral.Dialogs
                     categoryControl = new SettingsGeneralUserControl();
                     break;
                 case "machinesTreeNode":
+                    categoryControl = new SettingsMachinesUserControl();
                     break;
             }
 

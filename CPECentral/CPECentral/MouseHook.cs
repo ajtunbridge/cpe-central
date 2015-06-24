@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 #endregion
@@ -1528,9 +1527,6 @@ namespace CPECentral
         private bool disposed = false;
         private IntPtr hHook = IntPtr.Zero;
 
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr GetModuleHandle(string name); 
-
         // we need to keep an instance of this delegate alive otherwise it will be garbage collected
 
         public MouseHook()
@@ -1583,21 +1579,9 @@ namespace CPECentral
 
         public void StartMouseHook()
         {
-            var osVersion = Environment.OSVersion.Version.Major;
-
-            // if running on Windows XP, must supply the module handle to the hook
-            // ref: http://stackoverflow.com/questions/10516448/error-when-using-setwindowshookex-in-windows-xp-but-not-in-windows-7
-            if (osVersion == 5) {
-                var handle = GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName);
-
-                hHook = SetWindowsHookEx(HookType.WH_MOUSE_LL, _mouseProc, handle, 0);
-            }
-            else {
-                hHook = SetWindowsHookEx(HookType.WH_MOUSE_LL, _mouseProc, IntPtr.Zero, 0);
-            }
-
-            if (hHook == IntPtr.Zero)
-            {
+            // Insert global low-level mouse hook, tell Windows to call our mouseProc method
+            hHook = SetWindowsHookEx(HookType.WH_MOUSE_LL, _mouseProc, IntPtr.Zero, 0);
+            if (hHook == IntPtr.Zero) {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
         }

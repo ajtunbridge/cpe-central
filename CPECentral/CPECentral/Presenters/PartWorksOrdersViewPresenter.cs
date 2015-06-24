@@ -45,7 +45,6 @@ namespace CPECentral.Presenters
                             var model = new PartWorksOrdersViewModel {
                                 WorksOrderNumber = wo.User_Reference,
                                 DueOn = wo.Delivery,
-                                Version = wo.Drawing_Issue,
                                 Quantity = Convert.ToInt32(wo.Quantity),
                                 BuildQuantity = Convert.ToInt32(wo.Quantity_To_Build),
                                 OrderNumber = wo.Customer_Order_Number
