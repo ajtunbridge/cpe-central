@@ -87,7 +87,7 @@ namespace CPECentral.Presenters
 
         private void _view_AddOperationTool(object sender, OperationEventArgs e)
         {
-            using (var editOperationToolDialog = new EditOperationToolDialog()) {
+            using (var editOperationToolDialog = new EditOperationToolDialog(e.Operation)) {
                 if (editOperationToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK) {
                     return;
                 }
@@ -108,12 +108,8 @@ namespace CPECentral.Presenters
 
                             cpe.OperationTools.Add(newOpTool);
                             cpe.Commit();
-                            _view.RefreshOperationTools();
+                            _view.NewToolAdded();
                         }
-                    }
-                    if (_view.DialogService.AskQuestion("Do you want to add another tool?"))
-                    {
-                        _view_AddOperationTool(sender, e);
                     }
                 }
                 catch (Exception ex) {

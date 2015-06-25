@@ -161,6 +161,7 @@
             this.operationToolsEnhancedListView.View = System.Windows.Forms.View.Details;
             this.operationToolsEnhancedListView.ItemActivate += new System.EventHandler(this.operationToolsEnhancedListView_ItemActivate);
             this.operationToolsEnhancedListView.SelectedIndexChanged += new System.EventHandler(this.operationToolsEnhancedListView_SelectedIndexChanged);
+            this.operationToolsEnhancedListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.operationToolsEnhancedListView_KeyDown);
             // 
             // columnHeader1
             // 
@@ -175,7 +176,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 130;
+            this.columnHeader3.Width = 132;
             // 
             // columnHeader4
             // 

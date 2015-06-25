@@ -26,6 +26,7 @@ namespace CPECentral.Views
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
         void RetrieveOperationTools(Operation operation);
+        void NewToolAdded();
     }
 
     public partial class OperationToolsView : ViewBase, IOperationToolsView
@@ -109,6 +110,16 @@ namespace CPECentral.Views
             operationToolsEnhancedListView.Items.Add("retrieving...");
 
             OnLoadOperationTools(new OperationEventArgs(operation));
+        }
+
+        public void NewToolAdded()
+        {
+            RetrieveOperationTools(_currentOperation);
+
+            if (DialogService.AskQuestion("Do you want to add another tool?"))
+            {
+                OnAddOperationTool(new OperationEventArgs(_currentOperation));
+            }
         }
 
         #endregion
@@ -219,6 +230,18 @@ namespace CPECentral.Views
                 case "addToolToolStripMenuItem":
                     OnAddOperationTool(new OperationEventArgs(_currentOperation));
                     break;
+            }
+        }
+
+        private void operationToolsEnhancedListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && _selectedOperationTool != null)
+            {
+                OnDeleteOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+            }
+            if (e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus)
+            {
+                OnAddOperationTool(new OperationEventArgs(_currentOperation));
             }
         }
     }
