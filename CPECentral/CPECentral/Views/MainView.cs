@@ -22,6 +22,7 @@ namespace CPECentral.Views
         event EventHandler RetrieveEmployeeAccounts;
         event EventHandler AddNewPart;
         event EventHandler LoadToolManagementDialog;
+        event EventHandler LoadSettingsDialog;
 
         void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees);
     }
@@ -58,6 +59,7 @@ namespace CPECentral.Views
         public event EventHandler RetrieveEmployeeAccounts;
         public event EventHandler AddNewPart;
         public event EventHandler LoadToolManagementDialog;
+        public event EventHandler LoadSettingsDialog;
 
         public void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees)
         {
@@ -129,6 +131,15 @@ namespace CPECentral.Views
             }
         }
 
+        private void OnLoadSettingsDialog()
+        {
+            EventHandler handler = LoadSettingsDialog;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
         private void DocumentService_TransferComplete(object sender, EventArgs e)
         {
             Invoke((MethodInvoker) delegate {
@@ -169,6 +180,9 @@ namespace CPECentral.Views
                     break;
                 case "logoutToolStripButton":
                     HandleLogout();
+                    break;
+                case "settingsToolStripButton":
+                    OnLoadSettingsDialog();
                     break;
             }
         }

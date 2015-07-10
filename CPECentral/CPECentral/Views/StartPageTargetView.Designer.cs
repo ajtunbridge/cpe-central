@@ -31,15 +31,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.lastMonthEasyProgressBar = new EasyProgressBar.EasyProgressBar();
             this.currentMonthEasyProgressBar = new EasyProgressBar.EasyProgressBar();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.loadingPictureBox = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fiscalYearEasyProgressBar = new EasyProgressBar.EasyProgressBar();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,18 +75,6 @@
             this.label1.Text = "How productive are we?";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 164);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(265, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "refreshing data....";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lastMonthEasyProgressBar
             // 
             this.lastMonthEasyProgressBar.AlphaMaker = null;
@@ -96,12 +83,12 @@
             this.lastMonthEasyProgressBar.DigitBoxGradient.ColorEnd = System.Drawing.Color.WhiteSmoke;
             this.lastMonthEasyProgressBar.DisplayFormat = "of target produced";
             this.lastMonthEasyProgressBar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastMonthEasyProgressBar.ForeColor = System.Drawing.Color.DimGray;
-            this.lastMonthEasyProgressBar.Location = new System.Drawing.Point(6, 128);
+            this.lastMonthEasyProgressBar.ForeColor = System.Drawing.Color.Black;
+            this.lastMonthEasyProgressBar.Location = new System.Drawing.Point(6, 107);
             this.lastMonthEasyProgressBar.Name = "lastMonthEasyProgressBar";
             this.lastMonthEasyProgressBar.ProgressGradient.ColorEnd = System.Drawing.Color.Gold;
             this.lastMonthEasyProgressBar.ProgressGradient.ColorStart = System.Drawing.Color.PaleGoldenrod;
-            this.lastMonthEasyProgressBar.Size = new System.Drawing.Size(262, 30);
+            this.lastMonthEasyProgressBar.Size = new System.Drawing.Size(266, 23);
             this.lastMonthEasyProgressBar.TabIndex = 3;
             this.lastMonthEasyProgressBar.Text = "0% of target produced";
             this.lastMonthEasyProgressBar.Value = 0;
@@ -114,12 +101,12 @@
             this.currentMonthEasyProgressBar.DigitBoxGradient.ColorEnd = System.Drawing.Color.WhiteSmoke;
             this.currentMonthEasyProgressBar.DisplayFormat = "of target produced";
             this.currentMonthEasyProgressBar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentMonthEasyProgressBar.ForeColor = System.Drawing.Color.DimGray;
-            this.currentMonthEasyProgressBar.Location = new System.Drawing.Point(6, 72);
+            this.currentMonthEasyProgressBar.ForeColor = System.Drawing.Color.Black;
+            this.currentMonthEasyProgressBar.Location = new System.Drawing.Point(6, 62);
             this.currentMonthEasyProgressBar.Name = "currentMonthEasyProgressBar";
             this.currentMonthEasyProgressBar.ProgressGradient.ColorEnd = System.Drawing.Color.LightGreen;
             this.currentMonthEasyProgressBar.ProgressGradient.ColorStart = System.Drawing.Color.ForestGreen;
-            this.currentMonthEasyProgressBar.Size = new System.Drawing.Size(262, 30);
+            this.currentMonthEasyProgressBar.Size = new System.Drawing.Size(266, 23);
             this.currentMonthEasyProgressBar.TabIndex = 3;
             this.currentMonthEasyProgressBar.Text = "0% of target produced";
             this.currentMonthEasyProgressBar.Value = 0;
@@ -127,7 +114,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 108);
+            this.label3.Location = new System.Drawing.Point(3, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 17);
             this.label3.TabIndex = 2;
@@ -136,34 +123,49 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 52);
+            this.label2.Location = new System.Drawing.Point(3, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "Current month";
             // 
-            // loadingPictureBox
+            // label5
             // 
-            this.loadingPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 133);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(113, 17);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Current fiscal year";
+            // 
+            // fiscalYearEasyProgressBar
+            // 
+            this.fiscalYearEasyProgressBar.AlphaMaker = null;
+            this.fiscalYearEasyProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadingPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
-            this.loadingPictureBox.Location = new System.Drawing.Point(6, 164);
-            this.loadingPictureBox.Name = "loadingPictureBox";
-            this.loadingPictureBox.Size = new System.Drawing.Size(262, 15);
-            this.loadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.loadingPictureBox.TabIndex = 9;
-            this.loadingPictureBox.TabStop = false;
+            this.fiscalYearEasyProgressBar.DigitBoxGradient.ColorEnd = System.Drawing.Color.WhiteSmoke;
+            this.fiscalYearEasyProgressBar.DisplayFormat = "of target produced";
+            this.fiscalYearEasyProgressBar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fiscalYearEasyProgressBar.ForeColor = System.Drawing.Color.Black;
+            this.fiscalYearEasyProgressBar.Location = new System.Drawing.Point(6, 153);
+            this.fiscalYearEasyProgressBar.Name = "fiscalYearEasyProgressBar";
+            this.fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = System.Drawing.Color.Gold;
+            this.fiscalYearEasyProgressBar.ProgressGradient.ColorStart = System.Drawing.Color.PaleGoldenrod;
+            this.fiscalYearEasyProgressBar.Size = new System.Drawing.Size(266, 23);
+            this.fiscalYearEasyProgressBar.TabIndex = 3;
+            this.fiscalYearEasyProgressBar.Text = "0% of target produced";
+            this.fiscalYearEasyProgressBar.Value = 0;
             // 
             // StartPageTargetView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Controls.Add(this.loadingPictureBox);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.fiscalYearEasyProgressBar);
             this.Controls.Add(this.lastMonthEasyProgressBar);
             this.Controls.Add(this.currentMonthEasyProgressBar);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -175,7 +177,6 @@
             this.Load += new System.EventHandler(this.TurnoverTargetView_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loadingPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,10 +188,10 @@
         private System.Windows.Forms.Label label3;
         private EasyProgressBar.EasyProgressBar currentMonthEasyProgressBar;
         private EasyProgressBar.EasyProgressBar lastMonthEasyProgressBar;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox loadingPictureBox;
+        private System.Windows.Forms.Label label5;
+        private EasyProgressBar.EasyProgressBar fiscalYearEasyProgressBar;
     }
 }

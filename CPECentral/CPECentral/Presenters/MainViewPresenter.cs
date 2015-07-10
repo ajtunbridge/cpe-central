@@ -26,6 +26,15 @@ namespace CPECentral.Presenters
             _view.AddNewPart += _view_AddNewPart;
             _view.LoadToolManagementDialog += _view_LoadToolManagementDialog;
             _view.RetrieveEmployeeAccounts += _view_RetrieveEmployeeAccounts;
+            _view.LoadSettingsDialog += _view_LoadSettingsDialog;
+        }
+
+        void _view_LoadSettingsDialog(object sender, EventArgs e)
+        {
+            using (var dialog = new SettingsDialog())
+            {
+                dialog.ShowDialog(_view.ParentForm);
+            }
         }
 
         void _view_LoadToolManagementDialog(object sender, EventArgs e)

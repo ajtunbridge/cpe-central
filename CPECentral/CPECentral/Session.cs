@@ -1,6 +1,8 @@
 ﻿#region Using directives
 
+using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Properties;
@@ -54,11 +56,51 @@ namespace CPECentral
             DocumentService = new DocumentService();
 
             _partPhotoCache = new PartPhotoCache();
+
+            CopyQmsLocally();
         }
 
         internal static T GetInstanceOf<T>()
         {
             return _kernel.Get<T>();
+        }
+
+        private static void CopyQmsLocally()
+        {
+            string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
+                                  "\\CPECentral\\";
+
+            var pathToRemoteQms = Settings.Default.PathToQMSDatabase;
+
+            var fileName = Path.GetFileName(pathToRemoteQms);
+
+            var localFilePath = Path.Combine(commonAppDir, fileName);
+
+            if (!File.Exists(localFilePath))
+            {
+                File.Copy(pathToRemoteQms, localFilePath);
+                return;
+            }
+            
+            var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+
+            bool fileHasBeenModified = false;
+
+            using (var remoteStream = new FileStream(pathToRemoteQms, FileMode.Open))
+            {
+                using (var localStream = new FileStream(localFilePath, FileMode.Open))
+                {
+                    var remoteHash = md5.ComputeHash(remoteStream);
+                    var localHash = md5.ComputeHash(localStream);
+
+                    fileHasBeenModified = remoteHash != localHash;
+                }
+            }
+
+            if (fileHasBeenModified)
+            {
+                File.Copy(pathToRemoteQms, localFilePath, true);
+            }
         }
     }
 }

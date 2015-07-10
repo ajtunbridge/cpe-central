@@ -5,6 +5,7 @@ using System.IO;
 using System.Media;
 using System.Windows.Forms;
 using CPECentral.Properties;
+using nGenLibrary;
 using NcCommunicator;
 using NcCommunicator.Data.Model;
 
@@ -46,11 +47,15 @@ namespace CPECentral.Dialogs
         private void NcTransmissionDialog_Load(object sender, EventArgs e)
         {
             try {
-                _serialLink.Connect();
-                _serialLink.Transmit(_textToSend);
+                using (BusyCursor.Show())
+                {
+                    _serialLink.Connect();
+                    _serialLink.Transmit(_textToSend);
+                }
             }
             catch (SerialConnectionFailedException serialEx) {
                 _dialogService.ShowError(serialEx.Message);
+                Close();
             }
         }
 

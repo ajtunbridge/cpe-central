@@ -28,7 +28,7 @@
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
     <MinimumRequiredVersion>3.2.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -401,6 +401,7 @@
     <Compile Include="PreviewPopoutForm.Designer.cs">
       <DependentUpon>PreviewPopoutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="QMS\Model\Gauge.cs" />
     <Compile Include="QMS\Model\NonConformance.cs" />
     <Compile Include="QMS\QMSDataProvider.cs" />
     <Compile Include="StandardDialogService.cs" />
@@ -422,6 +423,12 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToastNotificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToastNotificationForm.Designer.cs">
+      <DependentUpon>ToastNotificationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolGenerator.cs" />
     <Compile Include="ViewModels\CheckStockLevelsViewModel.cs" />
     <Compile Include="ViewModels\DocumentsViewModel.cs" />
@@ -435,6 +442,12 @@
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="Views\EmployeeSessionView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EmployeeSessionView2.Designer.cs">
+      <DependentUpon>EmployeeSessionView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -459,6 +472,12 @@
     <Compile Include="Views\MachineView.Designer.cs">
       <DependentUpon>MachineView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MaintenanceMachineView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MaintenanceMachineView.Designer.cs">
+      <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\NonConformanceSelectorView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -476,6 +495,24 @@
     </Compile>
     <Compile Include="Views\PartWorksOrdersView.Designer.cs">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QMSMetrologyEquipmentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\QMSMetrologyEquipmentView.Designer.cs">
+      <DependentUpon>QMSMetrologyEquipmentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QMSView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\QMSView.Designer.cs">
+      <DependentUpon>QMSView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageCalibrationView.Designer.cs">
+      <DependentUpon>StartPageCalibrationView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageCheckStockView.cs">
       <SubType>UserControl</SubType>
@@ -767,6 +804,12 @@
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToastNotificationForm.resx">
+      <DependentUpon>ToastNotificationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EmployeeSessionView2.resx">
+      <DependentUpon>EmployeeSessionView2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginView2.resx">
       <DependentUpon>LoginView2.cs</DependentUpon>
     </EmbeddedResource>
@@ -779,6 +822,9 @@
     <EmbeddedResource Include="Views\MachineView.resx">
       <DependentUpon>MachineView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\MaintenanceMachineView.resx">
+      <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceSelectorView.resx">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
     </EmbeddedResource>
@@ -787,6 +833,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartWorksOrdersView.resx">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QMSMetrologyEquipmentView.resx">
+      <DependentUpon>QMSMetrologyEquipmentView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QMSView.resx">
+      <DependentUpon>QMSView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StartPageCheckStockView.resx">
       <DependentUpon>StartPageCheckStockView.cs</DependentUpon>
@@ -1013,6 +1065,7 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\SettingsIcon_32x32.png" />
     <None Include="Resources\SaveIcon_32x32.png" />
     <None Include="Resources\RefreshIcon_32x32.png" />
     <None Include="Resources\CropIcon_32x32.png" />

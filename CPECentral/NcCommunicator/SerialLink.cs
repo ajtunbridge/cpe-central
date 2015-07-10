@@ -194,9 +194,13 @@ namespace NcCommunicator
                 return;
             }
 
-            _port.DiscardInBuffer();
-            _port.DiscardOutBuffer();
-            _port.Close();
+            if (_port.IsOpen)
+            {
+                _port.DiscardInBuffer();
+                _port.DiscardOutBuffer();
+                _port.Close();
+            }
+
             _port.Dispose();
         }
 

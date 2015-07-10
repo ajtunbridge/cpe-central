@@ -52,10 +52,7 @@ namespace CPECentral.Views
         {
             currentMonthEasyProgressBar.Value = model.CurrentMonthProgress;
             lastMonthEasyProgressBar.Value = model.LastMonthProgress;
-
-            loadingPictureBox.Visible = false;
-
-            label4.Text = "updated at " + DateTime.Now.ToShortTimeString();
+            fiscalYearEasyProgressBar.Value = model.FiscalYearProgress;
 
             if (model.CurrentMonthProgress < 60) {
                 currentMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
@@ -70,7 +67,6 @@ namespace CPECentral.Views
                 currentMonthEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
             }
 
-
             if (model.LastMonthProgress < 60) {
                 lastMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
                 lastMonthEasyProgressBar.ProgressGradient.ColorEnd = _lowColorEnd;
@@ -83,6 +79,23 @@ namespace CPECentral.Views
                 lastMonthEasyProgressBar.ProgressGradient.ColorStart = _targetReachedColorStart;
                 lastMonthEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
             }
+
+
+            if (model.FiscalYearProgress < 60)
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _lowColorEnd;
+            }
+            else if (model.FiscalYearProgress >= 60 && model.FiscalYearProgress < 100)
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _mediumColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _mediumColorEnd;
+            }
+            else
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _targetReachedColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
+            }
         }
 
         #endregion
@@ -94,8 +107,6 @@ namespace CPECentral.Views
 
         private void OnRefreshData()
         {
-            loadingPictureBox.Visible = true;
-
             EventHandler handler = RefreshData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);

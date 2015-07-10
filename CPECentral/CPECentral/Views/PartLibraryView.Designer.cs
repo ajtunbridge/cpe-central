@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PartLibraryView));
             this.groupOlvColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.searchValueTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,7 +64,6 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.searchValueTextBox);
             this.splitContainer1.Panel1.Controls.Add(this.searchButton);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
@@ -80,18 +78,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1142, 654);
             this.splitContainer1.SplitterDistance = 640;
             this.splitContainer1.TabIndex = 17;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(22, 617);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(605, 29);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Hold down the \'Ctrl\' key and hover over the drawing number to view a photo of the" +
-    " part";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // searchValueTextBox
             // 
@@ -157,7 +143,7 @@
             this.resultsObjectListView.Name = "resultsObjectListView";
             this.resultsObjectListView.OwnerDraw = true;
             this.resultsObjectListView.ShowItemCountOnGroups = true;
-            this.resultsObjectListView.Size = new System.Drawing.Size(602, 492);
+            this.resultsObjectListView.Size = new System.Drawing.Size(602, 522);
             this.resultsObjectListView.TabIndex = 12;
             this.resultsObjectListView.UseAlternatingBackColors = true;
             this.resultsObjectListView.UseCompatibleStateImageBehavior = false;
@@ -268,7 +254,6 @@
         private System.Windows.Forms.Button searchButton;
         private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
         private Controls.FilePreviewPanel filePreviewPanel1;
-        private System.Windows.Forms.Label label1;
         private BrightIdeasSoftware.OLVColumn groupOlvColumn;
     }
 }

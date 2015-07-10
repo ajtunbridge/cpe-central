@@ -54,10 +54,22 @@ namespace CPECentral.Presenters
                 }
 
                 using (var tricorn = new TricornDataProvider()) {
+                    var monthToday = DateTime.Today.Month;
+                    int year = DateTime.Today.Year;
+
+                    if (monthToday < 4)
+                    {
+                        year -= 1;
+                    }
+
+                    var startOfFiscalYear = new DateTime(year, 4, 1);
+                    var monthsSinceStartOfFiscalYear = Convert.ToInt32(DateTime.Today.Subtract(startOfFiscalYear).Days / (365.25 / 12));
+
                     decimal turnoverThisMonth = tricorn.GetTurnoverThisMonth() ?? 0;
                     decimal turnoverLastMonth = tricorn.GetTurnoverLastMonth() ?? 0;
+                    decimal turnoverFiscalYear = tricorn.GetTurnoverForPeriod(startOfFiscalYear, DateTime.Now) ?? 0;
 
-                    int currentMonthProgress = 0, lastMonthProgress = 0;
+                    int currentMonthProgress = 0, lastMonthProgress = 0, fiscalYearProgress = 0;
 
                     if (turnoverThisMonth > 0) {
                         currentMonthProgress = Convert.ToInt32((turnoverThisMonth/targetAmount)*100);
@@ -69,7 +81,15 @@ namespace CPECentral.Presenters
                         lastMonthProgress = Math.Min(lastMonthProgress, 100);
                     }
 
-                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress);
+                    if (turnoverFiscalYear > 0)
+                    {
+                        var fiscalYearTarget = targetAmount * monthsSinceStartOfFiscalYear;
+
+                        fiscalYearProgress = Convert.ToInt32((turnoverFiscalYear/fiscalYearTarget)*100);
+                        fiscalYearProgress = Math.Min(fiscalYearProgress, 100);
+                    }
+
+                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress, fiscalYearProgress);
 
                     e.Result = model;
                 }
