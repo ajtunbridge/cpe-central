@@ -134,7 +134,7 @@
             this.tabPage4.Size = new System.Drawing.Size(1095, 640);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Tag = "false";
-            this.tabPage4.Text = "Maintenance";
+            this.tabPage4.Text = "Machine tools";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // EmployeeSessionView2
