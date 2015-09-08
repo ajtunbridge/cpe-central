@@ -86,20 +86,27 @@ namespace CPECentral
 
             bool fileHasBeenModified = false;
 
-            using (var remoteStream = new FileStream(pathToRemoteQms, FileMode.Open))
+            try
             {
-                using (var localStream = new FileStream(localFilePath, FileMode.Open))
+                using (var remoteStream = new FileStream(pathToRemoteQms, FileMode.Open))
                 {
-                    var remoteHash = md5.ComputeHash(remoteStream);
-                    var localHash = md5.ComputeHash(localStream);
+                    using (var localStream = new FileStream(localFilePath, FileMode.Open))
+                    {
+                        var remoteHash = md5.ComputeHash(remoteStream);
+                        var localHash = md5.ComputeHash(localStream);
 
-                    fileHasBeenModified = remoteHash != localHash;
+                        fileHasBeenModified = remoteHash != localHash;
+                    }
+                }
+
+                if (fileHasBeenModified)
+                {
+                    File.Copy(pathToRemoteQms, localFilePath, true);
                 }
             }
-
-            if (fileHasBeenModified)
+            catch (Exception ex)
             {
-                File.Copy(pathToRemoteQms, localFilePath, true);
+                GetInstanceOf<IDialogService>().ShowError(ex.Message);
             }
         }
     }

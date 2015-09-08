@@ -123,6 +123,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\NoImageSetImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPECentral.Data.EF5\CPECentral.Data.EF5.csproj">
+      <Project>{502dea6a-ea3e-4a9a-bc97-96097cc3c77c}</Project>
+      <Name>CPECentral.Data.EF5</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
