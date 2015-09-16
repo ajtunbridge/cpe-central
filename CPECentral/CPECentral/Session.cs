@@ -76,18 +76,18 @@ namespace CPECentral
 
             var localFilePath = Path.Combine(commonAppDir, fileName);
 
-            if (!File.Exists(localFilePath))
-            {
-                File.Copy(pathToRemoteQms, localFilePath);
-                return;
-            }
-            
-            var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-
-            bool fileHasBeenModified = false;
-
             try
             {
+                if (!File.Exists(localFilePath))
+                {
+                    File.Copy(pathToRemoteQms, localFilePath);
+                    return;
+                }
+
+                var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+
+                bool fileHasBeenModified;
+
                 using (var remoteStream = new FileStream(pathToRemoteQms, FileMode.Open))
                 {
                     using (var localStream = new FileStream(localFilePath, FileMode.Open))
@@ -106,7 +106,10 @@ namespace CPECentral
             }
             catch (Exception ex)
             {
-                GetInstanceOf<IDialogService>().ShowError(ex.Message);
+                const string errorMessage =
+                    "Unable to access remote QMS database as it is in use!\n\nNon-conformance information displayed will not be up to date.";
+
+                GetInstanceOf<IDialogService>().ShowError(errorMessage);
             }
         }
     }
