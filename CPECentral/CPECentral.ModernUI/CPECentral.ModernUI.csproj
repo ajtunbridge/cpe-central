@@ -56,6 +56,7 @@
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Enums\AppModule.cs" />
     <Compile Include="EventArgs\AppModuleSelectedEventArgs.cs" />
+    <Compile Include="Presenters\PartSearchPresenter.cs" />
     <Compile Include="ViewModels\PartSearchViewModel.cs" />
     <Compile Include="Views\AppModuleSelectorView.xaml.cs">
       <DependentUpon>AppModuleSelectorView.xaml</DependentUpon>
@@ -131,7 +132,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presenters\" />
     <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>

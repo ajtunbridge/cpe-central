@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CPECentral.Data.EF5;
+using CPECentral.ModernUI.Presenters;
 using CPECentral.ModernUI.ViewModels;
 
 namespace CPECentral.ModernUI.Views
@@ -21,31 +22,13 @@ namespace CPECentral.ModernUI.Views
     /// </summary>
     public partial class PartSearchView : UserControl
     {
+        private readonly PartSearchPresenter _presenter;
+
         public PartSearchView()
         {
             InitializeComponent();
 
-            var model = new PartSearchViewModel();
-            DataContext = model;
-
-            var db = new CPEUnitOfWork();
-            foreach (var part in db.Parts.GetWhereDrawingNumberMatches("H5%"))
-            {
-                var latestVersion = db.PartVersions.GetLatestVersion(part);
-
-                var photo = db.Photos.GetByPartVersion(latestVersion);
-
-                var result = new PartSearchViewModel.SearchResult
-                {
-                    DrawingNumber = part.DrawingNumber,
-                    Name = part.Name,
-                    Version = latestVersion.VersionNumber,
-                    PartId = part.Id,
-                    ImageBytes = photo
-                };
-
-                model.SearchResults.Add(result);
-            }        
+            _presenter = new PartSearchPresenter(this);
         }
 
         private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -53,10 +36,20 @@ namespace CPECentral.ModernUI.Views
             const double columnRatio = 0.5;
 
             var remainingArea = SearchResultsListView.ActualWidth - SystemParameters.VerticalScrollBarWidth -
-                             VersionColumn.Width - PhotoColumn.Width - 10;
+                             VersionColumn.Width - PhotoColumn.Width;
 
             DrawingNumberColumn.Width = remainingArea*columnRatio;
             NameColumn.Width = remainingArea*columnRatio;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _presenter.Search(SearchValueTextBox.Text);
+        }
+
+        public void DisplayResults(PartSearchViewModel model)
+        {
+            DataContext = model;
         }
     }
 }

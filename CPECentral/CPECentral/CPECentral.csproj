@@ -496,6 +496,12 @@
     <Compile Include="Views\PartWorksOrdersView.Designer.cs">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProgramEditorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ProgramEditorView.Designer.cs">
+      <DependentUpon>ProgramEditorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\QMSMetrologyEquipmentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -833,6 +839,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartWorksOrdersView.resx">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProgramEditorView.resx">
+      <DependentUpon>ProgramEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QMSMetrologyEquipmentView.resx">
       <DependentUpon>QMSMetrologyEquipmentView.cs</DependentUpon>
