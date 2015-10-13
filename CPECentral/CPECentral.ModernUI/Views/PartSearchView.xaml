@@ -10,7 +10,7 @@
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="200" MaxWidth="840" />
-            <ColumnDefinition MinWidth="70" MaxWidth="120" />
+            <ColumnDefinition MinWidth="70" MaxWidth="150" />
             <ColumnDefinition Width="*" MinWidth="400" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -19,9 +19,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label FontSize="14" Grid.Column="0" Grid.Row="0" ToolTip="You can search by either drawing number, part name a works order or quote number" HorizontalAlignment="Center" VerticalAlignment="Center">Which part are you looking for?</Label>
-        <TextBox x:Name="SearchValueTextBox" Margin="5" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="DimGray" FontSize="18" />
-        <Button FontSize="14" Margin="5" Grid.Column="1" Grid.Row="1" Click="Button_Click">Search</Button>
-        <ListView x:Name="SearchResultsListView" Margin="5" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" SizeChanged="ListView_SizeChanged" ItemsSource="{Binding SearchResults}">
+        <TextBox x:Name="SearchValueTextBox" Margin="5" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="DimGray" FontSize="18" KeyDown="SearchValueTextBox_KeyDown" />
+        <Button x:Name="SearchButton" FontSize="14" Margin="5" Grid.Column="1" Grid.Row="1" Click="Button_Click">Search</Button>
+        <ListView x:Name="SearchResultsListView" Margin="5" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" SizeChanged="ListView_SizeChanged" ItemsSource="{Binding SearchResults}" SelectionChanged="SearchResultsListView_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="SearchResultsListView_ItemActivated" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.Resources>
                 <converters:BinaryImageConverter x:Key="BinaryImageConverter"></converters:BinaryImageConverter>
             </ListView.Resources>

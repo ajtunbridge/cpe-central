@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CPECentral.ModernUI</RootNamespace>
     <AssemblyName>CPECentral.ModernUI</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,8 +59,14 @@
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Enums\AppModule.cs" />
     <Compile Include="EventArgs\AppModuleSelectedEventArgs.cs" />
+    <Compile Include="EventArgs\ViewPartEventArgs.cs" />
     <Compile Include="Presenters\PartSearchPresenter.cs" />
+    <Compile Include="Presenters\PartViewPresenter.cs" />
+    <Compile Include="UserControls\PartViewHeader.xaml.cs">
+      <DependentUpon>PartViewHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\PartSearchViewModel.cs" />
+    <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="Views\AppModuleSelectorView.xaml.cs">
       <DependentUpon>AppModuleSelectorView.xaml</DependentUpon>
     </Compile>
@@ -85,6 +94,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\PartViewHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AppModuleSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

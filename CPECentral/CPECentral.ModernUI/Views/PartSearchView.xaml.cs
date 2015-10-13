@@ -24,6 +24,8 @@ namespace CPECentral.ModernUI.Views
     {
         private readonly PartSearchPresenter _presenter;
 
+        public event EventHandler ViewPart;
+
         public PartSearchView()
         {
             InitializeComponent();
@@ -36,20 +38,58 @@ namespace CPECentral.ModernUI.Views
             const double columnRatio = 0.5;
 
             var remainingArea = SearchResultsListView.ActualWidth - SystemParameters.VerticalScrollBarWidth -
-                             VersionColumn.Width - PhotoColumn.Width;
+                             VersionColumn.Width - PhotoColumn.Width - 10;
 
             DrawingNumberColumn.Width = remainingArea*columnRatio;
             NameColumn.Width = remainingArea*columnRatio;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.Search(SearchValueTextBox.Text);
+            SearchButton.Content = "Searching...";
+            SearchButton.IsEnabled = false;
+
+            await _presenter.SearchAsync(SearchValueTextBox.Text);
+
+            SearchButton.Content = "Search";
+            SearchButton.IsEnabled = true;
         }
 
         public void DisplayResults(PartSearchViewModel model)
         {
             DataContext = model;
+        }
+
+        private void SearchValueTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // TODO: find out if it's ok to use null as event arg
+                Button_Click(sender, null);
+            }
+        }
+
+        private void SearchResultsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = SearchResultsListView.SelectedItem as PartSearchViewModel.SearchResult;
+
+            // TODO: preview drawing file in group box when search result selected
+        }
+
+        private void SearchResultsListView_ItemActivated(object sender, MouseButtonEventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            var searchResult = item.Content as PartSearchViewModel.SearchResult;
+            
+            var viewModel = new PartViewModel();
+            viewModel.HeaderText = $"{searchResult.DrawingNumber} Version {searchResult.Version}: {searchResult.Name}";
+            viewModel.PartId = searchResult.PartId;
+
+        }
+
+        protected virtual void OnViewPart()
+        {
+            ViewPart?.Invoke(this, System.EventArgs.Empty);
         }
     }
 }

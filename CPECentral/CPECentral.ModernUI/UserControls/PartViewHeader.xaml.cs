@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CPECentral.ModernUI.ViewModels;
 
-namespace CPECentral.ModernUI.Views
+namespace CPECentral.ModernUI.UserControls
 {
     /// <summary>
-    /// Interaction logic for PartView.xaml
+    /// Interaction logic for PartViewHeader.xaml
     /// </summary>
-    public partial class PartView : UserControl
+    public partial class PartViewHeader : UserControl
     {
-        public PartView(PartViewModel viewModel)
+        public PartViewHeader()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
-        
     }
 }
