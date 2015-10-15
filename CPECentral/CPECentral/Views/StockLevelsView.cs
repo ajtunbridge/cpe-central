@@ -21,7 +21,7 @@ namespace CPECentral.Views
 
     public partial class StockLevelsView : ViewBase, IStockLevelsView
     {
-        private readonly StockLevelsViewPresenter _presenter;
+        private readonly StockLevelsPresenter _presenter;
 
         public StockLevelsView()
         {
@@ -30,7 +30,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new StockLevelsViewPresenter(this);
+                _presenter = new StockLevelsPresenter(this);
             }
         }
 

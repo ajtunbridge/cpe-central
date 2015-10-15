@@ -16,12 +16,12 @@ namespace CPECentral.Views
     public interface INonConformanceSelectorView : IView
     {
         event EventHandler<StringEventArgs> RetrieveNonConformances;
-        void DisplayNonConformances(IEnumerable<NonConformance> nonConformances);
+        void DisplayNonConformances(IEnumerable<Complaint> nonConformances);
     }
 
     public partial class NonConformanceSelectorView : ViewBase, INonConformanceSelectorView
     {
-        private readonly NonConformanceSelectorViewPresenter _presenter;
+        private readonly NonConformanceSelectorPresenter _presenter;
         private string _drawingNumber;
 
         public NonConformanceSelectorView()
@@ -29,7 +29,7 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new NonConformanceSelectorViewPresenter(this);
+                _presenter = new NonConformanceSelectorPresenter(this);
             }
         }
 
@@ -51,7 +51,7 @@ namespace CPECentral.Views
 
         public event EventHandler<StringEventArgs> RetrieveNonConformances;
 
-        public void DisplayNonConformances(IEnumerable<NonConformance> nonConformances)
+        public void DisplayNonConformances(IEnumerable<Complaint> nonConformances)
         {
             pictureBox1.SendToBack();
 
@@ -92,7 +92,7 @@ namespace CPECentral.Views
 
         private void objectListView_SelectionChanged(object sender, EventArgs e)
         {
-            var nc = (objectListView.SelectedObject == null) ? null : objectListView.SelectedObject as NonConformance;
+            var nc = (objectListView.SelectedObject == null) ? null : objectListView.SelectedObject as Complaint;
 
             OnNonConformanceSelected(new NonConformanceEventArgs(nc));
         }

@@ -48,7 +48,7 @@ namespace CPECentral.Views
 
     public partial class DocumentsView : ViewBase, IDocumentsView
     {
-        private readonly DocumentsViewPresenter _presenter;
+        private readonly DocumentsPresenter _presenter;
         private bool _currentlySelecting;
         private OperationType _opType;
 
@@ -59,7 +59,7 @@ namespace CPECentral.Views
             base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new DocumentsViewPresenter(this);
+                _presenter = new DocumentsPresenter(this);
                 filesListView.View = Settings.Default.PreferredDocumentsViewStyle;
                 Session.MessageBus.Subscribe<DocumentsChangedMessage>(DocumentsChangedMessage_Published);
             }

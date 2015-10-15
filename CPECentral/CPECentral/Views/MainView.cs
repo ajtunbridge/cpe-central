@@ -29,7 +29,7 @@ namespace CPECentral.Views
 
     public sealed partial class MainView : ViewBase, IMainView
     {
-        private readonly MainViewPresenter _presenter;
+        private readonly MainPresenter _presenter;
 
         private readonly List<EmployeeSessionView> _sessionViews = new List<EmployeeSessionView>();
 
@@ -44,7 +44,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new MainViewPresenter(this);
+                _presenter = new MainPresenter(this);
 
                 Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
                 Session.DocumentService.Error += DocumentService_Error;

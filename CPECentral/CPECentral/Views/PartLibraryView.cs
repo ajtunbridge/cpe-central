@@ -26,14 +26,14 @@ namespace CPECentral.Views
     [DefaultEvent("PartSelected")]
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
-        private readonly PartLibraryViewPresenter _presenter;
+        private readonly PartLibraryPresenter _presenter;
 
         public PartLibraryView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new PartLibraryViewPresenter(this);
+                _presenter = new PartLibraryPresenter(this);
 
                 resultsObjectListView.SmallImageList = new ImageList {
                     ColorDepth = ColorDepth.Depth32Bit,

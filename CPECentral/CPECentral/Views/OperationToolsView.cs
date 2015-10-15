@@ -31,7 +31,7 @@ namespace CPECentral.Views
 
     public partial class OperationToolsView : ViewBase, IOperationToolsView
     {
-        private readonly OperationToolsViewPresenter _presenter;
+        private readonly OperationToolsPresenter _presenter;
         private Operation _currentOperation;
         private OperationTool _selectedOperationTool;
 
@@ -42,7 +42,7 @@ namespace CPECentral.Views
             base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new OperationToolsViewPresenter(this);
+                _presenter = new OperationToolsPresenter(this);
                 Session.MessageBus.Subscribe<ToolRenamedMessage>(ToolRenamedMessageHandler);
             }
         }

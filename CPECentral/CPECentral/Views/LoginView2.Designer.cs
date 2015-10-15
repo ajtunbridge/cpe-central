@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.centralPanel = new System.Windows.Forms.Panel();
+            this.appLogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.preloaderPictureBox = new System.Windows.Forms.PictureBox();
             this.timeMessageLabel = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.appLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.loginToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.loginIndicatorPictureBox = new System.Windows.Forms.PictureBox();
-            this.preloaderPictureBox = new System.Windows.Forms.PictureBox();
             this.centralPanel.SuspendLayout();
-            this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appLogoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.loginIndicatorPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preloaderPictureBox)).BeginInit();
+            this.toolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loginIndicatorPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // centralPanel
@@ -54,6 +54,27 @@
             this.centralPanel.Name = "centralPanel";
             this.centralPanel.Size = new System.Drawing.Size(296, 139);
             this.centralPanel.TabIndex = 4;
+            // 
+            // appLogoPictureBox
+            // 
+            this.appLogoPictureBox.Image = global::CPECentral.Properties.Resources.LoginHeader;
+            this.appLogoPictureBox.Location = new System.Drawing.Point(74, 27);
+            this.appLogoPictureBox.Name = "appLogoPictureBox";
+            this.appLogoPictureBox.Size = new System.Drawing.Size(140, 75);
+            this.appLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.appLogoPictureBox.TabIndex = 0;
+            this.appLogoPictureBox.TabStop = false;
+            this.appLogoPictureBox.Visible = false;
+            // 
+            // preloaderPictureBox
+            // 
+            this.preloaderPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
+            this.preloaderPictureBox.Location = new System.Drawing.Point(3, 33);
+            this.preloaderPictureBox.Name = "preloaderPictureBox";
+            this.preloaderPictureBox.Size = new System.Drawing.Size(290, 23);
+            this.preloaderPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.preloaderPictureBox.TabIndex = 3;
+            this.preloaderPictureBox.TabStop = false;
             // 
             // timeMessageLabel
             // 
@@ -87,25 +108,9 @@
             this.toolStripSeparator1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(928, 50);
+            this.toolStrip.Size = new System.Drawing.Size(1292, 50);
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "toolStrip1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
-            // 
-            // appLogoPictureBox
-            // 
-            this.appLogoPictureBox.Image = global::CPECentral.Properties.Resources.LoginHeader;
-            this.appLogoPictureBox.Location = new System.Drawing.Point(74, 27);
-            this.appLogoPictureBox.Name = "appLogoPictureBox";
-            this.appLogoPictureBox.Size = new System.Drawing.Size(140, 75);
-            this.appLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.appLogoPictureBox.TabIndex = 0;
-            this.appLogoPictureBox.TabStop = false;
-            this.appLogoPictureBox.Visible = false;
             // 
             // loginToolStripDropDownButton
             // 
@@ -113,10 +118,15 @@
             this.loginToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.LoginIcon_32x32;
             this.loginToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.loginToolStripDropDownButton.Name = "loginToolStripDropDownButton";
-            this.loginToolStripDropDownButton.Size = new System.Drawing.Size(101, 47);
+            this.loginToolStripDropDownButton.Size = new System.Drawing.Size(94, 47);
             this.loginToolStripDropDownButton.Text = "    Login";
             this.loginToolStripDropDownButton.ToolTipText = "Select your name from the drop down list to login";
             this.loginToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.loginToolStripDropDownButton_DropDownItemClicked);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
             // 
             // loginIndicatorPictureBox
             // 
@@ -129,16 +139,6 @@
             this.loginIndicatorPictureBox.TabStop = false;
             this.loginIndicatorPictureBox.Visible = false;
             // 
-            // preloaderPictureBox
-            // 
-            this.preloaderPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
-            this.preloaderPictureBox.Location = new System.Drawing.Point(3, 33);
-            this.preloaderPictureBox.Name = "preloaderPictureBox";
-            this.preloaderPictureBox.Size = new System.Drawing.Size(290, 23);
-            this.preloaderPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.preloaderPictureBox.TabIndex = 3;
-            this.preloaderPictureBox.TabStop = false;
-            // 
             // LoginView2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -150,15 +150,15 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LoginView2";
-            this.Size = new System.Drawing.Size(928, 598);
+            this.Size = new System.Drawing.Size(1292, 861);
             this.Load += new System.EventHandler(this.LoginView2_Load);
             this.Resize += new System.EventHandler(this.LoginView2_Resize);
             this.centralPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.appLogoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.preloaderPictureBox)).EndInit();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.appLogoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginIndicatorPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preloaderPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -174,6 +174,5 @@
         private System.Windows.Forms.PictureBox loginIndicatorPictureBox;
         private System.Windows.Forms.PictureBox appLogoPictureBox;
         private System.Windows.Forms.PictureBox preloaderPictureBox;
-
     }
 }

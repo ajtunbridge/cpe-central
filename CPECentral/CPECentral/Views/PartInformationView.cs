@@ -31,7 +31,7 @@ namespace CPECentral.Views
     [DefaultEvent("VersionSelected")]
     public partial class PartInformationView : ViewBase, IPartInformationView
     {
-        private readonly PartInformationViewPresenter _presenter;
+        private readonly PartInformationPresenter _presenter;
         private bool _isLoadingData;
 
         public PartInformationView()
@@ -41,7 +41,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new PartInformationViewPresenter(this);
+                _presenter = new PartInformationPresenter(this);
             }
         }
 

@@ -80,6 +80,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -203,6 +204,7 @@
     <Compile Include="CustomEventArgs\MoveToolsToNewGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\StringEventArgs.cs" />
+    <Compile Include="CustomEventArgs\TimePeriodChangedEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -375,26 +377,27 @@
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="PartPhotoCache.cs" />
-    <Compile Include="Presenters\CheckStockLevelsViewPresenter.cs" />
-    <Compile Include="Presenters\DocumentsViewPresenter.cs" />
-    <Compile Include="Presenters\HoldersViewPresenter.cs" />
-    <Compile Include="Presenters\HolderToolsViewPresenter.cs" />
-    <Compile Include="Presenters\LoginView2Presenter.cs" />
-    <Compile Include="Presenters\MainViewPresenter.cs" />
-    <Compile Include="Presenters\NonConformanceSelectorViewPresenter.cs" />
-    <Compile Include="Presenters\OperationsViewPresenter.cs" />
-    <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
-    <Compile Include="Presenters\PartInformationViewPresenter.cs" />
-    <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
-    <Compile Include="Presenters\PartViewPresenter.cs" />
-    <Compile Include="Presenters\PartWorksOrdersViewPresenter.cs" />
-    <Compile Include="Presenters\StartPageFindToolBoxViewPresenter.cs" />
-    <Compile Include="Presenters\StartPageUserInfoViewPresenter.cs" />
-    <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
-    <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
-    <Compile Include="Presenters\ToolSelectorViewPresenter.cs" />
-    <Compile Include="Presenters\ToolsViewPresenter.cs" />
-    <Compile Include="Presenters\TurnoverTargetViewPresenter.cs" />
+    <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
+    <Compile Include="Presenters\DocumentsPresenter.cs" />
+    <Compile Include="Presenters\HoldersPresenter.cs" />
+    <Compile Include="Presenters\HolderToolsPresenter.cs" />
+    <Compile Include="Presenters\Login2Presenter.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Presenters\NonConformanceSelectorPresenter.cs" />
+    <Compile Include="Presenters\OperationsPresenter.cs" />
+    <Compile Include="Presenters\OperationToolsPresenter.cs" />
+    <Compile Include="Presenters\PartInformationPresenter.cs" />
+    <Compile Include="Presenters\PartLibraryPresenter.cs" />
+    <Compile Include="Presenters\PartPresenter.cs" />
+    <Compile Include="Presenters\PartWorksOrdersPresenter.cs" />
+    <Compile Include="Presenters\ComplaintStatisticsPresenter.cs" />
+    <Compile Include="Presenters\StartPageFindToolBoxPresenter.cs" />
+    <Compile Include="Presenters\StartPageUserInfoPresenter.cs" />
+    <Compile Include="Presenters\StockLevelsPresenter.cs" />
+    <Compile Include="Presenters\ToolGroupsPresenter.cs" />
+    <Compile Include="Presenters\ToolSelectorPresenter.cs" />
+    <Compile Include="Presenters\ToolsPresenter.cs" />
+    <Compile Include="Presenters\TurnoverTargetPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,7 +405,7 @@
       <DependentUpon>PreviewPopoutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="QMS\Model\Gauge.cs" />
-    <Compile Include="QMS\Model\NonConformance.cs" />
+    <Compile Include="QMS\Model\Complaint.cs" />
     <Compile Include="QMS\QMSDataProvider.cs" />
     <Compile Include="StandardDialogService.cs" />
     <Compile Include="MainForm.cs">
@@ -413,7 +416,7 @@
     </Compile>
     <Compile Include="Messages\EmployeeLoggedOutMessage.cs" />
     <Compile Include="Messages\EmployeeLoggedInMessage.cs" />
-    <Compile Include="Presenters\LoginViewPresenter.cs" />
+    <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
@@ -438,6 +441,7 @@
     <Compile Include="ViewModels\PartLibraryViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="ViewModels\PartWorksOrdersViewModel.cs" />
+    <Compile Include="ViewModels\ComplaintStatisticsViewModel.cs" />
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
@@ -477,6 +481,12 @@
     </Compile>
     <Compile Include="Views\MaintenanceMachineView.Designer.cs">
       <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComplaintStatisticsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ComplaintStatisticsView.Designer.cs">
+      <DependentUpon>ComplaintStatisticsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\NonConformanceSelectorView.cs">
       <SubType>UserControl</SubType>
@@ -831,6 +841,9 @@
     <EmbeddedResource Include="Views\MaintenanceMachineView.resx">
       <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ComplaintStatisticsView.resx">
+      <DependentUpon>ComplaintStatisticsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceSelectorView.resx">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
     </EmbeddedResource>
@@ -1169,7 +1182,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

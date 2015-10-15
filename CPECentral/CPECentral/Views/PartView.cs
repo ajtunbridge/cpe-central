@@ -43,7 +43,7 @@ namespace CPECentral.Views
     public partial class PartView : ViewBase, IPartView
     {
         private const int NonConformanceWarningBlinkCount = 3;
-        private readonly PartViewPresenter _presenter;
+        private readonly PartPresenter _presenter;
 
         private int _currentBlinkCount = 0;
         private Timer _nonConformanceWarningBlinkTimer;
@@ -57,7 +57,7 @@ namespace CPECentral.Views
             base.Dock = DockStyle.Fill;
 
             if (!IsInDesignMode) {
-                _presenter = new PartViewPresenter(this);
+                _presenter = new PartPresenter(this);
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
 
                 Session.MessageBus.Subscribe<PartVersionPhotoChangedMessage>(msg => {

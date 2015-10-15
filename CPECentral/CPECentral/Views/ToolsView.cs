@@ -43,7 +43,7 @@ namespace CPECentral.Views
 
     public partial class ToolsView : ViewBase, IToolsView
     {
-        private readonly ToolsViewPresenter _presenter;
+        private readonly ToolsPresenter _presenter;
         private Holder _currentHolder;
         private ToolGroup _currentToolGroup;
         private bool _editMode;
@@ -56,7 +56,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new ToolsViewPresenter(this);
+                _presenter = new ToolsPresenter(this);
             }
         }
 

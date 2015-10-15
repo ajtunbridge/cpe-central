@@ -21,7 +21,7 @@ namespace CPECentral.Views
 
     public sealed partial class LoginView2 : ViewBase, ILoginView2
     {
-        private readonly LoginView2Presenter _presenter;
+        private readonly Login2Presenter _presenter;
 
         private readonly string[] _timeMessages = {
             "sorry. this appears to be taking a while...",
@@ -38,7 +38,7 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new LoginView2Presenter(this);
+                _presenter = new Login2Presenter(this);
             }
         }
 

@@ -14,7 +14,7 @@ namespace CPECentral.Views
             InitializeComponent();
         }
 
-        public void ShowNonConformance(NonConformance nonConformance)
+        public void ShowNonConformance(Complaint nonConformance)
         {
             if (nonConformance == null) {
                 Visible = false;

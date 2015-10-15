@@ -34,8 +34,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.partLibraryView1 = new CPECentral.Views.PartLibraryView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.qmsView1 = new CPECentral.Views.QMSView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.qmsView1 = new CPECentral.Views.QMSView();
             this.closableTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -116,6 +116,16 @@
             this.tabPage3.Text = "QMS";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 34);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1095, 640);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Tag = "false";
+            this.tabPage4.Text = "Machine tools";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // qmsView1
             // 
             this.qmsView1.BackColor = System.Drawing.Color.White;
@@ -126,16 +136,6 @@
             this.qmsView1.Name = "qmsView1";
             this.qmsView1.Size = new System.Drawing.Size(1095, 640);
             this.qmsView1.TabIndex = 0;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 34);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1095, 640);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Tag = "false";
-            this.tabPage4.Text = "Machine tools";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // EmployeeSessionView2
             // 
@@ -162,8 +162,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private StartPageView startPageView1;
         private PartLibraryView partLibraryView1;
-        private QMSView qmsView1;
         private System.Windows.Forms.TabPage tabPage4;
-
+        private QMSView qmsView1;
     }
 }

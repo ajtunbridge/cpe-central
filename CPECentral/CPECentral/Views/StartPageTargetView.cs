@@ -24,7 +24,7 @@ namespace CPECentral.Views
 
         private readonly Color _mediumColorEnd = Color.Gold;
         private readonly Color _mediumColorStart = Color.LightGoldenrodYellow;
-        private readonly TurnoverTargetViewPresenter _presenter;
+        private readonly TurnoverTargetPresenter _presenter;
         private readonly Timer _refreshTimer;
 
         private readonly Color _targetReachedColorEnd = Color.LightGreen;
@@ -35,7 +35,7 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new TurnoverTargetViewPresenter(this);
+                _presenter = new TurnoverTargetPresenter(this);
 
                 _refreshTimer = new Timer();
                 _refreshTimer.Interval = 3600000; // update every hour

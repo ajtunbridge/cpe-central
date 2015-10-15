@@ -24,14 +24,14 @@ namespace CPECentral.Views
     public partial class StartPageUserInfoView : ViewBase, IStartPageUserInfoView
     {
         private readonly Employee _employee;
-        private StartPageUserInfoViewPresenter _presenter;
+        private StartPageUserInfoPresenter _presenter;
 
         public StartPageUserInfoView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new StartPageUserInfoViewPresenter(this);
+                _presenter = new StartPageUserInfoPresenter(this);
 
                 headerLabel.Text = "Hello " + Session.CurrentEmployee.FirstName + "!";
                 _employee = Session.CurrentEmployee;

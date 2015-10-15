@@ -20,14 +20,14 @@ namespace CPECentral.Views
 
     public sealed partial class PartWorksOrdersView : ViewBase, IPartWorksOrdersView
     {
-        private readonly PartWorksOrdersViewPresenter _presenter;
+        private readonly PartWorksOrdersPresenter _presenter;
 
         public PartWorksOrdersView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new PartWorksOrdersViewPresenter(this);
+                _presenter = new PartWorksOrdersPresenter(this);
             }
         }
 

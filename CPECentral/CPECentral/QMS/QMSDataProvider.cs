@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 using CPECentral.Properties;
 using CPECentral.QMS.Model;
 
@@ -22,17 +23,18 @@ namespace CPECentral.QMS
 
             var pathToRemoteQms = Settings.Default.PathToQMSDatabase;
 
-            var fileName = System.IO.Path.GetFileName(pathToRemoteQms);
+            var fileName = Path.GetFileName(pathToRemoteQms);
 
-            var localFilePath = System.IO.Path.Combine(commonAppDir, fileName);
+            var localFilePath = Path.Combine(commonAppDir, fileName);
 
-            var connString =  string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Persist Security Info=False;",
+            var connString =
+                string.Format(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Persist Security Info=False;",
                     localFilePath);
 
             _connection = new OleDbConnection(connString);
         }
 
-        public bool HasNonConformances(string drawingNumber)
+        public bool HasComplaints(string drawingNumber)
         {
             const string query =
                 "SELECT COUNT([Reject Report Number]) FROM [Customer complaints] WHERE [Part Number] LIKE '%' + @prm1 + '%'";
@@ -40,32 +42,86 @@ namespace CPECentral.QMS
             var cmd = new OleDbCommand(query, _connection);
             cmd.Parameters.AddWithValue("@prm1", drawingNumber);
 
-            try {
+            try
+            {
                 _connection.Open();
 
                 var count = (int) cmd.ExecuteScalar();
                 return count > 0;
             }
-            finally {
-                if (_connection.State == ConnectionState.Open) {
+            finally
+            {
+                if (_connection.State == ConnectionState.Open)
+                {
                     _connection.Close();
                 }
             }
         }
 
-        public IEnumerable<NonConformance> GetNonConformances(string drawingNumber)
+        public IEnumerable<Complaint> GetInternalComplaints(DateTime startDate, DateTime endDate)
         {
-            var results = new List<NonConformance>();
+            const string query =
+                "SELECT * FROM [Customer Complaints] WHERE [Complaint Type]='INTERNAL' AND [Date Returned] BETWEEN @prm1 AND @prm2";
 
+            var prms = new[]
+            {
+                new OleDbParameter("@prm1", startDate),
+                new OleDbParameter("@prm2", endDate)
+            };
+
+            return GetComplaints(query, prms);
+        }
+
+        public IEnumerable<Complaint> GetCustomerComplaints(DateTime startDate, DateTime endDate)
+        {
+            const string query =
+                "SELECT * FROM [Customer Complaints] WHERE [Complaint Type]='EXTERNAL' AND [Date Returned] BETWEEN @prm1 AND @prm2";
+
+            var prms = new[]
+            {
+                new OleDbParameter("@prm1", startDate),
+                new OleDbParameter("@prm2", endDate)
+            };
+
+            return GetComplaints(query, prms);
+        }
+
+        public IEnumerable<Complaint> GetSupplierComplaints(DateTime startDate, DateTime endDate)
+        {
+            const string query =
+                "SELECT * FROM [Customer Complaints] WHERE [Complaint Type]='SUPPLIER' AND [Date Returned] BETWEEN @prm1 AND @prm2";
+
+            var prms = new[]
+            {
+                new OleDbParameter("@prm1", startDate),
+                new OleDbParameter("@prm2", endDate)
+            };
+
+            return GetComplaints(query, prms);
+        }
+
+        public IEnumerable<Complaint> GetComplaintsByDrawingNumber(string drawingNumber)
+        {
             const string query = "SELECT * FROM [Customer complaints] WHERE [Part Number] LIKE '%' + @prm1 + '%'";
 
-            var cmd = new OleDbCommand(query, _connection);
-            cmd.Parameters.AddWithValue("@prm1", drawingNumber);
+            var prms = new OleDbParameter("@prm1", drawingNumber);
 
-            try {
+            return GetComplaints(query, prms);
+        }
+
+        public IEnumerable<Complaint> GetComplaints(string query, params OleDbParameter[] prms)
+        {
+            var results = new List<Complaint>();
+
+            var cmd = new OleDbCommand(query, _connection);
+            cmd.Parameters.AddRange(prms);
+
+            try
+            {
                 _connection.Open();
 
-                using (OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)) {
+                using (OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
                     int reasonOrdinal = reader.GetOrdinal("Reason For Return");
                     int customerNameOrdinal = reader.GetOrdinal("Customer Name");
                     int contactNameOrdinal = reader.GetOrdinal("Contact Name");
@@ -79,8 +135,10 @@ namespace CPECentral.QMS
                     int raisedOnOrdinal = reader.GetOrdinal("Date Returned");
                     int resultsOfInspectionOrdinal = reader.GetOrdinal("Results of re inspection");
 
-                    while (reader.Read()) {
-                        var nc = new NonConformance {
+                    while (reader.Read())
+                    {
+                        var nc = new Complaint
+                        {
                             ReportNumber = (int) reader["Reject Report Number"],
                             ResultsOfInspection =
                                 reader.IsDBNull(resultsOfInspectionOrdinal)
@@ -112,10 +170,16 @@ namespace CPECentral.QMS
                     }
                 }
             }
-            finally {
-                if (_connection.State == ConnectionState.Open) {
+            finally
+            {
+                cmd.Dispose();
+
+                if (_connection.State == ConnectionState.Open)
+                {
                     _connection.Close();
                 }
+
+                _connection.Dispose();
             }
 
             return results;
@@ -125,8 +189,10 @@ namespace CPECentral.QMS
         {
             var gauges = new List<Gauge>();
 
-            const string gaugeQuery = "SELECT [Gauge Number], [SIZE/RANGE], [GAUGE DESCRIPTION], [HOLDER] FROM [GAUGE DATA]";
-            const string calibQuery = "SELECT TOP 1 [Calibration Date], [Frequency] FROM [Calibration Results] WHERE [GAuge Reference]=@prm1 ORDER BY [Calibration Date] DESC";
+            const string gaugeQuery =
+                "SELECT [Gauge Number], [SIZE/RANGE], [GAUGE DESCRIPTION], [HOLDER] FROM [GAUGE DATA]";
+            const string calibQuery =
+                "SELECT TOP 1 [Calibration Date], [Frequency] FROM [Calibration Results] WHERE [GAuge Reference]=@prm1 ORDER BY [Calibration Date] DESC";
 
 
             var gaugeCmd = new OleDbCommand(gaugeQuery, _connection);
@@ -147,9 +213,11 @@ namespace CPECentral.QMS
                     {
                         var gauge = new Gauge
                         {
-                            GaugeNumber = reader.IsDBNull(gaugeNumberOrdinal) ? "N/A" : reader.GetString(gaugeNumberOrdinal),
+                            GaugeNumber =
+                                reader.IsDBNull(gaugeNumberOrdinal) ? "N/A" : reader.GetString(gaugeNumberOrdinal),
                             SizeRange = reader.IsDBNull(sizeRangeOrdinal) ? "N/A" : reader.GetString(sizeRangeOrdinal),
-                            Description = reader.IsDBNull(descriptionOrdinal) ? "N/A" : reader.GetString(descriptionOrdinal),
+                            Description =
+                                reader.IsDBNull(descriptionOrdinal) ? "N/A" : reader.GetString(descriptionOrdinal),
                             HeldBy = reader.IsDBNull(holderOrdinal) ? "N/A" : reader.GetString(holderOrdinal)
                         };
 
@@ -167,7 +235,8 @@ namespace CPECentral.QMS
 
                                     var dueDate = calibrationDate.AddMonths(frequency);
 
-                                    if (dueDate.Month == DateTime.Today.Month && dueDate.Year == DateTime.Today.Year || dueDate < DateTime.Now)
+                                    if (dueDate.Month == DateTime.Today.Month && dueDate.Year == DateTime.Today.Year ||
+                                        dueDate < DateTime.Now)
                                     {
                                         gauge.CalibrationDueOn = dueDate;
                                         gauges.Add(gauge);
