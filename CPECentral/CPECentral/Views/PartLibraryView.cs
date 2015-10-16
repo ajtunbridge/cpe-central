@@ -27,6 +27,7 @@ namespace CPECentral.Views
     public partial class PartLibraryView : ViewBase, IPartLibraryView
     {
         private readonly PartLibraryPresenter _presenter;
+        private Employee _sessionEmployee;
 
         public PartLibraryView()
         {
@@ -41,7 +42,68 @@ namespace CPECentral.Views
                 };
 
                 resultsObjectListView.SmallImageList.Images.Add("PartIcon", Resources.PartIcon_16x16);
+
+                _sessionEmployee = Session.CurrentEmployee;
+
+                Session.MessageBus.Subscribe<LoadPartMessage>(HandleLoadPartMessage);
+                Session.MessageBus.Subscribe<PartEditedMessage>(HandlePartEditedMessage);
             }
+        }
+
+        private void HandlePartEditedMessage(PartEditedMessage partEditedMessage)
+        {
+            foreach (TabPage tabPage in closableTabControl.TabPages)
+            {
+                if (tabPage.Tag is Part)
+                {
+                    var part = tabPage.Tag as Part;
+                    if (part == partEditedMessage.EditedPart)
+                    {
+                        tabPage.Text = partEditedMessage.EditedPart.DrawingNumber;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void HandleLoadPartMessage(LoadPartMessage loadPartMessage)
+        {
+            // we don't want to load other employees parts
+            if (_sessionEmployee != Session.CurrentEmployee)
+            {
+                return;
+            }
+
+            foreach (TabPage existingTab in closableTabControl.TabPages)
+            {
+                if (existingTab.Tag is Part)
+                {
+                    var part = existingTab.Tag as Part;
+                    if (part != loadPartMessage.PartToLoad)
+                    {
+                        continue;
+                    }
+                    closableTabControl.SelectTab(existingTab);
+                    Select();
+                    return;
+                }
+            }
+
+            var newTab = new ClosableTabPage(loadPartMessage.PartToLoad.DrawingNumber);
+            newTab.Tag = loadPartMessage.PartToLoad;
+            //newTab.ImageIndex = 2;
+
+            var partView = new PartView();
+            partView.Dock = DockStyle.Fill;
+
+            newTab.Controls.Add(partView);
+
+            partView.LoadPart(loadPartMessage.PartToLoad);
+
+            closableTabControl.TabPages.Add(newTab);
+
+            closableTabControl.SelectTab(newTab);
+            Select();
         }
 
         #region IPartLibraryView Members

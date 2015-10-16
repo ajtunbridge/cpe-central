@@ -108,83 +108,7 @@ namespace CPECentral.QMS
 
             return GetComplaints(query, prms);
         }
-
-        public IEnumerable<Complaint> GetComplaints(string query, params OleDbParameter[] prms)
-        {
-            var results = new List<Complaint>();
-
-            var cmd = new OleDbCommand(query, _connection);
-            cmd.Parameters.AddRange(prms);
-
-            try
-            {
-                _connection.Open();
-
-                using (OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                {
-                    int reasonOrdinal = reader.GetOrdinal("Reason For Return");
-                    int customerNameOrdinal = reader.GetOrdinal("Customer Name");
-                    int contactNameOrdinal = reader.GetOrdinal("Contact Name");
-                    int categoryOrdinal = reader.GetOrdinal("Nonconformance Category");
-                    int descriptionOrdinal = reader.GetOrdinal("Reason for non conformance");
-                    int employeeOrdinal = reader.GetOrdinal("Employee");
-                    int authorizedOrdinal = reader.GetOrdinal("Actions Authorised By");
-                    int conclusionOrdinal = reader.GetOrdinal("Final Disposition");
-                    int correctiveOrdinal = reader.GetOrdinal("Corrective Actions");
-                    int preventativeOrdinal = reader.GetOrdinal("Preventative Actions");
-                    int raisedOnOrdinal = reader.GetOrdinal("Date Returned");
-                    int resultsOfInspectionOrdinal = reader.GetOrdinal("Results of re inspection");
-
-                    while (reader.Read())
-                    {
-                        var nc = new Complaint
-                        {
-                            ReportNumber = (int) reader["Reject Report Number"],
-                            ResultsOfInspection =
-                                reader.IsDBNull(resultsOfInspectionOrdinal)
-                                    ? "N/A"
-                                    : reader.GetString(resultsOfInspectionOrdinal),
-                            RaisedBy =
-                                reader.IsDBNull(customerNameOrdinal) ? "N/A" : reader.GetString(customerNameOrdinal),
-                            Reason = reader.IsDBNull(reasonOrdinal) ? "N/A" : reader.GetString(reasonOrdinal),
-                            Contact = reader.IsDBNull(contactNameOrdinal) ? "N/A" : reader.GetString(contactNameOrdinal),
-                            Category = reader.IsDBNull(categoryOrdinal) ? "N/A" : reader.GetString(categoryOrdinal),
-                            Description =
-                                reader.IsDBNull(descriptionOrdinal) ? "N/A" : reader.GetString(descriptionOrdinal),
-                            Employee = reader.IsDBNull(employeeOrdinal) ? "N/A" : reader.GetString(employeeOrdinal),
-                            AuthorizedBy =
-                                reader.IsDBNull(authorizedOrdinal) ? "N/A" : reader.GetString(authorizedOrdinal),
-                            Conclusion =
-                                reader.IsDBNull(conclusionOrdinal) ? "N/A" : reader.GetString(conclusionOrdinal),
-                            CorrectiveAction =
-                                reader.IsDBNull(correctiveOrdinal) ? "N/A" : reader.GetString(correctiveOrdinal),
-                            PreventativeAction =
-                                reader.IsDBNull(preventativeOrdinal) ? "N/A" : reader.GetString(preventativeOrdinal),
-                            RaisedOn =
-                                reader.IsDBNull(raisedOnOrdinal)
-                                    ? null
-                                    : new DateTime?(reader.GetDateTime(raisedOnOrdinal))
-                        };
-
-                        results.Add(nc);
-                    }
-                }
-            }
-            finally
-            {
-                cmd.Dispose();
-
-                if (_connection.State == ConnectionState.Open)
-                {
-                    _connection.Close();
-                }
-
-                _connection.Dispose();
-            }
-
-            return results;
-        }
-
+        
         public IEnumerable<Gauge> GetGaugesDueForCalibration()
         {
             var gauges = new List<Gauge>();
@@ -256,6 +180,82 @@ namespace CPECentral.QMS
             }
 
             return gauges;
+        }
+
+        private IEnumerable<Complaint> GetComplaints(string query, params OleDbParameter[] prms)
+        {
+            var results = new List<Complaint>();
+
+            var cmd = new OleDbCommand(query, _connection);
+            cmd.Parameters.AddRange(prms);
+
+            try
+            {
+                _connection.Open();
+
+                using (OleDbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    int reasonOrdinal = reader.GetOrdinal("Reason For Return");
+                    int customerNameOrdinal = reader.GetOrdinal("Customer Name");
+                    int contactNameOrdinal = reader.GetOrdinal("Contact Name");
+                    int categoryOrdinal = reader.GetOrdinal("Nonconformance Category");
+                    int descriptionOrdinal = reader.GetOrdinal("Reason for non conformance");
+                    int employeeOrdinal = reader.GetOrdinal("Employee");
+                    int authorizedOrdinal = reader.GetOrdinal("Actions Authorised By");
+                    int conclusionOrdinal = reader.GetOrdinal("Final Disposition");
+                    int correctiveOrdinal = reader.GetOrdinal("Corrective Actions");
+                    int preventativeOrdinal = reader.GetOrdinal("Preventative Actions");
+                    int raisedOnOrdinal = reader.GetOrdinal("Date Returned");
+                    int resultsOfInspectionOrdinal = reader.GetOrdinal("Results of re inspection");
+
+                    while (reader.Read())
+                    {
+                        var nc = new Complaint
+                        {
+                            ReportNumber = (int)reader["Reject Report Number"],
+                            ResultsOfInspection =
+                                reader.IsDBNull(resultsOfInspectionOrdinal)
+                                    ? "N/A"
+                                    : reader.GetString(resultsOfInspectionOrdinal),
+                            RaisedBy =
+                                reader.IsDBNull(customerNameOrdinal) ? "N/A" : reader.GetString(customerNameOrdinal),
+                            Reason = reader.IsDBNull(reasonOrdinal) ? "N/A" : reader.GetString(reasonOrdinal),
+                            Contact = reader.IsDBNull(contactNameOrdinal) ? "N/A" : reader.GetString(contactNameOrdinal),
+                            Category = reader.IsDBNull(categoryOrdinal) ? "N/A" : reader.GetString(categoryOrdinal),
+                            Description =
+                                reader.IsDBNull(descriptionOrdinal) ? "N/A" : reader.GetString(descriptionOrdinal),
+                            Employee = reader.IsDBNull(employeeOrdinal) ? "N/A" : reader.GetString(employeeOrdinal),
+                            AuthorizedBy =
+                                reader.IsDBNull(authorizedOrdinal) ? "N/A" : reader.GetString(authorizedOrdinal),
+                            Conclusion =
+                                reader.IsDBNull(conclusionOrdinal) ? "N/A" : reader.GetString(conclusionOrdinal),
+                            CorrectiveAction =
+                                reader.IsDBNull(correctiveOrdinal) ? "N/A" : reader.GetString(correctiveOrdinal),
+                            PreventativeAction =
+                                reader.IsDBNull(preventativeOrdinal) ? "N/A" : reader.GetString(preventativeOrdinal),
+                            RaisedOn =
+                                reader.IsDBNull(raisedOnOrdinal)
+                                    ? null
+                                    : new DateTime?(reader.GetDateTime(raisedOnOrdinal))
+                        };
+
+                        results.Add(nc);
+                    }
+                }
+            }
+            finally
+            {
+                cmd.Dispose();
+
+                if (_connection.State == ConnectionState.Open)
+                {
+                    _connection.Close();
+                }
+
+                _connection.Dispose();
+            }
+
+            return results;
         }
     }
 }

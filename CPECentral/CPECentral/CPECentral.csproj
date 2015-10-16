@@ -379,6 +379,7 @@
     <Compile Include="PartPhotoCache.cs" />
     <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
     <Compile Include="Presenters\DocumentsPresenter.cs" />
+    <Compile Include="Presenters\GaugesPresenter.cs" />
     <Compile Include="Presenters\HoldersPresenter.cs" />
     <Compile Include="Presenters\HolderToolsPresenter.cs" />
     <Compile Include="Presenters\Login2Presenter.cs" />
@@ -512,11 +513,11 @@
     <Compile Include="Views\ProgramEditorView.Designer.cs">
       <DependentUpon>ProgramEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\QMSMetrologyEquipmentView.cs">
+    <Compile Include="Views\GaugesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\QMSMetrologyEquipmentView.Designer.cs">
-      <DependentUpon>QMSMetrologyEquipmentView.cs</DependentUpon>
+    <Compile Include="Views\GaugesView.Designer.cs">
+      <DependentUpon>GaugesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\QMSView.cs">
       <SubType>UserControl</SubType>
@@ -856,8 +857,8 @@
     <EmbeddedResource Include="Views\ProgramEditorView.resx">
       <DependentUpon>ProgramEditorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\QMSMetrologyEquipmentView.resx">
-      <DependentUpon>QMSMetrologyEquipmentView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\GaugesView.resx">
+      <DependentUpon>GaugesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QMSView.resx">
       <DependentUpon>QMSView.cs</DependentUpon>
@@ -943,10 +944,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -1110,7 +1111,9 @@
     <None Include="Resources\MachineTransferQueueIcon_32x32.png" />
     <None Include="Resources\NoMachineImageAvailable.jpg" />
     <None Include="Resources\NonConformanceIcon_32x32.png" />
-    <None Include="QMS DATABASE2008.mdb" />
+    <None Include="QMS DATABASE2008.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\WarningIcon_32x32.png" />
     <None Include="Resources\LoginHeader4.jpg" />
     <None Include="Resources\PartViewIcon_32x32.png" />

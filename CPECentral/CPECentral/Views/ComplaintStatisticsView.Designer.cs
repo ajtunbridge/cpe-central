@@ -80,7 +80,7 @@
             series1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.BrightPastel;
             series1.YValuesPerPoint = 3;
             this.pieChart.Series.Add(series1);
-            this.pieChart.Size = new System.Drawing.Size(660, 419);
+            this.pieChart.Size = new System.Drawing.Size(660, 299);
             this.pieChart.TabIndex = 0;
             this.pieChart.Text = "chart1";
             this.pieChart.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pieChart_MouseClick);
@@ -176,7 +176,7 @@
             this.noComplaintsLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noComplaintsLabel.Location = new System.Drawing.Point(0, 0);
             this.noComplaintsLabel.Name = "noComplaintsLabel";
-            this.noComplaintsLabel.Size = new System.Drawing.Size(670, 470);
+            this.noComplaintsLabel.Size = new System.Drawing.Size(670, 350);
             this.noComplaintsLabel.TabIndex = 10;
             this.noComplaintsLabel.Text = "No complaints found for this time period";
             this.noComplaintsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,9 +191,9 @@
             this.Controls.Add(this.noComplaintsLabel);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MinimumSize = new System.Drawing.Size(670, 470);
+            this.MinimumSize = new System.Drawing.Size(670, 350);
             this.Name = "ComplaintStatisticsView";
-            this.Size = new System.Drawing.Size(670, 470);
+            this.Size = new System.Drawing.Size(670, 350);
             this.Load += new System.EventHandler(this.QMSNcrStatisticsView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pieChart)).EndInit();
             this.panel1.ResumeLayout(false);
