@@ -75,40 +75,47 @@ namespace CPECentral.Presenters
 
             var qms = new QMSDataProvider();
 
-            IEnumerable<Complaint> complaints = null;
+            var customerComplaints = qms.GetCustomerComplaints(startDate, today);
+            var internalComplaints = qms.GetInternalComplaints(startDate, today);
+            var supplierComplaints = qms.GetSupplierComplaints(startDate, today);
 
-            switch (args.Type)
-            {
-                case ComplaintStatisticsView.ComplaintType.Customer:
-                    complaints = qms.GetCustomerComplaints(startDate, today);
-                    break;
-                case ComplaintStatisticsView.ComplaintType.Internal:
-                    complaints = qms.GetInternalComplaints(startDate, today);
-                    break;
-                case ComplaintStatisticsView.ComplaintType.Supplier:
-                    complaints = qms.GetSupplierComplaints(startDate, today);
-                    break;
-            }
-
-            var categories = complaints.Select(c => c.Category).Distinct();
-
-            int totalCount = complaints.Count();
+            var complaints = new[] {customerComplaints, internalComplaints, supplierComplaints};
 
             var model = new ComplaintStatisticsViewModel();
 
-            foreach (var category in categories)
+            for (int i = 0; i < complaints.Count(); i++)
             {
-                var results = complaints.Where(c => c.Category == category);
+                var currentComplaints = complaints[i];
 
-                int count = results.Count();
+                var categories = currentComplaints.Select(c => c.Category).Distinct();
 
-                var percentage = (double)count / totalCount;
+                int totalCount = currentComplaints.Count();
 
-                var result = new ComplaintStatisticsViewModel.Result();
-                result.Category = category + " (" + count + ")";
-                result.Percentage = percentage * 100;
+                foreach (var category in categories)
+                {
+                    var results = currentComplaints.Where(c => c.Category == category);
 
-                model.Results.Add(result);
+                    int count = results.Count();
+
+                    var percentage = (double)count / totalCount;
+
+                    var result = new ComplaintStatisticsViewModel.CategoryAndPercentage();
+                    result.Category = category + " (" + count + ")";
+                    result.Percentage = percentage * 100;
+
+                    switch (i)
+                    {
+                        case 0: // customer complaints
+                            model.CustomerResults.Add(result);
+                            break;
+                        case 1: // internal complaints
+                            model.InternalResults.Add(result);
+                            break;
+                        case 2: // supplier complaints
+                            model.SupplierResults.Add(result);
+                            break;
+                    }
+                }
             }
 
             e.Result = model;

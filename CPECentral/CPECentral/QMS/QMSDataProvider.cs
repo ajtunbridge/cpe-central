@@ -251,8 +251,6 @@ namespace CPECentral.QMS
                 {
                     _connection.Close();
                 }
-
-                _connection.Dispose();
             }
 
             return results;

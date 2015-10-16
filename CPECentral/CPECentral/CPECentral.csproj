@@ -398,6 +398,7 @@
     <Compile Include="Presenters\ToolGroupsPresenter.cs" />
     <Compile Include="Presenters\ToolSelectorPresenter.cs" />
     <Compile Include="Presenters\ToolsPresenter.cs" />
+    <Compile Include="Presenters\TurnoverGraphPresenter.cs" />
     <Compile Include="Presenters\TurnoverTargetPresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
@@ -446,7 +447,14 @@
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
+    <Compile Include="ViewModels\TurnoverGraphViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="Views\ComplaintTrendsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ComplaintTrendsView.Designer.cs">
+      <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeSessionView2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -685,6 +693,12 @@
     <Compile Include="Views\ToolsView.Designer.cs">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\TurnoverGraphView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TurnoverGraphView.Designer.cs">
+      <DependentUpon>TurnoverGraphView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorksOrderView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -824,6 +838,9 @@
     <EmbeddedResource Include="ToastNotificationForm.resx">
       <DependentUpon>ToastNotificationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ComplaintTrendsView.resx">
+      <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\EmployeeSessionView2.resx">
       <DependentUpon>EmployeeSessionView2.cs</DependentUpon>
     </EmbeddedResource>
@@ -941,13 +958,16 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\TurnoverGraphView.resx">
+      <DependentUpon>TurnoverGraphView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

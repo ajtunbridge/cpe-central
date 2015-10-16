@@ -7,12 +7,16 @@ namespace CPECentral.ViewModels
 {
     public class ComplaintStatisticsViewModel
     {
-        public class Result
+        public class CategoryAndPercentage
         {
             public string Category { get; set; }
             public double Percentage { get; set; }
         }
 
-        public List<Result> Results { get; } = new List<Result>();
+        public List<CategoryAndPercentage> CustomerResults { get; } = new List<CategoryAndPercentage>();
+
+        public List<CategoryAndPercentage> InternalResults { get; } = new List<CategoryAndPercentage>();
+
+        public List<CategoryAndPercentage> SupplierResults { get; } = new List<CategoryAndPercentage>();
     }
 }
