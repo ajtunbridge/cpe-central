@@ -28,26 +28,76 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.turnoverTabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.turnoverTargetView1 = new CPECentral.Views.StartPageTargetView();
+            this.turnoverGraphView1 = new CPECentral.Views.TurnoverGraphView();
             this.engineerToolsView1 = new CPECentral.Views.StartPageCalculatorSelectView();
             this.startPageFindToolBoxView1 = new CPECentral.Views.StartPageFindToolBoxView();
             this.checkStockLevelsView1 = new CPECentral.Views.StartPageCheckStockView();
             this.startPageUserInfoView1 = new CPECentral.Views.StartPageUserInfoView();
+            this.turnoverTabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // turnoverTabControl
+            // 
+            this.turnoverTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.turnoverTabControl.Controls.Add(this.tabPage1);
+            this.turnoverTabControl.Controls.Add(this.tabPage2);
+            this.turnoverTabControl.Location = new System.Drawing.Point(682, 10);
+            this.turnoverTabControl.Name = "turnoverTabControl";
+            this.turnoverTabControl.SelectedIndex = 0;
+            this.turnoverTabControl.Size = new System.Drawing.Size(334, 222);
+            this.turnoverTabControl.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.turnoverTargetView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(326, 192);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Targets";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.turnoverGraphView1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(326, 192);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Turnover trends";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // turnoverTargetView1
             // 
-            this.turnoverTargetView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.turnoverTargetView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.turnoverTargetView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.turnoverTargetView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.turnoverTargetView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.turnoverTargetView1.Location = new System.Drawing.Point(682, 10);
+            this.turnoverTargetView1.Location = new System.Drawing.Point(3, 3);
             this.turnoverTargetView1.Margin = new System.Windows.Forms.Padding(10);
             this.turnoverTargetView1.MaximumSize = new System.Drawing.Size(800, 185);
             this.turnoverTargetView1.MinimumSize = new System.Drawing.Size(275, 185);
             this.turnoverTargetView1.Name = "turnoverTargetView1";
-            this.turnoverTargetView1.Size = new System.Drawing.Size(334, 185);
+            this.turnoverTargetView1.Size = new System.Drawing.Size(320, 185);
             this.turnoverTargetView1.TabIndex = 4;
+            // 
+            // turnoverGraphView1
+            // 
+            this.turnoverGraphView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.turnoverGraphView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.turnoverGraphView1.Location = new System.Drawing.Point(3, 3);
+            this.turnoverGraphView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.turnoverGraphView1.Name = "turnoverGraphView1";
+            this.turnoverGraphView1.Size = new System.Drawing.Size(320, 186);
+            this.turnoverGraphView1.TabIndex = 0;
             // 
             // engineerToolsView1
             // 
@@ -56,10 +106,10 @@
             this.engineerToolsView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.engineerToolsView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.engineerToolsView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.engineerToolsView1.Location = new System.Drawing.Point(682, 450);
+            this.engineerToolsView1.Location = new System.Drawing.Point(682, 480);
             this.engineerToolsView1.Margin = new System.Windows.Forms.Padding(10);
             this.engineerToolsView1.Name = "engineerToolsView1";
-            this.engineerToolsView1.Size = new System.Drawing.Size(334, 347);
+            this.engineerToolsView1.Size = new System.Drawing.Size(334, 317);
             this.engineerToolsView1.TabIndex = 3;
             // 
             // startPageFindToolBoxView1
@@ -68,7 +118,7 @@
             this.startPageFindToolBoxView1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.startPageFindToolBoxView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.startPageFindToolBoxView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startPageFindToolBoxView1.Location = new System.Drawing.Point(682, 215);
+            this.startPageFindToolBoxView1.Location = new System.Drawing.Point(682, 245);
             this.startPageFindToolBoxView1.Margin = new System.Windows.Forms.Padding(10);
             this.startPageFindToolBoxView1.MaximumSize = new System.Drawing.Size(800, 215);
             this.startPageFindToolBoxView1.MinimumSize = new System.Drawing.Size(275, 215);
@@ -108,7 +158,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.turnoverTargetView1);
+            this.Controls.Add(this.turnoverTabControl);
             this.Controls.Add(this.engineerToolsView1);
             this.Controls.Add(this.startPageFindToolBoxView1);
             this.Controls.Add(this.checkStockLevelsView1);
@@ -117,6 +167,9 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "StartPageView";
             this.Size = new System.Drawing.Size(1026, 807);
+            this.turnoverTabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -128,10 +181,9 @@
         private StartPageFindToolBoxView startPageFindToolBoxView1;
         private StartPageCalculatorSelectView engineerToolsView1;
         private StartPageTargetView turnoverTargetView1;
-
-
-
-
-
+        private System.Windows.Forms.TabControl turnoverTabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private TurnoverGraphView turnoverGraphView1;
     }
 }

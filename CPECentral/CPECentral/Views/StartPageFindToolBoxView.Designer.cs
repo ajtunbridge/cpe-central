@@ -71,7 +71,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(231, 31);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Where\'s that fixture?";
+            this.label1.Text = "Find tool box";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2

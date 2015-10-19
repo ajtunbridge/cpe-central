@@ -964,10 +964,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

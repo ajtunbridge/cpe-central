@@ -49,6 +49,7 @@ namespace CPECentral.Views
 
         public void DisplayGauges(IEnumerable<Gauge> gauges)
         {
+            resultsObjectListView.ClearObjects();
             resultsObjectListView.SetObjects(gauges);
         }
 

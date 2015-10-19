@@ -33,7 +33,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            timePeriodComboBox.SelectedIndex = 1;
+            timePeriodComboBox.SelectedIndex = 3;
 
             if (!IsInDesignMode)
             {

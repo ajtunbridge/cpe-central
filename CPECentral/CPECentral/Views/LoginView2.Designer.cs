@@ -37,7 +37,7 @@
             this.loginToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.loginIndicatorPictureBox = new System.Windows.Forms.PictureBox();
-            this.turnoverGraphView1 = new CPECentral.Views.TurnoverGraphView();
+            this.complaintTrendsView1 = new CPECentral.Views.ComplaintTrendsView();
             this.centralPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appLogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preloaderPictureBox)).BeginInit();
@@ -140,21 +140,20 @@
             this.loginIndicatorPictureBox.TabStop = false;
             this.loginIndicatorPictureBox.Visible = false;
             // 
-            // turnoverGraphView1
+            // complaintTrendsView1
             // 
-            this.turnoverGraphView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.turnoverGraphView1.Location = new System.Drawing.Point(12, 54);
-            this.turnoverGraphView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.turnoverGraphView1.Name = "turnoverGraphView1";
-            this.turnoverGraphView1.Size = new System.Drawing.Size(516, 319);
-            this.turnoverGraphView1.TabIndex = 7;
+            this.complaintTrendsView1.Location = new System.Drawing.Point(71, 73);
+            this.complaintTrendsView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.complaintTrendsView1.Name = "complaintTrendsView1";
+            this.complaintTrendsView1.Size = new System.Drawing.Size(882, 958);
+            this.complaintTrendsView1.TabIndex = 7;
             // 
             // LoginView2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.turnoverGraphView1);
+            this.Controls.Add(this.complaintTrendsView1);
             this.Controls.Add(this.centralPanel);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.loginIndicatorPictureBox);
@@ -185,6 +184,6 @@
         private System.Windows.Forms.PictureBox loginIndicatorPictureBox;
         private System.Windows.Forms.PictureBox appLogoPictureBox;
         private System.Windows.Forms.PictureBox preloaderPictureBox;
-        private TurnoverGraphView turnoverGraphView1;
+        private ComplaintTrendsView complaintTrendsView1;
     }
 }

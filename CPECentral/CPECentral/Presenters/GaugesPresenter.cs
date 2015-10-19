@@ -1,9 +1,15 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using CPECentral.QMS;
+using CPECentral.QMS.Model;
 using CPECentral.Views;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -19,12 +25,40 @@ namespace CPECentral.Presenters
 
         private void _view_FilterValueChanged(object sender, EventArgs e)
         {
+            var worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(_view.SelectedFilterValue);
+
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result is Exception)
+            {
+                // TODO: handle exception
+                return;
+            }
+
+            var gauges = e.Result as IEnumerable<Gauge>;
+
+            _view.DisplayGauges(gauges);
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var filterValue = (GaugesView.FilterValue)e.Argument;
+
+            IEnumerable<Gauge> gauges = null;
+
             var qms = new QMSDataProvider();
 
-            if (_view.SelectedFilterValue == GaugesView.FilterValue.DueForCalibration)
+            if (filterValue == GaugesView.FilterValue.DueForCalibration)
             {
-                _view.DisplayGauges(qms.GetGaugesDueForCalibration());
+                gauges = qms.GetGaugesDueForCalibration().OrderBy(g => g.CalibrationDueOn);
             }
+
+            e.Result = gauges;
         }
     }
 }

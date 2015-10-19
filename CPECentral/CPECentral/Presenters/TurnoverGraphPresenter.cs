@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using directives
+
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
 using Tricorn;
+
+#endregion
 
 namespace CPECentral.Presenters
 {
@@ -43,7 +44,7 @@ namespace CPECentral.Presenters
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            TurnoverGraphViewModel model = new TurnoverGraphViewModel();
+            var model = new TurnoverGraphViewModel();
 
             decimal targetAmount = 0;
 
@@ -54,18 +55,21 @@ namespace CPECentral.Presenters
 
             using (var tricorn = new TricornDataProvider())
             {
-                for (int i = 6; i >= 0; i--)
+                // get the turnover target percentages for the past 6 months
+                for (var i = -5; i <= 0; i++)
                 {
-                    var month = DateTime.Today.AddMonths(i*-1);
+                    var month = DateTime.Today.AddMonths(i);
 
                     var start = new DateTime(month.Year, month.Month, 1);
                     var end = start.AddMonths(1).AddDays(-1);
 
                     var turnover = tricorn.GetTurnoverForPeriod(start, end);
-                    
-                    var targetPercentage = Convert.ToInt32((turnover / targetAmount) * 100);
 
-                    var point = new TurnoverGraphViewModel.GraphPoint(start.ToString("MMMM"), targetPercentage);
+                    var targetPercentage = Convert.ToInt32((turnover/targetAmount)*100);
+
+                    targetPercentage = Math.Min(targetPercentage, 100);
+
+                    var point = new TurnoverGraphViewModel.GraphPoint(start.ToString("MMM"), targetPercentage);
                     model.GraphPoints.Add(point);
                 }
             }

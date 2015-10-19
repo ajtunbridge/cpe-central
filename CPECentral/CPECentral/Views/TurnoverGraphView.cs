@@ -19,7 +19,7 @@ namespace CPECentral.Views
         {
             InitializeComponent();
 
-            if (!IsInDesignMode)
+            if (!IsInDesignMode && !DesignMode)
             {
                 _presenter = new TurnoverGraphPresenter(this);
             }
@@ -27,7 +27,7 @@ namespace CPECentral.Views
 
         private void TurnoverGraphView_Load(object sender, EventArgs e)
         {
-            if (!IsInDesignMode)
+            if (!IsInDesignMode && !DesignMode)
             {
                 _presenter.RetrieveData();
             }
