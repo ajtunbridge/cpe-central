@@ -45,9 +45,9 @@ namespace CPECentral.Views
 
         public TimePeriod SelectedTimePeriod { get; private set; }
         public ComplaintType SelectedComplaintType { get; private set; }
-        public event EventHandler ParametersChanged;
+        public event EventHandler TimePeriodChanged;
 
-        protected virtual void OnParametersChanged()
+        protected virtual void OnTimePeriodChanged()
         {
             customerPieChart.Series[0].Points.Clear();
             customerPieChart.Series[0].Points.AddXY("refreshing...", 0);
@@ -60,7 +60,7 @@ namespace CPECentral.Views
             customerPieChart.Titles[0].Alignment = ContentAlignment.TopLeft;
             customerPieChart.Titles[0].Font = new Font(Font.FontFamily, 16f, FontStyle.Bold);
 
-            ParametersChanged?.Invoke(this, EventArgs.Empty);
+            TimePeriodChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateChartTitles()
@@ -163,7 +163,7 @@ namespace CPECentral.Views
                 return;
             }
 
-            OnParametersChanged();
+            OnTimePeriodChanged();
         }
 
         private void pieChart_MouseClick(object sender, MouseEventArgs e)
@@ -185,7 +185,7 @@ namespace CPECentral.Views
         {
             if (!IsInDesignMode)
             {
-                OnParametersChanged();
+                OnTimePeriodChanged();
             }
         }
 

@@ -28,7 +28,7 @@
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
     <MinimumRequiredVersion>3.2.0.9</MinimumRequiredVersion>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -336,6 +336,12 @@
     <Compile Include="Dialogs\EmployeeLoginDialog.Designer.cs">
       <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SuperDumpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SuperDumpDialog.Designer.cs">
+      <DependentUpon>SuperDumpDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,6 +384,7 @@
     <Compile Include="Note.cs" />
     <Compile Include="PartPhotoCache.cs" />
     <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
+    <Compile Include="Presenters\ComplaintTrendsPresenter.cs" />
     <Compile Include="Presenters\DocumentsPresenter.cs" />
     <Compile Include="Presenters\GaugesPresenter.cs" />
     <Compile Include="Presenters\HoldersPresenter.cs" />
@@ -422,6 +429,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="SuperDump.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -804,6 +812,9 @@
     <EmbeddedResource Include="Dialogs\EmployeeLoginDialog.resx">
       <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SuperDumpDialog.resx">
+      <DependentUpon>SuperDumpDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -964,10 +975,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -1108,6 +1119,17 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\PooPlop.wav" />
+    <None Include="Resources\ToiletFlushing.wav" />
+    <None Include="Resources\AhhYeah.wav" />
+    <None Include="Resources\ThatFeltGood.wav" />
+    <None Include="Resources\SuperDumpLogo.png" />
+    <None Include="Resources\SuperDump_06.wav" />
+    <None Include="Resources\SuperDump_05.wav" />
+    <None Include="Resources\SuperDump_04.wav" />
+    <None Include="Resources\SuperDump_03.wav" />
+    <None Include="Resources\SuperDump_02.wav" />
+    <None Include="Resources\SuperDump_01.wav" />
     <None Include="Resources\SettingsIcon_32x32.png" />
     <None Include="Resources\SaveIcon_32x32.png" />
     <None Include="Resources\RefreshIcon_32x32.png" />

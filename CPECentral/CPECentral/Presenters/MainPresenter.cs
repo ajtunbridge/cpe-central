@@ -27,6 +27,12 @@ namespace CPECentral.Presenters
             _view.LoadToolManagementDialog += _view_LoadToolManagementDialog;
             _view.RetrieveEmployeeAccounts += _view_RetrieveEmployeeAccounts;
             _view.LoadSettingsDialog += _view_LoadSettingsDialog;
+            _view.LoadSuperDumpDialog += _view_LoadSuperDumpDialog;
+        }
+
+        private void _view_LoadSuperDumpDialog(object sender, EventArgs e)
+        {
+            new SuperDumpDialog().ShowDialog();
         }
 
         void _view_LoadSettingsDialog(object sender, EventArgs e)

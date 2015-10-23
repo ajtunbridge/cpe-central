@@ -109,7 +109,10 @@
       <Value Profile="(Default)">I:\</Value>
     </Setting>
     <Setting Name="PathToQMSDatabase" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\\SJCSRV1\Data\Quality\QMS DATABASE2008.mdb</Value>
+      <Value Profile="(Default)">I:\Quality\QMS DATABASE2008.mdb</Value>
+    </Setting>
+    <Setting Name="ShowSuperDump" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -19,10 +19,10 @@ namespace CPECentral.Presenters
         {
             _view = view;
 
-            _view.ParametersChanged += ViewParametersChanged;
+            _view.TimePeriodChanged += ViewTimePeriodChanged;
         }
 
-        private void ViewParametersChanged(object sender, EventArgs e)
+        private void ViewTimePeriodChanged(object sender, EventArgs e)
         {
             var refreshWorker = new BackgroundWorker();
             refreshWorker.DoWork += RefreshWorker_DoWork;

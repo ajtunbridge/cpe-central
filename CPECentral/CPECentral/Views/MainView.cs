@@ -23,6 +23,7 @@ namespace CPECentral.Views
         event EventHandler AddNewPart;
         event EventHandler LoadToolManagementDialog;
         event EventHandler LoadSettingsDialog;
+        event EventHandler LoadSuperDumpDialog;
 
         void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees);
     }
@@ -46,6 +47,11 @@ namespace CPECentral.Views
             if (!IsInDesignMode) {
                 _presenter = new MainPresenter(this);
 
+                if (!Settings.Default.ShowSuperDump)
+                {
+                    superDumpToolStripButton.Visible = false;
+                }
+
                 Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
                 Session.DocumentService.Error += DocumentService_Error;
                 Session.DocumentService.TransferStarted += DocumentService_TransferStarted;
@@ -60,6 +66,7 @@ namespace CPECentral.Views
         public event EventHandler AddNewPart;
         public event EventHandler LoadToolManagementDialog;
         public event EventHandler LoadSettingsDialog;
+        public event EventHandler LoadSuperDumpDialog;
 
         public void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees)
         {
@@ -184,6 +191,9 @@ namespace CPECentral.Views
                 case "settingsToolStripButton":
                     OnLoadSettingsDialog();
                     break;
+                case "superDumpToolStripButton":
+                    OnLoadSuperDumpDialog();
+                    break;
             }
         }
 
@@ -253,6 +263,11 @@ namespace CPECentral.Views
                     Session.MessageBus.Publish(new EmployeeSwitchedMessage(employee));
                 }
             }
+        }
+
+        private void OnLoadSuperDumpDialog()
+        {
+            LoadSuperDumpDialog?.Invoke(this, EventArgs.Empty);
         }
     }
 }

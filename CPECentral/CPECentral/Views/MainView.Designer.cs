@@ -42,7 +42,8 @@
             this.switchUserToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.addPartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolManagementToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.superDumpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.documentTransferStatusStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
@@ -60,8 +61,9 @@
             this.toolStripSeparator5,
             this.toolManagementToolStripButton,
             this.toolStripSeparator4,
-            this.settingsToolStripButton,
-            this.toolStripSeparator2});
+            this.toolStripButton1,
+            this.toolStripSeparator2,
+            this.superDumpToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1214, 50);
@@ -165,13 +167,21 @@
             this.toolManagementToolStripButton.Size = new System.Drawing.Size(147, 47);
             this.toolManagementToolStripButton.Text = "  Tool management";
             // 
-            // settingsToolStripButton
+            // toolStripButton1
             // 
-            this.settingsToolStripButton.Image = global::CPECentral.Properties.Resources.SettingsIcon_32x32;
-            this.settingsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.settingsToolStripButton.Name = "settingsToolStripButton";
-            this.settingsToolStripButton.Size = new System.Drawing.Size(85, 47);
-            this.settingsToolStripButton.Text = "Settings";
+            this.toolStripButton1.Image = global::CPECentral.Properties.Resources.SettingsIcon_32x32;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(85, 47);
+            this.toolStripButton1.Text = "Settings";
+            // 
+            // superDumpToolStripButton
+            // 
+            this.superDumpToolStripButton.Image = global::CPECentral.Properties.Resources.SuperDumpLogo;
+            this.superDumpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.superDumpToolStripButton.Name = "superDumpToolStripButton";
+            this.superDumpToolStripButton.Size = new System.Drawing.Size(115, 47);
+            this.superDumpToolStripButton.Text = "SuperDump™";
             // 
             // MainView
             // 
@@ -212,7 +222,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripDropDownButton switchUserToolStripDropDownButton;
         private System.Windows.Forms.Panel employeeSessionPanel;
-        private System.Windows.Forms.ToolStripButton settingsToolStripButton;
+        private System.Windows.Forms.ToolStripButton superDumpToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

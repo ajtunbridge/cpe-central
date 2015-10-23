@@ -17,16 +17,47 @@ namespace CPECentral.Views
             InitializeComponent();
         }
 
-        private void complaintCategoryTrendChart_MouseMove(object sender, MouseEventArgs e)
+        private Dictionary<string, Color> _seriesOriginalColorsDictionary = new Dictionary<string, Color>();
+
+        private void charts_MouseMove(object sender, MouseEventArgs e)
         {
-            var result = complaintCategoryTrendChart.HitTest(e.X, e.Y);
+            var chart = (Chart)sender;
+
+            Cursor = Cursors.Default;
+
+            var result = chart.HitTest(e.X, e.Y);
+            if (result != null && result.Object != null)
+            {
+                if (result.Object is LegendItem)
+                {
+                    Cursor = Cursors.Hand;
+                }
+            }
+        }
+
+        private void charts_MouseClick(object sender, MouseEventArgs e)
+        {
+            var chart = (Chart) sender;
+
+            var result = chart.HitTest(e.X, e.Y);
             if (result != null && result.Object != null)
             {
                 if (result.Object is LegendItem)
                 {
                     LegendItem legendItem = (LegendItem)result.Object;
 
-                    // TODO: figure out how to highlight legend item on mouse over
+                    var series = chart.Series[legendItem.SeriesName];
+
+                    if (series.Color == Color.WhiteSmoke)
+                    {
+                        series.Color = _seriesOriginalColorsDictionary[series.Name];
+                        _seriesOriginalColorsDictionary.Remove(series.Name);
+                    }
+                    else
+                    {
+                        _seriesOriginalColorsDictionary.Add(series.Name, series.Color);
+                        series.Color = Color.WhiteSmoke;
+                    }
                 }
             }
         }
