@@ -45,7 +45,7 @@
             // 
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(478, 17);
+            this.label1.Size = new System.Drawing.Size(406, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Search for tool";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -55,7 +55,7 @@
             this.searchTextBox.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchTextBox.Location = new System.Drawing.Point(16, 33);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(475, 33);
+            this.searchTextBox.Size = new System.Drawing.Size(403, 33);
             this.searchTextBox.TabIndex = 0;
             this.searchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
@@ -77,7 +77,7 @@
             this.resultsListView.Location = new System.Drawing.Point(16, 100);
             this.resultsListView.MultiSelect = false;
             this.resultsListView.Name = "resultsListView";
-            this.resultsListView.Size = new System.Drawing.Size(475, 326);
+            this.resultsListView.Size = new System.Drawing.Size(403, 279);
             this.resultsListView.TabIndex = 1;
             this.resultsListView.UseCompatibleStateImageBehavior = false;
             this.resultsListView.View = System.Windows.Forms.View.Details;
@@ -87,7 +87,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 450;
+            this.columnHeader1.Width = 380;
             // 
             // label2
             // 
@@ -101,7 +101,7 @@
             // optionalLabel
             // 
             this.optionalLabel.AutoSize = true;
-            this.optionalLabel.Location = new System.Drawing.Point(13, 443);
+            this.optionalLabel.Location = new System.Drawing.Point(12, 392);
             this.optionalLabel.Name = "optionalLabel";
             this.optionalLabel.Size = new System.Drawing.Size(17, 17);
             this.optionalLabel.TabIndex = 0;
@@ -112,18 +112,18 @@
             this.optionalComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.optionalComboBox.Enabled = false;
             this.optionalComboBox.FormattingEnabled = true;
-            this.optionalComboBox.Location = new System.Drawing.Point(17, 463);
+            this.optionalComboBox.Location = new System.Drawing.Point(15, 412);
             this.optionalComboBox.Name = "optionalComboBox";
-            this.optionalComboBox.Size = new System.Drawing.Size(475, 25);
+            this.optionalComboBox.Size = new System.Drawing.Size(404, 25);
             this.optionalComboBox.TabIndex = 2;
             this.optionalComboBox.SelectedIndexChanged += new System.EventHandler(this.holdersComboBox_SelectedIndexChanged);
             // 
             // okButton
             // 
             this.okButton.Enabled = false;
-            this.okButton.Location = new System.Drawing.Point(17, 514);
+            this.okButton.Location = new System.Drawing.Point(16, 460);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(283, 51);
+            this.okButton.Size = new System.Drawing.Size(249, 51);
             this.okButton.TabIndex = 3;
             this.okButton.Text = "Okay";
             this.okButton.UseVisualStyleBackColor = true;
@@ -132,9 +132,9 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(306, 514);
+            this.cancelButton.Location = new System.Drawing.Point(271, 460);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(185, 51);
+            this.cancelButton.Size = new System.Drawing.Size(148, 51);
             this.cancelButton.TabIndex = 4;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(503, 587);
+            this.ClientSize = new System.Drawing.Size(434, 526);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.optionalComboBox);
@@ -166,7 +166,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Select a tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectToolDialog_FormClosing);
-            this.Load += new System.EventHandler(this.SelectToolDialog2_Load);
+            this.Load += new System.EventHandler(this.SelectToolDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

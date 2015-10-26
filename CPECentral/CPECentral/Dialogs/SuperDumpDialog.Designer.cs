@@ -34,7 +34,7 @@
             this.getStartedButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label3 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.dumpListView = new System.Windows.Forms.ListView();
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -92,13 +92,14 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "STEP 3: Wait";
             // 
-            // listView1
+            // dumpListView
             // 
-            this.listView1.Location = new System.Drawing.Point(15, 222);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(418, 239);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.dumpListView.Location = new System.Drawing.Point(15, 222);
+            this.dumpListView.Name = "dumpListView";
+            this.dumpListView.Size = new System.Drawing.Size(418, 239);
+            this.dumpListView.TabIndex = 4;
+            this.dumpListView.UseCompatibleStateImageBehavior = false;
+            this.dumpListView.SelectedIndexChanged += new System.EventHandler(this.dumpListView_SelectedIndexChanged);
             // 
             // button2
             // 
@@ -122,9 +123,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 572);
+            this.ClientSize = new System.Drawing.Size(451, 572);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.dumpListView);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.getStartedButton);
             this.Controls.Add(this.machinesComboBox);
@@ -132,11 +133,17 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SuperDumpDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "SuperDump™";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SuperDumpDialog_FormClosing);
             this.Load += new System.EventHandler(this.SuperDumpDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,7 +158,7 @@
         private System.Windows.Forms.Button getStartedButton;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView dumpListView;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
     }

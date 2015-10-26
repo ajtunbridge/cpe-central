@@ -6,7 +6,6 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Media;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -22,18 +21,16 @@ namespace CPECentral.Dialogs
 {
     public partial class SuperDumpDialog : Form
     {
-        private const string DrawingNumberRegEx = @"(?<=DWG\.)[\w]*";
+        private const string DrawingNumberRegEx = @"(?<=DWG\.)[A-Za-z0-9-\\_]*";
         private const string VersionNumberRegEx = @"(?<=VER\.)[\w]*";
         private const string OpNumberRegEx = @"(?<=OP\.)[\d]*";
         private const string ProgramNumberRegEx = @"(?<=\:)[\d]{4}";
+        private readonly List<string> _failedMatches = new List<string>();
+        private readonly ImageList _largeIconImageList;
         private readonly StringBuilder _programDump = new StringBuilder();
-        private SerialLink _serialLink;
-        private List<string> _failedMatches = new List<string>();
+        private readonly ImageList _smallIconImageList;
 
-        private ImageList _smallIconImageList;
-        private ImageList _largeIconImageList;
-
-        private List<UnmanagedMemoryStream> _superDumpSounds = new List<UnmanagedMemoryStream>()
+        private readonly List<UnmanagedMemoryStream> _superDumpSounds = new List<UnmanagedMemoryStream>
         {
             Resources.SuperDump_01,
             Resources.SuperDump_02,
@@ -43,17 +40,19 @@ namespace CPECentral.Dialogs
             Resources.SuperDump_06
         };
 
+        private SerialLink _serialLink;
+
         public SuperDumpDialog()
         {
             InitializeComponent();
 
-                
+
             if (_smallIconImageList == null)
             {
                 _smallIconImageList = new ImageList();
                 _smallIconImageList.ImageSize = new Size(16, 16);
                 _smallIconImageList.ColorDepth = ColorDepth.Depth32Bit;
-                _smallIconImageList.Images.Add("TextFile", Resources.GenericFileIcon);
+                _smallIconImageList.Images.Add("TextFile", Resources.SuperDumpLogo);
             }
 
             if (_largeIconImageList == null)
@@ -61,11 +60,11 @@ namespace CPECentral.Dialogs
                 _largeIconImageList = new ImageList();
                 _largeIconImageList.ImageSize = new Size(32, 32);
                 _largeIconImageList.ColorDepth = ColorDepth.Depth32Bit;
-                _largeIconImageList.Images.Add("TextFile", Resources.GenericFileIcon);
+                _largeIconImageList.Images.Add("TextFile", Resources.SuperDumpLogo);
             }
 
-            listView1.SmallImageList = _smallIconImageList;
-            listView1.LargeImageList = _largeIconImageList;
+            dumpListView.SmallImageList = _smallIconImageList;
+            dumpListView.LargeImageList = _largeIconImageList;
         }
 
         private void ProcessReceivedProgram(string programData)
@@ -74,13 +73,13 @@ namespace CPECentral.Dialogs
             {
                 programData += "%";
             }
-            
+
             programData = programData.Insert(0, "%\r\n:");
 
             var newProvenDate = $"(PROVEN ON {DateTime.Today.ToShortDateString()})";
 
             programData = programData.Replace("(* NOT PROVEN *)", newProvenDate);
-                                
+
             var drawingMatch = new Regex(DrawingNumberRegEx).Match(programData);
             var versionMatch = new Regex(VersionNumberRegEx).Match(programData);
             var opMatch = new Regex(OpNumberRegEx).Match(programData);
@@ -102,6 +101,7 @@ namespace CPECentral.Dialogs
                     if (part == null)
                     {
                         _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc (DWG)" : "Uknown program number!");
+                        return;
                     }
 
                     var version =
@@ -110,6 +110,7 @@ namespace CPECentral.Dialogs
                     if (version == null)
                     {
                         _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc (VER)" : "Uknown program number!");
+                        return;
                     }
 
                     var methods = cpe.Methods.GetByPartVersion(version);
@@ -133,9 +134,9 @@ namespace CPECentral.Dialogs
 
                         var fileName = Session.DocumentService.GetPathToDocument(ncDoc);
 
-                        listView1.InvokeEx(() =>
+                        dumpListView.InvokeEx(() =>
                         {
-                            var item = listView1.Items.Add(Path.GetFileName(fileName));
+                            var item = dumpListView.Items.Add(Path.GetFileName(fileName));
                             item.Tag = $"{fileName}|{programData}";
                             item.ImageIndex = 0;
                         });
@@ -145,7 +146,7 @@ namespace CPECentral.Dialogs
                 }
             }
         }
-        
+
         private void getStartedButton_Click(object sender, EventArgs e)
         {
             using (UnmanagedMemoryStream stream = Resources.AhhYeah)
@@ -158,7 +159,7 @@ namespace CPECentral.Dialogs
 
             getStartedButton.Text = "Waiting for the dump to come...";
             getStartedButton.Enabled = false;
-            
+
             var machine = (Machine) machinesComboBox.SelectedItem;
 
             var control = new NcUnitOfWork().MachineControls.GetById(machine.MachineControlId);
@@ -229,7 +230,7 @@ namespace CPECentral.Dialogs
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var splitPrograms = _programDump.ToString().Split(new[] { ":" }, StringSplitOptions.None);
+            var splitPrograms = _programDump.ToString().Split(new[] {":"}, StringSplitOptions.None);
 
             foreach (var prog in splitPrograms.Skip(1))
             {
@@ -275,7 +276,7 @@ namespace CPECentral.Dialogs
                 machinesComboBox.SelectedIndex = 0;
             }
 
-            var index = new Random().Next(0, 5);
+            var index = new Random(new Random().Next(0,1223804798)).Next(0, 5);
 
             using (UnmanagedMemoryStream stream = _superDumpSounds[index])
             {
@@ -298,7 +299,7 @@ namespace CPECentral.Dialogs
 
             using (BusyCursor.Show())
             {
-                foreach (ListViewItem item in listView1.Items)
+                foreach (ListViewItem item in dumpListView.Items)
                 {
                     var split = ((string) item.Tag).Split(new[] {"|"}, StringSplitOptions.None);
 
@@ -307,6 +308,15 @@ namespace CPECentral.Dialogs
             }
 
             Close();
+        }
+
+        private void SuperDumpDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _serialLink?.Dispose();
+        }
+
+        private void dumpListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

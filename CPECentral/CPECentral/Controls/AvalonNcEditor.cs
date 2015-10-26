@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -35,7 +36,7 @@ namespace CPECentral.Controls
     public partial class AvalonNcEditor : UserControl
     {
         private static NcUnitOfWork _machinesDb;
-        private readonly IDialogService _dialogService = Session.GetInstanceOf<IDialogService>();
+        private IDialogService _dialogService;
         private readonly TextEditor _editor;
         private readonly ElementHost _host;
         private string _currentFileName;
@@ -127,14 +128,24 @@ namespace CPECentral.Controls
             _editor.TextArea.Caret.BringCaretToView();
         }
 
+        public void HideToolbar()
+        {
+            toolStrip.Visible = false;
+        }
+
         private void AvalonNcEditor_Load(object sender, EventArgs e)
         {
-            if (!AppSecurity.Check(AppPermission.ManageDocuments, false)) {
-                _editor.IsReadOnly = true;
-            }
+            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                if (!AppSecurity.Check(AppPermission.ManageDocuments, false))
+                {
+                    _editor.IsReadOnly = true;
+                }
 
-            LoadLanguageList();
-            LoadMachineList();
+                LoadLanguageList();
+                LoadMachineList();
+                _dialogService = Session.GetInstanceOf<IDialogService>();
+            }
         }
 
         private void LanguageToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)

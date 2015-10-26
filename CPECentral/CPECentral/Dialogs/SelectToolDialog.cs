@@ -19,6 +19,7 @@ namespace CPECentral.Dialogs
         private static List<Holder> _allHolders;
         private static Dictionary<Tool, double?> _stockLevels = new Dictionary<Tool, double?>();
         private static DateTime _clearCacheAt;
+        private static bool _dataIsCached;
 
         public SelectToolDialog()
         {
@@ -92,16 +93,17 @@ namespace CPECentral.Dialogs
             }
         }
 
-        private void SelectToolDialog2_Load(object sender, EventArgs e)
+        private void SelectToolDialog_Load(object sender, EventArgs e)
         {
             if (_clearCacheAt < DateTime.Now)
             {
                 _allTools = null;
                 _allHolders = null;
                 _stockLevels = new Dictionary<Tool, double?>();
+                _dataIsCached = false;
             }
 
-            if (_allTools == null)
+            if (!_dataIsCached)
             {
                 using (BusyCursor.Show())
                 {
@@ -228,6 +230,7 @@ namespace CPECentral.Dialogs
 
         private void SelectToolDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // extend the cache by a minute
             _clearCacheAt = DateTime.Now.AddMinutes(1);
         }
     }

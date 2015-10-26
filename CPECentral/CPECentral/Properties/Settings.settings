@@ -41,12 +41,6 @@
     <Setting Name="TurningToolRegEx" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\(T(?&lt;position&gt;[0-9]{2})(?&lt;offset&gt;[0-9]{2})[ ]-[ ](?&lt;name&gt;.*)\)</Value>
     </Setting>
-    <Setting Name="CamTemplateMilling" Type="System.String" Scope="User">
-      <Value Profile="(Default)">I:\Central\Templates\CAM_Template_Milling.fm</Value>
-    </Setting>
-    <Setting Name="CamTemplateTurning" Type="System.String" Scope="User">
-      <Value Profile="(Default)">I:\Central\Templates\CAM_Template_Turning.fm</Value>
-    </Setting>
     <Setting Name="ViewInternallyFileExtensions" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.txt|.nc|.h</Value>
     </Setting>
@@ -108,11 +102,17 @@
     <Setting Name="DefaultDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">I:\</Value>
     </Setting>
-    <Setting Name="PathToQMSDatabase" Type="System.String" Scope="User">
-      <Value Profile="(Default)">I:\Quality\QMS DATABASE2008.mdb</Value>
-    </Setting>
     <Setting Name="ShowSuperDump" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CamTemplateMilling" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\Templates\CAM_Template_Milling.fm</Value>
+    </Setting>
+    <Setting Name="CamTemplateTurning" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Central\Templates\CAM_Template_Turning.fm</Value>
+    </Setting>
+    <Setting Name="PathToQMSDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Quality\QMS DATABASE2008.mdb</Value>
     </Setting>
   </Settings>
 </SettingsFile>

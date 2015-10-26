@@ -28,7 +28,7 @@
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
     <MinimumRequiredVersion>3.2.0.9</MinimumRequiredVersion>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -984,10 +984,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.home">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.work">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

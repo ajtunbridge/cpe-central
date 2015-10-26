@@ -167,30 +167,6 @@ namespace CPECentral.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Central\\Templates\\CAM_Template_Milling.fm")]
-        public string CamTemplateMilling {
-            get {
-                return ((string)(this["CamTemplateMilling"]));
-            }
-            set {
-                this["CamTemplateMilling"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Central\\Templates\\CAM_Template_Turning.fm")]
-        public string CamTemplateTurning {
-            get {
-                return ((string)(this["CamTemplateTurning"]));
-            }
-            set {
-                this["CamTemplateTurning"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".txt|.nc|.h")]
@@ -378,18 +354,6 @@ namespace CPECentral.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Quality\\QMS DATABASE2008.mdb")]
-        public string PathToQMSDatabase {
-            get {
-                return ((string)(this["PathToQMSDatabase"]));
-            }
-            set {
-                this["PathToQMSDatabase"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowSuperDump {
             get {
@@ -397,6 +361,42 @@ namespace CPECentral.Properties {
             }
             set {
                 this["ShowSuperDump"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Central\\Templates\\CAM_Template_Milling.fm")]
+        public string CamTemplateMilling {
+            get {
+                return ((string)(this["CamTemplateMilling"]));
+            }
+            set {
+                this["CamTemplateMilling"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Central\\Templates\\CAM_Template_Turning.fm")]
+        public string CamTemplateTurning {
+            get {
+                return ((string)(this["CamTemplateTurning"]));
+            }
+            set {
+                this["CamTemplateTurning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Quality\\QMS DATABASE2008.mdb")]
+        public string PathToQMSDatabase {
+            get {
+                return ((string)(this["PathToQMSDatabase"]));
+            }
+            set {
+                this["PathToQMSDatabase"] = value;
             }
         }
     }
