@@ -42,7 +42,7 @@ namespace CPECentral.Dialogs
 
         private void SelectToolButton_Click(object sender, EventArgs e)
         {
-            using (var toolSelector = new ToolSelectorDialog(false)) {
+            using (var toolSelector = new SelectToolDialog()) {
                 if (toolSelector.ShowDialog(this) != DialogResult.OK) {
                     return;
                 }

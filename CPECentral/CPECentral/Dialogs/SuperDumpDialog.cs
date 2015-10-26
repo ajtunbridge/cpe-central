@@ -77,8 +77,10 @@ namespace CPECentral.Dialogs
             
             programData = programData.Insert(0, "%\r\n:");
 
-            programData = programData.Replace("(* NOT PROVEN *)", $"(PROVEN ON {DateTime.Today.ToShortDateString()})");
+            var newProvenDate = $"(PROVEN ON {DateTime.Today.ToShortDateString()})";
 
+            programData = programData.Replace("(* NOT PROVEN *)", newProvenDate);
+                                
             var drawingMatch = new Regex(DrawingNumberRegEx).Match(programData);
             var versionMatch = new Regex(VersionNumberRegEx).Match(programData);
             var opMatch = new Regex(OpNumberRegEx).Match(programData);
@@ -99,7 +101,7 @@ namespace CPECentral.Dialogs
 
                     if (part == null)
                     {
-                        _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc" : "Uknown program number!");
+                        _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc (DWG)" : "Uknown program number!");
                     }
 
                     var version =
@@ -107,7 +109,7 @@ namespace CPECentral.Dialogs
 
                     if (version == null)
                     {
-                        _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc" : "Uknown program number!");
+                        _failedMatches.Add(progMatch.Success ? $"{progMatch.Value}.nc (VER)" : "Uknown program number!");
                     }
 
                     var methods = cpe.Methods.GetByPartVersion(version);

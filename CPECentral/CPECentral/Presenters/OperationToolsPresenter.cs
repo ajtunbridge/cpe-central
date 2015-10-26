@@ -185,7 +185,6 @@ namespace CPECentral.Presenters
                         // later on
                         opTool.Holder = null;
                         opTool.Operation = null;
-                        opTool.Operation = null;
                     }
                 }
 

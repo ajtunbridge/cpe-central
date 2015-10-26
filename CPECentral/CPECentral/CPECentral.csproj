@@ -294,12 +294,6 @@
     <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SelectToolDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SelectToolDialog.Designer.cs">
-      <DependentUpon>SelectToolDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\SelectTricornMaterialDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +341,12 @@
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.Designer.cs">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.Designer.cs">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ToolSelectorDialog.cs">
       <SubType>Form</SubType>
@@ -516,6 +516,12 @@
     </Compile>
     <Compile Include="Views\NonConformanceView.Designer.cs">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperationToolsView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OperationToolsView2.Designer.cs">
+      <DependentUpon>OperationToolsView2.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PartWorksOrdersView.cs">
       <SubType>UserControl</SubType>
@@ -791,9 +797,6 @@
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
-      <DependentUpon>SelectToolDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectTricornMaterialDialog.resx">
       <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -817,6 +820,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolSelectorDialog.resx">
       <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
@@ -878,6 +884,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceView.resx">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OperationToolsView2.resx">
+      <DependentUpon>OperationToolsView2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartWorksOrdersView.resx">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
@@ -975,10 +984,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.work">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

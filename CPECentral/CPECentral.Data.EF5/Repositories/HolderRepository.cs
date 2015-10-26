@@ -23,5 +23,17 @@ namespace CPECentral.Data.EF5.Repositories
         {
             return GetSet().Where(h => h.HolderGroupId == holderGroupId).ToList();
         }
+
+        public IEnumerable<Holder> GetByTool(Tool tool)
+        {
+            return GetByTool(tool.Id);
+        }
+
+        public IEnumerable<Holder> GetByTool(int toolId)
+        {
+            var holderTools = UnitOfWork.HolderTools.GetByTool(toolId);
+
+            return holderTools.Select(ht => GetById(ht.HolderId)).ToList();
+        } 
     }
 }
