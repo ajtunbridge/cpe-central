@@ -87,6 +87,12 @@ namespace CPECentral.Presenters
 
         private void _view_AddOperationTool(object sender, OperationEventArgs e)
         {
+            using (var operationToolsEditor = new OperationToolsEditorDialog(e.Operation))
+            {
+                operationToolsEditor.ShowDialog();
+                return;
+            }
+
             using (var editOperationToolDialog = new EditOperationToolDialog(e.Operation)) {
                 if (editOperationToolDialog.ShowDialog(_view.ParentForm) != DialogResult.OK) {
                     return;

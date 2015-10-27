@@ -32,7 +32,10 @@ namespace CPECentral.Presenters
 
         private void _view_LoadSuperDumpDialog(object sender, EventArgs e)
         {
-            new SuperDumpDialog().ShowDialog();
+            using (var dialog = new SuperDumpDialog())
+            {
+                dialog.ShowDialog(_view.ParentForm);
+            }
         }
 
         void _view_LoadSettingsDialog(object sender, EventArgs e)

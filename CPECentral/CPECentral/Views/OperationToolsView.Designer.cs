@@ -80,6 +80,7 @@
             this.addToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addToolStripButton.Text = "Add";
             this.addToolStripButton.ToolTipText = "Add a tool to this operation";
+            this.addToolStripButton.Click += new System.EventHandler(this.addToolStripButton_Click);
             // 
             // editToolStripButton
             // 

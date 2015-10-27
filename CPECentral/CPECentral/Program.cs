@@ -46,7 +46,7 @@ namespace CPECentral
                     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                     Application.ThreadException += Application_ThreadException;
 
-                    var form = new MainForm();
+                    var form = new OperationToolsEditorDialog(753);
 
                     Application.Run(form);
                 }

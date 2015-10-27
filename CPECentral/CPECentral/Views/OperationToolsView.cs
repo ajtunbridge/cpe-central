@@ -244,5 +244,10 @@ namespace CPECentral.Views
                 OnAddOperationTool(new OperationEventArgs(_currentOperation));
             }
         }
+
+        private void addToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

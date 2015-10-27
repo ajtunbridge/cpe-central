@@ -103,22 +103,22 @@
         <value>True</value>
       </setting>
       <setting name="CamTemplateMilling" serializeAs="String">
-        <value />
+        <value>I:\Central\Templates\CAM_Template_Milling.fm</value>
       </setting>
       <setting name="CamTemplateTurning" serializeAs="String">
-        <value />
+        <value>I:\Central\Templates\CAM_Template_Turning.fm</value>
       </setting>
       <setting name="PathToQMSDatabase" serializeAs="String">
-        <value>QMS DATABASE2008.mdb</value>
+        <value>I:\Quality\QMS DATABASE2008.mdb</value>
       </setting>
     </CPECentral.Properties.Settings>
   </userSettings>
   <connectionStrings>
     <add name="TricornEntities"
-         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=Production;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/TricornModel.csdl|res://*/TricornModel.ssdl|res://*/TricornModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=CPE-SRV1;initial catalog=Production;integrated security=True;Connection Timeout=30;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
     <add name="CPECentralEntities"
-         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=CPECentral;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
+         connectionString="metadata=res://*/CPECentralModel.csdl|res://*/CPECentralModel.ssdl|res://*/CPECentralModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=CPE-SRV1;initial catalog=CPECentral;integrated security=True;Connection Timeout=30;MultipleActiveResultSets=True;App=EntityFramework&quot;"
          providerName="System.Data.EntityClient" />
   </connectionStrings>
   <applicationSettings>

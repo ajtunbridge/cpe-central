@@ -88,7 +88,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 163);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 17);
+            this.label3.Size = new System.Drawing.Size(79, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "STEP 3: Wait";
             // 
@@ -142,6 +142,7 @@
             this.Name = "SuperDumpDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SuperDump™";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SuperDumpDialog_FormClosing);
             this.Load += new System.EventHandler(this.SuperDumpDialog_Load);
