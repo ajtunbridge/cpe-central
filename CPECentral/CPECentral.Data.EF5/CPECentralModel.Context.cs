@@ -44,5 +44,6 @@ namespace CPECentral.Data.EF5
         public DbSet<RecentPart> RecentParts { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<PartVersion> PartVersions { get; set; }
+        public DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
     }
 }

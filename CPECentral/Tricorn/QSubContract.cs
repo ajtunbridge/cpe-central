@@ -29,6 +29,8 @@ namespace Tricorn
         public Nullable<double> Uplift_Percentage { get; set; }
         public Nullable<decimal> Surcharge { get; set; }
         public Nullable<decimal> Minimum_Charge { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual Quote Quote { get; set; }
     }

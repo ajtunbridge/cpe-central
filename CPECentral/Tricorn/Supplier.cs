@@ -34,5 +34,8 @@ namespace Tricorn
         public Nullable<int> Last_Modified { get; set; }
         public Nullable<int> VAT_Reference { get; set; }
         public string Supplier_Status { get; set; }
+        public string Country_Code { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }

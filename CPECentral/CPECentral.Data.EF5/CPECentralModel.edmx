@@ -5,7 +5,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CPECentralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="CPECentralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="ClientSettings">
           <Key>
             <PropertyRef Name="Id" />
@@ -61,6 +61,14 @@
           <Property Name="LastViewedPartId" Type="int" />
           <Property Name="PreferredMachineGroup" Type="int" />
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeWorkCentres">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="WCentreId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HolderGroups">
           <Key>
@@ -138,8 +146,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="DrawingNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DrawingNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ToolingLocation" Type="varchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -242,6 +250,18 @@
             </Principal>
             <Dependent Role="Employees">
               <PropertyRef Name="EmployeeGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeWorkCentres_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="EmployeeWorkCentres" Type="Self.EmployeeWorkCentres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeWorkCentres">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -453,6 +473,7 @@
           <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeGroups" EntityType="Self.EmployeeGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeWorkCentres" EntityType="Self.EmployeeWorkCentres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HolderGroups" EntityType="Self.HolderGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Holders" EntityType="Self.Holders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HolderTools" EntityType="Self.HolderTools" Schema="dbo" store:Type="Tables" />
@@ -482,6 +503,10 @@
           <AssociationSet Name="FK_Employees_EmployeeGroups" Association="Self.FK_Employees_EmployeeGroups">
             <End Role="EmployeeGroups" EntitySet="EmployeeGroups" />
             <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeWorkCentres_Employees" Association="Self.FK_EmployeeWorkCentres_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmployeeWorkCentres" EntitySet="EmployeeWorkCentres" />
           </AssociationSet>
           <AssociationSet Name="FK_Holders_HolderGroups" Association="Self.FK_Holders_HolderGroups">
             <End Role="HolderGroups" EntitySet="HolderGroups" />
@@ -655,6 +680,11 @@
             <End Role="Part" EntitySet="Parts" />
             <End Role="PartVersion" EntitySet="PartVersions" />
           </AssociationSet>
+          <EntitySet Name="EmployeeWorkCentres" EntityType="CPECentralModel.EmployeeWorkCentre" />
+          <AssociationSet Name="FK_EmployeeWorkCentres_Employees" Association="CPECentralModel.FK_EmployeeWorkCentres_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeWorkCentre" EntitySet="EmployeeWorkCentres" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -695,6 +725,7 @@
           <Property Name="PreferredMachineGroup" Type="Int32" />
           <NavigationProperty Name="RecentParts" Relationship="CPECentralModel.FK_RecentParts_Employees" FromRole="Employee" ToRole="RecentPart" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EmployeeWorkCentres" Relationship="CPECentralModel.FK_EmployeeWorkCentres_Employees" FromRole="Employee" ToRole="EmployeeWorkCentre" />
         </EntityType>
         <EntityType Name="HolderGroup">
           <Key>
@@ -1031,8 +1062,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="DrawingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DrawingNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ToolingLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
@@ -1155,6 +1186,27 @@
             </Principal>
             <Dependent Role="PartVersion">
               <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeWorkCentre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="WCentreId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="CPECentralModel.FK_EmployeeWorkCentres_Employees" FromRole="EmployeeWorkCentre" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_EmployeeWorkCentres_Employees">
+          <End Type="CPECentralModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="CPECentralModel.EmployeeWorkCentre" Role="EmployeeWorkCentre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeWorkCentre">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1370,6 +1422,15 @@
                 <ScalarProperty Name="DrawingDocumentId" ColumnName="DrawingDocumentId" />
                 <ScalarProperty Name="PartId" ColumnName="PartId" />
                 <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeWorkCentres">
+            <EntityTypeMapping TypeName="CPECentralModel.EmployeeWorkCentre">
+              <MappingFragment StoreEntitySet="EmployeeWorkCentres">
+                <ScalarProperty Name="WCentreId" ColumnName="WCentreId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

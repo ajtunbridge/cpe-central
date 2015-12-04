@@ -30,6 +30,10 @@ namespace Tricorn
         public System.DateTime Date_Last_Modified { get; set; }
         public Nullable<double> Uplift_Percentage { get; set; }
         public Nullable<decimal> Surcharge { get; set; }
+        public Nullable<int> Originating_WOrder_Reference { get; set; }
+        public Nullable<int> Originating_WOtool_Reference { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual WOrder WOrder { get; set; }
     }

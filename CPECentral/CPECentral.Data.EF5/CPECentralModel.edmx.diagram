@@ -44,6 +44,8 @@
         <AssociationConnector Association="CPECentralModel.FK_Documents_PartVersions" />
         <AssociationConnector Association="CPECentralModel.FK_Methods_PartVersions" />
         <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
+        <EntityTypeShape EntityType="CPECentralModel.EmployeeWorkCentre" Width="1.5" PointX="5.25" PointY="12.875" />
+        <AssociationConnector Association="CPECentralModel.FK_EmployeeWorkCentres_Employees" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

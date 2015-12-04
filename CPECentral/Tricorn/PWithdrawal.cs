@@ -39,5 +39,6 @@ namespace Tricorn
         public Nullable<System.DateTime> Received_Date { get; set; }
         public Nullable<decimal> Unit_Cost { get; set; }
         public Nullable<double> Cost_Quantity { get; set; }
+        public Nullable<int> Reserve_Batch_Reference { get; set; }
     }
 }

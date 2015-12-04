@@ -67,7 +67,7 @@ namespace CPECentral.Presenters
 
                     var targetPercentage = Convert.ToInt32((turnover/targetAmount)*100);
 
-                    targetPercentage = Math.Min(targetPercentage, 100);
+                    //targetPercentage = Math.Min(targetPercentage, 100);
 
                     var point = new TurnoverGraphViewModel.GraphPoint(start.ToString("MMM"), targetPercentage);
                     model.GraphPoints.Add(point);

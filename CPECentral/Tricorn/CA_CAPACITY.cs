@@ -51,5 +51,6 @@ namespace Tricorn
         public Nullable<decimal> TYP { get; set; }
         public Nullable<decimal> PERSON { get; set; }
         public System.DateTime CDATE { get; set; }
+        public string SBREAK { get; set; }
     }
 }

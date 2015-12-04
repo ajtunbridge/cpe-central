@@ -28,11 +28,13 @@ namespace Tricorn
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<ART_CUSTOMER> ART_CUSTOMER { get; set; }
+        public DbSet<ART_DELQUOTATION> ART_DELQUOTATION { get; set; }
+        public DbSet<ART_LTEXT> ART_LTEXT { get; set; }
         public DbSet<ART_PLNAME> ART_PLNAME { get; set; }
         public DbSet<Audit> Audits { get; set; }
         public DbSet<AuditItem> AuditItems { get; set; }
         public DbSet<Batch> Batches { get; set; }
-        public DbSet<Break_Times> Break_Times { get; set; }
         public DbSet<CA_CAPACITY> CA_CAPACITY { get; set; }
         public DbSet<CA_HOLIDAY> CA_HOLIDAY { get; set; }
         public DbSet<CA_WEEKPLAN> CA_WEEKPLAN { get; set; }
@@ -46,14 +48,22 @@ namespace Tricorn
         public DbSet<Concession> Concessions { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Cost_Centre> Cost_Centre { get; set; }
+        public DbSet<CP_Weekly> CP_Weekly { get; set; }
         public DbSet<CU_ACCOUNT> CU_ACCOUNT { get; set; }
+        public DbSet<CU_BEM> CU_BEM { get; set; }
+        public DbSet<CU_CNTRY> CU_CNTRY { get; set; }
+        public DbSet<CU_COTYP> CU_COTYP { get; set; }
+        public DbSet<CU_INFO> CU_INFO { get; set; }
+        public DbSet<CU_MAIL> CU_MAIL { get; set; }
+        public DbSet<CU_PERS> CU_PERS { get; set; }
+        public DbSet<CU_VERS> CU_VERS { get; set; }
+        public DbSet<CustomCommand> CustomCommands { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Customer_Currency> Customer_Currency { get; set; }
         public DbSet<CustomerSatisfaction> CustomerSatisfactions { get; set; }
         public DbSet<CustomerSatisfactionDetail> CustomerSatisfactionDetails { get; set; }
-        public DbSet<DBVersion> DBVersions { get; set; }
+        public DbSet<DefaultWorkingHr> DefaultWorkingHrs { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-        public DbSet<DiscountDetail> DiscountDetails { get; set; }
         public DbSet<DItem> DItems { get; set; }
         public DbSet<DItemBuiltPartTrace> DItemBuiltPartTraces { get; set; }
         public DbSet<DItemMatTrace> DItemMatTraces { get; set; }
@@ -67,40 +77,66 @@ namespace Tricorn
         public DbSet<EAddress> EAddresses { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Employee_Details> Employee_Details { get; set; }
+        public DbSet<FactoryDayPlan> FactoryDayPlans { get; set; }
         public DbSet<FAG_DETAIL> FAG_DETAIL { get; set; }
+        public DbSet<FAG_SALESMAN> FAG_SALESMAN { get; set; }
+        public DbSet<FAG_TRANSACTIONLOCKING> FAG_TRANSACTIONLOCKING { get; set; }
+        public DbSet<FAG_UNILOG> FAG_UNILOG { get; set; }
         public DbSet<FI_ACCOUNT> FI_ACCOUNT { get; set; }
         public DbSet<GKN_PROJECT> GKN_PROJECT { get; set; }
         public DbSet<IN_KASSE> IN_KASSE { get; set; }
         public DbSet<InvItem> InvItems { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<IS_CAL> IS_CAL { get; set; }
         public DbSet<IS_NUM> IS_NUM { get; set; }
         public DbSet<IS_SETUP> IS_SETUP { get; set; }
-        public DbSet<JIS_ADRESSEN> JIS_ADRESSEN { get; set; }
-        public DbSet<JIS_FERTIGUNG> JIS_FERTIGUNG { get; set; }
+        public DbSet<LB_DC> LB_DC { get; set; }
         public DbSet<LB_FUNCTION> LB_FUNCTION { get; set; }
+        public DbSet<License> Licenses { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<MaintenanceHistory> MaintenanceHistories { get; set; }
         public DbSet<MaintenanceMachine> MaintenanceMachines { get; set; }
         public DbSet<MaintenanceProcedure> MaintenanceProcedures { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MDC_EVENTSTRUCT> MDC_EVENTSTRUCT { get; set; }
+        public DbSet<MDC_FUNCTIONMAPPING> MDC_FUNCTIONMAPPING { get; set; }
         public DbSet<MDC_TERMINALID> MDC_TERMINALID { get; set; }
         public DbSet<MStock> MStocks { get; set; }
         public DbSet<MWithdrawal> MWithdrawals { get; set; }
         public DbSet<Nominal_codes> Nominal_codes { get; set; }
         public DbSet<Nonconformancy> Nonconformancies { get; set; }
         public DbSet<Notifier> Notifiers { get; set; }
+        public DbSet<OG_ORGA> OG_ORGA { get; set; }
+        public DbSet<OG_ORGADOC> OG_ORGADOC { get; set; }
         public DbSet<OP_CNC> OP_CNC { get; set; }
         public DbSet<OP_SPC> OP_SPC { get; set; }
-        public DbSet<option> options { get; set; }
-        public DbSet<OR_FRAG> OR_FRAG { get; set; }
+        public DbSet<OR_ART> OR_ART { get; set; }
+        public DbSet<OR_CALC> OR_CALC { get; set; }
+        public DbSet<OR_CHARGE> OR_CHARGE { get; set; }
         public DbSet<OR_GRPTYP> OR_GRPTYP { get; set; }
+        public DbSet<OR_OPNAME> OR_OPNAME { get; set; }
+        public DbSet<OR_OPTYPE> OR_OPTYPE { get; set; }
+        public DbSet<OR_PROJ> OR_PROJ { get; set; }
+        public DbSet<OR_SERIAL> OR_SERIAL { get; set; }
+        public DbSet<Order_Events> Order_Events { get; set; }
+        public DbSet<PA_ARTGRP> PA_ARTGRP { get; set; }
         public DbSet<PA_ARTHIS> PA_ARTHIS { get; set; }
+        public DbSet<PA_ARTLIEF> PA_ARTLIEF { get; set; }
+        public DbSet<PA_ARTPOS> PA_ARTPOS { get; set; }
         public DbSet<PA_ARTTYP> PA_ARTTYP { get; set; }
+        public DbSet<PA_DPD> PA_DPD { get; set; }
+        public DbSet<PA_FIBU> PA_FIBU { get; set; }
         public DbSet<PA_FIT> PA_FIT { get; set; }
         public DbSet<PA_PACKAGING> PA_PACKAGING { get; set; }
+        public DbSet<PA_PAPER> PA_PAPER { get; set; }
+        public DbSet<PA_POSIT> PA_POSIT { get; set; }
+        public DbSet<PA_STLB> PA_STLB { get; set; }
+        public DbSet<PA_TEXTE> PA_TEXTE { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<PartTrace> PartTraces { get; set; }
+        public DbSet<PE_GROUP> PE_GROUP { get; set; }
+        public DbSet<PE_MAPPING> PE_MAPPING { get; set; }
+        public DbSet<PE_WORK> PE_WORK { get; set; }
         public DbSet<PE_WPLACE> PE_WPLACE { get; set; }
         public DbSet<PItem> PItems { get; set; }
         public DbSet<POrder> POrders { get; set; }
@@ -110,10 +146,10 @@ namespace Tricorn
         public DbSet<PRM_SIMU> PRM_SIMU { get; set; }
         public DbSet<PRM_TRANSBOX> PRM_TRANSBOX { get; set; }
         public DbSet<PRM_TRANSSYS> PRM_TRANSSYS { get; set; }
-        public DbSet<PRM_VECTORMAP> PRM_VECTORMAP { get; set; }
         public DbSet<PRM_WAYCACHE> PRM_WAYCACHE { get; set; }
         public DbSet<Procedure> Procedures { get; set; }
         public DbSet<PStock> PStocks { get; set; }
+        public DbSet<PW_PASS> PW_PASS { get; set; }
         public DbSet<PWithdrawal> PWithdrawals { get; set; }
         public DbSet<QComponent> QComponents { get; set; }
         public DbSet<QMaterial> QMaterials { get; set; }
@@ -127,6 +163,7 @@ namespace Tricorn
         public DbSet<rb_item> rb_item { get; set; }
         public DbSet<rb_join> rb_join { get; set; }
         public DbSet<rb_table> rb_table { get; set; }
+        public DbSet<ReasonCodeType> ReasonCodeTypes { get; set; }
         public DbSet<RecordKey> RecordKeys { get; set; }
         public DbSet<RejectCategory> RejectCategories { get; set; }
         public DbSet<Reject> Rejects { get; set; }
@@ -134,6 +171,11 @@ namespace Tricorn
         public DbSet<RFQ_Item> RFQ_Item { get; set; }
         public DbSet<RFQ_Plan> RFQ_Plan { get; set; }
         public DbSet<SatisfactionCategory> SatisfactionCategories { get; set; }
+        public DbSet<SFDC_CLIENT_RECENT_USERS> SFDC_CLIENT_RECENT_USERS { get; set; }
+        public DbSet<SFDC_CLIENT_WORKCENTRES> SFDC_CLIENT_WORKCENTRES { get; set; }
+        public DbSet<SFDC_CLIENTS> SFDC_CLIENTS { get; set; }
+        public DbSet<SFDC_GROUPS> SFDC_GROUPS { get; set; }
+        public DbSet<SH_DPD> SH_DPD { get; set; }
         public DbSet<ST_PLACE> ST_PLACE { get; set; }
         public DbSet<ST_STOCK> ST_STOCK { get; set; }
         public DbSet<Stock_Categories> Stock_Categories { get; set; }
@@ -141,13 +183,15 @@ namespace Tricorn
         public DbSet<SubContract> SubContracts { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierPerformance> SupplierPerformances { get; set; }
+        public DbSet<System_Codes> System_Codes { get; set; }
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Tricorn_User_Acct> Tricorn_User_Acct { get; set; }
+        public DbSet<TricornSession> TricornSessions { get; set; }
         public DbSet<TTrace> TTraces { get; set; }
+        public DbSet<UpgradeInfo> UpgradeInfoes { get; set; }
         public DbSet<VAT_Rates> VAT_Rates { get; set; }
         public DbSet<Warning> Warnings { get; set; }
         public DbSet<WCentre> WCentres { get; set; }
-        public DbSet<WCentreCost> WCentreCosts { get; set; }
         public DbSet<WH_INT> WH_INT { get; set; }
         public DbSet<WOComponent> WOComponents { get; set; }
         public DbSet<WOInspection> WOInspections { get; set; }
@@ -158,7 +202,18 @@ namespace Tricorn
         public DbSet<WOSubContract> WOSubContracts { get; set; }
         public DbSet<WOTool> WOTools { get; set; }
         public DbSet<WOWCentre> WOWCentres { get; set; }
+        public DbSet<WP_GROUP> WP_GROUP { get; set; }
         public DbSet<WP_MAGRP> WP_MAGRP { get; set; }
+        public DbSet<Break_Times> Break_Times { get; set; }
+        public DbSet<DBVersion> DBVersions { get; set; }
+        public DbSet<DiscountDetail> DiscountDetails { get; set; }
+        public DbSet<JIS_ADRESSEN> JIS_ADRESSEN { get; set; }
+        public DbSet<JIS_FERTIGUNG> JIS_FERTIGUNG { get; set; }
+        public DbSet<option> options { get; set; }
+        public DbSet<OR_FRAG> OR_FRAG { get; set; }
+        public DbSet<Param> Params { get; set; }
+        public DbSet<PRM_VECTORMAP> PRM_VECTORMAP { get; set; }
+        public DbSet<WCentreCost> WCentreCosts { get; set; }
         public DbSet<AuditFullView> AuditFullViews { get; set; }
         public DbSet<CalibEquipFullView> CalibEquipFullViews { get; set; }
         public DbSet<CalibProcFullView> CalibProcFullViews { get; set; }
@@ -185,6 +240,7 @@ namespace Tricorn
         public DbSet<MStock_View> MStock_View { get; set; }
         public DbSet<NonConfFullView> NonConfFullViews { get; set; }
         public DbSet<NonConfomancies_View> NonConfomancies_View { get; set; }
+        public DbSet<OR_DEPENDENCY> OR_DEPENDENCY { get; set; }
         public DbSet<OR_OP> OR_OP { get; set; }
         public DbSet<OR_ORDER> OR_ORDER { get; set; }
         public DbSet<OrderIndex> OrderIndexes { get; set; }
@@ -204,6 +260,7 @@ namespace Tricorn
         public DbSet<today> todays { get; set; }
         public DbSet<TrainingFullView> TrainingFullViews { get; set; }
         public DbSet<WOInspectFullView> WOInspectFullViews { get; set; }
+        public DbSet<WOrder_All_View> WOrder_All_View { get; set; }
         public DbSet<WORDER_SCHEDULE_VIEW> WORDER_SCHEDULE_VIEW { get; set; }
         public DbSet<WOrder_Templates_View> WOrder_Templates_View { get; set; }
         public DbSet<WOSubDiscountView> WOSubDiscountViews { get; set; }
@@ -367,7 +424,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQTool", quoteRefToCopyParameter, newQuoteRefParameter);
         }
     
-        public virtual int CopyQuote(Nullable<int> quoteRefToCopy, Nullable<int> sequence, string user_Reference, string group_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<bool> explode, Nullable<int> user_id)
+        public virtual int CopyQuote(Nullable<int> quoteRefToCopy, Nullable<int> sequence, string user_Reference, string group_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<bool> explode, Nullable<int> user_id, Nullable<double> order_Quantity)
         {
             var quoteRefToCopyParameter = quoteRefToCopy.HasValue ?
                 new ObjectParameter("QuoteRefToCopy", quoteRefToCopy) :
@@ -409,7 +466,11 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQuote", quoteRefToCopyParameter, sequenceParameter, user_ReferenceParameter, group_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, explodeParameter, user_idParameter);
+            var order_QuantityParameter = order_Quantity.HasValue ?
+                new ObjectParameter("Order_Quantity", order_Quantity) :
+                new ObjectParameter("Order_Quantity", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQuote", quoteRefToCopyParameter, sequenceParameter, user_ReferenceParameter, group_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, explodeParameter, user_idParameter, order_QuantityParameter);
         }
     
         public virtual int CopyQWCentre(Nullable<int> quoteRefToCopy, Nullable<int> newQuoteRef)
@@ -477,7 +538,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOPart", wOrderRefToCopyParameter, newWOrderRefParameter);
         }
     
-        public virtual int CopyWOrder(Nullable<int> wOrderRefToCopy, Nullable<int> sequence, string user_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<double> quantity_To_Build, Nullable<bool> explode, Nullable<bool> doneLevelZero, Nullable<int> levelZeroRef, Nullable<int> user_id)
+        public virtual int CopyWOrder(Nullable<int> wOrderRefToCopy, Nullable<int> sequence, string user_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<double> quantity_To_Build, Nullable<bool> explode, Nullable<bool> doneLevelZero, Nullable<int> levelZeroRef, Nullable<int> user_id, Nullable<bool> locked)
         {
             var wOrderRefToCopyParameter = wOrderRefToCopy.HasValue ?
                 new ObjectParameter("WOrderRefToCopy", wOrderRefToCopy) :
@@ -527,7 +588,11 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOrder", wOrderRefToCopyParameter, sequenceParameter, user_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, quantity_To_BuildParameter, explodeParameter, doneLevelZeroParameter, levelZeroRefParameter, user_idParameter);
+            var lockedParameter = locked.HasValue ?
+                new ObjectParameter("Locked", locked) :
+                new ObjectParameter("Locked", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOrder", wOrderRefToCopyParameter, sequenceParameter, user_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, quantity_To_BuildParameter, explodeParameter, doneLevelZeroParameter, levelZeroRefParameter, user_idParameter, lockedParameter);
         }
     
         public virtual int CopyWOSubContract(Nullable<int> wOrderRefToCopy, Nullable<int> newWOrderRef)
@@ -1329,7 +1394,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertWOWCentreItem", nextWCentreOpNumParameter, nextWCentreSeqParameter, parentRefParameter, wCentreRefToCopyParameter, destinationParameter);
         }
     
-        public virtual int QToWOCopy(Nullable<int> quoteRefToCopy, string user_Reference, Nullable<bool> copy_Components, string custOrderNo, string strDeliveryDate, Nullable<double> quantity, Nullable<int> user_id)
+        public virtual int QToWOCopy(Nullable<int> quoteRefToCopy, string user_Reference, Nullable<bool> copy_Components, string custOrderNo, Nullable<System.DateTime> strDeliveryDate, Nullable<double> quantity, Nullable<int> user_id, string isConfirmed, string publicNotes, string privateNotes, Nullable<System.DateTime> theOrderDate)
         {
             var quoteRefToCopyParameter = quoteRefToCopy.HasValue ?
                 new ObjectParameter("QuoteRefToCopy", quoteRefToCopy) :
@@ -1347,9 +1412,9 @@ namespace Tricorn
                 new ObjectParameter("CustOrderNo", custOrderNo) :
                 new ObjectParameter("CustOrderNo", typeof(string));
     
-            var strDeliveryDateParameter = strDeliveryDate != null ?
+            var strDeliveryDateParameter = strDeliveryDate.HasValue ?
                 new ObjectParameter("strDeliveryDate", strDeliveryDate) :
-                new ObjectParameter("strDeliveryDate", typeof(string));
+                new ObjectParameter("strDeliveryDate", typeof(System.DateTime));
     
             var quantityParameter = quantity.HasValue ?
                 new ObjectParameter("Quantity", quantity) :
@@ -1359,7 +1424,23 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("QToWOCopy", quoteRefToCopyParameter, user_ReferenceParameter, copy_ComponentsParameter, custOrderNoParameter, strDeliveryDateParameter, quantityParameter, user_idParameter);
+            var isConfirmedParameter = isConfirmed != null ?
+                new ObjectParameter("isConfirmed", isConfirmed) :
+                new ObjectParameter("isConfirmed", typeof(string));
+    
+            var publicNotesParameter = publicNotes != null ?
+                new ObjectParameter("PublicNotes", publicNotes) :
+                new ObjectParameter("PublicNotes", typeof(string));
+    
+            var privateNotesParameter = privateNotes != null ?
+                new ObjectParameter("PrivateNotes", privateNotes) :
+                new ObjectParameter("PrivateNotes", typeof(string));
+    
+            var theOrderDateParameter = theOrderDate.HasValue ?
+                new ObjectParameter("theOrderDate", theOrderDate) :
+                new ObjectParameter("theOrderDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("QToWOCopy", quoteRefToCopyParameter, user_ReferenceParameter, copy_ComponentsParameter, custOrderNoParameter, strDeliveryDateParameter, quantityParameter, user_idParameter, isConfirmedParameter, publicNotesParameter, privateNotesParameter, theOrderDateParameter);
         }
     
         public virtual int QToWOCopyMaterial(Nullable<int> quoteRefToCopy, Nullable<int> newWOrderRef)
@@ -1525,6 +1606,206 @@ namespace Tricorn
                 new ObjectParameter("NewQuoteRef", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WOToQCopyWCentre", wOrderRefToCopyParameter, newQuoteRefParameter);
+        }
+    
+        public virtual int CreateRevisionRecord(string order_Type, string record_Type, Nullable<int> order_Reference, Nullable<int> item_Reference, Nullable<int> employee_Reference, string contact_Name, Nullable<System.DateTime> ack_Date, Nullable<System.DateTime> promise_Date, string comment, Nullable<int> revision, Nullable<System.DateTime> revision_Date, Nullable<bool> acknowledged, ObjectParameter success)
+        {
+            var order_TypeParameter = order_Type != null ?
+                new ObjectParameter("Order_Type", order_Type) :
+                new ObjectParameter("Order_Type", typeof(string));
+    
+            var record_TypeParameter = record_Type != null ?
+                new ObjectParameter("Record_Type", record_Type) :
+                new ObjectParameter("Record_Type", typeof(string));
+    
+            var order_ReferenceParameter = order_Reference.HasValue ?
+                new ObjectParameter("Order_Reference", order_Reference) :
+                new ObjectParameter("Order_Reference", typeof(int));
+    
+            var item_ReferenceParameter = item_Reference.HasValue ?
+                new ObjectParameter("Item_Reference", item_Reference) :
+                new ObjectParameter("Item_Reference", typeof(int));
+    
+            var employee_ReferenceParameter = employee_Reference.HasValue ?
+                new ObjectParameter("Employee_Reference", employee_Reference) :
+                new ObjectParameter("Employee_Reference", typeof(int));
+    
+            var contact_NameParameter = contact_Name != null ?
+                new ObjectParameter("Contact_Name", contact_Name) :
+                new ObjectParameter("Contact_Name", typeof(string));
+    
+            var ack_DateParameter = ack_Date.HasValue ?
+                new ObjectParameter("Ack_Date", ack_Date) :
+                new ObjectParameter("Ack_Date", typeof(System.DateTime));
+    
+            var promise_DateParameter = promise_Date.HasValue ?
+                new ObjectParameter("Promise_Date", promise_Date) :
+                new ObjectParameter("Promise_Date", typeof(System.DateTime));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var revisionParameter = revision.HasValue ?
+                new ObjectParameter("Revision", revision) :
+                new ObjectParameter("Revision", typeof(int));
+    
+            var revision_DateParameter = revision_Date.HasValue ?
+                new ObjectParameter("Revision_Date", revision_Date) :
+                new ObjectParameter("Revision_Date", typeof(System.DateTime));
+    
+            var acknowledgedParameter = acknowledged.HasValue ?
+                new ObjectParameter("Acknowledged", acknowledged) :
+                new ObjectParameter("Acknowledged", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateRevisionRecord", order_TypeParameter, record_TypeParameter, order_ReferenceParameter, item_ReferenceParameter, employee_ReferenceParameter, contact_NameParameter, ack_DateParameter, promise_DateParameter, commentParameter, revisionParameter, revision_DateParameter, acknowledgedParameter, success);
+        }
+    
+        public virtual int fo_GetWOComponents(Nullable<int> wOrder_RefID)
+        {
+            var wOrder_RefIDParameter = wOrder_RefID.HasValue ?
+                new ObjectParameter("WOrder_RefID", wOrder_RefID) :
+                new ObjectParameter("WOrder_RefID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("fo_GetWOComponents", wOrder_RefIDParameter);
+        }
+    
+        public virtual int fo_InsertWOComponents(Nullable<int> wOrder_RefID)
+        {
+            var wOrder_RefIDParameter = wOrder_RefID.HasValue ?
+                new ObjectParameter("WOrder_RefID", wOrder_RefID) :
+                new ObjectParameter("WOrder_RefID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("fo_InsertWOComponents", wOrder_RefIDParameter);
+        }
+    
+        public virtual int JD_CreateSplitOp(Nullable<int> wOWCentreRefToCopy, ObjectParameter newWOWCentreRef, Nullable<int> wCentreRef, Nullable<double> qty, string opName, Nullable<int> setting_Time_ms, Nullable<int> run_Time_ms, Nullable<decimal> overlapPerc, Nullable<decimal> overlap)
+        {
+            var wOWCentreRefToCopyParameter = wOWCentreRefToCopy.HasValue ?
+                new ObjectParameter("WOWCentreRefToCopy", wOWCentreRefToCopy) :
+                new ObjectParameter("WOWCentreRefToCopy", typeof(int));
+    
+            var wCentreRefParameter = wCentreRef.HasValue ?
+                new ObjectParameter("WCentreRef", wCentreRef) :
+                new ObjectParameter("WCentreRef", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("Qty", qty) :
+                new ObjectParameter("Qty", typeof(double));
+    
+            var opNameParameter = opName != null ?
+                new ObjectParameter("OpName", opName) :
+                new ObjectParameter("OpName", typeof(string));
+    
+            var setting_Time_msParameter = setting_Time_ms.HasValue ?
+                new ObjectParameter("Setting_Time_ms", setting_Time_ms) :
+                new ObjectParameter("Setting_Time_ms", typeof(int));
+    
+            var run_Time_msParameter = run_Time_ms.HasValue ?
+                new ObjectParameter("Run_Time_ms", run_Time_ms) :
+                new ObjectParameter("Run_Time_ms", typeof(int));
+    
+            var overlapPercParameter = overlapPerc.HasValue ?
+                new ObjectParameter("OverlapPerc", overlapPerc) :
+                new ObjectParameter("OverlapPerc", typeof(decimal));
+    
+            var overlapParameter = overlap.HasValue ?
+                new ObjectParameter("Overlap", overlap) :
+                new ObjectParameter("Overlap", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("JD_CreateSplitOp", wOWCentreRefToCopyParameter, newWOWCentreRef, wCentreRefParameter, qtyParameter, opNameParameter, setting_Time_msParameter, run_Time_msParameter, overlapPercParameter, overlapParameter);
+        }
+    
+        public virtual int JD_DeleteJoinedOp(Nullable<int> wOWCentreRefToDelete)
+        {
+            var wOWCentreRefToDeleteParameter = wOWCentreRefToDelete.HasValue ?
+                new ObjectParameter("WOWCentreRefToDelete", wOWCentreRefToDelete) :
+                new ObjectParameter("WOWCentreRefToDelete", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("JD_DeleteJoinedOp", wOWCentreRefToDeleteParameter);
+        }
+    
+        public virtual int JD_JoinedSplitOp(Nullable<int> wOWCentreRefJoined)
+        {
+            var wOWCentreRefJoinedParameter = wOWCentreRefJoined.HasValue ?
+                new ObjectParameter("WOWCentreRefJoined", wOWCentreRefJoined) :
+                new ObjectParameter("WOWCentreRefJoined", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("JD_JoinedSplitOp", wOWCentreRefJoinedParameter);
+        }
+    
+        public virtual int JD_OpWasSplit(Nullable<int> wOWCentreRefSplit)
+        {
+            var wOWCentreRefSplitParameter = wOWCentreRefSplit.HasValue ?
+                new ObjectParameter("WOWCentreRefSplit", wOWCentreRefSplit) :
+                new ObjectParameter("WOWCentreRefSplit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("JD_OpWasSplit", wOWCentreRefSplitParameter);
+        }
+    
+        public virtual ObjectResult<string> JD_UpdateOpTime(Nullable<int> wOWCentre_Reference, string timeType, Nullable<long> time_ms, ObjectParameter success)
+        {
+            var wOWCentre_ReferenceParameter = wOWCentre_Reference.HasValue ?
+                new ObjectParameter("WOWCentre_Reference", wOWCentre_Reference) :
+                new ObjectParameter("WOWCentre_Reference", typeof(int));
+    
+            var timeTypeParameter = timeType != null ?
+                new ObjectParameter("TimeType", timeType) :
+                new ObjectParameter("TimeType", typeof(string));
+    
+            var time_msParameter = time_ms.HasValue ?
+                new ObjectParameter("Time_ms", time_ms) :
+                new ObjectParameter("Time_ms", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("JD_UpdateOpTime", wOWCentre_ReferenceParameter, timeTypeParameter, time_msParameter, success);
+        }
+    
+        public virtual int spPing()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spPing");
+        }
+    
+        public virtual int spUpdateLicenceRecord(string licenceType, string licenceString, ObjectParameter success)
+        {
+            var licenceTypeParameter = licenceType != null ?
+                new ObjectParameter("LicenceType", licenceType) :
+                new ObjectParameter("LicenceType", typeof(string));
+    
+            var licenceStringParameter = licenceString != null ?
+                new ObjectParameter("LicenceString", licenceString) :
+                new ObjectParameter("LicenceString", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateLicenceRecord", licenceTypeParameter, licenceStringParameter, success);
+        }
+    
+        public virtual ObjectResult<spWriteSession_Result> spWriteSession(Nullable<int> inID, string login_ID, string pC_Name, string client_Version, ObjectParameter iD, ObjectParameter sUCCESS)
+        {
+            var inIDParameter = inID.HasValue ?
+                new ObjectParameter("inID", inID) :
+                new ObjectParameter("inID", typeof(int));
+    
+            var login_IDParameter = login_ID != null ?
+                new ObjectParameter("Login_ID", login_ID) :
+                new ObjectParameter("Login_ID", typeof(string));
+    
+            var pC_NameParameter = pC_Name != null ?
+                new ObjectParameter("PC_Name", pC_Name) :
+                new ObjectParameter("PC_Name", typeof(string));
+    
+            var client_VersionParameter = client_Version != null ?
+                new ObjectParameter("Client_Version", client_Version) :
+                new ObjectParameter("Client_Version", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spWriteSession_Result>("spWriteSession", inIDParameter, login_IDParameter, pC_NameParameter, client_VersionParameter, iD, sUCCESS);
+        }
+    
+        public virtual ObjectResult<string> UpdateWOTotals(Nullable<int> wOrder_Reference, ObjectParameter success)
+        {
+            var wOrder_ReferenceParameter = wOrder_Reference.HasValue ?
+                new ObjectParameter("WOrder_Reference", wOrder_Reference) :
+                new ObjectParameter("WOrder_Reference", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UpdateWOTotals", wOrder_ReferenceParameter, success);
         }
     }
 }

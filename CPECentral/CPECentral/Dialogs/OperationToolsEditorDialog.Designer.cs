@@ -32,18 +32,19 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.selectedToolGroupBox = new System.Windows.Forms.GroupBox();
+            this.browseForToolButton = new System.Windows.Forms.Button();
             this.offsetNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.positionNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.holderTextBox = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.holderComboBox = new System.Windows.Forms.ComboBox();
             this.toolTextBox = new System.Windows.Forms.TextBox();
             this.toolComboBox = new System.Windows.Forms.ComboBox();
+            this.holderTextBox = new System.Windows.Forms.TextBox();
+            this.holderComboBox = new System.Windows.Forms.ComboBox();
             this.toolsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -63,6 +64,7 @@
             this.addButton.TabIndex = 2;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // deleteButton
             // 
@@ -73,6 +75,7 @@
             this.deleteButton.TabIndex = 3;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // saveButton
             // 
@@ -86,6 +89,7 @@
             // 
             // selectedToolGroupBox
             // 
+            this.selectedToolGroupBox.Controls.Add(this.browseForToolButton);
             this.selectedToolGroupBox.Controls.Add(this.offsetNumericUpDown);
             this.selectedToolGroupBox.Controls.Add(this.positionNumericUpDown);
             this.selectedToolGroupBox.Controls.Add(this.textBox1);
@@ -105,6 +109,16 @@
             this.selectedToolGroupBox.TabIndex = 1;
             this.selectedToolGroupBox.TabStop = false;
             this.selectedToolGroupBox.Text = "Selected tool";
+            // 
+            // browseForToolButton
+            // 
+            this.browseForToolButton.Location = new System.Drawing.Point(416, 49);
+            this.browseForToolButton.Name = "browseForToolButton";
+            this.browseForToolButton.Size = new System.Drawing.Size(69, 72);
+            this.browseForToolButton.TabIndex = 10;
+            this.browseForToolButton.Text = "Browse for tool";
+            this.browseForToolButton.UseVisualStyleBackColor = true;
+            this.browseForToolButton.Click += new System.EventHandler(this.browseForToolButton_Click);
             // 
             // offsetNumericUpDown
             // 
@@ -128,6 +142,7 @@
             0,
             0,
             0});
+            this.offsetNumericUpDown.ValueChanged += new System.EventHandler(this.offsetNumericUpDown_ValueChanged);
             // 
             // positionNumericUpDown
             // 
@@ -151,24 +166,16 @@
             0,
             0,
             0});
-            // 
-            // holderTextBox
-            // 
-            this.holderTextBox.Location = new System.Drawing.Point(102, 97);
-            this.holderTextBox.MaxLength = 255;
-            this.holderTextBox.Name = "holderTextBox";
-            this.holderTextBox.Size = new System.Drawing.Size(349, 25);
-            this.holderTextBox.TabIndex = 3;
-            this.holderTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxes_MouseClicked);
-            this.holderTextBox.Enter += new System.EventHandler(this.TextBoxes_Entered);
+            this.positionNumericUpDown.ValueChanged += new System.EventHandler(this.positionNumericUpDown_ValueChanged);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(466, 49);
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.Location = new System.Drawing.Point(499, 49);
             this.textBox1.MaxLength = 50;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 72);
+            this.textBox1.Size = new System.Drawing.Size(247, 72);
             this.textBox1.TabIndex = 4;
             this.textBox1.TabStop = false;
             // 
@@ -202,7 +209,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(463, 29);
+            this.label5.Location = new System.Drawing.Point(496, 29);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 17);
             this.label5.TabIndex = 8;
@@ -213,28 +220,19 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(99, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 17);
+            this.label1.Size = new System.Drawing.Size(34, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "Tool";
-            // 
-            // holderComboBox
-            // 
-            this.holderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.holderComboBox.FormattingEnabled = true;
-            this.holderComboBox.Location = new System.Drawing.Point(102, 97);
-            this.holderComboBox.Name = "holderComboBox";
-            this.holderComboBox.Size = new System.Drawing.Size(349, 25);
-            this.holderComboBox.TabIndex = 9;
-            this.holderComboBox.SelectedIndexChanged += new System.EventHandler(this.holderComboBox_SelectedIndexChanged);
             // 
             // toolTextBox
             // 
             this.toolTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.toolTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.toolTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.toolTextBox.Location = new System.Drawing.Point(102, 49);
             this.toolTextBox.MaxLength = 255;
             this.toolTextBox.Name = "toolTextBox";
-            this.toolTextBox.Size = new System.Drawing.Size(349, 25);
+            this.toolTextBox.Size = new System.Drawing.Size(308, 25);
             this.toolTextBox.TabIndex = 2;
             this.toolTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxes_MouseClicked);
             this.toolTextBox.Enter += new System.EventHandler(this.TextBoxes_Entered);
@@ -246,10 +244,34 @@
             this.toolComboBox.FormattingEnabled = true;
             this.toolComboBox.Location = new System.Drawing.Point(102, 49);
             this.toolComboBox.Name = "toolComboBox";
-            this.toolComboBox.Size = new System.Drawing.Size(349, 25);
+            this.toolComboBox.Size = new System.Drawing.Size(308, 25);
             this.toolComboBox.TabIndex = 9;
             this.toolComboBox.DropDown += new System.EventHandler(this.toolComboBox_DropDown);
             this.toolComboBox.SelectedIndexChanged += new System.EventHandler(this.toolComboBox_SelectedIndexChanged);
+            this.toolComboBox.DropDownClosed += new System.EventHandler(this.toolComboBox_DropDownClosed);
+            // 
+            // holderTextBox
+            // 
+            this.holderTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.holderTextBox.Location = new System.Drawing.Point(102, 97);
+            this.holderTextBox.MaxLength = 255;
+            this.holderTextBox.Name = "holderTextBox";
+            this.holderTextBox.Size = new System.Drawing.Size(308, 25);
+            this.holderTextBox.TabIndex = 3;
+            this.holderTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxes_MouseClicked);
+            this.holderTextBox.Enter += new System.EventHandler(this.TextBoxes_Entered);
+            this.holderTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.holderTextBox_KeyDown);
+            // 
+            // holderComboBox
+            // 
+            this.holderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.holderComboBox.FormattingEnabled = true;
+            this.holderComboBox.Location = new System.Drawing.Point(102, 97);
+            this.holderComboBox.Name = "holderComboBox";
+            this.holderComboBox.Size = new System.Drawing.Size(308, 25);
+            this.holderComboBox.TabIndex = 9;
+            this.holderComboBox.SelectedIndexChanged += new System.EventHandler(this.holderComboBox_SelectedIndexChanged);
+            this.holderComboBox.DropDownClosed += new System.EventHandler(this.holderComboBox_DropDownClosed);
             // 
             // toolsEnhancedListView
             // 
@@ -262,6 +284,7 @@
             this.toolsEnhancedListView.EnsureSelection = false;
             this.toolsEnhancedListView.FullRowSelect = true;
             this.toolsEnhancedListView.GridLines = true;
+            this.toolsEnhancedListView.HideSelection = false;
             this.toolsEnhancedListView.IndexOfColumnToResize = 2;
             this.toolsEnhancedListView.ItemContextMenuStrip = null;
             this.toolsEnhancedListView.Location = new System.Drawing.Point(8, 8);
@@ -359,5 +382,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.ComboBox holderComboBox;
         private System.Windows.Forms.ComboBox toolComboBox;
+        private System.Windows.Forms.Button browseForToolButton;
     }
 }

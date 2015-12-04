@@ -46,7 +46,7 @@ namespace CPECentral
                     Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                     Application.ThreadException += Application_ThreadException;
 
-                    var form = new OperationToolsEditorDialog(753);
+                    var form = new MainForm();
 
                     Application.Run(form);
                 }
@@ -65,7 +65,7 @@ namespace CPECentral
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            string msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+            string msg = e.Exception.InnerException?.Message ?? e.Exception.Message;
 
             MessageBox.Show(msg);
         }

@@ -60,5 +60,7 @@ namespace Tricorn
         public Nullable<decimal> PADDITION6 { get; set; }
         public Nullable<decimal> MINPRICE { get; set; }
         public Nullable<decimal> SETUPCOSTS { get; set; }
+        public string DESCR { get; set; }
+        public Nullable<decimal> FORBIDADDRESSDISCOUNT { get; set; }
     }
 }

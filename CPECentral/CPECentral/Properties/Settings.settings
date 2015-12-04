@@ -103,7 +103,7 @@
       <Value Profile="(Default)">I:\</Value>
     </Setting>
     <Setting Name="ShowSuperDump" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CamTemplateMilling" Type="System.String" Scope="User">
       <Value Profile="(Default)">I:\Central\Templates\CAM_Template_Milling.fm</Value>

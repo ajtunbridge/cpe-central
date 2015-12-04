@@ -2,8 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Objects.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
 
 #endregion
@@ -66,6 +68,65 @@ namespace Tricorn
                 _entities.MStocks.Where(m => m.Material_Reference == materialReference)
                     .Sum(stock => stock.Quantity_In_Stock);
         }
+
+        public IEnumerable<WOrder> GetNextJobsForWorkCentre(int wcentreId)
+        {
+            var wowcentres =
+                _entities.WOWCentres.Where(wow => wow.WCentre_Reference == wcentreId && !wow.Operation_Finished);
+
+            var worders = new List<WOrder>();
+
+            const string query = @"SELECT TOP 1 ORNO, STARTDATE FROM OR_FRAG_VIEWER WHERE OPNO=@opnumber ORDER BY STARTDATE ASC";
+
+            var conn = _entities.Database.Connection;
+
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            var cmd = new SqlCommand(query, (SqlConnection)conn);
+            cmd.Prepare();
+
+            foreach (var wowc in wowcentres)
+            {
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@opnumber", wowc.WOWCentre_Reference);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var worderReference = Convert.ToInt32(reader.GetValue(0));
+
+                        if (worderReference == 0)
+                        {
+                            continue;
+                        }
+
+                        var startDate = Convert.ToDateTime(reader.GetValue(1));
+
+                        var worder = _entities.WOrders.Single(wo => wo.WOrder_Reference == worderReference);
+
+                        if (worders.Any(wo => wo.WOrder_Reference == worder.WOrder_Reference))
+                        {
+                            continue;
+                        }
+
+                        worder.ScheduledStart = startDate;
+
+                        worders.Add(worder);
+                    }
+                }
+            }
+
+            return worders.OrderBy(wo => wo.ScheduledStart);
+        }
+
+        public IEnumerable<WCentre> GetWorkCentres()
+        {
+            return _entities.WCentres.OrderBy(wc => wc.Name).ToList();
+        } 
 
         public decimal? GetTurnoverThisMonth()
         {

@@ -24,6 +24,7 @@ namespace CPECentral.Data.EF5
         private DocumentRepository _documents;
         private EmployeeGroupRepository _employeeGroups;
         private EmployeeRepository _employees;
+        private EmployeeWorkCentreRepository _employeeWorkCentres;
         private HolderGroupRepository _holderGroups;
         private HolderToolRepository _holderTools;
         private HolderRepository _holders;
@@ -66,6 +67,11 @@ namespace CPECentral.Data.EF5
         public EmployeeRepository Employees
         {
             get { return _employees ?? (_employees = new EmployeeRepository(this)); }
+        }
+
+        public EmployeeWorkCentreRepository EmployeeWorkCentres
+        {
+            get { return _employeeWorkCentres ?? (_employeeWorkCentres = new EmployeeWorkCentreRepository(this)); }
         }
 
         public HolderGroupRepository HolderGroups

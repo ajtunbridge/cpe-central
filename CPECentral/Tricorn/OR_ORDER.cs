@@ -28,8 +28,17 @@ namespace Tricorn
         public int EINLAST { get; set; }
         public int SOURCE { get; set; }
         public string COMMNO { get; set; }
-        public int PRIO { get; set; }
+        public Nullable<int> PRIO { get; set; }
         public Nullable<double> STATUS { get; set; }
         public string BITMAP { get; set; }
+        public int ETIME { get; set; }
+        public Nullable<int> INFO1 { get; set; }
+        public Nullable<int> INFO2 { get; set; }
+        public Nullable<int> INFO3 { get; set; }
+        public Nullable<int> ADTEXT { get; set; }
+        public Nullable<int> ASSART { get; set; }
+        public Nullable<int> RELORD { get; set; }
+        public Nullable<int> FKName { get; set; }
+        public Nullable<int> PRNAME { get; set; }
     }
 }

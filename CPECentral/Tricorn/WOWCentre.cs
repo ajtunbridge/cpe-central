@@ -66,6 +66,26 @@ namespace Tricorn
         public Nullable<System.DateTime> PSTIMEMAX { get; set; }
         public string BITMAP { get; set; }
         public Nullable<bool> ExcludeFromAutoClose { get; set; }
+        public Nullable<int> Originating_WOrder_Reference { get; set; }
+        public Nullable<int> Originating_WOWCentre_Reference { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
+        public Nullable<double> TotalRun { get; set; }
+        public Nullable<double> TotalSetup { get; set; }
+        public Nullable<int> LastScrapCode { get; set; }
+        public Nullable<int> LastBreakCode { get; set; }
+        public Nullable<double> Quantity_Scrapped { get; set; }
+        public int ParentPk { get; set; }
+        public string SplitSeq { get; set; }
+        public bool isParent { get; set; }
+        public Nullable<System.DateTime> JITStartDate { get; set; }
+        public Nullable<System.DateTime> JITEndDate { get; set; }
+        public Nullable<System.DateTime> LASTMDCDATE { get; set; }
+        public string ARDORGRESOURCE { get; set; }
+        public Nullable<decimal> SPEEDFACTOR { get; set; }
+        public Nullable<decimal> SPEEDMODE { get; set; }
+        public Nullable<System.DateTime> Op_Started_On { get; set; }
+        public Nullable<System.DateTime> Op_Finished_On { get; set; }
     
         public virtual WOrder WOrder { get; set; }
     }

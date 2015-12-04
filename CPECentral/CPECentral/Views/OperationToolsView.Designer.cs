@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.editToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -58,8 +56,6 @@
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripButton,
-            this.editToolStripButton,
-            this.deleteToolStripButton,
             this.toolStripSeparator1,
             this.printToolStripButton,
             this.toolStripSeparator2,
@@ -74,35 +70,13 @@
             // addToolStripButton
             // 
             this.addToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addToolStripButton.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
+            this.addToolStripButton.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
             this.addToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addToolStripButton.Name = "addToolStripButton";
             this.addToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.addToolStripButton.Text = "Add";
             this.addToolStripButton.ToolTipText = "Add a tool to this operation";
             this.addToolStripButton.Click += new System.EventHandler(this.addToolStripButton_Click);
-            // 
-            // editToolStripButton
-            // 
-            this.editToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editToolStripButton.Enabled = false;
-            this.editToolStripButton.Image = global::CPECentral.Properties.Resources.EditIcon_16x16;
-            this.editToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.editToolStripButton.Name = "editToolStripButton";
-            this.editToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.editToolStripButton.Text = "Edit";
-            this.editToolStripButton.ToolTipText = "Edit selected operation tool";
-            // 
-            // deleteToolStripButton
-            // 
-            this.deleteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteToolStripButton.Enabled = false;
-            this.deleteToolStripButton.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
-            this.deleteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteToolStripButton.Name = "deleteToolStripButton";
-            this.deleteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.deleteToolStripButton.Text = "Delete";
-            this.deleteToolStripButton.ToolTipText = "Delete selected operation tool";
             // 
             // toolStripSeparator1
             // 
@@ -260,7 +234,6 @@
 
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton addToolStripButton;
-        private System.Windows.Forms.ToolStripButton deleteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton printToolStripButton;
         private nGenLibrary.Controls.EnhancedListView operationToolsEnhancedListView;
@@ -268,7 +241,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ToolStripButton editToolStripButton;
         private System.Windows.Forms.ContextMenuStrip mainContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addToolToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip itemContextMenuStrip;

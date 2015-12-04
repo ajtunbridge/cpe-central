@@ -60,13 +60,7 @@ namespace CPECentral.Presenters
             }
 
             using (var addPartDialog = new AddPartDialog()) {
-                Form parent = _view.ParentForm;
-
-                if (addPartDialog.ShowDialog(parent) != DialogResult.OK) {
-                    return;
-                }
-
-                AddNewPart(addPartDialog);
+                addPartDialog.ShowDialog(_view.ParentForm);
             }
         }
 

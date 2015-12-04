@@ -112,6 +112,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AppIconImage_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("AppIconImage_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BatchImage_16x16 {
             get {
                 object obj = ResourceManager.GetObject("BatchImage_16x16", resourceCulture);
@@ -261,6 +271,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ErrorIcon_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("ErrorIcon_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ExpandIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("ExpandIcon_16x16", resourceCulture);
@@ -361,6 +381,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap InformationIcon_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("InformationIcon_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LoginHeader {
             get {
                 object obj = ResourceManager.GetObject("LoginHeader", resourceCulture);
@@ -454,6 +484,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap MachineTransferQueueIconHighlighted_16x16 {
             get {
                 object obj = ResourceManager.GetObject("MachineTransferQueueIconHighlighted_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MaterialImage_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("MaterialImage_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -640,9 +680,29 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PreloadImage2 {
+            get {
+                object obj = ResourceManager.GetObject("PreloadImage2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PrintIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("PrintIcon_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QuestionIcon_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("QuestionIcon_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -892,6 +952,16 @@ namespace CPECentral.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TabIcons_bmp {
+            get {
+                object obj = ResourceManager.GetObject("TabIcons_bmp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream ThatFeltGood {
@@ -972,6 +1042,16 @@ namespace CPECentral.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap UploadIcon {
+            get {
+                object obj = ResourceManager.GetObject("UploadIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UploadIcon_16x16 {
             get {
                 object obj = ResourceManager.GetObject("UploadIcon_16x16", resourceCulture);
@@ -995,6 +1075,16 @@ namespace CPECentral.Properties {
         internal static System.Drawing.Bitmap WarningIcon_32x32 {
             get {
                 object obj = ResourceManager.GetObject("WarningIcon_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WarningIcon_64x64 {
+            get {
+                object obj = ResourceManager.GetObject("WarningIcon_64x64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

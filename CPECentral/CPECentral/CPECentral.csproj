@@ -27,9 +27,9 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.2.0.9</MinimumRequiredVersion>
-    <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>3.2.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>3.4.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>3.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -413,6 +413,7 @@
     <Compile Include="Presenters\ToolsPresenter.cs" />
     <Compile Include="Presenters\TurnoverGraphPresenter.cs" />
     <Compile Include="Presenters\TurnoverTargetPresenter.cs" />
+    <Compile Include="Presenters\WorkCentreSchedulePresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -462,6 +463,7 @@
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
     <Compile Include="ViewModels\TurnoverGraphViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="ViewModels\WorkCentreScheduleViewModel.cs" />
     <Compile Include="Views\ComplaintTrendsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -697,7 +699,7 @@
     <Compile Include="Views\ToolGroupsView.Designer.cs">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewBase.cs">
+    <Compile Include="Views\ViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ToolSelectorView.cs">
@@ -717,6 +719,12 @@
     </Compile>
     <Compile Include="Views\TurnoverGraphView.Designer.cs">
       <DependentUpon>TurnoverGraphView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkCentreScheduleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WorkCentreScheduleView.Designer.cs">
+      <DependentUpon>WorkCentreScheduleView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\WorksOrderView.cs">
       <SubType>UserControl</SubType>
@@ -977,7 +985,7 @@
     <EmbeddedResource Include="Views\ToolGroupsView.resx">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ViewBase.resx">
+    <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolSelectorView.resx">
@@ -989,13 +997,16 @@
     <EmbeddedResource Include="Views\TurnoverGraphView.resx">
       <DependentUpon>TurnoverGraphView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\WorkCentreScheduleView.resx">
+      <DependentUpon>WorkCentreScheduleView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.local">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.live">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

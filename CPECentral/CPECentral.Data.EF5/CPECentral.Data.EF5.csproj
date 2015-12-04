@@ -81,6 +81,9 @@
     <Compile Include="EmployeeGroup.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeWorkCentre.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="FuzzySearch.cs" />
     <Compile Include="Holder.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
@@ -122,6 +125,7 @@
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\EmployeeGroupRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\EmployeeWorkCentreRepository.cs" />
     <Compile Include="Repositories\HolderGroupRepository.cs" />
     <Compile Include="Repositories\HolderRepository.cs" />
     <Compile Include="Repositories\HolderToolRepository.cs" />

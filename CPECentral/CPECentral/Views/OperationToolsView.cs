@@ -195,10 +195,7 @@ namespace CPECentral.Views
         private void operationToolsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectionCount = operationToolsEnhancedListView.SelectionCount;
-
-            editToolStripButton.Enabled = (selectionCount == 1);
-            deleteToolStripButton.Enabled = (selectionCount == 1);
-
+            
             if (selectionCount == 0) {
                 _selectedOperationTool = null;
                 return;

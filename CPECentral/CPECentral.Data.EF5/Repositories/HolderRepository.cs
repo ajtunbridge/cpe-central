@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
 using System.Linq;
 
 #endregion
@@ -34,6 +35,11 @@ namespace CPECentral.Data.EF5.Repositories
             var holderTools = UnitOfWork.HolderTools.GetByTool(toolId);
 
             return holderTools.Select(ht => GetById(ht.HolderId)).ToList();
+        }
+
+        public IEnumerable<Holder> GetWhereNameMatches(string value)
+        {
+            return GetSet().Where(h => SqlFunctions.PatIndex(value, h.Name) > 0).OrderBy(h => h.Name);
         } 
     }
 }

@@ -18,7 +18,7 @@ namespace Tricorn
         public int SEQNUM { get; set; }
         public double PPARTS { get; set; }
         public int ORNO { get; set; }
-        public Nullable<int> NAME { get; set; }
+        public string NAME { get; set; }
         public int PWPLACE { get; set; }
         public string DESCR { get; set; }
         public Nullable<System.DateTime> STIME { get; set; }
@@ -51,5 +51,24 @@ namespace Tricorn
         public string DIV1REMARK { get; set; }
         public Nullable<System.DateTime> PSTIMEMAX { get; set; }
         public string BITMAP { get; set; }
+        public Nullable<System.DateTime> PETIMEMIN { get; set; }
+        public int NCPROG { get; set; }
+        public int PARTNO { get; set; }
+        public int DRAWNO { get; set; }
+        public int OVERLAPDIFF { get; set; }
+        public int SPECIAL { get; set; }
+        public int TOOLSTIME { get; set; }
+        public int OUTCONO { get; set; }
+        public int OPINFO { get; set; }
+        public int MATERIAL { get; set; }
+        public int FIXMISSING { get; set; }
+        public int FIXETIME { get; set; }
+        public int FIXREMARK { get; set; }
+        public Nullable<System.DateTime> LastMDCDate { get; set; }
+        public string ARDORGRESOURCE { get; set; }
+        public Nullable<decimal> SpeedMode { get; set; }
+        public Nullable<decimal> SpeedFactor { get; set; }
+        public int ParentPk { get; set; }
+        public bool isParent { get; set; }
     }
 }

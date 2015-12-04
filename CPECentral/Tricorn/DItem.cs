@@ -35,6 +35,7 @@ namespace Tricorn
         public System.DateTime Date_Created { get; set; }
         public System.DateTime Date_Last_Modified { get; set; }
         public bool Added_To_Stock { get; set; }
+        public string Delivery_Status { get; set; }
     
         public virtual DNote DNote { get; set; }
         public virtual ICollection<DItemMatTrace> DItemMatTraces { get; set; }

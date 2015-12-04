@@ -35,6 +35,10 @@ namespace Tricorn
         public bool Added_To_Stock { get; set; }
         public bool Scrapped { get; set; }
         public bool Hold { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
+        public Nullable<int> Reserve_WOPart_Reference { get; set; }
+        public Nullable<int> Reserve_WOrder_Reference { get; set; }
     
         public virtual WOrder WOrder { get; set; }
     }

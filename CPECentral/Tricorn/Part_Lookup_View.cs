@@ -33,5 +33,10 @@ namespace Tricorn
         public Nullable<int> Supplier_Reference { get; set; }
         public string Expiry_Period { get; set; }
         public Nullable<int> Expiry_Interval { get; set; }
+        public Nullable<decimal> Minimum_Selling_Price { get; set; }
+        public Nullable<decimal> Recommended_Selling_Price { get; set; }
+        public string Stock_Category { get; set; }
+        public Nullable<int> Customer_Reference { get; set; }
+        public string customers_Name { get; set; }
     }
 }

@@ -41,5 +41,10 @@ namespace Tricorn
         public Nullable<System.DateTime> shift_Hours { get; set; }
         public Nullable<int> Time_To_Shift_End { get; set; }
         public Nullable<System.DateTime> shift_end { get; set; }
+        public Nullable<int> Setting { get; set; }
+        public Nullable<int> Scrap_Code { get; set; }
+        public Nullable<int> Scrap { get; set; }
+        public Nullable<int> Break_Code { get; set; }
+        public string ClosedForBreakStatus { get; set; }
     }
 }

@@ -41,5 +41,7 @@ namespace Tricorn
         public string CHNAME { get; set; }
         public Nullable<System.DateTime> CDATE { get; set; }
         public Nullable<System.DateTime> CHDATE { get; set; }
+        public string SBREAK { get; set; }
+        public Nullable<decimal> GROUPNO { get; set; }
     }
 }

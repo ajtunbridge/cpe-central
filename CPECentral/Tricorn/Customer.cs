@@ -46,6 +46,15 @@ namespace Tricorn
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
         public string Customer_Status { get; set; }
+        public Nullable<int> Days_Early { get; set; }
+        public Nullable<int> Days_Late { get; set; }
+        public Nullable<int> NumFileAttachments { get; set; }
+        public Nullable<int> NumBrokenLinks { get; set; }
+        public Nullable<bool> Always_Acknowledge { get; set; }
+        public int Delivery_Location_Reference { get; set; }
+        public int Invoice_Location_Reference { get; set; }
+        public Nullable<int> PlanningColour { get; set; }
+        public Nullable<int> Priority { get; set; }
     
         public virtual ICollection<WOrder> WOrders { get; set; }
     }

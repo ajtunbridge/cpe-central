@@ -25,5 +25,6 @@ namespace Tricorn
         public Nullable<System.DateTime> CHDATE { get; set; }
         public Nullable<decimal> MANDANTNO { get; set; }
         public string CREATOR { get; set; }
+        public Nullable<decimal> FK_FUNCTION { get; set; }
     }
 }

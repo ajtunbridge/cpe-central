@@ -90,6 +90,7 @@ namespace CPECentral.Presenters
             using (var operationToolsEditor = new OperationToolsEditorDialog(e.Operation))
             {
                 operationToolsEditor.ShowDialog();
+                _view.RefreshOperationTools();
                 return;
             }
 
