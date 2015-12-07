@@ -264,6 +264,12 @@
     <Compile Include="Dialogs\ImportMillingProgramDialog.Designer.cs">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\JobToolingRequirementsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\JobToolingRequirementsDialog.Designer.cs">
+      <DependentUpon>JobToolingRequirementsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MachineConfigurationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -795,6 +801,9 @@
     <EmbeddedResource Include="Dialogs\ImportMillingProgramDialog.resx">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\JobToolingRequirementsDialog.resx">
+      <DependentUpon>JobToolingRequirementsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\MachineConfigurationDialog.resx">
       <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -1003,10 +1012,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.local">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config">
+    <None Include="App.config.live">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">

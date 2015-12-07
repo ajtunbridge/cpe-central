@@ -98,14 +98,6 @@ namespace Tricorn
         public Nullable<decimal> Estimated_SubContract_Cost { get; set; }
         public Nullable<decimal> Estimated_Tooling_Cost { get; set; }
         public Nullable<decimal> Estimated_Total_Cost { get; set; }
-        public Nullable<bool> Scheduler_Queue { get; set; }
-        public string Confirmed { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
-        public Nullable<int> Originating_Worder_Reference { get; set; }
-        public Nullable<int> Part_Reference { get; set; }
-        public Nullable<int> Issue { get; set; }
-        public bool JITCalcRequired { get; set; }
     
         public virtual ICollection<Batch> Batches { get; set; }
         public virtual Customer Customer { get; set; }

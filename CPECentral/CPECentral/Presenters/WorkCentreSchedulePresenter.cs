@@ -93,7 +93,7 @@ namespace CPECentral.Presenters
 
                     var machines = workCentres.Select(id => wc.Single(w => w.WCentre_Reference == id)).ToList();
 
-                    e.Result = machines;
+                    e.Result = machines.OrderBy(m => m.Name);
                 }
             }
         }

@@ -39,8 +39,5 @@ namespace Tricorn
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
         public Nullable<double> Exchange_Rate { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
-        public int Invoice_Location_Reference { get; set; }
     }
 }

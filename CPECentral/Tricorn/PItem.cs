@@ -47,11 +47,6 @@ namespace Tricorn
         public Nullable<int> CostCentre_Reference { get; set; }
         public Nullable<int> VAT_Reference { get; set; }
         public bool Exported { get; set; }
-        public Nullable<double> Local_Cost { get; set; }
-        public Nullable<System.DateTime> Promise_Date { get; set; }
-        public string Unit_Of_Measurement { get; set; }
-        public string Part_Number { get; set; }
-        public string Part_Issue { get; set; }
     
         public virtual POrder POrder { get; set; }
     }

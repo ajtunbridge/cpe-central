@@ -26,14 +26,9 @@ namespace Tricorn
         public string Supplier_Name { get; set; }
         public string WO_UserRef_Seq { get; set; }
         public string Part_Number { get; set; }
-        public Nullable<double> Quantity { get; set; }
         public string Part_Issue { get; set; }
         public string Drawing_Number { get; set; }
         public string Drawing_Issue { get; set; }
         public Nullable<double> Method { get; set; }
-        public Nullable<System.DateTime> Delivery { get; set; }
-        public Nullable<double> WO_Order_Qty { get; set; }
-        public string Tracking_Number { get; set; }
-        public Nullable<int> DMethod_Reference { get; set; }
     }
 }

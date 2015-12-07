@@ -55,18 +55,5 @@ namespace Tricorn
         public string RFQEmailBody { get; set; }
         public Nullable<bool> Take_Ownership_RFQ { get; set; }
         public Nullable<bool> Email_RFQs { get; set; }
-        public Nullable<bool> View_Material_Button { get; set; }
-        public Nullable<bool> View_WOMaterial_Tab { get; set; }
-        public Nullable<bool> View_Part_Button { get; set; }
-        public Nullable<bool> View_WOPart_Tab { get; set; }
-        public Nullable<bool> View_SubCon_Button { get; set; }
-        public Nullable<bool> View_WOSubCon_Tab { get; set; }
-        public Nullable<bool> View_WOTool_Tab { get; set; }
-        public Nullable<bool> View_POrder_Button { get; set; }
-        public Nullable<bool> View_EUR_Button { get; set; }
-        public Nullable<bool> FileAttachmentsAdmin { get; set; }
-        public Nullable<bool> Access_Scheduler_Queue { get; set; }
-        public Nullable<bool> Edit_WO_OP_Scheduler_Settings { get; set; }
-        public Nullable<bool> Create_Capacity_WO { get; set; }
     }
 }

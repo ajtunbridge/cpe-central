@@ -106,6 +106,7 @@
             this.viewStockLevelsToolStripButton.Name = "viewStockLevelsToolStripButton";
             this.viewStockLevelsToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.viewStockLevelsToolStripButton.Text = "View stock levels";
+            this.viewStockLevelsToolStripButton.Click += new System.EventHandler(this.viewStockLevelsToolStripButton_Click);
             // 
             // operationToolsEnhancedListView
             // 

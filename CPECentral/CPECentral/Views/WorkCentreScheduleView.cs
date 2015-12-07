@@ -1,14 +1,16 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
-using CPECentral.Data.EF5;
-using CPECentral.Dialogs;
-using CPECentral.Messages;
+using BrightIdeasSoftware;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
 using nGenLibrary;
 using Tricorn;
+
+#endregion
 
 namespace CPECentral.Views
 {
@@ -16,7 +18,7 @@ namespace CPECentral.Views
     {
         WCentre SelectedMachine { get; }
         WorkCentreScheduleViewModel.ScheduledJob SelectedJob { get; }
-        IEnumerable<WCentre> AllMachines { get; } 
+        IEnumerable<WCentre> AllMachines { get; }
         void DisplayModel(WorkCentreScheduleViewModel model);
         void DisplayMachines(IEnumerable<WCentre> machines);
         event EventHandler MachineSelected;
@@ -24,7 +26,7 @@ namespace CPECentral.Views
         event EventHandler PartSelected;
     }
 
-    public partial class WorkCentreScheduleView : ViewBase, IWorkCentreScheduleView
+    public sealed partial class WorkCentreScheduleView : ViewBase, IWorkCentreScheduleView
     {
         private WorkCentreSchedulePresenter _presenter;
 
@@ -48,7 +50,8 @@ namespace CPECentral.Views
         public WorkCentreScheduleViewModel.ScheduledJob SelectedJob
             => (jobsObjectListView.SelectedObject as WorkCentreScheduleViewModel.ScheduledJob);
 
-        public IEnumerable<WCentre> AllMachines => (from object item in machinesComboBox.Items select item as WCentre).ToList();
+        public IEnumerable<WCentre> AllMachines
+            => (from object item in machinesComboBox.Items select item as WCentre).ToList();
 
         public void DisplayModel(WorkCentreScheduleViewModel model)
         {
@@ -56,7 +59,7 @@ namespace CPECentral.Views
             {
                 jobsObjectListView.SetObjects(model.NextJobs);
             }
-
+            
             progressBar.Visible = false;
         }
 
@@ -87,7 +90,7 @@ namespace CPECentral.Views
             OnRetrieveMachines();
         }
 
-        protected virtual void OnMachineSelected()
+        private void OnMachineSelected()
         {
             progressBar.Visible = true;
             jobsObjectListView.SetObjects(null);
@@ -95,7 +98,7 @@ namespace CPECentral.Views
             MachineSelected?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnRetrieveMachines()
+        private void OnRetrieveMachines()
         {
             progressBar.Visible = true;
 
@@ -112,13 +115,27 @@ namespace CPECentral.Views
             OnPartSelected();
         }
 
-        protected virtual void OnPartSelected()
+        private void OnPartSelected()
         {
             PartSelected?.Invoke(this, EventArgs.Empty);
         }
 
         private void jobsObjectListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void jobsObjectListView_FormatRow(object sender, FormatRowEventArgs e)
+        {
+            var job = e.Model as WorkCentreScheduleViewModel.ScheduledJob;
+
+            if (job.ScheduledStart < DateTime.Today)
+            {
+                e.Item.ForeColor = Color.Red;
+            }
+            else if (job.ScheduledStart > DateTime.Today)
+            {
+                e.Item.ForeColor = Color.Green;
+            }
         }
     }
 }

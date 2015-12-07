@@ -246,5 +246,10 @@ namespace CPECentral.Views
         {
 
         }
+
+        private void viewStockLevelsToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

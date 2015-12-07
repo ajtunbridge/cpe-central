@@ -34,13 +34,9 @@ namespace Tricorn
         public string Nominal_Code { get; set; }
         public Nullable<double> Exchange_Rate { get; set; }
         public Nullable<decimal> Converted_Price { get; set; }
-        public string Type_Of_Order { get; set; }
+        public string Type_of_Order { get; set; }
         public string Location { get; set; }
         public byte[] Notes { get; set; }
         public byte[] Public_Notes { get; set; }
-        public Nullable<int> Part_Reference { get; set; }
-        public Nullable<int> Originating_WOrder_Reference { get; set; }
-        public Nullable<int> NumBrokenlinks { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
     }
 }

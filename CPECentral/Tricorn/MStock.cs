@@ -41,7 +41,5 @@ namespace Tricorn
         public string Location { get; set; }
         public bool Consolidated { get; set; }
         public Nullable<System.DateTime> Expiry_Date { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }

@@ -48,7 +48,6 @@ namespace Tricorn
         public DbSet<Concession> Concessions { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Cost_Centre> Cost_Centre { get; set; }
-        public DbSet<CP_Weekly> CP_Weekly { get; set; }
         public DbSet<CU_ACCOUNT> CU_ACCOUNT { get; set; }
         public DbSet<CU_BEM> CU_BEM { get; set; }
         public DbSet<CU_CNTRY> CU_CNTRY { get; set; }
@@ -57,12 +56,10 @@ namespace Tricorn
         public DbSet<CU_MAIL> CU_MAIL { get; set; }
         public DbSet<CU_PERS> CU_PERS { get; set; }
         public DbSet<CU_VERS> CU_VERS { get; set; }
-        public DbSet<CustomCommand> CustomCommands { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Customer_Currency> Customer_Currency { get; set; }
         public DbSet<CustomerSatisfaction> CustomerSatisfactions { get; set; }
         public DbSet<CustomerSatisfactionDetail> CustomerSatisfactionDetails { get; set; }
-        public DbSet<DefaultWorkingHr> DefaultWorkingHrs { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<DItem> DItems { get; set; }
         public DbSet<DItemBuiltPartTrace> DItemBuiltPartTraces { get; set; }
@@ -77,7 +74,6 @@ namespace Tricorn
         public DbSet<EAddress> EAddresses { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Employee_Details> Employee_Details { get; set; }
-        public DbSet<FactoryDayPlan> FactoryDayPlans { get; set; }
         public DbSet<FAG_DETAIL> FAG_DETAIL { get; set; }
         public DbSet<FAG_SALESMAN> FAG_SALESMAN { get; set; }
         public DbSet<FAG_TRANSACTIONLOCKING> FAG_TRANSACTIONLOCKING { get; set; }
@@ -92,7 +88,6 @@ namespace Tricorn
         public DbSet<IS_SETUP> IS_SETUP { get; set; }
         public DbSet<LB_DC> LB_DC { get; set; }
         public DbSet<LB_FUNCTION> LB_FUNCTION { get; set; }
-        public DbSet<License> Licenses { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<MaintenanceHistory> MaintenanceHistories { get; set; }
         public DbSet<MaintenanceMachine> MaintenanceMachines { get; set; }
@@ -113,12 +108,12 @@ namespace Tricorn
         public DbSet<OR_ART> OR_ART { get; set; }
         public DbSet<OR_CALC> OR_CALC { get; set; }
         public DbSet<OR_CHARGE> OR_CHARGE { get; set; }
+        public DbSet<OR_DEPENDENCY> OR_DEPENDENCY { get; set; }
         public DbSet<OR_GRPTYP> OR_GRPTYP { get; set; }
         public DbSet<OR_OPNAME> OR_OPNAME { get; set; }
         public DbSet<OR_OPTYPE> OR_OPTYPE { get; set; }
         public DbSet<OR_PROJ> OR_PROJ { get; set; }
         public DbSet<OR_SERIAL> OR_SERIAL { get; set; }
-        public DbSet<Order_Events> Order_Events { get; set; }
         public DbSet<PA_ARTGRP> PA_ARTGRP { get; set; }
         public DbSet<PA_ARTHIS> PA_ARTHIS { get; set; }
         public DbSet<PA_ARTLIEF> PA_ARTLIEF { get; set; }
@@ -163,7 +158,6 @@ namespace Tricorn
         public DbSet<rb_item> rb_item { get; set; }
         public DbSet<rb_join> rb_join { get; set; }
         public DbSet<rb_table> rb_table { get; set; }
-        public DbSet<ReasonCodeType> ReasonCodeTypes { get; set; }
         public DbSet<RecordKey> RecordKeys { get; set; }
         public DbSet<RejectCategory> RejectCategories { get; set; }
         public DbSet<Reject> Rejects { get; set; }
@@ -171,10 +165,6 @@ namespace Tricorn
         public DbSet<RFQ_Item> RFQ_Item { get; set; }
         public DbSet<RFQ_Plan> RFQ_Plan { get; set; }
         public DbSet<SatisfactionCategory> SatisfactionCategories { get; set; }
-        public DbSet<SFDC_CLIENT_RECENT_USERS> SFDC_CLIENT_RECENT_USERS { get; set; }
-        public DbSet<SFDC_CLIENT_WORKCENTRES> SFDC_CLIENT_WORKCENTRES { get; set; }
-        public DbSet<SFDC_CLIENTS> SFDC_CLIENTS { get; set; }
-        public DbSet<SFDC_GROUPS> SFDC_GROUPS { get; set; }
         public DbSet<SH_DPD> SH_DPD { get; set; }
         public DbSet<ST_PLACE> ST_PLACE { get; set; }
         public DbSet<ST_STOCK> ST_STOCK { get; set; }
@@ -183,12 +173,9 @@ namespace Tricorn
         public DbSet<SubContract> SubContracts { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierPerformance> SupplierPerformances { get; set; }
-        public DbSet<System_Codes> System_Codes { get; set; }
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Tricorn_User_Acct> Tricorn_User_Acct { get; set; }
-        public DbSet<TricornSession> TricornSessions { get; set; }
         public DbSet<TTrace> TTraces { get; set; }
-        public DbSet<UpgradeInfo> UpgradeInfoes { get; set; }
         public DbSet<VAT_Rates> VAT_Rates { get; set; }
         public DbSet<Warning> Warnings { get; set; }
         public DbSet<WCentre> WCentres { get; set; }
@@ -211,7 +198,6 @@ namespace Tricorn
         public DbSet<JIS_FERTIGUNG> JIS_FERTIGUNG { get; set; }
         public DbSet<option> options { get; set; }
         public DbSet<OR_FRAG> OR_FRAG { get; set; }
-        public DbSet<Param> Params { get; set; }
         public DbSet<PRM_VECTORMAP> PRM_VECTORMAP { get; set; }
         public DbSet<WCentreCost> WCentreCosts { get; set; }
         public DbSet<AuditFullView> AuditFullViews { get; set; }
@@ -240,7 +226,6 @@ namespace Tricorn
         public DbSet<MStock_View> MStock_View { get; set; }
         public DbSet<NonConfFullView> NonConfFullViews { get; set; }
         public DbSet<NonConfomancies_View> NonConfomancies_View { get; set; }
-        public DbSet<OR_DEPENDENCY> OR_DEPENDENCY { get; set; }
         public DbSet<OR_OP> OR_OP { get; set; }
         public DbSet<OR_ORDER> OR_ORDER { get; set; }
         public DbSet<OrderIndex> OrderIndexes { get; set; }
@@ -260,7 +245,6 @@ namespace Tricorn
         public DbSet<today> todays { get; set; }
         public DbSet<TrainingFullView> TrainingFullViews { get; set; }
         public DbSet<WOInspectFullView> WOInspectFullViews { get; set; }
-        public DbSet<WOrder_All_View> WOrder_All_View { get; set; }
         public DbSet<WORDER_SCHEDULE_VIEW> WORDER_SCHEDULE_VIEW { get; set; }
         public DbSet<WOrder_Templates_View> WOrder_Templates_View { get; set; }
         public DbSet<WOSubDiscountView> WOSubDiscountViews { get; set; }
@@ -424,7 +408,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQTool", quoteRefToCopyParameter, newQuoteRefParameter);
         }
     
-        public virtual int CopyQuote(Nullable<int> quoteRefToCopy, Nullable<int> sequence, string user_Reference, string group_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<bool> explode, Nullable<int> user_id, Nullable<double> order_Quantity)
+        public virtual int CopyQuote(Nullable<int> quoteRefToCopy, Nullable<int> sequence, string user_Reference, string group_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<bool> explode, Nullable<int> user_id)
         {
             var quoteRefToCopyParameter = quoteRefToCopy.HasValue ?
                 new ObjectParameter("QuoteRefToCopy", quoteRefToCopy) :
@@ -466,11 +450,7 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            var order_QuantityParameter = order_Quantity.HasValue ?
-                new ObjectParameter("Order_Quantity", order_Quantity) :
-                new ObjectParameter("Order_Quantity", typeof(double));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQuote", quoteRefToCopyParameter, sequenceParameter, user_ReferenceParameter, group_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, explodeParameter, user_idParameter, order_QuantityParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyQuote", quoteRefToCopyParameter, sequenceParameter, user_ReferenceParameter, group_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, explodeParameter, user_idParameter);
         }
     
         public virtual int CopyQWCentre(Nullable<int> quoteRefToCopy, Nullable<int> newQuoteRef)
@@ -538,7 +518,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOPart", wOrderRefToCopyParameter, newWOrderRefParameter);
         }
     
-        public virtual int CopyWOrder(Nullable<int> wOrderRefToCopy, Nullable<int> sequence, string user_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<double> quantity_To_Build, Nullable<bool> explode, Nullable<bool> doneLevelZero, Nullable<int> levelZeroRef, Nullable<int> user_id, Nullable<bool> locked)
+        public virtual int CopyWOrder(Nullable<int> wOrderRefToCopy, Nullable<int> sequence, string user_Reference, string status, Nullable<bool> main, Nullable<bool> copy_Components, Nullable<double> quantity, Nullable<double> quantity_To_Build, Nullable<bool> explode, Nullable<bool> doneLevelZero, Nullable<int> levelZeroRef, Nullable<int> user_id)
         {
             var wOrderRefToCopyParameter = wOrderRefToCopy.HasValue ?
                 new ObjectParameter("WOrderRefToCopy", wOrderRefToCopy) :
@@ -588,11 +568,7 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            var lockedParameter = locked.HasValue ?
-                new ObjectParameter("Locked", locked) :
-                new ObjectParameter("Locked", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOrder", wOrderRefToCopyParameter, sequenceParameter, user_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, quantity_To_BuildParameter, explodeParameter, doneLevelZeroParameter, levelZeroRefParameter, user_idParameter, lockedParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CopyWOrder", wOrderRefToCopyParameter, sequenceParameter, user_ReferenceParameter, statusParameter, mainParameter, copy_ComponentsParameter, quantityParameter, quantity_To_BuildParameter, explodeParameter, doneLevelZeroParameter, levelZeroRefParameter, user_idParameter);
         }
     
         public virtual int CopyWOSubContract(Nullable<int> wOrderRefToCopy, Nullable<int> newWOrderRef)
@@ -1394,7 +1370,7 @@ namespace Tricorn
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertWOWCentreItem", nextWCentreOpNumParameter, nextWCentreSeqParameter, parentRefParameter, wCentreRefToCopyParameter, destinationParameter);
         }
     
-        public virtual int QToWOCopy(Nullable<int> quoteRefToCopy, string user_Reference, Nullable<bool> copy_Components, string custOrderNo, Nullable<System.DateTime> strDeliveryDate, Nullable<double> quantity, Nullable<int> user_id, string isConfirmed, string publicNotes, string privateNotes, Nullable<System.DateTime> theOrderDate)
+        public virtual int QToWOCopy(Nullable<int> quoteRefToCopy, string user_Reference, Nullable<bool> copy_Components, string custOrderNo, string strDeliveryDate, Nullable<double> quantity, Nullable<int> user_id)
         {
             var quoteRefToCopyParameter = quoteRefToCopy.HasValue ?
                 new ObjectParameter("QuoteRefToCopy", quoteRefToCopy) :
@@ -1412,9 +1388,9 @@ namespace Tricorn
                 new ObjectParameter("CustOrderNo", custOrderNo) :
                 new ObjectParameter("CustOrderNo", typeof(string));
     
-            var strDeliveryDateParameter = strDeliveryDate.HasValue ?
+            var strDeliveryDateParameter = strDeliveryDate != null ?
                 new ObjectParameter("strDeliveryDate", strDeliveryDate) :
-                new ObjectParameter("strDeliveryDate", typeof(System.DateTime));
+                new ObjectParameter("strDeliveryDate", typeof(string));
     
             var quantityParameter = quantity.HasValue ?
                 new ObjectParameter("Quantity", quantity) :
@@ -1424,23 +1400,7 @@ namespace Tricorn
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            var isConfirmedParameter = isConfirmed != null ?
-                new ObjectParameter("isConfirmed", isConfirmed) :
-                new ObjectParameter("isConfirmed", typeof(string));
-    
-            var publicNotesParameter = publicNotes != null ?
-                new ObjectParameter("PublicNotes", publicNotes) :
-                new ObjectParameter("PublicNotes", typeof(string));
-    
-            var privateNotesParameter = privateNotes != null ?
-                new ObjectParameter("PrivateNotes", privateNotes) :
-                new ObjectParameter("PrivateNotes", typeof(string));
-    
-            var theOrderDateParameter = theOrderDate.HasValue ?
-                new ObjectParameter("theOrderDate", theOrderDate) :
-                new ObjectParameter("theOrderDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("QToWOCopy", quoteRefToCopyParameter, user_ReferenceParameter, copy_ComponentsParameter, custOrderNoParameter, strDeliveryDateParameter, quantityParameter, user_idParameter, isConfirmedParameter, publicNotesParameter, privateNotesParameter, theOrderDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("QToWOCopy", quoteRefToCopyParameter, user_ReferenceParameter, copy_ComponentsParameter, custOrderNoParameter, strDeliveryDateParameter, quantityParameter, user_idParameter);
         }
     
         public virtual int QToWOCopyMaterial(Nullable<int> quoteRefToCopy, Nullable<int> newWOrderRef)

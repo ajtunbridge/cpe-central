@@ -40,12 +40,6 @@ namespace Tricorn
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
-        public Nullable<System.DateTime> Despatch_Date { get; set; }
-        public string Tracking_Number { get; set; }
-        public Nullable<int> Days_Early { get; set; }
-        public Nullable<int> Days_Late { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual ICollection<DItem> DItems { get; set; }
     }

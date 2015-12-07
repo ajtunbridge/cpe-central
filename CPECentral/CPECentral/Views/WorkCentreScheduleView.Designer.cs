@@ -1,6 +1,6 @@
 ﻿namespace CPECentral.Views
 {
-    partial class WorkCentreScheduleView
+    sealed partial class WorkCentreScheduleView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.jobsObjectListView = new BrightIdeasSoftware.ObjectListView();
             this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -39,8 +40,13 @@
             this.machinesComboBox = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolingRequirementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.jobsObjectListView)).BeginInit();
             this.panel1.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // jobsObjectListView
@@ -70,6 +76,7 @@
             this.jobsObjectListView.TabIndex = 12;
             this.jobsObjectListView.UseCompatibleStateImageBehavior = false;
             this.jobsObjectListView.View = System.Windows.Forms.View.Details;
+            this.jobsObjectListView.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.jobsObjectListView_FormatRow);
             this.jobsObjectListView.ItemActivate += new System.EventHandler(this.jobsObjectListView_ItemActivate);
             this.jobsObjectListView.SelectedIndexChanged += new System.EventHandler(this.jobsObjectListView_SelectedIndexChanged);
             // 
@@ -172,6 +179,32 @@
             this.progressBar.TabIndex = 12;
             this.progressBar.Visible = false;
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.toolingRequirementsToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(188, 76);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.openToolStripMenuItem.Text = "&Open";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(184, 6);
+            // 
+            // toolingRequirementsToolStripMenuItem
+            // 
+            this.toolingRequirementsToolStripMenuItem.Name = "toolingRequirementsToolStripMenuItem";
+            this.toolingRequirementsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.toolingRequirementsToolStripMenuItem.Text = "Tooling requirements";
+            // 
             // WorkCentreScheduleView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -187,6 +220,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.jobsObjectListView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -203,5 +237,9 @@
         private BrightIdeasSoftware.OLVColumn olvColumn5;
         private BrightIdeasSoftware.OLVColumn olvColumn6;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolingRequirementsToolStripMenuItem;
     }
 }

@@ -35,11 +35,6 @@ namespace Tricorn
         public Nullable<double> Uplift_Percentage { get; set; }
         public Nullable<decimal> Surcharge { get; set; }
         public Nullable<int> Delivery_Lead_Time { get; set; }
-        public Nullable<decimal> Adjustment { get; set; }
-        public Nullable<int> Originating_WOrder_Reference { get; set; }
-        public Nullable<int> Originating_WoPart_Reference { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual WOrder WOrder { get; set; }
     }

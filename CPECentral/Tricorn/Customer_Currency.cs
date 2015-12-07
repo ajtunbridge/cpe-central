@@ -20,6 +20,5 @@ namespace Tricorn
         public Nullable<double> Exchange_Rate { get; set; }
         public Nullable<bool> EC_Member { get; set; }
         public string Currency_Symbol { get; set; }
-        public Nullable<bool> Point_Precision { get; set; }
     }
 }

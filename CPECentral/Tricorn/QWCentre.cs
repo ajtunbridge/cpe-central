@@ -35,8 +35,6 @@ namespace Tricorn
         public Nullable<double> Schedule_Days { get; set; }
         public Nullable<int> Operation_Number { get; set; }
         public bool External_Work { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual Quote Quote { get; set; }
     }

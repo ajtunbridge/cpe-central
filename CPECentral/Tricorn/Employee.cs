@@ -20,5 +20,6 @@ namespace Tricorn
         public string Clock_Number { get; set; }
         public Nullable<bool> EmployeeIsActive { get; set; }
         public Nullable<int> Old_Reference { get; set; }
+        public Nullable<System.DateTime> Date_Created { get; set; }
     }
 }

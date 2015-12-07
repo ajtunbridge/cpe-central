@@ -28,7 +28,5 @@ namespace Tricorn
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
         public Nullable<int> NominalCode_Reference { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }

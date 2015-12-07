@@ -132,12 +132,6 @@
     <Compile Include="Cost_Centre.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CP_Weekly.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustomCommand.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Customer.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
@@ -178,9 +172,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBVersion.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DefaultWorkingHr.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Discount.cs">
@@ -247,9 +238,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EU_Title_Mrp.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FactoryDayPlan.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FAG_DETAIL.cs">
@@ -322,9 +310,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LB_FUNCTION.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="License.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
@@ -402,9 +387,6 @@
     <Compile Include="OrderIndex.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Order_Events.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="OR_ART.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
@@ -439,9 +421,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OR_SERIAL.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Param.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Part.cs">
@@ -607,9 +586,6 @@
     <Compile Include="rb_table.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReasonCodeType.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="RecordKey.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
@@ -638,18 +614,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Schedule_Deviation_View.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SFDC_CLIENTS.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SFDC_CLIENT_RECENT_USERS.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SFDC_CLIENT_WORKCENTRES.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SFDC_GROUPS.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SH_DPD.cs">
@@ -682,9 +646,6 @@
     <Compile Include="SuppPerfFullView.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="System_Codes.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="today.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
@@ -710,16 +671,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TricornModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="TricornSession.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Tricorn_User_Acct.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TTrace.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UpgradeInfo.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="VAT_Rates.cs">
@@ -756,9 +711,6 @@
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WOrder.cs">
-      <DependentUpon>TricornModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WOrder_All_View.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WORDER_SCHEDULE_VIEW.cs">

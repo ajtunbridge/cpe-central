@@ -32,7 +32,5 @@ namespace Tricorn
         public string Supplier_Name { get; set; }
         public Nullable<System.DateTime> Received_Date { get; set; }
         public Nullable<int> PItem_Reference { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }

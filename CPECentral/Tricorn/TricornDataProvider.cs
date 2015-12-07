@@ -84,7 +84,7 @@ namespace Tricorn
             {
                 conn.Open();
             }
-
+            
             var cmd = new SqlCommand(query, (SqlConnection)conn);
             cmd.Prepare();
 

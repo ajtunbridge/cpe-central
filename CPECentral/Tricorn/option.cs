@@ -31,7 +31,5 @@ namespace Tricorn
         public Nullable<int> License_Check_Offset { get; set; }
         public Nullable<bool> RunSecurityModel { get; set; }
         public Nullable<bool> EULA_Accepted { get; set; }
-        public string XML_Home { get; set; }
-        public string XML_EntityLocation { get; set; }
     }
 }

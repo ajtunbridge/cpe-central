@@ -32,14 +32,5 @@ namespace Tricorn
         public Nullable<System.DateTime> Required_Date { get; set; }
         public string External_Supplier { get; set; }
         public double Quantity_Delivered { get; set; }
-        public Nullable<double> Exchange_Rate { get; set; }
-        public Nullable<double> Local_Cost { get; set; }
-        public int Revision { get; set; }
-        public int Ack_Revision { get; set; }
-        public Nullable<System.DateTime> Promise_Date { get; set; }
-        public string Type { get; set; }
-        public string Notes { get; set; }
-        public string Contact_Name { get; set; }
-        public string Comment { get; set; }
     }
 }

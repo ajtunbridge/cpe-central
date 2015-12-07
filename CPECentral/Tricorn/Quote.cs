@@ -72,11 +72,6 @@ namespace Tricorn
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
-        public Nullable<double> order_Quantity { get; set; }
-        public Nullable<int> Originating_Quote_Reference { get; set; }
-        public Nullable<int> Part_Reference { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     
         public virtual ICollection<QComponent> QComponents { get; set; }
         public virtual ICollection<QMaterial> QMaterials { get; set; }

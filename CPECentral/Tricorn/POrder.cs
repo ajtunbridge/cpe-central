@@ -36,11 +36,6 @@ namespace Tricorn
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
-        public Nullable<double> Exchange_Rate { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
-        public int Revision { get; set; }
-        public int Ack_Revision { get; set; }
     
         public virtual ICollection<PItem> PItems { get; set; }
     }

@@ -45,13 +45,5 @@ namespace Tricorn
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
         public Nullable<decimal> WAITMODE { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
-        public Nullable<int> PlanningColour { get; set; }
-        public Nullable<int> DefaultWorkingHrsId { get; set; }
-        public Nullable<decimal> SPEEDFACTOR { get; set; }
-        public Nullable<decimal> SPEEDMODE { get; set; }
-        public bool IncludeInPlanning { get; set; }
-        public Nullable<int> PlanningPosition { get; set; }
     }
 }

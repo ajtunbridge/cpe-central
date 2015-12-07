@@ -29,7 +29,5 @@ namespace Tricorn
         public Nullable<double> GCOST { get; set; }
         public string Category { get; set; }
         public Nullable<decimal> WAITMODE { get; set; }
-        public Nullable<decimal> Speedmode { get; set; }
-        public Nullable<decimal> Speedfactor { get; set; }
     }
 }

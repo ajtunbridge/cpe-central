@@ -158,26 +158,5 @@ namespace Tricorn
         public Nullable<bool> StopWhenNotClockedIn { get; set; }
         public Nullable<System.DateTime> DefaultShiftStartTime { get; set; }
         public Nullable<System.DateTime> AutoCloseTime { get; set; }
-        public Nullable<bool> AutoSetQuotesAsAccepted { get; set; }
-        public Nullable<bool> AutoSetQuotesAsRejected { get; set; }
-        public Nullable<int> MassInvoicingDefaultDateOption { get; set; }
-        public string CentralConfigFolderPath { get; set; }
-        public string GoogleMapsURL { get; set; }
-        public Nullable<bool> bRichPItemNotes { get; set; }
-        public string MasterPC { get; set; }
-        public Nullable<bool> AutoClientUpdate { get; set; }
-        public string CopyWOAttachments { get; set; }
-        public string CopyQuoteAttachments { get; set; }
-        public string CopyWOTemplateAttachments { get; set; }
-        public string CopyQuoteTemplateAttachments { get; set; }
-        public Nullable<int> MinMarkup { get; set; }
-        public Nullable<bool> AutoUnlockWoCopy { get; set; }
-        public Nullable<bool> AutoUnlockTemplateCopy { get; set; }
-        public Nullable<bool> AllowChangeInvoiceToCredit { get; set; }
-        public Nullable<bool> AllowEditBatchQtyIfCreditInvoice { get; set; }
-        public int JitOffSetDays { get; set; }
-        public int JitOffSetTimeOfDaySecs { get; set; }
-        public bool UseJitOffsetTime { get; set; }
-        public string AppDataLocationType { get; set; }
     }
 }

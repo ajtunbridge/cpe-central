@@ -23,8 +23,5 @@ namespace Tricorn
         public int Client_Reference { get; set; }
         public System.DateTime Date_Created { get; set; }
         public System.DateTime Date_Last_Modified { get; set; }
-        public Nullable<int> Transit_Period { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }

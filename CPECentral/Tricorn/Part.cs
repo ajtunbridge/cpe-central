@@ -52,7 +52,5 @@ namespace Tricorn
         public string Expiry_Period { get; set; }
         public Nullable<int> Expiry_Interval { get; set; }
         public string Stock_Category { get; set; }
-        public Nullable<int> NumFileAttachments { get; set; }
-        public Nullable<int> NumBrokenLinks { get; set; }
     }
 }
