@@ -93,6 +93,7 @@
             this.passwordEnhancedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.passwordEnhancedTextBox.UseSystemPasswordChar = true;
             this.passwordEnhancedTextBox.EnterKeyPressed += new System.EventHandler(this.passwordEnhancedTextBox_EnterKeyPressed);
+            this.passwordEnhancedTextBox.Enter += new System.EventHandler(this.passwordEnhancedTextBox_Enter);
             // 
             // okayCancelFooter
             // 
@@ -118,6 +119,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -126,6 +128,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Log in";
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EmployeeLoginDialog_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

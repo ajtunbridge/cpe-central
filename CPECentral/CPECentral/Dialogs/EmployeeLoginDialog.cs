@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary.Security;
@@ -44,6 +45,14 @@ namespace CPECentral.Dialogs
         private void passwordEnhancedTextBox_EnterKeyPressed(object sender, EventArgs e)
         {
             okayCancelFooter_OkayClicked(passwordEnhancedTextBox, EventArgs.Empty);
+        }
+
+        private void passwordEnhancedTextBox_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void EmployeeLoginDialog_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
         }
     }
 }

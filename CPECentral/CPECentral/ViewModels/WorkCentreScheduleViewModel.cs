@@ -22,6 +22,7 @@ namespace CPECentral.ViewModels
             public string Name { get; set; }
             public DateTime DueOn { get; set; }
             public DateTime ScheduledStart { get; set; }
+            public DateTime? ScheduledEnd { get; set; }
         }
     }
 }

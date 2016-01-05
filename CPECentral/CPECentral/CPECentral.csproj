@@ -396,7 +396,7 @@
     <Compile Include="Note.cs" />
     <Compile Include="PartPhotoCache.cs" />
     <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
-    <Compile Include="Presenters\ComplaintTrendsPresenter.cs" />
+    <Compile Include="Presenters\Quality\ComplaintTrendsPresenter.cs" />
     <Compile Include="Presenters\DocumentsPresenter.cs" />
     <Compile Include="Presenters\GaugesPresenter.cs" />
     <Compile Include="Presenters\HoldersPresenter.cs" />
@@ -470,10 +470,10 @@
     <Compile Include="ViewModels\TurnoverGraphViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
     <Compile Include="ViewModels\WorkCentreScheduleViewModel.cs" />
-    <Compile Include="Views\ComplaintTrendsView.cs">
+    <Compile Include="Views\Quality\ComplaintTrendsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ComplaintTrendsView.Designer.cs">
+    <Compile Include="Views\Quality\ComplaintTrendsView.Designer.cs">
       <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EmployeeSessionView2.cs">
@@ -523,6 +523,12 @@
     </Compile>
     <Compile Include="Views\NonConformanceSelectorView.Designer.cs">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NonConformancesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NonConformancesView.Designer.cs">
+      <DependentUpon>NonConformancesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\NonConformanceView.cs">
       <SubType>UserControl</SubType>
@@ -880,7 +886,7 @@
     <EmbeddedResource Include="ToastNotificationForm.resx">
       <DependentUpon>ToastNotificationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ComplaintTrendsView.resx">
+    <EmbeddedResource Include="Views\Quality\ComplaintTrendsView.resx">
       <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\EmployeeSessionView2.resx">
@@ -1012,10 +1018,10 @@
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.config.local">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config.live">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="CncLanguages\heidenhain_syntax.xshd">
@@ -1267,6 +1273,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

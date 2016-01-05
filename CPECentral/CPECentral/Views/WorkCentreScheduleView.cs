@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using BrightIdeasSoftware;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
@@ -19,6 +20,7 @@ namespace CPECentral.Views
         WCentre SelectedMachine { get; }
         WorkCentreScheduleViewModel.ScheduledJob SelectedJob { get; }
         IEnumerable<WCentre> AllMachines { get; }
+        bool ShowJobTotalCost { get; set; }
         void DisplayModel(WorkCentreScheduleViewModel model);
         void DisplayMachines(IEnumerable<WCentre> machines);
         event EventHandler MachineSelected;
@@ -52,6 +54,8 @@ namespace CPECentral.Views
 
         public IEnumerable<WCentre> AllMachines
             => (from object item in machinesComboBox.Items select item as WCentre).ToList();
+
+        public bool ShowJobTotalCost { get; set; }
 
         public void DisplayModel(WorkCentreScheduleViewModel model)
         {
@@ -112,6 +116,11 @@ namespace CPECentral.Views
 
         private void jobsObjectListView_ItemActivate(object sender, EventArgs e)
         {
+            if (ModifierKeys.Has(Keys.Control))
+            {
+                ShowJobTotalCost = true;
+            }
+
             OnPartSelected();
         }
 
@@ -128,11 +137,15 @@ namespace CPECentral.Views
         {
             var job = e.Model as WorkCentreScheduleViewModel.ScheduledJob;
 
-            if (job.ScheduledStart < DateTime.Today)
+            if (job.ScheduledEnd > job.DueOn)
             {
                 e.Item.ForeColor = Color.Red;
             }
-            else if (job.ScheduledStart > DateTime.Today)
+            else if (job.ScheduledEnd == job.DueOn)
+            {
+                e.Item.ForeColor = Color.DarkOrange;
+            }
+            else
             {
                 e.Item.ForeColor = Color.Green;
             }

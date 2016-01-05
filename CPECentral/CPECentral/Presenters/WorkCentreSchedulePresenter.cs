@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.Messages;
@@ -30,6 +32,23 @@ namespace CPECentral.Presenters
         {
             using (BusyCursor.Show())
             {
+                if (_view.ShowJobTotalCost)
+                {
+                    using (var tricorn = new TricornDataProvider())
+                    {
+                        _view.ShowJobTotalCost = false;
+                        var worder = tricorn.GetWorksOrdersByUserReference(_view.SelectedJob.WorksOrderNumber).SingleOrDefault();
+
+                        var totalValue = worder.Total_Cost.Value.ToString("C");
+
+                        var msg = $"The value of this job is {totalValue}";
+
+                        _view.DialogService.Notify(msg);
+
+                        return;
+                    }
+                }
+
                 using (var cpe = new CPEUnitOfWork())
                 {
                     var part = cpe.Parts.GetWhereDrawingNumberMatches(_view.SelectedJob.DrawingNumber).SingleOrDefault();
@@ -73,6 +92,7 @@ namespace CPECentral.Presenters
         {
             if (e.Result is Exception)
             {
+                var ex = e.Result as Exception;
 
             }
             else
@@ -160,7 +180,7 @@ namespace CPECentral.Presenters
                         job.Name = nextJob.Description;
                         job.DueOn = nextJob.Delivery.Value;
                         job.ScheduledStart = nextJob.ScheduledStart;
-
+                        job.ScheduledEnd = nextJob.Current_End_Date;
                         model.AddJob(job);
                     }
                 }

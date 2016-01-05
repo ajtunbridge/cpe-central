@@ -44,6 +44,7 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolingRequirementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.olvColumn7 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.jobsObjectListView)).BeginInit();
             this.panel1.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
@@ -57,6 +58,7 @@
             this.jobsObjectListView.AllColumns.Add(this.olvColumn4);
             this.jobsObjectListView.AllColumns.Add(this.olvColumn5);
             this.jobsObjectListView.AllColumns.Add(this.olvColumn6);
+            this.jobsObjectListView.AllColumns.Add(this.olvColumn7);
             this.jobsObjectListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -66,7 +68,8 @@
             this.olvColumn3,
             this.olvColumn4,
             this.olvColumn5,
-            this.olvColumn6});
+            this.olvColumn6,
+            this.olvColumn7});
             this.jobsObjectListView.FullRowSelect = true;
             this.jobsObjectListView.Location = new System.Drawing.Point(10, 61);
             this.jobsObjectListView.Margin = new System.Windows.Forms.Padding(10);
@@ -95,7 +98,7 @@
             this.olvColumn2.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn2.Text = "Drawing number";
             this.olvColumn2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn2.Width = 150;
+            this.olvColumn2.Width = 125;
             // 
             // olvColumn3
             // 
@@ -113,7 +116,7 @@
             this.olvColumn4.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn4.Text = "Name";
             this.olvColumn4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn4.Width = 150;
+            this.olvColumn4.Width = 125;
             // 
             // olvColumn5
             // 
@@ -123,7 +126,7 @@
             this.olvColumn5.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn5.Text = "Due on";
             this.olvColumn5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn5.Width = 125;
+            this.olvColumn5.Width = 105;
             // 
             // olvColumn6
             // 
@@ -133,7 +136,7 @@
             this.olvColumn6.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn6.Text = "Scheduled start";
             this.olvColumn6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn6.Width = 125;
+            this.olvColumn6.Width = 105;
             // 
             // label2
             // 
@@ -186,24 +189,34 @@
             this.toolStripMenuItem1,
             this.toolingRequirementsToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(188, 76);
+            this.contextMenuStrip.Size = new System.Drawing.Size(189, 54);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.openToolStripMenuItem.Text = "&Open";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(184, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 6);
             // 
             // toolingRequirementsToolStripMenuItem
             // 
             this.toolingRequirementsToolStripMenuItem.Name = "toolingRequirementsToolStripMenuItem";
-            this.toolingRequirementsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.toolingRequirementsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.toolingRequirementsToolStripMenuItem.Text = "Tooling requirements";
+            // 
+            // olvColumn7
+            // 
+            this.olvColumn7.AspectName = "ScheduledEnd";
+            this.olvColumn7.AspectToStringFormat = "{0:dd/MM/yyyy}";
+            this.olvColumn7.CellPadding = null;
+            this.olvColumn7.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn7.Text = "Scheduled end";
+            this.olvColumn7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumn7.Width = 105;
             // 
             // WorkCentreScheduleView
             // 
@@ -241,5 +254,6 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolingRequirementsToolStripMenuItem;
+        private BrightIdeasSoftware.OLVColumn olvColumn7;
     }
 }
