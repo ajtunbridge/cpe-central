@@ -15,9 +15,9 @@ namespace CPECentral.Presenters
 {
     public class GaugesPresenter
     {
-        private readonly GaugesView _view;
+        private readonly GaugesViewOld _view;
 
-        public GaugesPresenter(GaugesView view)
+        public GaugesPresenter(GaugesViewOld view)
         {
             _view = view;
             _view.FilterValueChanged += _view_FilterValueChanged;
@@ -47,13 +47,13 @@ namespace CPECentral.Presenters
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var filterValue = (GaugesView.FilterValue)e.Argument;
+            var filterValue = (GaugesViewOld.FilterValue)e.Argument;
 
             IEnumerable<Gauge> gauges = null;
 
             var qms = new QMSDataProvider();
 
-            if (filterValue == GaugesView.FilterValue.DueForCalibration)
+            if (filterValue == GaugesViewOld.FilterValue.DueForCalibration)
             {
                 gauges = qms.GetGaugesDueForCalibration().OrderBy(g => g.CalibrationDueOn);
             }

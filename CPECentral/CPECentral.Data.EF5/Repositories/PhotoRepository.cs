@@ -1,5 +1,6 @@
 ﻿#region Using directives
 
+using System;
 using System.Linq;
 
 #endregion
@@ -12,21 +13,36 @@ namespace CPECentral.Data.EF5.Repositories
         {
         }
 
-        public void Add(PartVersion partVersion, byte[] photoBytes)
+        public void Set(PartVersion partVersion, byte[] photoBytes)
         {
-            string address = string.Format("PartVersion:{0}", partVersion.Id);
+            string address = $"PartVersion:{partVersion.Id}";
 
+            Set(address, photoBytes);
+        }
+
+        public void Set(Gauge gauge, byte[] photoBytes)
+        {
+            string address = $"Gauge:{gauge.Id}";
+
+            Set(address, photoBytes);
+        }
+
+        private void Set(string address, byte[] photoBytes)
+        {
             Photo record = GetPhotoByAddress(address);
 
-            if (record == null) {
-                record = new Photo {
+            if (record == null)
+            {
+                record = new Photo
+                {
                     Address = address,
                     Data = photoBytes
                 };
 
                 Add(record);
             }
-            else {
+            else
+            {
                 record.Data = photoBytes;
 
                 Update(record);
@@ -35,16 +51,34 @@ namespace CPECentral.Data.EF5.Repositories
 
         public byte[] GetByPartVersion(PartVersion partVersion)
         {
-            string address = string.Format("PartVersion:{0}", partVersion.Id);
+            string address = $"PartVersion:{partVersion.Id}";
 
-            Photo entity = GetSet().SingleOrDefault(p => p.Address == address);
+            Photo entity = GetPhotoByAddress(address);
 
-            return entity == null ? null : entity.Data;
+            return entity?.Data;
+        }
+
+        public byte[] GetByGauge(Gauge gauge)
+        {
+            string address = $"Gauge:{gauge.Id}";
+            
+            Photo entity = GetPhotoByAddress(address);
+
+            return entity?.Data;
         }
 
         public void Delete(PartVersion partVersion)
         {
-            string address = string.Format("PartVersion:{0}", partVersion.Id);
+            string address = $"PartVersion:{partVersion.Id}";
+
+            var record = GetPhotoByAddress(address);
+
+            Delete(record);
+        }
+
+        public void Delete(Gauge gauge)
+        {
+            string address = $"Gauge:{gauge.Id}";
 
             var record = GetPhotoByAddress(address);
 

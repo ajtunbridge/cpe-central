@@ -2,6 +2,8 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
@@ -34,8 +36,8 @@ namespace CPECentral
         {
             get { return _partPhotoCache; }
         }
-            
-            internal static Employee CurrentEmployee { get; set; }
+
+        internal static Employee CurrentEmployee { get; set; }
 
         internal static DocumentService DocumentService { get; private set; }
 
@@ -63,6 +65,39 @@ namespace CPECentral
         internal static T GetInstanceOf<T>()
         {
             return _kernel.Get<T>();
+        }
+
+        internal static Image ResizePhoto(Image image)
+        {
+            double ratioX = 640.0d/image.Width;
+            double ratioY = 480.0d/image.Height;
+
+            double ratio = ratioX < ratioY ? ratioX : ratioY;
+
+            int newHeight = Convert.ToInt32(image.Height*ratio);
+            int newWidth = Convert.ToInt32(image.Width*ratio);
+
+            var destRect = new Rectangle(0, 0, newWidth, newHeight);
+            var destImage = new Bitmap(newWidth, newHeight);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (Graphics graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
         private static void CopyQmsLocally()

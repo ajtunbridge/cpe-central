@@ -323,7 +323,7 @@ namespace CPECentral.Views
             this.partDescriptionLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.partDescriptionLabel.Location = new System.Drawing.Point(55, 15);
             this.partDescriptionLabel.Name = "partDescriptionLabel";
-            this.partDescriptionLabel.Size = new System.Drawing.Size(321, 21);
+            this.partDescriptionLabel.Size = new System.Drawing.Size(319, 21);
             this.partDescriptionLabel.TabIndex = 1;
             this.partDescriptionLabel.Text = "H514753B Version 06 ( CATHODE SIDEARM)";
             this.partDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -397,6 +397,7 @@ namespace CPECentral.Views
             this.partPhotoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.partPhotoPictureBox.TabIndex = 0;
             this.partPhotoPictureBox.TabStop = false;
+            this.partPhotoPictureBox.DoubleClick += new System.EventHandler(this.partPhotoPictureBox_DoubleClick);
             // 
             // label3
             // 

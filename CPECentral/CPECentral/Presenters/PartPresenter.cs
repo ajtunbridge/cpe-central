@@ -119,14 +119,14 @@ namespace CPECentral.Presenters
                         img = photoEditorDialog.EditedImage;
                     }
 
-                    photoImage = ResizePartVersionImageToStandardResolution(img);
+                    photoImage = Session.ResizePhoto(img);
                 }
 
                 using (BusyCursor.Show()) {
                     using (var cpe = new CPEUnitOfWork()) {
                         using (var ms = new MemoryStream()) {
                             photoImage.Save(ms, ImageFormat.Jpeg);
-                            cpe.Photos.Add(_partView.SelectedPartVersion, ms.ToArray());
+                            cpe.Photos.Set(_partView.SelectedPartVersion, ms.ToArray());
                             cpe.Commit();
                         }
                     }
@@ -203,38 +203,7 @@ namespace CPECentral.Presenters
                 e.Result = ex;
             }
         }
-
-        private Image ResizePartVersionImageToStandardResolution(Image image)
-        {
-            double ratioX = 640.0d/image.Width;
-            double ratioY = 480.0d/image.Height;
-
-            double ratio = ratioX < ratioY ? ratioX : ratioY;
-
-            int newHeight = Convert.ToInt32(image.Height*ratio);
-            int newWidth = Convert.ToInt32(image.Width*ratio);
-
-            var destRect = new Rectangle(0, 0, newWidth, newHeight);
-            var destImage = new Bitmap(newWidth, newHeight);
-
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (Graphics graphics = Graphics.FromImage(destImage)) {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes()) {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
-
+        
         private void HandleException(Exception ex)
         {
             string message;

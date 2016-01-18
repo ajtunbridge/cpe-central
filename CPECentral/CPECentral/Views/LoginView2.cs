@@ -133,5 +133,10 @@ namespace CPECentral.Views
                 Session.MessageBus.Publish(new EmployeeLoggedInMessage(employee));
             }
         }
+
+        private void gaugesView1_GaugeSelected(object sender, CustomEventArgs.GaugeEventArgs e)
+        {
+            MessageBox.Show(e.Gauge.Name);
+        }
     }
 }

@@ -49,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPermission.cs" />
+    <Compile Include="CalibrationMethod.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationResult.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ClientSetting.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -85,6 +91,12 @@
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FuzzySearch.cs" />
+    <Compile Include="Gauge.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GaugeType.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Holder.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -99,6 +111,12 @@
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Method.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConformance.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConformanceType.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Operation.cs">
@@ -120,12 +138,17 @@
     <Compile Include="RecentPart.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RejectReason.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\ClientSettingRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\EmployeeGroupRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\EmployeeWorkCentreRepository.cs" />
+    <Compile Include="Repositories\GaugeRepository.cs" />
+    <Compile Include="Repositories\GaugeTypeRepository.cs" />
     <Compile Include="Repositories\HolderGroupRepository.cs" />
     <Compile Include="Repositories\HolderRepository.cs" />
     <Compile Include="Repositories\HolderToolRepository.cs" />

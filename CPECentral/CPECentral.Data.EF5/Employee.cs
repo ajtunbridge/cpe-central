@@ -18,6 +18,7 @@ namespace CPECentral.Data.EF5
         {
             this.RecentParts = new HashSet<RecentPart>();
             this.EmployeeWorkCentres = new HashSet<EmployeeWorkCentre>();
+            this.NonConformances = new HashSet<NonConformance>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,6 @@ namespace CPECentral.Data.EF5
         public virtual EmployeeGroup EmployeeGroup { get; set; }
         public virtual ICollection<RecentPart> RecentParts { get; set; }
         public virtual ICollection<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
+        public virtual ICollection<NonConformance> NonConformances { get; set; }
     }
 }

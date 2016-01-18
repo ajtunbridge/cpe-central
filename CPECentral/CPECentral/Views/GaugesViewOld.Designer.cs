@@ -1,6 +1,6 @@
 ﻿namespace CPECentral.Views
 {
-    partial class GaugesView
+    partial class GaugesViewOld
     {
         /// <summary> 
         /// Required designer variable.

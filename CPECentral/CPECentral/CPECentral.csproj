@@ -197,6 +197,7 @@
       <DependentUpon>VersionWarningPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Win32.cs" />
+    <Compile Include="CustomEventArgs\GaugeEventArgs.cs" />
     <Compile Include="CustomEventArgs\NonConformanceEventArgs.cs" />
     <Compile Include="CustomEventArgs\DocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
@@ -300,6 +301,12 @@
     <Compile Include="Dialogs\PhotoEditorDialog.designer.cs">
       <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\PhotoViewerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PhotoViewerDialog.Designer.cs">
+      <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ReceiveProgramDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -384,6 +391,7 @@
     <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\EmployeeSwitchedMessage.cs" />
     <Compile Include="Messages\FavouriteMachinesChangedMessage.cs" />
+    <Compile Include="Messages\GaugeEditedMessage.cs" />
     <Compile Include="Messages\LoadPartMessage.cs" />
     <Compile Include="Messages\PartVersionPhotoChangedMessage.cs" />
     <Compile Include="Messages\RecentPartsChangedMessage.cs" />
@@ -411,6 +419,8 @@
     <Compile Include="Presenters\PartPresenter.cs" />
     <Compile Include="Presenters\PartWorksOrdersPresenter.cs" />
     <Compile Include="Presenters\ComplaintStatisticsPresenter.cs" />
+    <Compile Include="Presenters\Quality\GaugeDetailPresenter.cs" />
+    <Compile Include="Presenters\Quality\GaugesPresenter.cs" />
     <Compile Include="Presenters\StartPageFindToolBoxPresenter.cs" />
     <Compile Include="Presenters\StartPageUserInfoPresenter.cs" />
     <Compile Include="Presenters\StockLevelsPresenter.cs" />
@@ -464,12 +474,20 @@
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="ViewModels\PartWorksOrdersViewModel.cs" />
     <Compile Include="ViewModels\ComplaintStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\Quality\GaugeDetailViewModel.cs" />
+    <Compile Include="ViewModels\Quality\GaugesViewModel.cs" />
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
     <Compile Include="ViewModels\TurnoverGraphViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
     <Compile Include="ViewModels\WorkCentreScheduleViewModel.cs" />
+    <Compile Include="Views\Quality\CalibrationResultsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\CalibrationResultsView.Designer.cs">
+      <DependentUpon>CalibrationResultsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Quality\ComplaintTrendsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -554,17 +572,41 @@
     <Compile Include="Views\ProgramEditorView.Designer.cs">
       <DependentUpon>ProgramEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\GaugesView.cs">
+    <Compile Include="Views\GaugesViewOld.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\GaugesView.Designer.cs">
-      <DependentUpon>GaugesView.cs</DependentUpon>
+    <Compile Include="Views\GaugesViewOld.Designer.cs">
+      <DependentUpon>GaugesViewOld.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\QMSView.cs">
+    <Compile Include="Views\Quality\GaugeDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\QMSView.Designer.cs">
+    <Compile Include="Views\Quality\GaugeDataView.Designer.cs">
+      <DependentUpon>GaugeDataView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDetailView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDetailView.Designer.cs">
+      <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\QMSView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\QMSView.Designer.cs">
       <DependentUpon>QMSView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeManagementView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeManagementView.Designer.cs">
+      <DependentUpon>GaugeManagementView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugesView.Designer.cs">
+      <DependentUpon>GaugesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageCalibrationView.cs">
       <SubType>UserControl</SubType>
@@ -825,6 +867,9 @@
     <EmbeddedResource Include="Dialogs\PhotoEditorDialog.resx">
       <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PhotoViewerDialog.resx">
+      <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
       <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -886,6 +931,9 @@
     <EmbeddedResource Include="ToastNotificationForm.resx">
       <DependentUpon>ToastNotificationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\CalibrationResultsView.resx">
+      <DependentUpon>CalibrationResultsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Quality\ComplaintTrendsView.resx">
       <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -925,11 +973,23 @@
     <EmbeddedResource Include="Views\ProgramEditorView.resx">
       <DependentUpon>ProgramEditorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GaugesView.resx">
-      <DependentUpon>GaugesView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\GaugesViewOld.resx">
+      <DependentUpon>GaugesViewOld.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\QMSView.resx">
+    <EmbeddedResource Include="Views\Quality\GaugeDataView.resx">
+      <DependentUpon>GaugeDataView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugeDetailView.resx">
+      <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\QMSView.resx">
       <DependentUpon>QMSView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugeManagementView.resx">
+      <DependentUpon>GaugeManagementView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugesView.resx">
+      <DependentUpon>GaugesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StartPageCheckStockView.resx">
       <DependentUpon>StartPageCheckStockView.cs</DependentUpon>

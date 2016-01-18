@@ -297,11 +297,11 @@ namespace CPECentral.Views
 
         private void operationDocumentsView_TextFileSelected(object sender, DocumentEventArgs e)
         {
-            //machineTransferView.RefreshMachineList();
+            machineTransferView.RefreshMachineList();
             
-            //if (machineTransferView.MachineCount > 0) {
-            //    machineTransferView.Visible = true;
-            //}
+            if (machineTransferView.MachineCount > 0) {
+                machineTransferView.Visible = true;
+            }
         }
 
         private void operationDocumentsView_SelectionChanged(object sender, EventArgs e)
@@ -312,6 +312,16 @@ namespace CPECentral.Views
         private void nonConformanceWarningPictureBox_Click(object sender, EventArgs e)
         {
             new NonConformanceViewerDialog(Part.DrawingNumber).ShowDialog(ParentForm);
+        }
+
+        private void partPhotoPictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (partPhotoPictureBox.Image == Resources.NoImageAvailableImage)
+            {
+                return;
+            }
+
+            new PhotoViewerDialog(partPhotoPictureBox.Image).ShowDialog(ParentForm);
         }
     }
 }

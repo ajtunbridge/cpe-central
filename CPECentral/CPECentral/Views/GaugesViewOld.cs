@@ -11,12 +11,12 @@ using CPECentral.QMS.Model;
 
 namespace CPECentral.Views
 {
-    public partial class GaugesView : ViewBase
+    public partial class GaugesViewOld : ViewBase
     {
         private bool _isInitializing = true;
         private readonly GaugesPresenter _presenter;
 
-        public GaugesView()
+        public GaugesViewOld()
         {
             InitializeComponent();
 

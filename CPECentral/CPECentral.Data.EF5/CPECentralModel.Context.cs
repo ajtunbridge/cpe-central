@@ -45,5 +45,12 @@ namespace CPECentral.Data.EF5
         public DbSet<Photo> Photos { get; set; }
         public DbSet<PartVersion> PartVersions { get; set; }
         public DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
+        public DbSet<CalibrationMethod> CalibrationMethods { get; set; }
+        public DbSet<CalibrationResult> CalibrationResults { get; set; }
+        public DbSet<Gauge> Gauges { get; set; }
+        public DbSet<GaugeType> GaugeTypes { get; set; }
+        public DbSet<NonConformance> NonConformances { get; set; }
+        public DbSet<NonConformanceType> NonConformanceTypes { get; set; }
+        public DbSet<RejectReason> RejectReasons { get; set; }
     }
 }

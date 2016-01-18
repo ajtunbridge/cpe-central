@@ -12,12 +12,17 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeWorkCentre
+    public partial class CalibrationMethod
     {
-        public int Id { get; set; }
-        public int EmployeeId { get; set; }
-        public int WCentreId { get; set; }
+        public CalibrationMethod()
+        {
+            this.GaugeTypes = new HashSet<GaugeType>();
+        }
     
-        public virtual Employee Employee { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public bool IsExternal { get; set; }
+    
+        public virtual ICollection<GaugeType> GaugeTypes { get; set; }
     }
 }
