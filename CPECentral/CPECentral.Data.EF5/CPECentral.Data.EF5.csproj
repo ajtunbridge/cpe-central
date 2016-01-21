@@ -90,6 +90,9 @@
     <Compile Include="EmployeeWorkCentre.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExternalCalibrationRecord.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="FuzzySearch.cs" />
     <Compile Include="Gauge.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
@@ -141,6 +144,8 @@
     <Compile Include="RejectReason.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\CalibrationMethodRepository.cs" />
+    <Compile Include="Repositories\CalibrationResultRepository.cs" />
     <Compile Include="Repositories\ClientSettingRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />

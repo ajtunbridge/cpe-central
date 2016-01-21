@@ -84,6 +84,8 @@ namespace CPECentral.Views.Quality
 
                 gaugesObjectListView.Sort(0);
             }
+
+            gaugesObjectListView.SelectedIndex = 0;
         }
 
         protected virtual void OnRetrieveGaugeTypes()
@@ -135,12 +137,7 @@ namespace CPECentral.Views.Quality
         {
             var item = gaugesObjectListView.SelectedObject as GaugesViewModel.Item;
 
-            if (item == null)
-            {
-                return;
-            }
-
-            OnGaugeSelected(new GaugeEventArgs(item.Gauge));
+            OnGaugeSelected(item == null ? new GaugeEventArgs(null) : new GaugeEventArgs(item.Gauge));
         }
     }
 }

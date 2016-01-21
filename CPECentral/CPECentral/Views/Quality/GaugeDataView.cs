@@ -19,7 +19,15 @@ namespace CPECentral.Views.Quality
 
         public void LoadGauge(Gauge gauge)
         {
+            noGaugeLabel.Visible = gauge == null;
+
+            if (gauge == null)
+            {
+                return;
+            }
+
             gaugeDetailView1.LoadGauge(gauge);
+            calibrationResultsView.LoadGaugeResults(gauge);
         }
     }
 }

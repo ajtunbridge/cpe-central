@@ -51,7 +51,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gaugeDataView1);
             this.splitContainer1.Size = new System.Drawing.Size(1436, 810);
-            this.splitContainer1.SplitterDistance = 679;
+            this.splitContainer1.SplitterDistance = 603;
             this.splitContainer1.TabIndex = 0;
             // 
             // gaugesView
@@ -61,7 +61,7 @@
             this.gaugesView.Location = new System.Drawing.Point(0, 0);
             this.gaugesView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gaugesView.Name = "gaugesView";
-            this.gaugesView.Size = new System.Drawing.Size(679, 810);
+            this.gaugesView.Size = new System.Drawing.Size(603, 810);
             this.gaugesView.TabIndex = 0;
             this.gaugesView.GaugeSelected += new System.EventHandler<CPECentral.CustomEventArgs.GaugeEventArgs>(this.gaugesView_GaugeSelected);
             // 
@@ -73,7 +73,7 @@
             this.gaugeDataView1.Location = new System.Drawing.Point(0, 0);
             this.gaugeDataView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gaugeDataView1.Name = "gaugeDataView1";
-            this.gaugeDataView1.Size = new System.Drawing.Size(753, 810);
+            this.gaugeDataView1.Size = new System.Drawing.Size(829, 810);
             this.gaugeDataView1.TabIndex = 0;
             // 
             // GaugeManagementView

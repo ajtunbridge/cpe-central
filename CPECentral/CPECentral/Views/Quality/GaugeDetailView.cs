@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
@@ -65,6 +66,16 @@ namespace CPECentral.Views.Quality
             }
 
             referenceOnlyCheckBox.DataBindings.Add("Checked", Model, "IsReferenceOnly");
+
+            if (Model.SizeRangeMin.HasValue)
+            {
+                sizeRangeMinNumericUpDown.Value = (decimal)Model.SizeRangeMin;
+            }
+
+            if (Model.SizeRangeMax.HasValue)
+            {
+                sizeRangeMaxNumericUpDown.Value = (decimal)Model.SizeRangeMax;
+            }
 
             photoPictureBox.Image = Model.Photo ?? Resources.NoImageAvailableImage;
 
@@ -147,6 +158,30 @@ namespace CPECentral.Views.Quality
 
         private void photoPictureBox_MouseHover(object sender, EventArgs e)
         {
+        }
+
+        private void sizeRangeMinNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_isBindingToModel)
+            {
+                return;
+            }
+
+            Model.SizeRangeMin = (double)sizeRangeMinNumericUpDown.Value;
+
+            saveChangesButton.Enabled = true;
+        }
+
+        private void sizeRangeMaxNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (_isBindingToModel)
+            {
+                return;
+            }
+
+            Model.SizeRangeMax = (double)sizeRangeMaxNumericUpDown.Value;
+
+            saveChangesButton.Enabled = true;
         }
     }
 }

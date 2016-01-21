@@ -21,7 +21,7 @@ namespace CPECentral.Data.EF5
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> CalibrationMethodId { get; set; }
+        public int CalibrationMethodId { get; set; }
         public byte DefaultCalibrationPeriod { get; set; }
     
         public virtual CalibrationMethod CalibrationMethod { get; set; }

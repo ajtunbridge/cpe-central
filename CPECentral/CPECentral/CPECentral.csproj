@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.4.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>3</ApplicationRevision>
+    <MinimumRequiredVersion>3.4.0.5</MinimumRequiredVersion>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>3.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -217,6 +217,12 @@
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameDocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\TransferStartedEventArgs.cs" />
+    <Compile Include="Dialogs\CalibrationShellDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CalibrationShellDialog.Designer.cs">
+      <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditOperationToolDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -404,6 +410,7 @@
     <Compile Include="Note.cs" />
     <Compile Include="PartPhotoCache.cs" />
     <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
+    <Compile Include="Presenters\Quality\CalibrationResultsPresenter.cs" />
     <Compile Include="Presenters\Quality\ComplaintTrendsPresenter.cs" />
     <Compile Include="Presenters\DocumentsPresenter.cs" />
     <Compile Include="Presenters\GaugesPresenter.cs" />
@@ -474,6 +481,7 @@
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="ViewModels\PartWorksOrdersViewModel.cs" />
     <Compile Include="ViewModels\ComplaintStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\Quality\CalibrationResultsViewModel.cs" />
     <Compile Include="ViewModels\Quality\GaugeDetailViewModel.cs" />
     <Compile Include="ViewModels\Quality\GaugesViewModel.cs" />
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
@@ -589,6 +597,18 @@
     </Compile>
     <Compile Include="Views\Quality\GaugeDetailView.Designer.cs">
       <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\MicrometerCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\MicrometerCalibrationView.Designer.cs">
+      <DependentUpon>MicrometerCalibrationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\VernierCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\VernierCalibrationView.Designer.cs">
+      <DependentUpon>VernierCalibrationView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Quality\QMSView.cs">
       <SubType>UserControl</SubType>
@@ -828,6 +848,9 @@
     <EmbeddedResource Include="Controls\VersionWarningPanel.resx">
       <DependentUpon>VersionWarningPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CalibrationShellDialog.resx">
+      <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditOperationToolDialog.resx">
       <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -981,6 +1004,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Quality\GaugeDetailView.resx">
       <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\MicrometerCalibrationView.resx">
+      <DependentUpon>MicrometerCalibrationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\VernierCalibrationView.resx">
+      <DependentUpon>VernierCalibrationView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Quality\QMSView.resx">
       <DependentUpon>QMSView.cs</DependentUpon>

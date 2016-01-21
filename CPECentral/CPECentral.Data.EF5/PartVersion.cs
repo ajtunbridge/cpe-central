@@ -16,8 +16,8 @@ namespace CPECentral.Data.EF5
     {
         public PartVersion()
         {
-            this.Documents = new HashSet<Document>();
             this.Methods = new HashSet<Method>();
+            this.Documents = new HashSet<Document>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
-        public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Method> Methods { get; set; }
         public virtual Part Part { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

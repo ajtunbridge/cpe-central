@@ -38,7 +38,6 @@ namespace CPECentral.Data.EF5
         public DbSet<ToolGroup> ToolGroups { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<TricornTool> TricornTools { get; set; }
-        public DbSet<Document> Documents { get; set; }
         public DbSet<ClientSetting> ClientSettings { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<RecentPart> RecentParts { get; set; }
@@ -46,11 +45,13 @@ namespace CPECentral.Data.EF5
         public DbSet<PartVersion> PartVersions { get; set; }
         public DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
         public DbSet<CalibrationMethod> CalibrationMethods { get; set; }
-        public DbSet<CalibrationResult> CalibrationResults { get; set; }
-        public DbSet<Gauge> Gauges { get; set; }
-        public DbSet<GaugeType> GaugeTypes { get; set; }
         public DbSet<NonConformance> NonConformances { get; set; }
         public DbSet<NonConformanceType> NonConformanceTypes { get; set; }
         public DbSet<RejectReason> RejectReasons { get; set; }
+        public DbSet<Gauge> Gauges { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<ExternalCalibrationRecord> ExternalCalibrationRecords { get; set; }
+        public DbSet<GaugeType> GaugeTypes { get; set; }
+        public DbSet<CalibrationResult> CalibrationResults { get; set; }
     }
 }

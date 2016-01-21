@@ -30,35 +30,38 @@
         <AssociationConnector Association="CPECentralModel.FK_Tools_ToolGroups" />
         <EntityTypeShape EntityType="CPECentralModel.TricornTool" Width="1.5" PointX="12" PointY="7.375" />
         <AssociationConnector Association="CPECentralModel.FK_TricornTools_Tools" />
-        <EntityTypeShape EntityType="CPECentralModel.Document" Width="1.5" PointX="7.5" PointY="9.5" />
-        <AssociationConnector Association="CPECentralModel.FK_Documents_Operations" />
         <EntityTypeShape EntityType="CPECentralModel.ClientSetting" Width="1.5" PointX="7.75" PointY="2.75" />
         <EntityTypeShape EntityType="CPECentralModel.Part" Width="1.5" PointX="3" PointY="7.25" />
         <AssociationConnector Association="CPECentralModel.FK_Parts_Customers" />
-        <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" />
         <EntityTypeShape EntityType="CPECentralModel.RecentPart" Width="1.5" PointX="5.25" PointY="7.625" />
         <AssociationConnector Association="CPECentralModel.FK_RecentParts_Employees" />
         <AssociationConnector Association="CPECentralModel.FK_RecentParts_Parts" />
         <EntityTypeShape EntityType="CPECentralModel.Photo" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="CPECentralModel.PartVersion" Width="1.5" PointX="5.25" PointY="14.375" />
-        <AssociationConnector Association="CPECentralModel.FK_Documents_PartVersions" />
         <AssociationConnector Association="CPECentralModel.FK_Methods_PartVersions" />
         <AssociationConnector Association="CPECentralModel.FK_PartVersions_Parts" />
         <EntityTypeShape EntityType="CPECentralModel.EmployeeWorkCentre" Width="1.5" PointX="5.25" PointY="10.625" />
         <AssociationConnector Association="CPECentralModel.FK_EmployeeWorkCentres_Employees" />
         <EntityTypeShape EntityType="CPECentralModel.CalibrationMethod" Width="1.5" PointX="11.75" PointY="4.25" />
-        <EntityTypeShape EntityType="CPECentralModel.CalibrationResult" Width="1.5" PointX="18.5" PointY="3.125" />
-        <EntityTypeShape EntityType="CPECentralModel.Gauge" Width="1.5" PointX="16.25" PointY="4.125" />
-        <EntityTypeShape EntityType="CPECentralModel.GaugeType" Width="1.5" PointX="14" PointY="4" />
         <EntityTypeShape EntityType="CPECentralModel.NonConformance" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="CPECentralModel.NonConformanceType" Width="1.5" PointX="3" PointY="11.125" />
         <EntityTypeShape EntityType="CPECentralModel.RejectReason" Width="1.5" PointX="3" PointY="18.5" />
-        <AssociationConnector Association="CPECentralModel.FK_GaugeTypes_CalibrationMethods" />
-        <AssociationConnector Association="CPECentralModel.FK_CalibrationResults_Gauges" />
         <AssociationConnector Association="CPECentralModel.FK_NonConformances_Employees" />
         <AssociationConnector Association="CPECentralModel.FK_NonConformances_NonConformanceTypes" />
         <AssociationConnector Association="CPECentralModel.FK_NonConformances_RejectReasons" />
+        <EntityTypeShape EntityType="CPECentralModel.Gauge" Width="1.5" PointX="16.25" PointY="3.75" />
+        <EntityTypeShape EntityType="CPECentralModel.Document" Width="1.5" PointX="15" PointY="10.625" />
+        <EntityTypeShape EntityType="CPECentralModel.ExternalCalibrationRecord" Width="1.5" PointX="18.5" PointY="4.125" />
+        <AssociationConnector Association="CPECentralModel.FK_Documents_Operations" />
+        <AssociationConnector Association="CPECentralModel.FK_Documents_Parts" />
+        <AssociationConnector Association="CPECentralModel.FK_Documents_PartVersions" />
+        <AssociationConnector Association="CPECentralModel.FK_ExternalCalibrationRecords_Gauges" />
+        <EntityTypeShape EntityType="CPECentralModel.GaugeType" Width="1.5" PointX="14" PointY="4" />
+        <AssociationConnector Association="CPECentralModel.FK_GaugeTypes_CalibrationMethods" />
         <AssociationConnector Association="CPECentralModel.FK_Gauges_GaugeTypes" />
+        <EntityTypeShape EntityType="CPECentralModel.CalibrationResult" Width="1.5" PointX="5.25" PointY="18" />
+        <AssociationConnector Association="CPECentralModel.FK_CalibrationResults_Employees" />
+        <AssociationConnector Association="CPECentralModel.FK_Documents_CalibrationResults" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

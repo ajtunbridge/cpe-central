@@ -71,6 +71,8 @@ namespace CPECentral.Presenters.Quality
                     gauge.Name = _view.Model.Name;
                     gauge.IsReferenceOnly = _view.Model.IsReferenceOnly;
                     gauge.HeldBy = _view.Model.HeldBy.Id;
+                    gauge.SizeRangeMin = _view.Model.SizeRangeMin;
+                    gauge.SizeRangeMax = _view.Model.SizeRangeMax;
 
                     cpe.Gauges.Update(gauge);
                     
@@ -99,6 +101,8 @@ namespace CPECentral.Presenters.Quality
                     model.GaugeType = cpe.GaugeTypes.GetById(e.Gauge.GaugeTypeId);
                     model.HeldBy = cpe.Employees.GetById(e.Gauge.HeldBy);
                     model.IsReferenceOnly = e.Gauge.IsReferenceOnly;
+                    model.SizeRangeMin = e.Gauge.SizeRangeMin;
+                    model.SizeRangeMax = e.Gauge.SizeRangeMax;
 
                     var photo = cpe.Photos.GetByGauge(e.Gauge);
 

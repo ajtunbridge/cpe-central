@@ -17,6 +17,8 @@ namespace CPECentral.ViewModels.Quality
         public Employee HeldBy { get; set; }
         public DateTime? DueForCalibrationOn { get; set; }
         public bool IsReferenceOnly { get; set; }
+        public double? SizeRangeMin { get; set; }
+        public double? SizeRangeMax { get; set; }
         public Image Photo { get; set; }
         public IList<GaugeType> GaugeTypes { get; set; }
         public IList<Employee> Employees { get; set; }  

@@ -125,6 +125,8 @@ namespace CPECentral.Data.EF5
         internal CPECentralEntities Entities = new CPECentralEntities();
         internal List<object> EntitiesToDetach = new List<object>();
 
+        private CalibrationMethodRepository _calibrationMethods;
+        private CalibrationResultRepository _calibrationResults;
         private ClientSettingRepository _clientSettings;
         private CustomerRepository _customers;
         private DocumentRepository _documents;
@@ -151,6 +153,12 @@ namespace CPECentral.Data.EF5
         #endregion
 
         #region Properties
+
+        public CalibrationMethodRepository CalibrationMethods
+            => _calibrationMethods ?? (_calibrationMethods = new CalibrationMethodRepository(this));
+
+        public CalibrationResultRepository CalibrationResults
+            => _calibrationResults ?? (_calibrationResults = new CalibrationResultRepository(this));
 
         public ClientSettingRepository ClientSettings
             => _clientSettings ?? (_clientSettings = new ClientSettingRepository(this));
