@@ -11,13 +11,13 @@ namespace CPECentral
 {
     public class PartPhotoCache
     {
-        private readonly List<CacheItem> _cache = new List<CacheItem>();
+        private static readonly List<CacheItem> ImageCache = new List<CacheItem>();
 
         public Image this[int partId]
         {
             get
             {
-                CacheItem cacheItem = _cache.SingleOrDefault(item => item.PartId == partId);
+                CacheItem cacheItem = ImageCache.SingleOrDefault(item => item.PartId == partId);
                 return cacheItem == null ? null : cacheItem.Image;
             }
         }
@@ -29,11 +29,11 @@ namespace CPECentral
 
         public void CreateOrUpdate(int partId, Image image)
         {
-            CacheItem cacheItem = _cache.SingleOrDefault(item => item.PartId == partId);
+            CacheItem cacheItem = ImageCache.SingleOrDefault(item => item.PartId == partId);
 
             if (cacheItem == null) {
                 cacheItem = new CacheItem {PartId = partId, Image = image};
-                _cache.Add(cacheItem);
+                ImageCache.Add(cacheItem);
             }
             else {
                 cacheItem.Image = image;

@@ -28,7 +28,7 @@
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
     <MinimumRequiredVersion>3.4.0.5</MinimumRequiredVersion>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>3.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -736,6 +736,12 @@
     </Compile>
     <Compile Include="Views\StartPageFindToolBoxView.Designer.cs">
       <DependentUpon>StartPageFindToolBoxView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageThreadCalculatorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageThreadCalculatorView.Designer.cs">
+      <DependentUpon>StartPageThreadCalculatorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageUserInfoView.cs">
       <SubType>UserControl</SubType>

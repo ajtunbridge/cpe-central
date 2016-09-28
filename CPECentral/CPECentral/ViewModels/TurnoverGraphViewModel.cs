@@ -6,6 +6,8 @@ namespace CPECentral.ViewModels
     {
         public List<GraphPoint> GraphPoints { get; private set; } = new List<GraphPoint>();
 
+        public int MedianValue { get; set; }
+
         public class GraphPoint
         {
             public GraphPoint(string month, int percentage)

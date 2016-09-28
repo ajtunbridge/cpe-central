@@ -50,6 +50,10 @@ namespace CPECentral.Views
 
         public void DisplayModel(TurnoverTargetViewModel model)
         {
+            Cursor = Cursors.Default;
+
+            updateNowLinkLabel.Enabled = true;
+
             currentMonthEasyProgressBar.Value = model.CurrentMonthProgress;
             lastMonthEasyProgressBar.Value = model.LastMonthProgress;
             fiscalYearEasyProgressBar.Value = model.FiscalYearProgress;
@@ -107,6 +111,12 @@ namespace CPECentral.Views
 
         private void OnRefreshData()
         {
+            currentMonthEasyProgressBar.Value = 0;
+            lastMonthEasyProgressBar.Value = 0;
+            fiscalYearEasyProgressBar.Value = 0;
+
+            updateNowLinkLabel.Enabled = false;
+
             EventHandler handler = RefreshData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
@@ -115,6 +125,13 @@ namespace CPECentral.Views
 
         private void TurnoverTargetView_Load(object sender, EventArgs e)
         {
+            OnRefreshData();
+        }
+
+        private void updateNowLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+
             OnRefreshData();
         }
     }

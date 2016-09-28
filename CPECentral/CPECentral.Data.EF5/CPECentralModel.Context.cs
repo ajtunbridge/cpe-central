@@ -25,33 +25,34 @@ namespace CPECentral.Data.EF5
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<CalibrationMethod> CalibrationMethods { get; set; }
+        public DbSet<CalibrationResult> CalibrationResults { get; set; }
+        public DbSet<ClientSetting> ClientSettings { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public DbSet<EmployeeGroup> EmployeeGroups { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
+        public DbSet<ExternalCalibrationRecord> ExternalCalibrationRecords { get; set; }
+        public DbSet<Gauge> Gauges { get; set; }
+        public DbSet<GaugeType> GaugeTypes { get; set; }
         public DbSet<HolderGroup> HolderGroups { get; set; }
         public DbSet<Holder> Holders { get; set; }
         public DbSet<HolderTool> HolderTools { get; set; }
         public DbSet<MachineGroup> MachineGroups { get; set; }
         public DbSet<Method> Methods { get; set; }
+        public DbSet<NonConformance> NonConformances { get; set; }
+        public DbSet<NonConformanceType> NonConformanceTypes { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<OperationTool> OperationTools { get; set; }
+        public DbSet<Part> Parts { get; set; }
+        public DbSet<PartVersion> PartVersions { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<RecentPart> RecentParts { get; set; }
+        public DbSet<RejectReason> RejectReasons { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<ToolGroup> ToolGroups { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<TricornTool> TricornTools { get; set; }
-        public DbSet<ClientSetting> ClientSettings { get; set; }
-        public DbSet<Part> Parts { get; set; }
-        public DbSet<RecentPart> RecentParts { get; set; }
-        public DbSet<Photo> Photos { get; set; }
-        public DbSet<PartVersion> PartVersions { get; set; }
-        public DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
-        public DbSet<CalibrationMethod> CalibrationMethods { get; set; }
-        public DbSet<NonConformance> NonConformances { get; set; }
-        public DbSet<NonConformanceType> NonConformanceTypes { get; set; }
-        public DbSet<RejectReason> RejectReasons { get; set; }
-        public DbSet<Gauge> Gauges { get; set; }
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<ExternalCalibrationRecord> ExternalCalibrationRecords { get; set; }
-        public DbSet<GaugeType> GaugeTypes { get; set; }
-        public DbSet<CalibrationResult> CalibrationResults { get; set; }
     }
 }

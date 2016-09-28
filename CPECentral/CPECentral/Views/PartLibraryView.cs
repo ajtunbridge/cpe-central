@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Controls;
 using CPECentral.CustomEventArgs;
 using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
 using CPECentral.Messages;
 using CPECentral.Presenters;
 using CPECentral.Properties;
@@ -126,6 +128,15 @@ namespace CPECentral.Views
 
             resultsObjectListView.AlwaysGroupByColumn = groupOlvColumn;
             resultsObjectListView.BuildGroups();
+
+            var isWorksOrder = searchValueTextBox.Text.All(char.IsNumber) &
+                               searchValueTextBox.Text.Length == 4 || searchValueTextBox.Text.Length == 5;
+
+            if (resultsObjectListView.Items.Count == 0 && isWorksOrder)
+            {
+                var dialog = new AddPartDialog(searchValueTextBox.Text);
+                dialog.ShowDialog(ParentForm);
+            }
         }
 
         #endregion

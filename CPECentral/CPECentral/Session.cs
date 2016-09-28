@@ -21,6 +21,7 @@ namespace CPECentral
         private static StandardKernel _kernel;
         private static Font _appFont;
         private static PartPhotoCache _partPhotoCache;
+        internal static bool QmsInUse;
 
         internal static IMessageBus MessageBus
         {
@@ -139,12 +140,9 @@ namespace CPECentral
                     File.Copy(pathToRemoteQms, localFilePath, true);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                const string errorMessage =
-                    "Unable to access remote QMS database as it is in use!\n\nNon-conformance information displayed will not be up to date.";
-
-                GetInstanceOf<IDialogService>().ShowError(errorMessage);
+                QmsInUse = true;
             }
         }
     }

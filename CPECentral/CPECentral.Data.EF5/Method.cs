@@ -26,7 +26,7 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
-        public virtual ICollection<Operation> Operations { get; set; }
         public virtual PartVersion PartVersion { get; set; }
+        public virtual ICollection<Operation> Operations { get; set; }
     }
 }

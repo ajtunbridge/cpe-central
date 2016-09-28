@@ -55,8 +55,10 @@ namespace CPECentral.Presenters
 
             using (var tricorn = new TricornDataProvider())
             {
-                // get the turnover target percentages for the past 6 months
-                for (var i = -5; i <= 0; i++)
+                int medianValue = 0;
+
+                // get the turnover target percentages for the past 12 months
+                for (var i = -11; i <= 0; i++)
                 {
                     var month = DateTime.Today.AddMonths(i);
 
@@ -71,7 +73,11 @@ namespace CPECentral.Presenters
 
                     var point = new TurnoverGraphViewModel.GraphPoint(start.ToString("MMM"), targetPercentage);
                     model.GraphPoints.Add(point);
+
+                    medianValue += targetPercentage;
                 }
+
+                model.MedianValue = medianValue/12;
             }
 
             e.Result = model;

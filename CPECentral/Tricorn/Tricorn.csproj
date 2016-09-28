@@ -568,6 +568,7 @@
     <Compile Include="Quote.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="QuoteDetail.cs" />
     <Compile Include="QWCentre.cs">
       <DependentUpon>TricornModel.tt</DependentUpon>
     </Compile>

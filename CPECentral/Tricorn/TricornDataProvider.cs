@@ -150,6 +150,52 @@ namespace Tricorn
                 _entities.Invoices.Where(i => i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
         }
 
+        public string GetLastWorksOrderNumber(string drawingNumber)
+        {
+            return _entities.WOrders.Where(wo => wo.Drawing_Number == drawingNumber)
+                .OrderByDescending(wo => wo.Date_Created)
+                .FirstOrDefault()?.User_Reference ?? "N/A";
+        }
+
+        public string GetLastQuoteGroupReference(string drawingNumber, out DateTime? date)
+        {
+            date = null;
+
+            var quote = _entities.Quotes.Where(q => q.Drawing_Number == drawingNumber)
+                .OrderByDescending(q => q.Date_Created)
+                .FirstOrDefault();
+
+            if (quote != null)
+            {
+                date = quote.Date_Created ?? null;
+            }
+
+            return quote == null ? "N/A" : quote.Group_Reference;
+        }
+
+        public List<QuoteDetail> GetQuoteDetails(string groupReference, string drawingNumber)
+        {
+            var groupQuotes =_entities.Quotes.Where(q => q.Group_Reference == groupReference & q.Drawing_Number==drawingNumber)
+                .OrderBy(q => q.Quantity);
+
+            var details = new List<QuoteDetail>(groupQuotes.Count());
+
+            foreach (var quote in groupQuotes)
+            {
+                var detail = new QuoteDetail
+                {
+                    Quantity = quote.Quantity,
+                    Date = quote.Date_Created,
+                    GroupReference = quote.Group_Reference,
+                    Price = quote.Price,
+                    QuoteNumber = quote.User_Reference
+                };
+                details.Add(detail);
+            }
+
+            return details;
+        }
+
         public IEnumerable<MStock> GetMStocks(int materialReference)
         {
             return

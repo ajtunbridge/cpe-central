@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.fiscalYearEasyProgressBar = new EasyProgressBar.EasyProgressBar();
+            this.updateNowLinkLabel = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +73,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(231, 31);
             this.label1.TabIndex = 2;
-            this.label1.Text = "How productive are we?";
+            this.label1.Text = "Progress to target turnover";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lastMonthEasyProgressBar
@@ -156,11 +157,25 @@
             this.fiscalYearEasyProgressBar.Text = "0% of target produced";
             this.fiscalYearEasyProgressBar.Value = 0;
             // 
+            // updateNowLinkLabel
+            // 
+            this.updateNowLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateNowLinkLabel.AutoSize = true;
+            this.updateNowLinkLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateNowLinkLabel.Location = new System.Drawing.Point(202, 44);
+            this.updateNowLinkLabel.Name = "updateNowLinkLabel";
+            this.updateNowLinkLabel.Size = new System.Drawing.Size(70, 13);
+            this.updateNowLinkLabel.TabIndex = 9;
+            this.updateNowLinkLabel.TabStop = true;
+            this.updateNowLinkLabel.Text = "update now";
+            this.updateNowLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.updateNowLinkLabel_LinkClicked);
+            // 
             // StartPageTargetView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Controls.Add(this.updateNowLinkLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.fiscalYearEasyProgressBar);
             this.Controls.Add(this.lastMonthEasyProgressBar);
@@ -193,5 +208,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private EasyProgressBar.EasyProgressBar fiscalYearEasyProgressBar;
+        private System.Windows.Forms.LinkLabel updateNowLinkLabel;
     }
 }

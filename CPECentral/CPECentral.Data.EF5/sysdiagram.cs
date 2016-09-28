@@ -12,21 +12,12 @@ namespace CPECentral.Data.EF5
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class sysdiagram
     {
-        public Customer()
-        {
-            this.Parts = new HashSet<Part>();
-        }
-    
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> TricornReference { get; set; }
-        public byte[] LogoBlob { get; set; }
-        public byte[] SalesOrderParserSettings { get; set; }
-        public int CreatedBy { get; set; }
-        public int ModifiedBy { get; set; }
-    
-        public virtual ICollection<Part> Parts { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

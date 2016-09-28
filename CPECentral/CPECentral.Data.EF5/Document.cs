@@ -25,9 +25,9 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
+        public virtual CalibrationResult CalibrationResult { get; set; }
         public virtual Operation Operation { get; set; }
         public virtual Part Part { get; set; }
         public virtual PartVersion PartVersion { get; set; }
-        public virtual CalibrationResult CalibrationResult { get; set; }
     }
 }

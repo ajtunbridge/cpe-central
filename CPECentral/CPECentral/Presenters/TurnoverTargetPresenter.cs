@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading;
 using CPECentral.Data.EF5;
 using CPECentral.ViewModels;
 using CPECentral.Views;
@@ -34,7 +35,7 @@ namespace CPECentral.Presenters
         {
             if (e.Result is Exception) {
                 var ex = e.Result as Exception;
-                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                string msg = ex.InnerException?.Message ?? ex.Message;
                 _view.DialogService.ShowError(msg);
                 return;
             }
@@ -46,6 +47,8 @@ namespace CPECentral.Presenters
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            Thread.Sleep(500);
+
             try {
                 decimal targetAmount = 0;
 
@@ -63,8 +66,7 @@ namespace CPECentral.Presenters
                     }
 
                     var startOfFiscalYear = new DateTime(year, 4, 1);
-                    var monthsSinceStartOfFiscalYear = Convert.ToInt32(DateTime.Today.Subtract(startOfFiscalYear).Days / (365.25 / 12));
-
+                    
                     decimal turnoverThisMonth = tricorn.GetTurnoverThisMonth() ?? 0;
                     decimal turnoverLastMonth = tricorn.GetTurnoverLastMonth() ?? 0;
                     decimal turnoverFiscalYear = tricorn.GetTurnoverForPeriod(startOfFiscalYear, DateTime.Now) ?? 0;
@@ -83,7 +85,7 @@ namespace CPECentral.Presenters
 
                     if (turnoverFiscalYear > 0)
                     {
-                        var fiscalYearTarget = targetAmount * monthsSinceStartOfFiscalYear;
+                        var fiscalYearTarget = targetAmount * 12;
 
                         fiscalYearProgress = Convert.ToInt32((turnoverFiscalYear/fiscalYearTarget)*100);
                         fiscalYearProgress = Math.Min(fiscalYearProgress, 100);

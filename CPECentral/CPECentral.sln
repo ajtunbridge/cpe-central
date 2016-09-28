@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral", "CPECentral\CPECentral.csproj", "{F6E179D6-EC12-4918-BAC6-0A594E36B06F}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral.ModernUI", "CPECentral.ModernUI\CPECentral.ModernUI.csproj", "{B773B06A-0D49-48B0-A1A9-2AB057320DFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral.Domain", "CPECentral.Domain\CPECentral.Domain.csproj", "{C63E6D57-2817-464F-AC58-CA02D8F34C57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{16B57C1A-E330-4ED2-9703-E7EA476B7E49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{C63E6D57-2817-464F-AC58-CA02D8F34C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C63E6D57-2817-464F-AC58-CA02D8F34C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C63E6D57-2817-464F-AC58-CA02D8F34C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B57C1A-E330-4ED2-9703-E7EA476B7E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B57C1A-E330-4ED2-9703-E7EA476B7E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B57C1A-E330-4ED2-9703-E7EA476B7E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B57C1A-E330-4ED2-9703-E7EA476B7E49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,8 +16,8 @@ namespace CPECentral.Data.EF5
     {
         public Operation()
         {
-            this.OperationTools = new HashSet<OperationTool>();
             this.Documents = new HashSet<Document>();
+            this.OperationTools = new HashSet<OperationTool>();
         }
     
         public int Id { get; set; }
@@ -31,9 +31,9 @@ namespace CPECentral.Data.EF5
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual MachineGroup MachineGroup { get; set; }
         public virtual Method Method { get; set; }
         public virtual ICollection<OperationTool> OperationTools { get; set; }
-        public virtual ICollection<Document> Documents { get; set; }
     }
 }

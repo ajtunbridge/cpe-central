@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using CPECentral.Presenters;
 using CPECentral.ViewModels;
 
@@ -40,6 +33,7 @@ namespace CPECentral.Views
             foreach (var point in model.GraphPoints)
             {
                 chart.Series[0].Points.AddXY(point.Month, point.Percentage);
+                chart.Series[1].Points.AddXY(point.Month, model.MedianValue);
             }
         }
     }

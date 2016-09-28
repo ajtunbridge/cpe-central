@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.passwordEnhancedTextBox = new nGenLibrary.Controls.EnhancedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -93,14 +94,24 @@
             this.passwordEnhancedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.passwordEnhancedTextBox.UseSystemPasswordChar = true;
             this.passwordEnhancedTextBox.EnterKeyPressed += new System.EventHandler(this.passwordEnhancedTextBox_EnterKeyPressed);
-            this.passwordEnhancedTextBox.Enter += new System.EventHandler(this.passwordEnhancedTextBox_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Firebrick;
+            this.label2.Location = new System.Drawing.Point(8, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(357, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "CAPSLOCK was detected and has been disabled for this login screen";
             // 
             // okayCancelFooter
             // 
             this.okayCancelFooter.BackColor = System.Drawing.Color.White;
             this.okayCancelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.okayCancelFooter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okayCancelFooter.Location = new System.Drawing.Point(0, 160);
+            this.okayCancelFooter.Location = new System.Drawing.Point(0, 149);
             this.okayCancelFooter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.okayCancelFooter.Name = "okayCancelFooter";
             this.okayCancelFooter.Size = new System.Drawing.Size(371, 45);
@@ -112,7 +123,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(371, 205);
+            this.ClientSize = new System.Drawing.Size(371, 194);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.passwordEnhancedTextBox);
             this.Controls.Add(this.okayCancelFooter);
             this.Controls.Add(this.label1);
@@ -128,7 +140,8 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Log in";
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EmployeeLoginDialog_PreviewKeyDown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EmployeeLoginDialog_FormClosing);
+            this.Load += new System.EventHandler(this.EmployeeLoginDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -145,5 +158,6 @@
         private System.Windows.Forms.Label label1;
         private Controls.OkayCancelFooter okayCancelFooter;
         private nGenLibrary.Controls.EnhancedTextBox passwordEnhancedTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }
