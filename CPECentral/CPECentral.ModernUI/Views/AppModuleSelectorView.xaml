@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="CPECentral.ModernUI.Views.AppModuleSelectorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="65" d:DesignWidth="800"
+             Height="55">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="UnhighlightedForegroundColor" Color="DarkGray"></SolidColorBrush>
+            <SolidColorBrush x:Key="HighlightedForegroundColor" Color="DimGray"></SolidColorBrush>
+            <SolidColorBrush x:Key="SelectedForegroundColor" Color="Firebrick"></SolidColorBrush>
+            <ImageSource x:Key="AppLogo">pack://application:,,,/Resources/Images/AppLogo.png</ImageSource>
+            <ImageSource x:Key="HamburgerMenuUnhighlighted">pack://application:,,,/Resources/Images/HamburgerUnhighlightedImage_64x64.png</ImageSource>
+            <ImageSource x:Key="HamburgerMenuHighlighted">pack://application:,,,/Resources/Images/HamburgerHighlightedImage_64x64.png</ImageSource>
+            <Style x:Key="HamburgerMenuStyle">
+                <Setter Property="Image.Source" Value="{StaticResource HamburgerMenuUnhighlighted}"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="Image.IsMouseOver" Value="True">
+                        <Setter Property="Image.Source" Value="{StaticResource HamburgerMenuHighlighted}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="LabelStyle">
+                <Style.Setters>
+                    <Setter Property="Label.Foreground" Value="{StaticResource UnhighlightedForegroundColor}"></Setter>
+                    <Setter Property="Label.FontSize" Value="18"></Setter>
+                    <Setter Property="Label.Margin" Value="3"></Setter>
+                    <EventSetter Event="Label.MouseDown" Handler="Label_MouseDown"></EventSetter>
+                </Style.Setters>
+                <Style.Triggers>
+                    <Trigger Property="Label.IsMouseOver" Value="True">
+                        <Setter Property="Label.Foreground" Value="{StaticResource HighlightedForegroundColor}"/>
+                    </Trigger>
+                    <Trigger Property="Label.Tag" Value="IsSelected">
+                        <Setter Property="Label.Foreground" Value="{StaticResource SelectedForegroundColor}"/>
+                    </Trigger>
+                    <EventTrigger RoutedEvent="Label.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="FontSize" To="20"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Label.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="FontSize"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="{StaticResource AppLogo}"></Image>
+        <StackPanel Margin="15,0,0,0" x:Name="LinksStackPanel" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label x:Name="StartSectionLabel" Style="{StaticResource LabelStyle}" Tag="IsSelected">START</Label>
+            <Label x:Name="PartLibrarySectionLabel" Style="{StaticResource LabelStyle}">PART LIBRARY</Label>
+            <Label x:Name="InventorySectionLabel" Style="{StaticResource LabelStyle}">INVENTORY</Label>
+            <Label x:Name="MaintenanceSectionLabel" Style="{StaticResource LabelStyle}">MAINTENANCE</Label>
+            <Label x:Name="QualitySectionLabel" Style="{StaticResource LabelStyle}">QUALITY</Label>
+        </StackPanel>
+        <Image x:Name="HamburgerMenuImage" Margin="20" Grid.Column="2" Style="{StaticResource HamburgerMenuStyle}"></Image>
+    </Grid>
+</UserControl>

@@ -73,5 +73,7 @@ namespace Tricorn
         public Nullable<decimal> SHOWENDED { get; set; }
         public Nullable<decimal> ACTIVATEALL { get; set; }
         public Nullable<decimal> SHOWALL { get; set; }
+        public Nullable<decimal> ALLOWNEWOPERATION { get; set; }
+        public Nullable<decimal> USEBARCODE { get; set; }
     }
 }

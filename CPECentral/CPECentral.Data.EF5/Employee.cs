@@ -16,6 +16,9 @@ namespace CPECentral.Data.EF5
     {
         public Employee()
         {
+            this.CalibrationResults = new HashSet<CalibrationResult>();
+            this.EmployeeWorkCentres = new HashSet<EmployeeWorkCentre>();
+            this.NonConformances = new HashSet<NonConformance>();
             this.RecentParts = new HashSet<RecentPart>();
         }
     
@@ -30,7 +33,10 @@ namespace CPECentral.Data.EF5
         public Nullable<int> PreferredMachineGroup { get; set; }
         public bool IsEnabled { get; set; }
     
+        public virtual ICollection<CalibrationResult> CalibrationResults { get; set; }
         public virtual EmployeeGroup EmployeeGroup { get; set; }
+        public virtual ICollection<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
+        public virtual ICollection<NonConformance> NonConformances { get; set; }
         public virtual ICollection<RecentPart> RecentParts { get; set; }
     }
 }

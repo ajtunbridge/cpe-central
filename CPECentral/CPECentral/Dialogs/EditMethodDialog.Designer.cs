@@ -71,12 +71,13 @@
             // descriptionTextBox
             // 
             this.descriptionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descriptionTextBox.DisableDoubleSpace = true;
-            this.descriptionTextBox.DisableLeadingSpace = true;
+            this.descriptionTextBox.DisableDoubleSpace = false;
+            this.descriptionTextBox.DisableLeadingSpace = false;
             this.descriptionTextBox.Location = new System.Drawing.Point(15, 29);
             this.descriptionTextBox.MaxLength = 255;
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.NumericCharactersOnly = false;
             this.descriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.descriptionTextBox.Size = new System.Drawing.Size(346, 105);
             this.descriptionTextBox.SuppressEnterKey = true;

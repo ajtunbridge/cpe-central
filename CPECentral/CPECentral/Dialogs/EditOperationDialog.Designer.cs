@@ -148,8 +148,8 @@
             // descriptionTextBox
             // 
             this.descriptionTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.descriptionTextBox.DisableDoubleSpace = true;
-            this.descriptionTextBox.DisableLeadingSpace = true;
+            this.descriptionTextBox.DisableDoubleSpace = false;
+            this.descriptionTextBox.DisableLeadingSpace = false;
             this.descriptionTextBox.Location = new System.Drawing.Point(94, 29);
             this.descriptionTextBox.MaxLength = 30000;
             this.descriptionTextBox.Multiline = true;

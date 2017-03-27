@@ -38,7 +38,7 @@ namespace CPECentral.Views
     [DefaultEvent("HolderSelectionChanged")]
     public partial class HoldersView : ViewBase, IHoldersView
     {
-        private readonly HoldersViewPresenter _presenter;
+        private readonly HoldersPresenter _presenter;
         private bool _editMode;
         private HolderGroup _holderGroupToSelect;
         private Holder _holderToSelect;
@@ -57,7 +57,7 @@ namespace CPECentral.Views
             treeViewImageList.Images.Add("Holder", Resources.HolderIcon_16x16);
 
             if (!IsInDesignMode) {
-                _presenter = new HoldersViewPresenter(this);
+                _presenter = new HoldersPresenter(this);
             }
         }
 

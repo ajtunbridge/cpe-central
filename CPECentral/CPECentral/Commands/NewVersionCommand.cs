@@ -64,6 +64,18 @@ namespace CPECentral.Commands
                                 UnitOfWork.OperationTools.Add(newOpTool);
                             }
                         }
+
+                        if (copyOperationDocuments)
+                        {
+                            var opDocs = UnitOfWork.Documents.GetByOperation(operation);
+
+                            foreach (var doc in opDocs)
+                            {
+                                var newFileName = "COPIED FROM OLD VERSION - " + doc.FileName;
+
+
+                            }
+                        }
                     }
                 }
             }

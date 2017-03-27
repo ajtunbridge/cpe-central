@@ -34,8 +34,8 @@ namespace CPECentral.Views
         {
             customerNameLabel.Text = _customer.Name;
 
-            if (_customer.LogoBLOB != null) {
-                using (var ms = new MemoryStream(_customer.LogoBLOB)) {
+            if (_customer.LogoBlob != null) {
+                using (var ms = new MemoryStream(_customer.LogoBlob)) {
                     logoPictureBox.Image = Image.FromStream(ms);
                 }
             }

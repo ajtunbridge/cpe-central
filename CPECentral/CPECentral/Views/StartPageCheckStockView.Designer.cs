@@ -58,7 +58,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(463, 31);
             this.label1.TabIndex = 2;
-            this.label1.Text = "What have we got in stock?";
+            this.label1.Text = "Check stock levels";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
@@ -208,7 +208,7 @@
             this.searchingPictureBox.TabStop = false;
             this.searchingPictureBox.Visible = false;
             // 
-            // CheckStockLevelsView
+            // StartPageCheckStockView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -223,7 +223,7 @@
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "CheckStockLevelsView";
+            this.Name = "StartPageCheckStockView";
             this.Size = new System.Drawing.Size(507, 319);
             ((System.ComponentModel.ISupportInitialize)(this.resultsTreeListView)).EndInit();
             this.panel1.ResumeLayout(false);

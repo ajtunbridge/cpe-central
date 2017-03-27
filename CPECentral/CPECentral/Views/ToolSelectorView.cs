@@ -23,7 +23,7 @@ namespace CPECentral.Views
 
     public partial class ToolSelectorView : ViewBase, IToolSelectorView
     {
-        private readonly ToolSelectorViewPresenter _presenter;
+        private readonly ToolSelectorPresenter _presenter;
 
         public Tool SelectedTool { get; private set; }
 
@@ -32,7 +32,7 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new ToolSelectorViewPresenter(this);
+                _presenter = new ToolSelectorPresenter(this);
                 Disposed += ToolSelectorView_Disposed;
             }
         }

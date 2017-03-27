@@ -43,6 +43,7 @@ namespace CPECentral.Views
             this.selectedOperationTabControl = new CPECentral.Controls.ClosableTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.operationDocumentsView = new CPECentral.Views.DocumentsView();
+            this.machineTransferView = new CPECentral.Views.MachineTransferView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.operationToolsView = new CPECentral.Views.OperationToolsView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -224,6 +225,7 @@ namespace CPECentral.Views
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
             this.tabPage1.Controls.Add(this.operationDocumentsView);
+            this.tabPage1.Controls.Add(this.machineTransferView);
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
@@ -246,6 +248,17 @@ namespace CPECentral.Views
             this.operationDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
             this.operationDocumentsView.SelectionChanged += new System.EventHandler(this.operationDocumentsView_SelectionChanged);
             this.operationDocumentsView.TextFileSelected += new System.EventHandler<CPECentral.CustomEventArgs.DocumentEventArgs>(this.operationDocumentsView_TextFileSelected);
+            // 
+            // machineTransferView
+            // 
+            this.machineTransferView.BackColor = System.Drawing.Color.Gainsboro;
+            this.machineTransferView.Dock = System.Windows.Forms.DockStyle.Right;
+            this.machineTransferView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.machineTransferView.Location = new System.Drawing.Point(124, 0);
+            this.machineTransferView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.machineTransferView.Name = "machineTransferView";
+            this.machineTransferView.Size = new System.Drawing.Size(341, 255);
+            this.machineTransferView.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -310,7 +323,7 @@ namespace CPECentral.Views
             this.partDescriptionLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.partDescriptionLabel.Location = new System.Drawing.Point(55, 15);
             this.partDescriptionLabel.Name = "partDescriptionLabel";
-            this.partDescriptionLabel.Size = new System.Drawing.Size(321, 21);
+            this.partDescriptionLabel.Size = new System.Drawing.Size(319, 21);
             this.partDescriptionLabel.TabIndex = 1;
             this.partDescriptionLabel.Text = "H514753B Version 06 ( CATHODE SIDEARM)";
             this.partDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -384,6 +397,7 @@ namespace CPECentral.Views
             this.partPhotoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.partPhotoPictureBox.TabIndex = 0;
             this.partPhotoPictureBox.TabStop = false;
+            this.partPhotoPictureBox.DoubleClick += new System.EventHandler(this.partPhotoPictureBox_DoubleClick);
             // 
             // label3
             // 
@@ -522,6 +536,7 @@ namespace CPECentral.Views
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.Label checkingQMSLabel;
         private System.Windows.Forms.PictureBox checkingQMSPictureBox;
+        private MachineTransferView machineTransferView;
         private System.Windows.Forms.PictureBox nonConformanceWarningPictureBox;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabPage tabPage3;

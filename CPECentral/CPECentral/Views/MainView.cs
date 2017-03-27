@@ -22,13 +22,15 @@ namespace CPECentral.Views
         event EventHandler RetrieveEmployeeAccounts;
         event EventHandler AddNewPart;
         event EventHandler LoadToolManagementDialog;
+        event EventHandler LoadSettingsDialog;
+        event EventHandler LoadSuperDumpDialog;
 
         void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees);
     }
 
     public sealed partial class MainView : ViewBase, IMainView
     {
-        private readonly MainViewPresenter _presenter;
+        private readonly MainPresenter _presenter;
 
         private readonly List<EmployeeSessionView> _sessionViews = new List<EmployeeSessionView>();
 
@@ -43,7 +45,12 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new MainViewPresenter(this);
+                _presenter = new MainPresenter(this);
+
+                if (!Settings.Default.ShowSuperDump)
+                {
+                    superDumpToolStripButton.Visible = false;
+                }
 
                 Session.MessageBus.Subscribe<StatusUpdateMessage>(StatusUpdateMessage_Published);
                 Session.DocumentService.Error += DocumentService_Error;
@@ -58,6 +65,8 @@ namespace CPECentral.Views
         public event EventHandler RetrieveEmployeeAccounts;
         public event EventHandler AddNewPart;
         public event EventHandler LoadToolManagementDialog;
+        public event EventHandler LoadSettingsDialog;
+        public event EventHandler LoadSuperDumpDialog;
 
         public void PopulateSwitchUserDropDownButton(IEnumerable<Employee> employees)
         {
@@ -129,6 +138,15 @@ namespace CPECentral.Views
             }
         }
 
+        private void OnLoadSettingsDialog()
+        {
+            EventHandler handler = LoadSettingsDialog;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
         private void DocumentService_TransferComplete(object sender, EventArgs e)
         {
             Invoke((MethodInvoker) delegate {
@@ -169,6 +187,12 @@ namespace CPECentral.Views
                     break;
                 case "logoutToolStripButton":
                     HandleLogout();
+                    break;
+                case "settingsToolStripButton":
+                    OnLoadSettingsDialog();
+                    break;
+                case "superDumpToolStripButton":
+                    OnLoadSuperDumpDialog();
                     break;
             }
         }
@@ -239,6 +263,11 @@ namespace CPECentral.Views
                     Session.MessageBus.Publish(new EmployeeSwitchedMessage(employee));
                 }
             }
+        }
+
+        private void OnLoadSuperDumpDialog()
+        {
+            LoadSuperDumpDialog?.Invoke(this, EventArgs.Empty);
         }
     }
 }

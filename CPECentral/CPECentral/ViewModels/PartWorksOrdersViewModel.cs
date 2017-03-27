@@ -11,8 +11,6 @@ namespace CPECentral.ViewModels
 
         public DateTime? DueOn { get; set; }
 
-        public string Version { get; set; }
-
         public int Quantity { get; set; }
 
         public int BuildQuantity { get; set; }

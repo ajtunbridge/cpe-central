@@ -33,5 +33,7 @@ namespace Tricorn
         public Nullable<decimal> ACCOUNT0 { get; set; }
         public Nullable<decimal> ACCOUNT1 { get; set; }
         public Nullable<decimal> ACCOUNT2 { get; set; }
+        public Nullable<decimal> ACCOUNT3 { get; set; }
+        public byte[] TSTAMP { get; set; }
     }
 }

@@ -28,5 +28,6 @@ namespace Tricorn
         public string Name { get; set; }
         public Nullable<double> GCOST { get; set; }
         public string Category { get; set; }
+        public Nullable<decimal> WAITMODE { get; set; }
     }
 }

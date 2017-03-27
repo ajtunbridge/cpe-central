@@ -44,5 +44,6 @@ namespace Tricorn
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Owned_By { get; set; }
         public Nullable<int> Last_Modified { get; set; }
+        public Nullable<decimal> WAITMODE { get; set; }
     }
 }

@@ -2,8 +2,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Objects.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
 
 #endregion
@@ -67,6 +69,65 @@ namespace Tricorn
                     .Sum(stock => stock.Quantity_In_Stock);
         }
 
+        public IEnumerable<WOrder> GetNextJobsForWorkCentre(int wcentreId)
+        {
+            var wowcentres =
+                _entities.WOWCentres.Where(wow => wow.WCentre_Reference == wcentreId && !wow.Operation_Finished);
+
+            var worders = new List<WOrder>();
+
+            const string query = @"SELECT TOP 1 ORNO, STARTDATE FROM OR_FRAG_VIEWER WHERE OPNO=@opnumber ORDER BY STARTDATE ASC";
+
+            var conn = _entities.Database.Connection;
+
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            
+            var cmd = new SqlCommand(query, (SqlConnection)conn);
+            cmd.Prepare();
+
+            foreach (var wowc in wowcentres)
+            {
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@opnumber", wowc.WOWCentre_Reference);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var worderReference = Convert.ToInt32(reader.GetValue(0));
+
+                        if (worderReference == 0)
+                        {
+                            continue;
+                        }
+
+                        var startDate = Convert.ToDateTime(reader.GetValue(1));
+
+                        var worder = _entities.WOrders.Single(wo => wo.WOrder_Reference == worderReference);
+
+                        if (worders.Any(wo => wo.WOrder_Reference == worder.WOrder_Reference))
+                        {
+                            continue;
+                        }
+
+                        worder.ScheduledStart = startDate;
+
+                        worders.Add(worder);
+                    }
+                }
+            }
+
+            return worders.OrderBy(wo => wo.ScheduledStart);
+        }
+
+        public IEnumerable<WCentre> GetWorkCentres()
+        {
+            return _entities.WCentres.OrderBy(wc => wc.Name).ToList();
+        } 
+
         public decimal? GetTurnoverThisMonth()
         {
             var startDate = DateTime.Today.AddDays(DateTime.Today.Day * -1).AddDays(1);
@@ -87,6 +148,52 @@ namespace Tricorn
         {
             return
                 _entities.Invoices.Where(i => i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
+        }
+
+        public string GetLastWorksOrderNumber(string drawingNumber)
+        {
+            return _entities.WOrders.Where(wo => wo.Drawing_Number == drawingNumber)
+                .OrderByDescending(wo => wo.Date_Created)
+                .FirstOrDefault()?.User_Reference ?? "N/A";
+        }
+
+        public string GetLastQuoteGroupReference(string drawingNumber, out DateTime? date)
+        {
+            date = null;
+
+            var quote = _entities.Quotes.Where(q => q.Drawing_Number == drawingNumber)
+                .OrderByDescending(q => q.Date_Created)
+                .FirstOrDefault();
+
+            if (quote != null)
+            {
+                date = quote.Date_Created ?? null;
+            }
+
+            return quote == null ? "N/A" : quote.Group_Reference;
+        }
+
+        public List<QuoteDetail> GetQuoteDetails(string groupReference, string drawingNumber)
+        {
+            var groupQuotes =_entities.Quotes.Where(q => q.Group_Reference == groupReference & q.Drawing_Number==drawingNumber)
+                .OrderBy(q => q.Quantity);
+
+            var details = new List<QuoteDetail>(groupQuotes.Count());
+
+            foreach (var quote in groupQuotes)
+            {
+                var detail = new QuoteDetail
+                {
+                    Quantity = quote.Quantity,
+                    Date = quote.Date_Created,
+                    GroupReference = quote.Group_Reference,
+                    Price = quote.Price,
+                    QuoteNumber = quote.User_Reference
+                };
+                details.Add(detail);
+            }
+
+            return details;
         }
 
         public IEnumerable<MStock> GetMStocks(int materialReference)

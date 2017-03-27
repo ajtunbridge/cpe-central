@@ -38,9 +38,12 @@ namespace CPECentral.Views
             this.startPageView = new CPECentral.Views.StartPageView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.partLibraryView = new CPECentral.Views.PartLibraryView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.qmsView1 = new CPECentral.Views.QMSView();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPageImageList
@@ -53,14 +56,15 @@ namespace CPECentral.Views
             // 
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl.ItemSize = new System.Drawing.Size(150, 32);
+            this.tabControl.ItemSize = new System.Drawing.Size(150, 40);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(901, 744);
+            this.tabControl.Size = new System.Drawing.Size(1520, 1038);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 8;
             // 
@@ -70,9 +74,9 @@ namespace CPECentral.Views
             this.tabPage1.Controls.Add(this.startPageView);
             this.tabPage1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.ForeColor = System.Drawing.Color.Black;
-            this.tabPage1.Location = new System.Drawing.Point(4, 36);
+            this.tabPage1.Location = new System.Drawing.Point(4, 44);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(893, 704);
+            this.tabPage1.Size = new System.Drawing.Size(1512, 990);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Tag = "false";
             this.tabPage1.Text = "Start page";
@@ -85,7 +89,7 @@ namespace CPECentral.Views
             this.startPageView.Location = new System.Drawing.Point(0, 0);
             this.startPageView.Margin = new System.Windows.Forms.Padding(0);
             this.startPageView.Name = "startPageView";
-            this.startPageView.Size = new System.Drawing.Size(893, 704);
+            this.startPageView.Size = new System.Drawing.Size(1512, 990);
             this.startPageView.TabIndex = 0;
             // 
             // tabPage2
@@ -94,9 +98,9 @@ namespace CPECentral.Views
             this.tabPage2.Controls.Add(this.partLibraryView);
             this.tabPage2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.ForeColor = System.Drawing.Color.Black;
-            this.tabPage2.Location = new System.Drawing.Point(4, 36);
+            this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(893, 704);
+            this.tabPage2.Size = new System.Drawing.Size(1512, 990);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "false";
             this.tabPage2.Text = "Part library";
@@ -110,9 +114,32 @@ namespace CPECentral.Views
             this.partLibraryView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.partLibraryView.MinimumSize = new System.Drawing.Size(925, 630);
             this.partLibraryView.Name = "partLibraryView";
-            this.partLibraryView.Size = new System.Drawing.Size(925, 704);
+            this.partLibraryView.Size = new System.Drawing.Size(1512, 990);
             this.partLibraryView.TabIndex = 0;
             this.partLibraryView.PartSelected += new System.EventHandler<CPECentral.CustomEventArgs.PartEventArgs>(this.partLibraryView_PartSelected);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.qmsView1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 44);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1512, 990);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Tag = "false";
+            this.tabPage3.Text = "Quality";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // qmsView1
+            // 
+            this.qmsView1.BackColor = System.Drawing.Color.White;
+            this.qmsView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.qmsView1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.qmsView1.Location = new System.Drawing.Point(3, 3);
+            this.qmsView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.qmsView1.Name = "qmsView1";
+            this.qmsView1.Size = new System.Drawing.Size(1506, 984);
+            this.qmsView1.TabIndex = 0;
             // 
             // EmployeeSessionView
             // 
@@ -122,10 +149,11 @@ namespace CPECentral.Views
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "EmployeeSessionView";
-            this.Size = new System.Drawing.Size(901, 744);
+            this.Size = new System.Drawing.Size(1520, 1038);
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -138,5 +166,7 @@ namespace CPECentral.Views
         private new System.Windows.Forms.TabPage tabPage2;
         private PartLibraryView partLibraryView;
         private System.Windows.Forms.ImageList tabPageImageList;
+        private TabPage tabPage3;
+        private QMSView qmsView1;
     }
 }

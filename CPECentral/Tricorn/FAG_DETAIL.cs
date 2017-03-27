@@ -109,5 +109,6 @@ namespace Tricorn
         public Nullable<System.DateTime> DAT18 { get; set; }
         public Nullable<System.DateTime> DAT19 { get; set; }
         public Nullable<System.DateTime> DAT20 { get; set; }
+        public byte[] TSTAMP { get; set; }
     }
 }

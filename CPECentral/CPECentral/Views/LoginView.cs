@@ -23,7 +23,7 @@ namespace CPECentral.Views
 
     public partial class LoginView : ViewBase, ILoginView
     {
-        private readonly LoginViewPresenter _presenter;
+        private readonly LoginPresenter _presenter;
 
         public LoginView()
         {
@@ -34,7 +34,7 @@ namespace CPECentral.Views
             Dock = DockStyle.Fill;
 
             if (!IsInDesignMode) {
-                _presenter = new LoginViewPresenter(this);
+                _presenter = new LoginPresenter(this);
             }
         }
 

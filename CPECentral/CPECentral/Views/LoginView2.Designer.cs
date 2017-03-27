@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.centralPanel = new System.Windows.Forms.Panel();
+            this.qmsWarningLabel = new System.Windows.Forms.Label();
             this.appLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.preloaderPictureBox = new System.Windows.Forms.PictureBox();
             this.timeMessageLabel = new System.Windows.Forms.Label();
@@ -46,19 +47,34 @@
             // 
             // centralPanel
             // 
+            this.centralPanel.Controls.Add(this.qmsWarningLabel);
             this.centralPanel.Controls.Add(this.appLogoPictureBox);
             this.centralPanel.Controls.Add(this.preloaderPictureBox);
             this.centralPanel.Controls.Add(this.timeMessageLabel);
             this.centralPanel.Controls.Add(this.statusLabel);
-            this.centralPanel.Location = new System.Drawing.Point(332, 268);
+            this.centralPanel.Location = new System.Drawing.Point(372, 223);
             this.centralPanel.Name = "centralPanel";
-            this.centralPanel.Size = new System.Drawing.Size(296, 139);
+            this.centralPanel.Size = new System.Drawing.Size(334, 195);
             this.centralPanel.TabIndex = 4;
+            // 
+            // qmsWarningLabel
+            // 
+            this.qmsWarningLabel.BackColor = System.Drawing.Color.MistyRose;
+            this.qmsWarningLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.qmsWarningLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.qmsWarningLabel.ForeColor = System.Drawing.Color.Gray;
+            this.qmsWarningLabel.Location = new System.Drawing.Point(4, 155);
+            this.qmsWarningLabel.Name = "qmsWarningLabel";
+            this.qmsWarningLabel.Size = new System.Drawing.Size(327, 40);
+            this.qmsWarningLabel.TabIndex = 5;
+            this.qmsWarningLabel.Text = "The QMS database is currently open on another computer.\r\nNon-conformance informat" +
+    "ion may not be up to date";
+            this.qmsWarningLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // appLogoPictureBox
             // 
             this.appLogoPictureBox.Image = global::CPECentral.Properties.Resources.LoginHeader;
-            this.appLogoPictureBox.Location = new System.Drawing.Point(74, 27);
+            this.appLogoPictureBox.Location = new System.Drawing.Point(97, 27);
             this.appLogoPictureBox.Name = "appLogoPictureBox";
             this.appLogoPictureBox.Size = new System.Drawing.Size(140, 75);
             this.appLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -71,7 +87,7 @@
             this.preloaderPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
             this.preloaderPictureBox.Location = new System.Drawing.Point(3, 33);
             this.preloaderPictureBox.Name = "preloaderPictureBox";
-            this.preloaderPictureBox.Size = new System.Drawing.Size(290, 23);
+            this.preloaderPictureBox.Size = new System.Drawing.Size(328, 23);
             this.preloaderPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.preloaderPictureBox.TabIndex = 3;
             this.preloaderPictureBox.TabStop = false;
@@ -80,10 +96,10 @@
             // 
             this.timeMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeMessageLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.timeMessageLabel.Location = new System.Drawing.Point(3, 92);
+            this.timeMessageLabel.Location = new System.Drawing.Point(3, 108);
             this.timeMessageLabel.Margin = new System.Windows.Forms.Padding(3);
             this.timeMessageLabel.Name = "timeMessageLabel";
-            this.timeMessageLabel.Size = new System.Drawing.Size(290, 44);
+            this.timeMessageLabel.Size = new System.Drawing.Size(328, 44);
             this.timeMessageLabel.TabIndex = 4;
             this.timeMessageLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -93,7 +109,7 @@
             this.statusLabel.Location = new System.Drawing.Point(3, 3);
             this.statusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(290, 25);
+            this.statusLabel.Size = new System.Drawing.Size(328, 25);
             this.statusLabel.TabIndex = 4;
             this.statusLabel.Text = "connecting to server...";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -108,7 +124,7 @@
             this.toolStripSeparator1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(928, 50);
+            this.toolStrip.Size = new System.Drawing.Size(1292, 50);
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -118,7 +134,7 @@
             this.loginToolStripDropDownButton.Image = global::CPECentral.Properties.Resources.LoginIcon_32x32;
             this.loginToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.loginToolStripDropDownButton.Name = "loginToolStripDropDownButton";
-            this.loginToolStripDropDownButton.Size = new System.Drawing.Size(101, 47);
+            this.loginToolStripDropDownButton.Size = new System.Drawing.Size(94, 47);
             this.loginToolStripDropDownButton.Text = "    Login";
             this.loginToolStripDropDownButton.ToolTipText = "Select your name from the drop down list to login";
             this.loginToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.loginToolStripDropDownButton_DropDownItemClicked);
@@ -150,7 +166,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LoginView2";
-            this.Size = new System.Drawing.Size(928, 598);
+            this.Size = new System.Drawing.Size(1292, 861);
             this.Load += new System.EventHandler(this.LoginView2_Load);
             this.Resize += new System.EventHandler(this.LoginView2_Resize);
             this.centralPanel.ResumeLayout(false);
@@ -174,6 +190,6 @@
         private System.Windows.Forms.PictureBox loginIndicatorPictureBox;
         private System.Windows.Forms.PictureBox appLogoPictureBox;
         private System.Windows.Forms.PictureBox preloaderPictureBox;
-
+        private System.Windows.Forms.Label qmsWarningLabel;
     }
 }

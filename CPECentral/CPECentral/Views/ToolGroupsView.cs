@@ -37,7 +37,7 @@ namespace CPECentral.Views
     [DefaultEvent("ToolGroupSelected")]
     public partial class ToolGroupsView : ViewBase, IToolGroupsView
     {
-        private readonly ToolGroupsViewPresenter _presenter;
+        private readonly ToolGroupsPresenter _presenter;
         private bool _editMode;
 
         public ToolGroupsView()
@@ -50,7 +50,7 @@ namespace CPECentral.Views
             treeViewImageList.Images.Add("FolderOpen", Resources.FolderOpenIcon_16x16);
 
             if (!IsInDesignMode) {
-                _presenter = new ToolGroupsViewPresenter(this);
+                _presenter = new ToolGroupsPresenter(this);
             }
         }
 

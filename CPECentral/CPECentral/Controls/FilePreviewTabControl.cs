@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Properties;
-using CPECentral.Views;
 using nGenLibrary;
 
 #endregion
@@ -100,6 +99,22 @@ namespace CPECentral.Controls
                 tabControl.SelectedTab = newPage;
 
                 modelView.LoadFile(fileName);
+
+                return;
+            }
+
+            string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] {"|"},
+                StringSplitOptions.None);
+
+            if (validTextExtensions.Any(validExt => validExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
+                var ncEditor = new AvalonNcEditor();
+                ncEditor.Dock = DockStyle.Fill;
+                newPage.Controls.Add(ncEditor);
+                ncEditor.BringToFront();
+                ncEditor.LoadFile(fileName);
+
+                tabControl.TabPages.Add(newPage);
+                tabControl.SelectedTab = newPage;
 
                 return;
             }

@@ -25,5 +25,6 @@ namespace Tricorn
         public Nullable<decimal> MANDANTNO { get; set; }
         public Nullable<System.DateTime> INCDATE { get; set; }
         public Nullable<decimal> WAREHOUSE { get; set; }
+        public Nullable<decimal> OPNO { get; set; }
     }
 }
