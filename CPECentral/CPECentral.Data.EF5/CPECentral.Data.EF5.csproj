@@ -30,6 +30,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -49,7 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPermission.cs" />
+    <Compile Include="CalibrationMethod.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalibrationResult.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ClientSetting.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataProviderError.cs" />
@@ -69,9 +96,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CPECentralModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>CPECentralModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Document.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -81,7 +105,19 @@
     <Compile Include="EmployeeGroup.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeWorkCentre.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExternalCalibrationRecord.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="FuzzySearch.cs" />
+    <Compile Include="Gauge.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GaugeType.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Holder.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -96,6 +132,12 @@
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Method.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConformance.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NonConformanceType.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Operation.cs">
@@ -117,11 +159,19 @@
     <Compile Include="RecentPart.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RejectReason.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CalibrationMethodRepository.cs" />
+    <Compile Include="Repositories\CalibrationResultRepository.cs" />
     <Compile Include="Repositories\ClientSettingRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\EmployeeGroupRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\EmployeeWorkCentreRepository.cs" />
+    <Compile Include="Repositories\GaugeRepository.cs" />
+    <Compile Include="Repositories\GaugeTypeRepository.cs" />
     <Compile Include="Repositories\HolderGroupRepository.cs" />
     <Compile Include="Repositories\HolderRepository.cs" />
     <Compile Include="Repositories\HolderToolRepository.cs" />
@@ -137,6 +187,10 @@
     <Compile Include="Repositories\ToolGroupRepository.cs" />
     <Compile Include="Repositories\ToolRepository.cs" />
     <Compile Include="Repositories\TricornToolRepository.cs" />
+    <Compile Include="CPEUnitOfWork.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tool.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -146,7 +200,6 @@
     <Compile Include="TricornTool.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CPEUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CPECentralModel.Partials.cs" />
@@ -172,12 +225,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\nGenLibrary\nGenLibrary.csproj">
-      <Project>{ac000ae7-803f-4bb3-834c-ecea8ba036b6}</Project>
-      <Name>nGenLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CPECentralModel.edmx.sql" />

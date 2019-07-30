@@ -105,7 +105,7 @@
             this.saveToolStripButton.Image = global::CPECentral.Properties.Resources.SaveIcon_32x32;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(110, 45);
+            this.saveToolStripButton.Size = new System.Drawing.Size(101, 45);
             this.saveToolStripButton.Text = " Save photo";
             this.saveToolStripButton.ToolTipText = "Add a new part to the library";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
@@ -121,7 +121,7 @@
             this.cropToolStripButton.Image = global::CPECentral.Properties.Resources.CropIcon_32x32;
             this.cropToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cropToolStripButton.Name = "cropToolStripButton";
-            this.cropToolStripButton.Size = new System.Drawing.Size(150, 45);
+            this.cropToolStripButton.Size = new System.Drawing.Size(136, 45);
             this.cropToolStripButton.Text = " Crop and sharpen";
             this.cropToolStripButton.Click += new System.EventHandler(this.cropToolStripButton_Click);
             // 
@@ -136,7 +136,7 @@
             this.originalImageToolStripButton.Image = global::CPECentral.Properties.Resources.RefreshIcon_32x32;
             this.originalImageToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.originalImageToolStripButton.Name = "originalImageToolStripButton";
-            this.originalImageToolStripButton.Size = new System.Drawing.Size(181, 45);
+            this.originalImageToolStripButton.Size = new System.Drawing.Size(165, 45);
             this.originalImageToolStripButton.Text = "Revert to original image";
             this.originalImageToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 

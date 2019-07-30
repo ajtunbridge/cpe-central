@@ -24,14 +24,14 @@ namespace CPECentral.Views
     public partial class StartPageUserInfoView : ViewBase, IStartPageUserInfoView
     {
         private readonly Employee _employee;
-        private StartPageUserInfoViewPresenter _presenter;
+        private StartPageUserInfoPresenter _presenter;
 
         public StartPageUserInfoView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new StartPageUserInfoViewPresenter(this);
+                _presenter = new StartPageUserInfoPresenter(this);
 
                 headerLabel.Text = "Hello " + Session.CurrentEmployee.FirstName + "!";
                 _employee = Session.CurrentEmployee;
@@ -112,6 +112,10 @@ namespace CPECentral.Views
 
         private void StartPageUserInfoView_Load(object sender, EventArgs e)
         {
+            if (Session.CurrentEmployee.Id==3 && DateTime.Now.Month == 3 && DateTime.Now.Day == 24)
+            {
+                MessageBox.Show("Happy Birthday Simon!\n\nYours always,\n\nAdam Tunbridge");
+            }
         }
 
         public void RecentPartsChangedMessage_Published(RecentPartsChangedMessage message)

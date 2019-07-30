@@ -6,6 +6,8 @@ namespace CPECentral.ViewModels
     {
         public bool HasNonConformances { get; set; }
 
+        public bool IsVersionDifferentToWorksOrder { get; set; }
+
         public string CreatedBy { get; set; }
 
         public string ModifiedBy { get; set; }

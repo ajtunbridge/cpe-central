@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PartLibraryView));
             this.groupOlvColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.searchingBarPictureBox = new System.Windows.Forms.PictureBox();
             this.searchValueTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,16 +38,20 @@
             this.drawingNumberOlvColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.autoShowDrawingCheckBox = new System.Windows.Forms.CheckBox();
+            this.searchingBarPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.filePreviewPanel1 = new CPECentral.Controls.FilePreviewPanel();
+            this.closableTabControl = new CPECentral.Controls.ClosableTabControl();
+            this.searchTabPage = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultsObjectListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.closableTabControl.SuspendLayout();
+            this.searchTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupOlvColumn
@@ -56,44 +59,29 @@
             this.groupOlvColumn.AspectName = "Group";
             this.groupOlvColumn.CellPadding = null;
             this.groupOlvColumn.IsVisible = false;
-            this.groupOlvColumn.Width = 80;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.searchingBarPictureBox);
             this.splitContainer1.Panel1.Controls.Add(this.searchValueTextBox);
             this.splitContainer1.Panel1.Controls.Add(this.searchButton);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.resultsObjectListView);
-            this.splitContainer1.Panel1.Controls.Add(this.autoShowDrawingCheckBox);
+            this.splitContainer1.Panel1.Controls.Add(this.searchingBarPictureBox);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(10);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.splitContainer1.Size = new System.Drawing.Size(1136, 678);
-            this.splitContainer1.SplitterDistance = 636;
+            this.splitContainer1.Size = new System.Drawing.Size(1128, 605);
+            this.splitContainer1.SplitterDistance = 631;
             this.splitContainer1.TabIndex = 17;
-            // 
-            // searchingBarPictureBox
-            // 
-            this.searchingBarPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchingBarPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
-            this.searchingBarPictureBox.Location = new System.Drawing.Point(25, 84);
-            this.searchingBarPictureBox.Name = "searchingBarPictureBox";
-            this.searchingBarPictureBox.Size = new System.Drawing.Size(598, 22);
-            this.searchingBarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.searchingBarPictureBox.TabIndex = 11;
-            this.searchingBarPictureBox.TabStop = false;
-            this.searchingBarPictureBox.Visible = false;
             // 
             // searchValueTextBox
             // 
@@ -107,7 +95,7 @@
             this.searchValueTextBox.MaxLength = 50;
             this.searchValueTextBox.Name = "searchValueTextBox";
             this.searchValueTextBox.NumericCharactersOnly = false;
-            this.searchValueTextBox.Size = new System.Drawing.Size(475, 43);
+            this.searchValueTextBox.Size = new System.Drawing.Size(470, 43);
             this.searchValueTextBox.SuppressEnterKey = true;
             this.searchValueTextBox.TabIndex = 14;
             this.searchValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -117,7 +105,7 @@
             // searchButton
             // 
             this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchButton.Location = new System.Drawing.Point(506, 35);
+            this.searchButton.Location = new System.Drawing.Point(501, 35);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(117, 43);
             this.searchButton.TabIndex = 13;
@@ -132,7 +120,7 @@
             this.label2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.label2.Location = new System.Drawing.Point(32, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(468, 17);
+            this.label2.Size = new System.Drawing.Size(463, 17);
             this.label2.TabIndex = 8;
             this.label2.Text = "Enter drawing number, part name or works order number";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -154,13 +142,12 @@
             this.resultsObjectListView.EmptyListMsg = "";
             this.resultsObjectListView.EmptyListMsgFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultsObjectListView.FullRowSelect = true;
-            this.resultsObjectListView.IsSimpleDragSource = true;
-            this.resultsObjectListView.Location = new System.Drawing.Point(25, 112);
+            this.resultsObjectListView.Location = new System.Drawing.Point(25, 122);
             this.resultsObjectListView.MultiSelect = false;
             this.resultsObjectListView.Name = "resultsObjectListView";
             this.resultsObjectListView.OwnerDraw = true;
             this.resultsObjectListView.ShowItemCountOnGroups = true;
-            this.resultsObjectListView.Size = new System.Drawing.Size(598, 526);
+            this.resultsObjectListView.Size = new System.Drawing.Size(593, 473);
             this.resultsObjectListView.TabIndex = 12;
             this.resultsObjectListView.UseAlternatingBackColors = true;
             this.resultsObjectListView.UseCompatibleStateImageBehavior = false;
@@ -176,7 +163,7 @@
             this.drawingNumberOlvColumn.FillsFreeSpace = true;
             this.drawingNumberOlvColumn.Groupable = false;
             this.drawingNumberOlvColumn.Text = "Drawing number";
-            this.drawingNumberOlvColumn.Width = 180;
+            this.drawingNumberOlvColumn.Width = 231;
             // 
             // olvColumn2
             // 
@@ -197,19 +184,20 @@
             this.olvColumn3.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn3.Text = "Name";
             this.olvColumn3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.olvColumn3.Width = 180;
+            this.olvColumn3.Width = 325;
             // 
-            // autoShowDrawingCheckBox
+            // searchingBarPictureBox
             // 
-            this.autoShowDrawingCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.autoShowDrawingCheckBox.AutoSize = true;
-            this.autoShowDrawingCheckBox.Location = new System.Drawing.Point(311, 647);
-            this.autoShowDrawingCheckBox.Name = "autoShowDrawingCheckBox";
-            this.autoShowDrawingCheckBox.Size = new System.Drawing.Size(312, 21);
-            this.autoShowDrawingCheckBox.TabIndex = 15;
-            this.autoShowDrawingCheckBox.Text = "Show drawing automatically when selecting part?";
-            this.autoShowDrawingCheckBox.UseVisualStyleBackColor = true;
-            this.autoShowDrawingCheckBox.CheckedChanged += new System.EventHandler(this.autoShowDrawingCheckBox_CheckedChanged);
+            this.searchingBarPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchingBarPictureBox.Image = global::CPECentral.Properties.Resources.PreloaderImage2;
+            this.searchingBarPictureBox.Location = new System.Drawing.Point(25, 84);
+            this.searchingBarPictureBox.Name = "searchingBarPictureBox";
+            this.searchingBarPictureBox.Size = new System.Drawing.Size(593, 22);
+            this.searchingBarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.searchingBarPictureBox.TabIndex = 11;
+            this.searchingBarPictureBox.TabStop = false;
+            this.searchingBarPictureBox.Visible = false;
             // 
             // groupBox1
             // 
@@ -217,7 +205,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(476, 658);
+            this.groupBox1.Size = new System.Drawing.Size(473, 585);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Drawing file";
@@ -231,28 +219,56 @@
             this.filePreviewPanel1.Location = new System.Drawing.Point(3, 21);
             this.filePreviewPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filePreviewPanel1.Name = "filePreviewPanel1";
-            this.filePreviewPanel1.Size = new System.Drawing.Size(470, 634);
+            this.filePreviewPanel1.Size = new System.Drawing.Size(467, 561);
             this.filePreviewPanel1.TabIndex = 0;
+            // 
+            // closableTabControl
+            // 
+            this.closableTabControl.Controls.Add(this.searchTabPage);
+            this.closableTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.closableTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.closableTabControl.ItemSize = new System.Drawing.Size(200, 35);
+            this.closableTabControl.Location = new System.Drawing.Point(0, 0);
+            this.closableTabControl.Margin = new System.Windows.Forms.Padding(10);
+            this.closableTabControl.Name = "closableTabControl";
+            this.closableTabControl.SelectedIndex = 0;
+            this.closableTabControl.Size = new System.Drawing.Size(1142, 654);
+            this.closableTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.closableTabControl.TabIndex = 18;
+            // 
+            // searchTabPage
+            // 
+            this.searchTabPage.Controls.Add(this.splitContainer1);
+            this.searchTabPage.Location = new System.Drawing.Point(4, 39);
+            this.searchTabPage.Name = "searchTabPage";
+            this.searchTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.searchTabPage.Size = new System.Drawing.Size(1134, 611);
+            this.searchTabPage.TabIndex = 0;
+            this.searchTabPage.Tag = "false";
+            this.searchTabPage.Text = "Search";
+            this.searchTabPage.UseVisualStyleBackColor = true;
             // 
             // PartLibraryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.closableTabControl);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(925, 630);
             this.Name = "PartLibraryView";
-            this.Size = new System.Drawing.Size(1136, 678);
+            this.Size = new System.Drawing.Size(1142, 654);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultsObjectListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchingBarPictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.closableTabControl.ResumeLayout(false);
+            this.searchTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -271,6 +287,7 @@
         private nGenLibrary.Controls.EnhancedTextBox searchValueTextBox;
         private Controls.FilePreviewPanel filePreviewPanel1;
         private BrightIdeasSoftware.OLVColumn groupOlvColumn;
-        private System.Windows.Forms.CheckBox autoShowDrawingCheckBox;
+        private Controls.ClosableTabControl closableTabControl;
+        private System.Windows.Forms.TabPage searchTabPage;
     }
 }

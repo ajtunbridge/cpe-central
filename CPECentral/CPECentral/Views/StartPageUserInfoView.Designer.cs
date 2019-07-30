@@ -46,7 +46,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(541, 39);
+            this.panel1.Size = new System.Drawing.Size(763, 39);
             this.panel1.TabIndex = 9;
             // 
             // changePasswordLabel
@@ -110,7 +110,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "StartPageUserInfoView";
-            this.Size = new System.Drawing.Size(541, 270);
+            this.Size = new System.Drawing.Size(763, 270);
             this.Load += new System.EventHandler(this.StartPageUserInfoView_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

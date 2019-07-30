@@ -24,6 +24,7 @@ namespace CPECentral.Views
             if (!IsInDesignMode) {
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
                 Session.MessageBus.Subscribe<LoadPartMessage>(LoadPartMessage_Published);
+                Session.MessageBus.Subscribe<PartAddedMessage>(PartAddedMessage_Published);
                 tabControl.ImageList = tabPageImageList;
 
                 tabPageImageList.Images.Add("StartIcon", Resources.StartPageTabIcon_16x16);
@@ -37,53 +38,18 @@ namespace CPECentral.Views
 
         public Employee SessionEmployee { get; private set; }
 
+        private void PartAddedMessage_Published(PartAddedMessage message)
+        {
+
+        }
+
         private void PartEditedMessage_Published(PartEditedMessage partEditedMessage)
         {
-            foreach (TabPage tabPage in tabControl.TabPages) {
-                if (tabPage.Tag is Part) {
-                    var part = tabPage.Tag as Part;
-                    if (part == partEditedMessage.EditedPart) {
-                        tabPage.Text = partEditedMessage.EditedPart.DrawingNumber;
-                        break;
-                    }
-                }
-            }
         }
 
         private void LoadPartMessage_Published(LoadPartMessage obj)
         {
-            // we don't want to load other employees parts
-            if (SessionEmployee != Session.CurrentEmployee) {
-                return;
-            }
-
-            foreach (TabPage existingTab in tabControl.TabPages)
-            {
-                if (existingTab.Tag is Part)
-                {
-                    var part = existingTab.Tag as Part;
-                    if (part != obj.PartToLoad)
-                    {
-                        continue;
-                    }
-                    tabControl.SelectTab(existingTab);
-                    return;
-                }
-            }
-
-            var newTab = new TabPage(obj.PartToLoad.DrawingNumber);
-            newTab.Tag = obj.PartToLoad;
-
-            var partView = new PartView();
-            partView.Dock = DockStyle.Fill;
-
-            newTab.Controls.Add(partView);
-
-            partView.LoadPart(obj.PartToLoad);
-
-            tabControl.TabPages.Add(newTab);
-
-            tabControl.SelectTab(newTab);
+            tabControl.SelectedIndex = 1;
         }
 
         private void partLibraryView_PartSelected(object sender, PartEventArgs e)

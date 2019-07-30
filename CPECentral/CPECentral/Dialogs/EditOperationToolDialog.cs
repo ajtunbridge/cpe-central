@@ -1,6 +1,7 @@
 ﻿#region Using directives
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
 using nGenLibrary;
@@ -12,9 +13,11 @@ namespace CPECentral.Dialogs
     public partial class EditOperationToolDialog : Form
     {
         private readonly OperationTool _operationTool;
+        private readonly Operation _operation;
 
-        public EditOperationToolDialog() : this(new OperationTool())
+        public EditOperationToolDialog(Operation operation) : this(new OperationTool())
         {
+            _operation = operation;
         }
 
         public EditOperationToolDialog(OperationTool operationTool)
@@ -39,7 +42,7 @@ namespace CPECentral.Dialogs
 
         private void SelectToolButton_Click(object sender, EventArgs e)
         {
-            using (var toolSelector = new ToolSelectorDialog(false)) {
+            using (var toolSelector = new SelectToolDialog()) {
                 if (toolSelector.ShowDialog(this) != DialogResult.OK) {
                     return;
                 }
@@ -89,20 +92,43 @@ namespace CPECentral.Dialogs
 
         private void EditOperationToolDialog_Load(object sender, EventArgs e)
         {
-            if (_operationTool.Id > 0) {
-                positionNumericUpDown.Value = _operationTool.Position;
-                offsetNumericUpDown.Value = _operationTool.Offset;
-                useOnePerNumericUpDown.Value = _operationTool.UseOnePer;
+            using (BusyCursor.Show())
+            {
+                using (var cpe = new CPEUnitOfWork())
+                {
+                    if (_operationTool.Id > 0)
+                    {
+                        positionNumericUpDown.Value = _operationTool.Position;
+                        offsetNumericUpDown.Value = _operationTool.Offset;
+                        useOnePerNumericUpDown.Value = _operationTool.UseOnePer;
 
-                using (BusyCursor.Show()) {
-                    using (var cpe = new CPEUnitOfWork()) {
                         Tool tool = cpe.Tools.GetById(_operationTool.ToolId);
                         toolTextBox.Text = tool.Description;
 
-                        if (_operationTool.HolderId.HasValue) {
+                        if (_operationTool.HolderId.HasValue)
+                        {
                             Holder holder = cpe.Holders.GetById(_operationTool.HolderId.Value);
                             holderTextBox.Text = holder.Name;
                         }
+                    }
+                    else
+                    {
+                        var currentToolPositions = cpe.OperationTools.GetByOperation(_operation).Select(tool => tool.Position).ToList();
+
+                        int nextPos = 1;
+
+                        for (int i = 1; i < 256; i++)
+                        {
+                            if (currentToolPositions.Any(pos => pos == i))
+                            {
+                                continue;
+                            }
+
+                            nextPos = i;
+                            break;
+                        }
+
+                        positionNumericUpDown.Value = nextPos;
                     }
                 }
             }

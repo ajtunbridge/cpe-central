@@ -26,13 +26,12 @@ namespace CPECentral.Views
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
         void RetrieveOperationTools(Operation operation);
-
-        Operation CurrentOperation { get; set; }
+        void NewToolAdded();
     }
 
     public partial class OperationToolsView : ViewBase, IOperationToolsView
     {
-        private readonly OperationToolsViewPresenter _presenter;
+        private readonly OperationToolsPresenter _presenter;
         private Operation _currentOperation;
         private OperationTool _selectedOperationTool;
 
@@ -43,15 +42,8 @@ namespace CPECentral.Views
             base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new OperationToolsViewPresenter(this);
-
+                _presenter = new OperationToolsPresenter(this);
                 Session.MessageBus.Subscribe<ToolRenamedMessage>(ToolRenamedMessageHandler);
-
-                Session.MessageBus.Subscribe<OperationToolListChangedMessage>(args => {
-                    if (_currentOperation == args.Operation) {
-                        RefreshOperationTools();
-                    }
-                });
             }
         }
 
@@ -120,15 +112,13 @@ namespace CPECentral.Views
             OnLoadOperationTools(new OperationEventArgs(operation));
         }
 
-        public Operation CurrentOperation
+        public void NewToolAdded()
         {
-            get { return _currentOperation; }
-            set
+            RetrieveOperationTools(_currentOperation);
+
+            if (DialogService.AskQuestion("Do you want to add another tool?"))
             {
-                _currentOperation = value;
-                if (value != null) {
-                    RetrieveOperationTools(value);
-                }
+                OnAddOperationTool(new OperationEventArgs(_currentOperation));
             }
         }
 
@@ -205,10 +195,7 @@ namespace CPECentral.Views
         private void operationToolsEnhancedListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectionCount = operationToolsEnhancedListView.SelectionCount;
-
-            editToolStripButton.Enabled = (selectionCount == 1);
-            deleteToolStripButton.Enabled = (selectionCount == 1);
-
+            
             if (selectionCount == 0) {
                 _selectedOperationTool = null;
                 return;
@@ -241,6 +228,28 @@ namespace CPECentral.Views
                     OnAddOperationTool(new OperationEventArgs(_currentOperation));
                     break;
             }
+        }
+
+        private void operationToolsEnhancedListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && _selectedOperationTool != null)
+            {
+                OnDeleteOperationTool(new OperationToolEventArgs(_selectedOperationTool));
+            }
+            if (e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus)
+            {
+                OnAddOperationTool(new OperationEventArgs(_currentOperation));
+            }
+        }
+
+        private void addToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewStockLevelsToolStripButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CPECentral.Views
     [DefaultEvent("OperationSelected")]
     public partial class OperationsView : ViewBase, IOperationsView
     {
-        private readonly OperationsViewPresenter _presenter;
+        private readonly OperationsPresenter _presenter;
 
         public OperationsView()
         {
@@ -50,7 +50,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new OperationsViewPresenter(this);
+                _presenter = new OperationsPresenter(this);
             }
         }
 

@@ -12,7 +12,6 @@ using NcCommunicator.Data.Model;
 
 namespace NcCommunicator
 {
-    /*
     public class SerialLink : IDisposable
     {
         private const byte DefaultBlockSize = 16;
@@ -32,7 +31,7 @@ namespace NcCommunicator
             for (int charValue = 32; charValue < 94; charValue++) {
                 _validChars[index] = (char) charValue;
                 index++;
-            }
+            }           
 
             _comPortName = comPortName;
             _control = control;
@@ -54,7 +53,7 @@ namespace NcCommunicator
         public event EventHandler<ReceiveProgressEventArgs> ReceiveProgress;
         public event EventHandler<TransmitProgressEventArgs> TransmitProgress;
         public event EventHandler<SerialErrorReceivedEventArgs> ErrorReceived;
-        public event EventHandler DataTransferStarted;
+        public event EventHandler DataTransferStarted;                                              
         public event EventHandler DataTransferComplete;
 
         protected virtual void OnDataTransferStarted()
@@ -121,7 +120,7 @@ namespace NcCommunicator
                 }
 
                 bool receivedXOnChar = line.IndexOfAny(new[] {
-                    _control.SendXOnChar, _control.XOnChar2
+                    _control.XOnChar, _control.XOnChar2
                 }) >= 0;
 
                 if (receivedXOnChar) {
@@ -133,7 +132,7 @@ namespace NcCommunicator
                 }
 
                 bool receivedXoffChar = line.IndexOfAny(new[] {
-                    _control.SendXOffChar, _control.XOffChar2
+                    _control.XOffChar, _control.XOffChar2
                 }) >= 0;
 
                 // if finished uploading data
@@ -195,9 +194,13 @@ namespace NcCommunicator
                 return;
             }
 
-            _port.DiscardInBuffer();
-            _port.DiscardOutBuffer();
-            _port.Close();
+            if (_port.IsOpen)
+            {
+                _port.DiscardInBuffer();
+                _port.DiscardOutBuffer();
+                _port.Close();
+            }
+
             _port.Dispose();
         }
 
@@ -231,6 +234,8 @@ namespace NcCommunicator
                 OnTransmitProgress(new TransmitProgressEventArgs(written, progress));
                 currentIndex += blockSize;
             }
+
+            _port.Write(new char[] { Convert.ToChar(3) }, 0, 1);
         }
 
         private string RemoveInvalidCharacters(string value)
@@ -248,5 +253,4 @@ namespace NcCommunicator
             return builder.ToString();
         }
     }
-     * */
 }

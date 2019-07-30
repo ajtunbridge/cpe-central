@@ -47,9 +47,10 @@
             this.enhancedListView.IndexOfColumnToResize = 2;
             this.enhancedListView.ItemContextMenuStrip = null;
             this.enhancedListView.Location = new System.Drawing.Point(0, 0);
+            this.enhancedListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.enhancedListView.Name = "enhancedListView";
             this.enhancedListView.ResizeColumnToFill = true;
-            this.enhancedListView.Size = new System.Drawing.Size(504, 257);
+            this.enhancedListView.Size = new System.Drawing.Size(588, 336);
             this.enhancedListView.TabIndex = 0;
             this.enhancedListView.UseAlternatingBackColor = true;
             this.enhancedListView.UseCompatibleStateImageBehavior = false;
@@ -69,15 +70,17 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Location";
-            this.columnHeader3.Width = 272;
+            this.columnHeader3.Width = 356;
             // 
             // StockLevelsDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 257);
+            this.ClientSize = new System.Drawing.Size(588, 336);
             this.Controls.Add(this.enhancedListView);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StockLevelsDialog";

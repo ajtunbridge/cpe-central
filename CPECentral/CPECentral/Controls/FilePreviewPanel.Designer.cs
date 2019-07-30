@@ -40,8 +40,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FilePreviewPanel";
             this.Size = new System.Drawing.Size(334, 289);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilePreviewPanel_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilePreviewPanel_DragEnter);
             this.ResumeLayout(false);
 
         }

@@ -10,11 +10,11 @@ namespace CPECentral.CustomEventArgs
 {
     public sealed class NonConformanceEventArgs : EventArgs
     {
-        public NonConformanceEventArgs(NonConformance nonConformance)
+        public NonConformanceEventArgs(Complaint nonConformance)
         {
             NonConformance = nonConformance;
         }
 
-        public NonConformance NonConformance { get; private set; }
+        public Complaint NonConformance { get; private set; }
     }
 }

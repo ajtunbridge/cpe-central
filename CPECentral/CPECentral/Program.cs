@@ -3,7 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO.Ports;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,7 +11,6 @@ using CPECentral.Data.EF5;
 using CPECentral.Dialogs;
 using CPECentral.QMS;
 using NcCommunicator.Data;
-using NcCommunicator.Data.Model;
 using nGenLibrary.Security;
 
 #endregion
@@ -36,41 +35,6 @@ namespace CPECentral
         private static void Main()
         {
             bool createdNew = true;
-
-            //string commonAppDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
-            //var db = new MachinesDataProvider(commonAppDir);
-
-            //var serialMachine = new SerialMachine();
-            //serialMachine.Name = "Hardinge T42";
-            //serialMachine.ComPort = "COM3";
-            //serialMachine.StopBits = StopBits.Two;
-            //serialMachine.Parity = Parity.Even;
-            //serialMachine.Handshake = Handshake.XOnXOff;
-            //serialMachine.DataBits = 7;
-            //serialMachine.BaudRate = 9600;
-            //serialMachine.DtrEnable = true;
-            //serialMachine.RtsEnable = true;
-            //serialMachine.SendXOnChar = 17;
-            //serialMachine.SendXOffChar = 19;
-            //serialMachine.ReceiveXOnChar = 18;
-            //serialMachine.ReceiveXOffChar = 20;
-            //serialMachine.ProgramStart = "%";
-            //serialMachine.ProgramEnd = "M30";
-            //serialMachine.NewLine = @"\r\n\n";
-            //serialMachine.Photo = null;
-
-            //db.Insert(serialMachine);
-
-            //serialMachine.Name = "Hardinge T42-A";
-            //serialMachine.ComPort = "COM4";
-
-            //db.Insert(serialMachine);
-
-            //serialMachine.Name = "Hardinge C42";
-            //serialMachine.ComPort = "COM3";
-
-            //db.Insert(serialMachine);
 
             using (var mutex = new Mutex(true, "CPECentral", out createdNew)) {
                 if (createdNew) {
@@ -101,7 +65,7 @@ namespace CPECentral
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            string msg = e.Exception.InnerException == null ? e.Exception.Message : e.Exception.InnerException.Message;
+            string msg = e.Exception.InnerException?.Message ?? e.Exception.Message;
 
             MessageBox.Show(msg);
         }

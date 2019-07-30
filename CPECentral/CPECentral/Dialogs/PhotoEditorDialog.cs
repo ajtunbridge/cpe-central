@@ -256,17 +256,6 @@ namespace CPECentral.Dialogs
 
             _currentPictureBox.Controls.Add(workerPictureBox);
 
-            var label = new Label();
-            label.AutoSize = true;
-            label.BackColor = Color.Transparent;
-            label.ForeColor = Color.White;
-            label.Font = new Font(Font, FontStyle.Bold);
-            label.Text = "working some magic...";
-            label.Top = workerPictureBox.Bottom + 3;
-            label.Left = ((_currentPictureBox.Width - label.Width)/2) - 25;
-
-            _currentPictureBox.Controls.Add(label);
-
             _drawSelection = false;
             _currentPictureBox.Invalidate();
 
@@ -284,7 +273,7 @@ namespace CPECentral.Dialogs
                 // Create cropped image:
                 Image img = pic.Crop(_regionToCrop);
 
-                img = Sharpen(img, 1.0);
+                img = Sharpen(img, 0.5f);
 
                 args.Result = img;
             };

@@ -22,7 +22,7 @@ namespace CPECentral.Views
 
     public partial class HolderToolsView : ViewBase, IHolderToolsView
     {
-        private readonly HolderToolsViewPresenter _presenter;
+        private readonly HolderToolsPresenter _presenter;
         private Holder _currentHolder;
 
         public HolderToolsView()
@@ -32,7 +32,7 @@ namespace CPECentral.Views
             Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new HolderToolsViewPresenter(this);
+                _presenter = new HolderToolsPresenter(this);
             }
         }
 

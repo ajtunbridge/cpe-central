@@ -37,13 +37,15 @@ namespace CPECentral.Views
 
         void FinishedNonConformanceCheck(bool hasNonConformances);
 
-        void ShowVersionWarning();
+        void ShowOldVersionWarningPanel();
+
+        void ShowNewVersionWarningPanel();
     }
 
     public partial class PartView : ViewBase, IPartView
     {
         private const int NonConformanceWarningBlinkCount = 3;
-        private readonly PartViewPresenter _presenter;
+        private readonly PartPresenter _presenter;
 
         private int _currentBlinkCount = 0;
         private Timer _nonConformanceWarningBlinkTimer;
@@ -57,7 +59,7 @@ namespace CPECentral.Views
             base.Dock = DockStyle.Fill;
 
             if (!IsInDesignMode) {
-                _presenter = new PartViewPresenter(this);
+                _presenter = new PartPresenter(this);
                 Session.MessageBus.Subscribe<PartEditedMessage>(PartEditedMessage_Published);
 
                 Session.MessageBus.Subscribe<PartVersionPhotoChangedMessage>(msg => {
@@ -96,6 +98,7 @@ namespace CPECentral.Views
         public void LoadPart(Part part)
         {
             using (NoFlicker.On(this)) {
+                machineTransferView.Visible = false;
                 Part = part;
                 partDescriptionLabel.Text = string.Format("{0} - {1}", part.DrawingNumber, part.Name);
                 partInformationView.LoadPart(part);
@@ -137,9 +140,17 @@ namespace CPECentral.Views
             _nonConformanceWarningBlinkTimer.Start();
         }
 
-        public void ShowVersionWarning()
+        public void ShowOldVersionWarningPanel()
         {
-            var versionWarningPanel = new VersionWarningPanel();
+            var versionWarningPanel = new OldVersionWarningPanel();
+            Controls.Add(versionWarningPanel);
+            versionWarningPanel.BringToFront();
+            versionWarningPanel.Dock = DockStyle.Fill;
+        }
+
+        public void ShowNewVersionWarningPanel()
+        {
+            var versionWarningPanel = new NewVersionWarningPanel();
             Controls.Add(versionWarningPanel);
             versionWarningPanel.BringToFront();
             versionWarningPanel.Dock = DockStyle.Fill;
@@ -201,6 +212,7 @@ namespace CPECentral.Views
         {
             OnReloadData();
             OnCheckForNonConformances();
+            
         }
 
         private void partInformationView_VersionSelected(object sender, PartVersionEventArgs e)
@@ -245,10 +257,11 @@ namespace CPECentral.Views
                 string pathToDocument = Session.DocumentService.GetPathToDocument(doc);
 
                 operationDocumentsTabControl.InvokeEx(() => {
-                    var tabPage = new TabPage(doc.FileName);
-                    var editorPanel = new NcProgrammingView(operationsView.SelectedOperation, pathToDocument);
+                    var tabPage = new ClosableTabPage(doc.FileName);
+                    var editorPanel = new AvalonNcEditor();
                     tabPage.Controls.Add(editorPanel);
                     editorPanel.Dock = DockStyle.Fill;
+                    editorPanel.LoadFile(pathToDocument);
                     operationDocumentsTabControl.TabPages.Add(tabPage);
                     operationDocumentsTabControl.SelectedTab = tabPage;
                 });
@@ -295,20 +308,26 @@ namespace CPECentral.Views
 
         private void operationDocumentsView_TextFileSelected(object sender, DocumentEventArgs e)
         {
-            //machineTransferView.RefreshMachineList();
-            
-            //if (machineTransferView.MachineCount > 0) {
-            //    machineTransferView.Visible = true;
-            //}
         }
 
         private void operationDocumentsView_SelectionChanged(object sender, EventArgs e)
         {
+            machineTransferView.Visible = false;
         }
 
         private void nonConformanceWarningPictureBox_Click(object sender, EventArgs e)
         {
             new NonConformanceViewerDialog(Part.DrawingNumber).ShowDialog(ParentForm);
+        }
+
+        private void partPhotoPictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (partPhotoPictureBox.Image == Resources.NoImageAvailableImage)
+            {
+                return;
+            }
+
+            new PhotoViewerDialog(partPhotoPictureBox.Image).ShowDialog(ParentForm);
         }
     }
 }

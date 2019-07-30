@@ -20,5 +20,6 @@ namespace Tricorn
         public Nullable<System.DateTime> CDATE { get; set; }
         public Nullable<System.DateTime> CHDATE { get; set; }
         public Nullable<decimal> MANDANTNO { get; set; }
+        public Nullable<decimal> PONO { get; set; }
     }
 }

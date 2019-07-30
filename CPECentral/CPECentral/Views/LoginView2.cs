@@ -21,12 +21,12 @@ namespace CPECentral.Views
 
     public sealed partial class LoginView2 : ViewBase, ILoginView2
     {
-        private readonly LoginView2Presenter _presenter;
+        private readonly Login2Presenter _presenter;
 
         private readonly string[] _timeMessages = {
             "sorry. this appears to be taking a while...",
-            "maybe it's time for a new server...",
-            "what is this, 2003! come on already...",
+            "just a little bit longer....",
+            "guess you're still running Windows XP?",
             "might as well go make yourself a cuppa..."
         };
 
@@ -38,7 +38,8 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new LoginView2Presenter(this);
+                _presenter = new Login2Presenter(this);
+                qmsWarningLabel.Visible = Session.QmsInUse;
             }
         }
 
@@ -132,6 +133,11 @@ namespace CPECentral.Views
 
                 Session.MessageBus.Publish(new EmployeeLoggedInMessage(employee));
             }
+        }
+
+        private void gaugesView1_GaugeSelected(object sender, CustomEventArgs.GaugeEventArgs e)
+        {
+            MessageBox.Show(e.Gauge.Name);
         }
     }
 }

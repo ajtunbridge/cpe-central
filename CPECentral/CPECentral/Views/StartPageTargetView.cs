@@ -24,7 +24,7 @@ namespace CPECentral.Views
 
         private readonly Color _mediumColorEnd = Color.Gold;
         private readonly Color _mediumColorStart = Color.LightGoldenrodYellow;
-        private readonly TurnoverTargetViewPresenter _presenter;
+        private readonly TurnoverTargetPresenter _presenter;
         private readonly Timer _refreshTimer;
 
         private readonly Color _targetReachedColorEnd = Color.LightGreen;
@@ -35,7 +35,7 @@ namespace CPECentral.Views
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new TurnoverTargetViewPresenter(this);
+                _presenter = new TurnoverTargetPresenter(this);
 
                 _refreshTimer = new Timer();
                 _refreshTimer.Interval = 3600000; // update every hour
@@ -50,12 +50,13 @@ namespace CPECentral.Views
 
         public void DisplayModel(TurnoverTargetViewModel model)
         {
+            Cursor = Cursors.Default;
+
+            updateNowLinkLabel.Enabled = true;
+
             currentMonthEasyProgressBar.Value = model.CurrentMonthProgress;
             lastMonthEasyProgressBar.Value = model.LastMonthProgress;
-
-            loadingPictureBox.Visible = false;
-
-            label4.Text = "updated at " + DateTime.Now.ToShortTimeString();
+            fiscalYearEasyProgressBar.Value = model.FiscalYearProgress;
 
             if (model.CurrentMonthProgress < 60) {
                 currentMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
@@ -70,7 +71,6 @@ namespace CPECentral.Views
                 currentMonthEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
             }
 
-
             if (model.LastMonthProgress < 60) {
                 lastMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
                 lastMonthEasyProgressBar.ProgressGradient.ColorEnd = _lowColorEnd;
@@ -83,6 +83,23 @@ namespace CPECentral.Views
                 lastMonthEasyProgressBar.ProgressGradient.ColorStart = _targetReachedColorStart;
                 lastMonthEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
             }
+
+
+            if (model.FiscalYearProgress < 60)
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _lowColorEnd;
+            }
+            else if (model.FiscalYearProgress >= 60 && model.FiscalYearProgress < 100)
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _mediumColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _mediumColorEnd;
+            }
+            else
+            {
+                fiscalYearEasyProgressBar.ProgressGradient.ColorStart = _targetReachedColorStart;
+                fiscalYearEasyProgressBar.ProgressGradient.ColorEnd = _targetReachedColorEnd;
+            }
         }
 
         #endregion
@@ -94,7 +111,11 @@ namespace CPECentral.Views
 
         private void OnRefreshData()
         {
-            loadingPictureBox.Visible = true;
+            currentMonthEasyProgressBar.Value = 0;
+            lastMonthEasyProgressBar.Value = 0;
+            fiscalYearEasyProgressBar.Value = 0;
+
+            updateNowLinkLabel.Enabled = false;
 
             EventHandler handler = RefreshData;
             if (handler != null) {
@@ -104,6 +125,13 @@ namespace CPECentral.Views
 
         private void TurnoverTargetView_Load(object sender, EventArgs e)
         {
+            OnRefreshData();
+        }
+
+        private void updateNowLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+
             OnRefreshData();
         }
     }

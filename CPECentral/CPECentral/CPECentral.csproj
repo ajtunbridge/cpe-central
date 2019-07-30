@@ -23,13 +23,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\SJCSRV1\Data\Central\ClickOnce\</InstallUrl>
+    <InstallUrl>\\CPE-SRV1\Data\Central\ClickOnce\</InstallUrl>
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.1.0.9</MinimumRequiredVersion>
-    <ApplicationRevision>10</ApplicationRevision>
-    <ApplicationVersion>3.1.0.%2a</ApplicationVersion>
+    <MinimumRequiredVersion>3.6.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>3.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -80,6 +80,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -96,20 +97,26 @@
   <ItemGroup>
     <Compile Include="AppSecurity.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Controls\NewVersionWarningPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NewVersionWarningPanel.Designer.cs">
+      <DependentUpon>NewVersionWarningPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Commands\DeleteMethodCommand.cs" />
     <Compile Include="Commands\DeleteOperationCommand.cs" />
     <Compile Include="Commands\NewVersionCommand.cs" />
-    <Compile Include="Controls\AvalonNcEditor2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\AvalonNcEditor2.Designer.cs">
-      <DependentUpon>AvalonNcEditor2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ClosableTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ClosableTabControl.Designer.cs">
       <DependentUpon>ClosableTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClosableTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ClosableTabPage.Designer.cs">
+      <DependentUpon>ClosableTabPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\FilePreviewPanel.cs">
       <SubType>UserControl</SubType>
@@ -153,11 +160,23 @@
     <Compile Include="Controls\OkayCancelFooter.Designer.cs">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AvalonNcEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AvalonNcEditor.Designer.cs">
+      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SettingsGeneralUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\SettingsGeneralUserControl.Designer.cs">
       <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SettingsMachinesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SettingsMachinesUserControl.Designer.cs">
+      <DependentUpon>SettingsMachinesUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SettingsPathsUserControl.cs">
       <SubType>UserControl</SubType>
@@ -177,13 +196,14 @@
     <Compile Include="Controls\TrianglePanel.Designer.cs">
       <DependentUpon>TrianglePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\VersionWarningPanel.cs">
+    <Compile Include="Controls\OldVersionWarningPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\VersionWarningPanel.Designer.cs">
-      <DependentUpon>VersionWarningPanel.cs</DependentUpon>
+    <Compile Include="Controls\OldVersionWarningPanel.Designer.cs">
+      <DependentUpon>OldVersionWarningPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Win32.cs" />
+    <Compile Include="CustomEventArgs\GaugeEventArgs.cs" />
     <Compile Include="CustomEventArgs\NonConformanceEventArgs.cs" />
     <Compile Include="CustomEventArgs\DocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\HolderEventArgs.cs" />
@@ -191,6 +211,7 @@
     <Compile Include="CustomEventArgs\MoveToolsToNewGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\OperationToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\StringEventArgs.cs" />
+    <Compile Include="CustomEventArgs\TimePeriodChangedEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolEventArgs.cs" />
     <Compile Include="CustomEventArgs\ToolGroupEventArgs.cs" />
     <Compile Include="CustomEventArgs\ExceptionEventArgs.cs" />
@@ -202,6 +223,12 @@
     <Compile Include="CustomEventArgs\PartEventArgs.cs" />
     <Compile Include="CustomEventArgs\RenameDocumentEventArgs.cs" />
     <Compile Include="CustomEventArgs\TransferStartedEventArgs.cs" />
+    <Compile Include="Dialogs\CalibrationShellDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CalibrationShellDialog.Designer.cs">
+      <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditOperationToolDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +277,12 @@
     <Compile Include="Dialogs\ImportMillingProgramDialog.Designer.cs">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\JobToolingRequirementsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\JobToolingRequirementsDialog.Designer.cs">
+      <DependentUpon>JobToolingRequirementsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MachineConfigurationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,17 +301,35 @@
     <Compile Include="Dialogs\NonConformanceViewerDialog.Designer.cs">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\OperationToolsEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\OperationToolsEditorDialog.Designer.cs">
+      <DependentUpon>OperationToolsEditorDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PhotoEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PhotoEditorDialog.Designer.cs">
+    <Compile Include="Dialogs\PhotoEditorDialog.designer.cs">
       <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SelectToolDialog.cs">
+    <Compile Include="Dialogs\PhotoViewerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\SelectToolDialog.Designer.cs">
-      <DependentUpon>SelectToolDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\PhotoViewerDialog.Designer.cs">
+      <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveMillingProgramDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveMillingProgramDialog.Designer.cs">
+      <DependentUpon>ReceiveMillingProgramDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveProgramDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReceiveProgramDialog.Designer.cs">
+      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SelectTricornMaterialDialog.cs">
       <SubType>Form</SubType>
@@ -316,17 +367,35 @@
     <Compile Include="Dialogs\EmployeeLoginDialog.Designer.cs">
       <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SuperDumpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SuperDumpDialog.Designer.cs">
+      <DependentUpon>SuperDumpDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ToolManagementDialog.Designer.cs">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectToolDialog.Designer.cs">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ToolSelectorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ToolSelectorDialog.Designer.cs">
       <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TransmitProgramDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TransmitProgramDialog.Designer.cs">
+      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="DocumentService.cs" />
     <Compile Include="Delegates\UpdateResultCallbackDelegate.cs" />
@@ -340,11 +409,10 @@
     <Compile Include="Messages\DocumentsChangedMessage.cs" />
     <Compile Include="Messages\EmployeeSwitchedMessage.cs" />
     <Compile Include="Messages\FavouriteMachinesChangedMessage.cs" />
+    <Compile Include="Messages\GaugeEditedMessage.cs" />
     <Compile Include="Messages\LoadPartMessage.cs" />
-    <Compile Include="Messages\OperationToolListChangedMessage.cs" />
     <Compile Include="Messages\PartVersionPhotoChangedMessage.cs" />
     <Compile Include="Messages\RecentPartsChangedMessage.cs" />
-    <Compile Include="Messages\SerialMachineLogUpdatedMessage.cs" />
     <Compile Include="Messages\ToolRenamedMessage.cs" />
     <Compile Include="Messages\PartAddedMessage.cs" />
     <Compile Include="Messages\PartEditedMessage.cs" />
@@ -353,34 +421,42 @@
     <Compile Include="NoFlicker.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="PartPhotoCache.cs" />
-    <Compile Include="Presenters\CheckStockLevelsViewPresenter.cs" />
-    <Compile Include="Presenters\DocumentsViewPresenter.cs" />
-    <Compile Include="Presenters\HoldersViewPresenter.cs" />
-    <Compile Include="Presenters\HolderToolsViewPresenter.cs" />
-    <Compile Include="Presenters\LoginView2Presenter.cs" />
-    <Compile Include="Presenters\MainViewPresenter.cs" />
-    <Compile Include="Presenters\SerialMachineTransferViewPresenter.cs" />
-    <Compile Include="Presenters\NonConformanceSelectorViewPresenter.cs" />
-    <Compile Include="Presenters\OperationsViewPresenter.cs" />
-    <Compile Include="Presenters\OperationToolsViewPresenter.cs" />
-    <Compile Include="Presenters\PartInformationViewPresenter.cs" />
-    <Compile Include="Presenters\PartLibraryViewPresenter.cs" />
-    <Compile Include="Presenters\PartViewPresenter.cs" />
-    <Compile Include="Presenters\PartWorksOrdersViewPresenter.cs" />
-    <Compile Include="Presenters\StartPageFindToolBoxViewPresenter.cs" />
-    <Compile Include="Presenters\StartPageUserInfoViewPresenter.cs" />
-    <Compile Include="Presenters\StockLevelsViewPresenter.cs" />
-    <Compile Include="Presenters\ToolGroupsViewPresenter.cs" />
-    <Compile Include="Presenters\ToolSelectorViewPresenter.cs" />
-    <Compile Include="Presenters\ToolsViewPresenter.cs" />
-    <Compile Include="Presenters\TurnoverTargetViewPresenter.cs" />
+    <Compile Include="Presenters\CheckStockLevelsPresenter.cs" />
+    <Compile Include="Presenters\Quality\CalibrationResultsPresenter.cs" />
+    <Compile Include="Presenters\Quality\ComplaintTrendsPresenter.cs" />
+    <Compile Include="Presenters\DocumentsPresenter.cs" />
+    <Compile Include="Presenters\GaugesPresenter.cs" />
+    <Compile Include="Presenters\HoldersPresenter.cs" />
+    <Compile Include="Presenters\HolderToolsPresenter.cs" />
+    <Compile Include="Presenters\Login2Presenter.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Presenters\NonConformanceSelectorPresenter.cs" />
+    <Compile Include="Presenters\OperationsPresenter.cs" />
+    <Compile Include="Presenters\OperationToolsPresenter.cs" />
+    <Compile Include="Presenters\PartInformationPresenter.cs" />
+    <Compile Include="Presenters\PartLibraryPresenter.cs" />
+    <Compile Include="Presenters\PartPresenter.cs" />
+    <Compile Include="Presenters\PartWorksOrdersPresenter.cs" />
+    <Compile Include="Presenters\ComplaintStatisticsPresenter.cs" />
+    <Compile Include="Presenters\Quality\GaugeDetailPresenter.cs" />
+    <Compile Include="Presenters\Quality\GaugesPresenter.cs" />
+    <Compile Include="Presenters\StartPageFindToolBoxPresenter.cs" />
+    <Compile Include="Presenters\StartPageUserInfoPresenter.cs" />
+    <Compile Include="Presenters\StockLevelsPresenter.cs" />
+    <Compile Include="Presenters\ToolGroupsPresenter.cs" />
+    <Compile Include="Presenters\ToolSelectorPresenter.cs" />
+    <Compile Include="Presenters\ToolsPresenter.cs" />
+    <Compile Include="Presenters\TurnoverGraphPresenter.cs" />
+    <Compile Include="Presenters\TurnoverTargetPresenter.cs" />
+    <Compile Include="Presenters\WorkCentreSchedulePresenter.cs" />
     <Compile Include="PreviewPopoutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PreviewPopoutForm.Designer.cs">
       <DependentUpon>PreviewPopoutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="QMS\Model\NonConformance.cs" />
+    <Compile Include="QMS\Model\Gauge.cs" />
+    <Compile Include="QMS\Model\Complaint.cs" />
     <Compile Include="QMS\QMSDataProvider.cs" />
     <Compile Include="StandardDialogService.cs" />
     <Compile Include="MainForm.cs">
@@ -391,7 +467,7 @@
     </Compile>
     <Compile Include="Messages\EmployeeLoggedOutMessage.cs" />
     <Compile Include="Messages\EmployeeLoggedInMessage.cs" />
-    <Compile Include="Presenters\LoginViewPresenter.cs" />
+    <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
@@ -400,6 +476,12 @@
     </Compile>
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToastNotificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToastNotificationForm.Designer.cs">
+      <DependentUpon>ToastNotificationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolGenerator.cs" />
     <Compile Include="ViewModels\CheckStockLevelsViewModel.cs" />
@@ -410,33 +492,69 @@
     <Compile Include="ViewModels\PartLibraryViewModel.cs" />
     <Compile Include="ViewModels\PartViewModel.cs" />
     <Compile Include="ViewModels\PartWorksOrdersViewModel.cs" />
+    <Compile Include="ViewModels\ComplaintStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\Quality\CalibrationResultsViewModel.cs" />
+    <Compile Include="ViewModels\Quality\GaugeDetailViewModel.cs" />
+    <Compile Include="ViewModels\Quality\GaugesViewModel.cs" />
     <Compile Include="ViewModels\RecentPartsViewModel.cs" />
     <Compile Include="ViewModels\StartPageFindToolBoxView.cs" />
     <Compile Include="ViewModels\StockLevelsViewModel.cs" />
+    <Compile Include="ViewModels\TurnoverGraphViewModel.cs" />
     <Compile Include="ViewModels\TurnoverTargetViewModel.cs" />
+    <Compile Include="ViewModels\WorkCentreScheduleViewModel.cs" />
+    <Compile Include="Views\Quality\CalibrationResultsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\CalibrationResultsView.Designer.cs">
+      <DependentUpon>CalibrationResultsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\ComplaintTrendsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\ComplaintTrendsView.Designer.cs">
+      <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeeSessionView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EmployeeSessionView2.Designer.cs">
+      <DependentUpon>EmployeeSessionView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView2.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\LoginView2.Designer.cs">
       <DependentUpon>LoginView2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\NcProgrammingView.cs">
+    <Compile Include="Views\MachineTransferQueueView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\NcProgrammingView.Designer.cs">
-      <DependentUpon>NcProgrammingView.cs</DependentUpon>
+    <Compile Include="Views\MachineTransferQueueView.Designer.cs">
+      <DependentUpon>MachineTransferQueueView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PartView2.cs">
+    <Compile Include="Views\MachineTransferView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\PartView2.Designer.cs">
-      <DependentUpon>PartView2.cs</DependentUpon>
+    <Compile Include="Views\MachineTransferView.Designer.cs">
+      <DependentUpon>MachineTransferView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SerialMachineTransferView.cs">
+    <Compile Include="Views\MachineView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SerialMachineTransferView.Designer.cs">
-      <DependentUpon>SerialMachineTransferView.cs</DependentUpon>
+    <Compile Include="Views\MachineView.Designer.cs">
+      <DependentUpon>MachineView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaintenanceMachineView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MaintenanceMachineView.Designer.cs">
+      <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComplaintStatisticsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ComplaintStatisticsView.Designer.cs">
+      <DependentUpon>ComplaintStatisticsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\NonConformanceSelectorView.cs">
       <SubType>UserControl</SubType>
@@ -444,17 +562,89 @@
     <Compile Include="Views\NonConformanceSelectorView.Designer.cs">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\NonConformancesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NonConformancesView.Designer.cs">
+      <DependentUpon>NonConformancesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\NonConformanceView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\NonConformanceView.Designer.cs">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\OperationToolsView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\OperationToolsView2.Designer.cs">
+      <DependentUpon>OperationToolsView2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PartWorksOrdersView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\PartWorksOrdersView.Designer.cs">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgramEditorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ProgramEditorView.Designer.cs">
+      <DependentUpon>ProgramEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GaugesViewOld.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\GaugesViewOld.Designer.cs">
+      <DependentUpon>GaugesViewOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDataView.Designer.cs">
+      <DependentUpon>GaugeDataView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDetailView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeDetailView.Designer.cs">
+      <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\MicrometerCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\MicrometerCalibrationView.Designer.cs">
+      <DependentUpon>MicrometerCalibrationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\VernierCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\VernierCalibrationView.Designer.cs">
+      <DependentUpon>VernierCalibrationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\QMSView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\QMSView.Designer.cs">
+      <DependentUpon>QMSView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeManagementView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugeManagementView.Designer.cs">
+      <DependentUpon>GaugeManagementView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Quality\GaugesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Quality\GaugesView.Designer.cs">
+      <DependentUpon>GaugesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageCalibrationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageCalibrationView.Designer.cs">
+      <DependentUpon>StartPageCalibrationView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageCheckStockView.cs">
       <SubType>UserControl</SubType>
@@ -559,6 +749,12 @@
     <Compile Include="Views\StartPageFindToolBoxView.Designer.cs">
       <DependentUpon>StartPageFindToolBoxView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\StartPageThreadCalculatorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StartPageThreadCalculatorView.Designer.cs">
+      <DependentUpon>StartPageThreadCalculatorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StartPageUserInfoView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -595,7 +791,7 @@
     <Compile Include="Views\ToolGroupsView.Designer.cs">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewBase.cs">
+    <Compile Include="Views\ViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ToolSelectorView.cs">
@@ -610,15 +806,24 @@
     <Compile Include="Views\ToolsView.Designer.cs">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\TurnoverGraphView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\TurnoverGraphView.Designer.cs">
+      <DependentUpon>TurnoverGraphView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkCentreScheduleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WorkCentreScheduleView.Designer.cs">
+      <DependentUpon>WorkCentreScheduleView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorksOrderView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\WorksOrderView.Designer.cs">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\AvalonNcEditor2.resx">
-      <DependentUpon>AvalonNcEditor2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ClosableTabControl.resx">
       <DependentUpon>ClosableTabControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -643,8 +848,17 @@
     <EmbeddedResource Include="Controls\OkayCancelFooter.resx">
       <DependentUpon>OkayCancelFooter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AvalonNcEditor.resx">
+      <DependentUpon>AvalonNcEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NewVersionWarningPanel.resx">
+      <DependentUpon>NewVersionWarningPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsGeneralUserControl.resx">
       <DependentUpon>SettingsGeneralUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SettingsMachinesUserControl.resx">
+      <DependentUpon>SettingsMachinesUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsPathsUserControl.resx">
       <DependentUpon>SettingsPathsUserControl.cs</DependentUpon>
@@ -652,8 +866,11 @@
     <EmbeddedResource Include="Controls\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\VersionWarningPanel.resx">
-      <DependentUpon>VersionWarningPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\OldVersionWarningPanel.resx">
+      <DependentUpon>OldVersionWarningPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CalibrationShellDialog.resx">
+      <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditOperationToolDialog.resx">
       <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
@@ -676,6 +893,9 @@
     <EmbeddedResource Include="Dialogs\ImportMillingProgramDialog.resx">
       <DependentUpon>ImportMillingProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\JobToolingRequirementsDialog.resx">
+      <DependentUpon>JobToolingRequirementsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\MachineConfigurationDialog.resx">
       <DependentUpon>MachineConfigurationDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -685,11 +905,20 @@
     <EmbeddedResource Include="Dialogs\NonConformanceViewerDialog.resx">
       <DependentUpon>NonConformanceViewerDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\OperationToolsEditorDialog.resx">
+      <DependentUpon>OperationToolsEditorDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PhotoEditorDialog.resx">
       <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
-      <DependentUpon>SelectToolDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\PhotoViewerDialog.resx">
+      <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ReceiveMillingProgramDialog.resx">
+      <DependentUpon>ReceiveMillingProgramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ReceiveProgramDialog.resx">
+      <DependentUpon>ReceiveProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectTricornMaterialDialog.resx">
       <DependentUpon>SelectTricornMaterialDialog.cs</DependentUpon>
@@ -709,11 +938,20 @@
     <EmbeddedResource Include="Dialogs\EmployeeLoginDialog.resx">
       <DependentUpon>EmployeeLoginDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SuperDumpDialog.resx">
+      <DependentUpon>SuperDumpDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolManagementDialog.resx">
       <DependentUpon>ToolManagementDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectToolDialog.resx">
+      <DependentUpon>SelectToolDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ToolSelectorDialog.resx">
       <DependentUpon>ToolSelectorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\TransmitProgramDialog.resx">
+      <DependentUpon>TransmitProgramDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImagePopupForm.resx">
       <DependentUpon>ImagePopupForm.cs</DependentUpon>
@@ -737,17 +975,35 @@
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToastNotificationForm.resx">
+      <DependentUpon>ToastNotificationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\CalibrationResultsView.resx">
+      <DependentUpon>CalibrationResultsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\ComplaintTrendsView.resx">
+      <DependentUpon>ComplaintTrendsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EmployeeSessionView2.resx">
+      <DependentUpon>EmployeeSessionView2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginView2.resx">
       <DependentUpon>LoginView2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\NcProgrammingView.resx">
-      <DependentUpon>NcProgrammingView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MachineTransferQueueView.resx">
+      <DependentUpon>MachineTransferQueueView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PartView2.resx">
-      <DependentUpon>PartView2.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MachineTransferView.resx">
+      <DependentUpon>MachineTransferView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SerialMachineTransferView.resx">
-      <DependentUpon>SerialMachineTransferView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MachineView.resx">
+      <DependentUpon>MachineView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MaintenanceMachineView.resx">
+      <DependentUpon>MaintenanceMachineView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ComplaintStatisticsView.resx">
+      <DependentUpon>ComplaintStatisticsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NonConformanceSelectorView.resx">
       <DependentUpon>NonConformanceSelectorView.cs</DependentUpon>
@@ -755,8 +1011,38 @@
     <EmbeddedResource Include="Views\NonConformanceView.resx">
       <DependentUpon>NonConformanceView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\OperationToolsView2.resx">
+      <DependentUpon>OperationToolsView2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PartWorksOrdersView.resx">
       <DependentUpon>PartWorksOrdersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProgramEditorView.resx">
+      <DependentUpon>ProgramEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\GaugesViewOld.resx">
+      <DependentUpon>GaugesViewOld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugeDataView.resx">
+      <DependentUpon>GaugeDataView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugeDetailView.resx">
+      <DependentUpon>GaugeDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\MicrometerCalibrationView.resx">
+      <DependentUpon>MicrometerCalibrationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\VernierCalibrationView.resx">
+      <DependentUpon>VernierCalibrationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\QMSView.resx">
+      <DependentUpon>QMSView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugeManagementView.resx">
+      <DependentUpon>GaugeManagementView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Quality\GaugesView.resx">
+      <DependentUpon>GaugesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StartPageCheckStockView.resx">
       <DependentUpon>StartPageCheckStockView.cs</DependentUpon>
@@ -827,7 +1113,7 @@
     <EmbeddedResource Include="Views\ToolGroupsView.resx">
       <DependentUpon>ToolGroupsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ViewBase.resx">
+    <EmbeddedResource Include="Views\ViewBase.resx">
       <DependentUpon>ViewBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolSelectorView.resx">
@@ -836,10 +1122,16 @@
     <EmbeddedResource Include="Views\ToolsView.resx">
       <DependentUpon>ToolsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\TurnoverGraphView.resx">
+      <DependentUpon>TurnoverGraphView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WorkCentreScheduleView.resx">
+      <DependentUpon>WorkCentreScheduleView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\WorksOrderView.resx">
       <DependentUpon>WorksOrderView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config.home">
+    <None Include="App.config.local">
       <SubType>Designer</SubType>
     </None>
     <None Include="App.config">
@@ -983,6 +1275,21 @@
     <Content Include="CncLanguages\config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="milling_machines.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\PooPlop.wav" />
+    <None Include="Resources\ToiletFlushing.wav" />
+    <None Include="Resources\AhhYeah.wav" />
+    <None Include="Resources\ThatFeltGood.wav" />
+    <None Include="Resources\SuperDumpLogo.png" />
+    <None Include="Resources\SuperDump_06.wav" />
+    <None Include="Resources\SuperDump_05.wav" />
+    <None Include="Resources\SuperDump_04.wav" />
+    <None Include="Resources\SuperDump_03.wav" />
+    <None Include="Resources\SuperDump_02.wav" />
+    <None Include="Resources\SuperDump_01.wav" />
+    <None Include="Resources\SettingsIcon_32x32.png" />
     <None Include="Resources\SaveIcon_32x32.png" />
     <None Include="Resources\RefreshIcon_32x32.png" />
     <None Include="Resources\CropIcon_32x32.png" />
@@ -1005,7 +1312,9 @@
     <None Include="Resources\MachineTransferQueueIcon_32x32.png" />
     <None Include="Resources\NoMachineImageAvailable.jpg" />
     <None Include="Resources\NonConformanceIcon_32x32.png" />
-    <None Include="QMS DATABASE2008.mdb" />
+    <None Include="QMS DATABASE2008.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\WarningIcon_32x32.png" />
     <None Include="Resources\LoginHeader4.jpg" />
     <None Include="Resources\PartViewIcon_32x32.png" />
@@ -1076,6 +1385,9 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

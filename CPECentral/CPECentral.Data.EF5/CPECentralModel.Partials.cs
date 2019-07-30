@@ -6,6 +6,80 @@ using System;
 
 namespace CPECentral.Data.EF5
 {
+    public partial class CalibrationMethod : IEntity, IEquatable<CalibrationMethod>
+    {
+        public override string ToString()
+        {
+            return Description;
+        }
+
+        public bool Equals(CalibrationMethod other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        public static bool operator ==(CalibrationMethod left, CalibrationMethod right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(CalibrationMethod left, CalibrationMethod right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((CalibrationMethod) obj);
+        }
+    }
+
+    public partial class CalibrationResult : IEntity, IEquatable<CalibrationResult>
+    {
+        public bool Equals(CalibrationResult other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return GaugeId == other.GaugeId && CalibratedOn.Equals(other.CalibratedOn);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (GaugeId*397) ^ CalibratedOn.GetHashCode();
+            }
+        }
+
+        public static bool operator ==(CalibrationResult left, CalibrationResult right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(CalibrationResult left, CalibrationResult right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((CalibrationResult) obj);
+        }
+    }
+
     public partial class ClientSetting : IEntity, IEquatable<ClientSetting>
     {
         public bool Equals(ClientSetting other)
@@ -290,6 +364,118 @@ namespace CPECentral.Data.EF5
         public override string ToString()
         {
             return Name;
+        }
+    }
+
+    public partial class EmployeeWorkCentre : IEntity, IEquatable<EmployeeWorkCentre>
+    {
+        public bool Equals(EmployeeWorkCentre other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return EmployeeId == other.EmployeeId && WCentreId == other.WCentreId;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (EmployeeId*397) ^ WCentreId;
+            }
+        }
+
+        public static bool operator ==(EmployeeWorkCentre left, EmployeeWorkCentre right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EmployeeWorkCentre left, EmployeeWorkCentre right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EmployeeWorkCentre) obj);
+        }
+    }
+
+    public partial class Gauge : IEntity, IEquatable<Gauge>
+    {
+        public bool Equals(Gauge other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(Reference, other.Reference);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Reference != null ? Reference.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(Gauge left, Gauge right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Gauge left, Gauge right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Gauge) obj);
+        }
+    }
+
+    public partial class GaugeType : IEntity, IEquatable<GaugeType>
+    {
+        public bool Equals(GaugeType other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(Name, other.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Name != null ? Name.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(GaugeType left, GaugeType right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(GaugeType left, GaugeType right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GaugeType) obj);
         }
     }
 

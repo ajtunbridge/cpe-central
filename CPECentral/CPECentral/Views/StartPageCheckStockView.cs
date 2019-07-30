@@ -20,14 +20,14 @@ namespace CPECentral.Views
 
     public partial class StartPageCheckStockView : ViewBase, ICheckStockLevelsView
     {
-        private readonly CheckStockLevelsViewPresenter _presenter;
+        private readonly CheckStockLevelsPresenter _presenter;
 
         public StartPageCheckStockView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new CheckStockLevelsViewPresenter(this);
+                _presenter = new CheckStockLevelsPresenter(this);
                 resultsTreeListView.SmallImageList.Images.Add("parent", Resources.FolderClosedIcon_16x16);
                 resultsTreeListView.SmallImageList.Images.Add("child", Resources.GenericFileIcon);
                 nameBatchNumberOlvColumn.ImageGetter = ImageGetter;

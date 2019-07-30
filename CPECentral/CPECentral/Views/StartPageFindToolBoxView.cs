@@ -17,14 +17,14 @@ namespace CPECentral.Views
 
     public partial class StartPageFindToolBoxView : ViewBase, IStartPageFindToolBoxView
     {
-        private readonly StartPageFindToolBoxViewPresenter _presenter;
+        private readonly StartPageFindToolBoxPresenter _presenter;
 
         public StartPageFindToolBoxView()
         {
             InitializeComponent();
 
             if (!IsInDesignMode) {
-                _presenter = new StartPageFindToolBoxViewPresenter(this);
+                _presenter = new StartPageFindToolBoxPresenter(this);
             }
         }
 

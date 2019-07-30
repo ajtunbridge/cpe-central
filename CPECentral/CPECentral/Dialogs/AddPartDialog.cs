@@ -8,10 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CPECentral.Data.EF5;
+using CPECentral.Messages;
 using CPECentral.Properties;
 using nGenLibrary;
 using Tricorn;
 using Customer = CPECentral.Data.EF5.Customer;
+using Part = CPECentral.Data.EF5.Part;
 
 #endregion
 
@@ -169,7 +171,75 @@ namespace CPECentral.Dialogs
                 return;
             }
 
-            DialogResult = DialogResult.OK;
+            try
+            {
+                using (BusyCursor.Show())
+                {
+                    using (var cpe = new CPEUnitOfWork())
+                    {
+                        cpe.BeginTransaction();
+
+                        var part = new Part();
+
+                        if (IsNewCustomer)
+                        {
+                            var customer = new Customer();
+                            customer.Name = NewCustomerName;
+                            customer.CreatedBy = Session.CurrentEmployee.Id;
+                            customer.ModifiedBy = Session.CurrentEmployee.Id;
+
+                            cpe.Customers.Add(customer);
+
+                            part.Customer = customer;
+                        }
+                        else
+                        {
+                            part.CustomerId = SelectedCustomer.Id;
+                        }
+
+                        part.DrawingNumber = DrawingNumber;
+                        part.Name = PartName;
+                        part.ToolingLocation = ToolingLocation;
+                        part.CreatedBy = Session.CurrentEmployee.Id;
+                        part.ModifiedBy = Session.CurrentEmployee.Id;
+
+                        cpe.Parts.Add(part);
+
+                        var version = new PartVersion();
+                        version.Part = part;
+                        version.VersionNumber = VersionNumber;
+                        version.CreatedBy = Session.CurrentEmployee.Id;
+                        version.ModifiedBy = Session.CurrentEmployee.Id;
+
+                        cpe.PartVersions.Add(version);
+
+                        cpe.Commit();
+
+                        Session.MessageBus.Publish(new PartAddedMessage(part));
+
+                        foreach (string file in FilesToImport)
+                        {
+                            Session.DocumentService.QueueUpload(file, version);
+                        }
+
+                        Session.MessageBus.Publish(new LoadPartMessage(part));
+
+                        DialogResult = DialogResult.OK;
+                    }
+                }
+            }
+            catch (DataProviderException dataEx)
+            {
+                string msg = dataEx.Error == DataProviderError.UniqueConstraintViolation
+                    ? "A part with these details already exists in the system!"
+                    : dataEx.Message;
+                _dialogService.ShowError(msg);
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                _dialogService.ShowError(msg);
+            }
         }
 
         private void OkayCancelFooter_CancelClicked(object sender, EventArgs e)

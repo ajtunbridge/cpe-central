@@ -48,7 +48,7 @@ namespace CPECentral.Views
 
     public partial class DocumentsView : ViewBase, IDocumentsView
     {
-        private readonly DocumentsViewPresenter _presenter;
+        private readonly DocumentsPresenter _presenter;
         private bool _currentlySelecting;
         private OperationType _opType;
 
@@ -59,7 +59,7 @@ namespace CPECentral.Views
             base.Font = Session.AppFont;
 
             if (!IsInDesignMode) {
-                _presenter = new DocumentsViewPresenter(this);
+                _presenter = new DocumentsPresenter(this);
                 filesListView.View = Settings.Default.PreferredDocumentsViewStyle;
                 Session.MessageBus.Subscribe<DocumentsChangedMessage>(DocumentsChangedMessage_Published);
             }
@@ -71,7 +71,7 @@ namespace CPECentral.Views
 
         public IEnumerable<Document> SelectedDocuments
         {
-            get { return from ListViewItem item in filesListView.SelectedItems select item.Tag as Document; }
+            get { return from ListViewItem item in filesListView.SelectedItems select (item.Tag as DocumentModel).Document; }
         }
 
         public int SelectionCount
@@ -115,7 +115,7 @@ namespace CPECentral.Views
                                                        _opType == OperationType.CncTurning;
 
             foreach (DocumentModel documentModel in model.DocumentModels) {
-                filesListView.AddFile(documentModel.FileName, documentModel.Document);
+                filesListView.AddFile(documentModel.FileName, documentModel);
             }
 
             toolStrip.Enabled = true;
@@ -306,14 +306,14 @@ namespace CPECentral.Views
             OnSelectionChanged();
 
             if (selectionCount == 1) {
-                var doc = filesListView.SelectedItems[0].Tag as Document;
-                var extension = Path.GetExtension(doc.FileName);
+                var docModel = filesListView.SelectedItems[0].Tag as DocumentModel;
+                var extension = Path.GetExtension(docModel.Document.FileName);
 
                 string[] validTextExtensions = Settings.Default.TextFileExtensions.Split(new[] { "|" },
                     StringSplitOptions.None);
 
                 if (validTextExtensions.Any(textExt => textExt.Equals(extension, StringComparison.OrdinalIgnoreCase))) {
-                    OnTextFileSelected(new DocumentEventArgs(doc));
+                    OnTextFileSelected(new DocumentEventArgs(docModel.Document));
                 }
             }
         }
@@ -381,9 +381,9 @@ namespace CPECentral.Views
                 return;
             }
 
-            var document = filesListView.Items[e.Item].Tag as Document;
+            var document = filesListView.Items[e.Item].Tag as DocumentModel;
 
-            OnRenameDocument(new RenameDocumentEventArgs(document, e.Label));
+            OnRenameDocument(new RenameDocumentEventArgs(document.Document, e.Label));
 
             OnRefreshDocuments();
         }
@@ -427,6 +427,26 @@ namespace CPECentral.Views
             StringCollection fileNames = Clipboard.GetFileDropList();
 
             pasteToolStripMenuItem.Enabled = fileNames.Count > 0;
+        }
+
+        private void filesListView_DragLeave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filesListView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            List<string> selection = new List<string>();
+
+            foreach (ListViewItem item in filesListView.SelectedItems)
+            {
+                var model = item.Tag as DocumentModel;
+
+                selection.Add(model.FileName);
+            }
+
+            DataObject data = new DataObject(DataFormats.FileDrop, selection.ToArray());
+            DoDragDrop(data, DragDropEffects.Copy);
         }
     }
 }
