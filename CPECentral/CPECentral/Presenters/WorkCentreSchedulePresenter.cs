@@ -105,13 +105,25 @@ namespace CPECentral.Presenters
         {
             using (var cpe = new CPEUnitOfWork())
             {
-                var workCentres = cpe.EmployeeWorkCentres.GetEmployeeWorkCentreReferences(Session.CurrentEmployee.Id);
+                var wcIds = cpe.EmployeeWorkCentres.GetEmployeeWorkCentreReferences(Session.CurrentEmployee.Id);
 
                 using (var tricorn = new TricornDataProvider())
                 {
-                    var wc = tricorn.GetWorkCentres();
+                    var workCentres = tricorn.GetWorkCentres();
 
-                    var machines = workCentres.Select(id => wc.Single(w => w.WCentre_Reference == id)).ToList();
+                    /// var machines = wcIds.Select(id => workCentres.Single(w => w.WCentre_Reference == id)).ToList();
+
+                    var machines = new List<WCentre>();
+
+                    foreach (var wcId in wcIds)
+                    {
+                        var machine = workCentres.SingleOrDefault(wc => wc.WCentre_Reference == wcId);
+
+                        if (machine == null)
+                            continue;
+
+                        machines.Add(machine);
+                    }
 
                     e.Result = machines.OrderBy(m => m.Name);
                 }
