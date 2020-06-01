@@ -280,6 +280,10 @@ namespace CPECentral.Data.EF5
             return Equals((Employee) obj);
         }
 
+        /// <summary>
+        /// Returns a concatenation of this employee's first and last names
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return FirstName + " " + LastName;
@@ -897,6 +901,22 @@ namespace CPECentral.Data.EF5
         public override string ToString()
         {
             return DrawingNumber;
+        }
+    }
+
+    public partial class PartAlert : IEntity, IEquatable<PartAlert>
+    {
+        public bool Equals(PartAlert other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Id == other.Id;
         }
     }
 

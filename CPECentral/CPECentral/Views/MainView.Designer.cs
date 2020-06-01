@@ -38,6 +38,8 @@
             this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.superDumpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.logoutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.documentTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.documentTransferStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.documentTransferToolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -63,6 +65,8 @@
             this.toolStripSeparator4,
             this.settingsToolStripButton,
             this.toolStripSeparator2,
+            this.logoutToolStripButton,
+            this.toolStripSeparator3,
             this.superDumpToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
@@ -107,7 +111,7 @@
             this.toolManagementToolStripButton.Image = global::CPECentral.Properties.Resources.StartPageFindToolBoxViewIcon_32x32;
             this.toolManagementToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolManagementToolStripButton.Name = "toolManagementToolStripButton";
-            this.toolManagementToolStripButton.Size = new System.Drawing.Size(147, 47);
+            this.toolManagementToolStripButton.Size = new System.Drawing.Size(145, 47);
             this.toolManagementToolStripButton.Text = "  Tool management";
             // 
             // toolStripSeparator4
@@ -135,6 +139,21 @@
             this.superDumpToolStripButton.Name = "superDumpToolStripButton";
             this.superDumpToolStripButton.Size = new System.Drawing.Size(115, 47);
             this.superDumpToolStripButton.Text = "SuperDump™";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 50);
+            // 
+            // logoutToolStripButton
+            // 
+            this.logoutToolStripButton.Image = global::CPECentral.Properties.Resources.LogoutIcon_32x32;
+            this.logoutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.logoutToolStripButton.Name = "logoutToolStripButton";
+            this.logoutToolStripButton.Size = new System.Drawing.Size(81, 47);
+            this.logoutToolStripButton.Text = "Logout";
+            this.logoutToolStripButton.ToolTipText = "Logout of your session";
+            this.logoutToolStripButton.Click += new System.EventHandler(this.logoutToolStripButton_Click);
             // 
             // documentTransferStatusStrip
             // 
@@ -225,5 +244,7 @@
         private System.Windows.Forms.ToolStripButton superDumpToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton logoutToolStripButton;
     }
 }

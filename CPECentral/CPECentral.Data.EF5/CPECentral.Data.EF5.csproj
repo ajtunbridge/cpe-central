@@ -149,6 +149,9 @@
     <Compile Include="Part.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartAlert.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PartVersion.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -179,6 +182,7 @@
     <Compile Include="Repositories\MethodRepository.cs" />
     <Compile Include="Repositories\OperationRepository.cs" />
     <Compile Include="Repositories\OperationToolRepository.cs" />
+    <Compile Include="Repositories\PartAlertsRepository.cs" />
     <Compile Include="Repositories\PartRepository.cs" />
     <Compile Include="Repositories\PartVersionRepository.cs" />
     <Compile Include="Repositories\PhotoRepository.cs" />

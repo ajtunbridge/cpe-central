@@ -185,9 +185,6 @@ namespace CPECentral.Views
                 case "toolManagementToolStripButton":
                     OnLoadToolManagementDialog();
                     break;
-                case "logoutToolStripButton":
-                    HandleLogout();
-                    break;
                 case "settingsToolStripButton":
                     OnLoadSettingsDialog();
                     break;
@@ -199,17 +196,18 @@ namespace CPECentral.Views
 
         private void HandleLogout()
         {
-            if (!DialogService.AskQuestion("Are you sure you want to logout?")) {
+            if (MessageBox.Show("Are you sure you want to end your session?", "Confirm logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                != DialogResult.Yes)
+            {
                 return;
             }
-
-            Session.CurrentEmployee = null;
 
             Session.MessageBus.Publish<EmployeeLoggedOutMessage>();
         }
 
         private void logoutToolStripButton_Click(object sender, EventArgs e)
         {
+            HandleLogout();
         }
 
         private void MainView2_Load(object sender, EventArgs e)

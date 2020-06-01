@@ -26,7 +26,7 @@ namespace CPECentral.Presenters
             _partInformationView.ReloadData += PartInformationView_ReloadData;
             _partInformationView.SaveChanges += _partInformationView_SaveChanges;
             _partInformationView.CreateNewVersion += _partInformationView_CreateNewVersion;
-            _partInformationView.RaiseNcr += _partInformationView_RaiseNcr;
+            _partInformationView.ShowPartAlerts += _partInformationView_ShowAlerts;
         }
 
         private void _partInformationView_CreateNewVersion(object sender, EventArgs e)
@@ -82,11 +82,18 @@ namespace CPECentral.Presenters
             }
         }
 
-        private void _partInformationView_RaiseNcr(object sender, EventArgs e)
+        private void _partInformationView_ShowAlerts(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true))
             {
                 return;
+            }
+
+            using (var dialog = new PartAlertsDialog(_partInformationView.Part))
+            {
+                dialog.ShowDialog();
+
+                _partInformationView.UpdatePartAlerts(dialog.HasAlerts);
             }
         }
 
@@ -160,7 +167,7 @@ namespace CPECentral.Presenters
                         model.Name = part.Name;
                         model.ToolingLocation = part.ToolingLocation;
                         model.ReadOnly = !AppSecurity.Check(AppPermission.ManageParts, false);
-
+                        model.PartHasAlerts = cpe.PartsAlerts.HasAlerts(part);
                         e.Result = model;
                     }
                 }

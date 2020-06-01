@@ -27,6 +27,8 @@ public partial class Part
 
         this.RecentParts = new HashSet<RecentPart>();
 
+        this.PartAlerts = new HashSet<PartAlert>();
+
     }
 
 
@@ -53,6 +55,8 @@ public partial class Part
     public virtual ICollection<PartVersion> PartVersions { get; set; }
 
     public virtual ICollection<RecentPart> RecentParts { get; set; }
+
+    public virtual ICollection<PartAlert> PartAlerts { get; set; }
 
 }
 

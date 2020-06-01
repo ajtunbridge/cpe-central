@@ -236,6 +236,16 @@
           <Property Name="HolderId" Type="int" />
           <Property Name="ToolId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PartAlerts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="PartId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Parts">
           <Key>
             <PropertyRef Name="Id" />
@@ -591,6 +601,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PartAlerts_Parts">
+          <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+          <End Role="PartAlerts" Type="Self.PartAlerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartAlerts">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Parts_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
@@ -698,6 +720,7 @@
           <EntitySet Name="NonConformanceTypes" EntityType="Self.NonConformanceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OperationTools" EntityType="Self.OperationTools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartAlerts" EntityType="Self.PartAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartVersions" EntityType="Self.PartVersions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
@@ -794,6 +817,10 @@
           <AssociationSet Name="FK_OperationTools_Tools" Association="Self.FK_OperationTools_Tools">
             <End Role="Tools" EntitySet="Tools" />
             <End Role="OperationTools" EntitySet="OperationTools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartAlerts_Parts" Association="Self.FK_PartAlerts_Parts">
+            <End Role="Parts" EntitySet="Parts" />
+            <End Role="PartAlerts" EntitySet="PartAlerts" />
           </AssociationSet>
           <AssociationSet Name="FK_Parts_Customers" Association="Self.FK_Parts_Customers">
             <End Role="Customers" EntitySet="Customers" />
@@ -975,6 +1002,11 @@
           <AssociationSet Name="FK_TricornTools_Tools" Association="CPECentralModel.FK_TricornTools_Tools">
             <End Role="Tool" EntitySet="Tools" />
             <End Role="TricornTool" EntitySet="TricornTools" />
+          </AssociationSet>
+          <EntitySet Name="PartAlerts" EntityType="CPECentralModel.PartAlert" />
+          <AssociationSet Name="FK_PartAlerts_Parts" Association="CPECentralModel.FK_PartAlerts_Parts">
+            <End Role="Part" EntitySet="Parts" />
+            <End Role="PartAlert" EntitySet="PartAlerts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CalibrationMethod">
@@ -1262,6 +1294,7 @@
           <NavigationProperty Name="Documents" Relationship="CPECentralModel.FK_Documents_Parts" FromRole="Part" ToRole="Document" />
           <NavigationProperty Name="PartVersions" Relationship="CPECentralModel.FK_PartVersions_Parts" FromRole="Part" ToRole="PartVersion" />
           <NavigationProperty Name="RecentParts" Relationship="CPECentralModel.FK_RecentParts_Parts" FromRole="Part" ToRole="RecentPart" />
+          <NavigationProperty Name="PartAlerts" Relationship="CPECentralModel.FK_PartAlerts_Parts" FromRole="Part" ToRole="PartAlert" />
         </EntityType>
         <EntityType Name="PartVersion">
           <Key>
@@ -1706,6 +1739,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PartAlert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PartId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Part" Relationship="CPECentralModel.FK_PartAlerts_Parts" FromRole="PartAlert" ToRole="Part" />
+        </EntityType>
+        <Association Name="FK_PartAlerts_Parts">
+          <End Type="CPECentralModel.Part" Role="Part" Multiplicity="1" />
+          <End Type="CPECentralModel.PartAlert" Role="PartAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Part">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PartAlert">
+              <PropertyRef Name="PartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2050,6 +2106,17 @@
               <MappingFragment StoreEntitySet="TricornTools">
                 <ScalarProperty Name="TricornReference" ColumnName="TricornReference" />
                 <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartAlerts">
+            <EntityTypeMapping TypeName="CPECentralModel.PartAlert">
+              <MappingFragment StoreEntitySet="PartAlerts">
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

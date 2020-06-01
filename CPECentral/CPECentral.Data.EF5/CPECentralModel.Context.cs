@@ -90,6 +90,8 @@ public partial class CPECentralEntities : DbContext
 
     public DbSet<TricornTool> TricornTools { get; set; }
 
+    public DbSet<PartAlert> PartAlerts { get; set; }
+
 }
 
 }

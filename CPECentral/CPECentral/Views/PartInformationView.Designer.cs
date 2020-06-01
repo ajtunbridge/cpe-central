@@ -46,7 +46,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customersComboBox = new System.Windows.Forms.ComboBox();
-            this.raiseNcrButton = new System.Windows.Forms.Button();
+            this.partAlertsButton = new System.Windows.Forms.Button();
             this.versionOptionsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +93,7 @@
             this.versionsComboBox.FormattingEnabled = true;
             this.versionsComboBox.Location = new System.Drawing.Point(0, 164);
             this.versionsComboBox.Name = "versionsComboBox";
-            this.versionsComboBox.Size = new System.Drawing.Size(55, 25);
+            this.versionsComboBox.Size = new System.Drawing.Size(115, 25);
             this.versionsComboBox.TabIndex = 2;
             this.versionsComboBox.SelectedIndexChanged += new System.EventHandler(this.versionsComboBox_SelectedIndexChanged);
             // 
@@ -108,7 +108,7 @@
             // 
             // versionOptionsButton
             // 
-            this.versionOptionsButton.Location = new System.Drawing.Point(61, 164);
+            this.versionOptionsButton.Location = new System.Drawing.Point(121, 165);
             this.versionOptionsButton.Name = "versionOptionsButton";
             this.versionOptionsButton.Size = new System.Drawing.Size(25, 25);
             this.versionOptionsButton.TabIndex = 3;
@@ -120,9 +120,9 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Location = new System.Drawing.Point(92, 144);
+            this.label5.Location = new System.Drawing.Point(152, 144);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(190, 17);
+            this.label5.Size = new System.Drawing.Size(130, 17);
             this.label5.TabIndex = 1;
             this.label5.Text = "Tooling location";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -132,9 +132,9 @@
             this.saveChangesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.saveChangesButton.Enabled = false;
-            this.saveChangesButton.Location = new System.Drawing.Point(92, 196);
+            this.saveChangesButton.Location = new System.Drawing.Point(152, 196);
             this.saveChangesButton.Name = "saveChangesButton";
-            this.saveChangesButton.Size = new System.Drawing.Size(190, 37);
+            this.saveChangesButton.Size = new System.Drawing.Size(130, 37);
             this.saveChangesButton.TabIndex = 4;
             this.saveChangesButton.Text = "No changes";
             this.saveChangesButton.UseVisualStyleBackColor = true;
@@ -176,11 +176,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.toolingLocationTextBox.DisableDoubleSpace = false;
             this.toolingLocationTextBox.DisableLeadingSpace = false;
-            this.toolingLocationTextBox.Location = new System.Drawing.Point(92, 165);
+            this.toolingLocationTextBox.Location = new System.Drawing.Point(152, 165);
             this.toolingLocationTextBox.MaxLength = 50;
             this.toolingLocationTextBox.Name = "toolingLocationTextBox";
             this.toolingLocationTextBox.NumericCharactersOnly = false;
-            this.toolingLocationTextBox.Size = new System.Drawing.Size(190, 25);
+            this.toolingLocationTextBox.Size = new System.Drawing.Size(130, 25);
             this.toolingLocationTextBox.SuppressEnterKey = false;
             this.toolingLocationTextBox.TabIndex = 5;
             this.toolingLocationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -227,19 +227,20 @@
             this.customersComboBox.TabIndex = 6;
             this.customersComboBox.SelectedIndexChanged += new System.EventHandler(this.customersComboBox_SelectedIndexChanged);
             // 
-            // raiseNcrButton
+            // partAlertsButton
             // 
-            this.raiseNcrButton.Location = new System.Drawing.Point(0, 196);
-            this.raiseNcrButton.Name = "raiseNcrButton";
-            this.raiseNcrButton.Size = new System.Drawing.Size(86, 37);
-            this.raiseNcrButton.TabIndex = 7;
-            this.raiseNcrButton.Text = "N.C.R";
-            this.raiseNcrButton.UseVisualStyleBackColor = true;
-            this.raiseNcrButton.Click += new System.EventHandler(this.RaiseNcrButton_Click);
+            this.partAlertsButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.partAlertsButton.Location = new System.Drawing.Point(0, 195);
+            this.partAlertsButton.Name = "partAlertsButton";
+            this.partAlertsButton.Size = new System.Drawing.Size(146, 38);
+            this.partAlertsButton.TabIndex = 7;
+            this.partAlertsButton.Text = "checking...";
+            this.partAlertsButton.UseVisualStyleBackColor = true;
+            this.partAlertsButton.Click += new System.EventHandler(this.partAlertsButton_Click);
             // 
             // PartInformationView
             // 
-            this.Controls.Add(this.raiseNcrButton);
+            this.Controls.Add(this.partAlertsButton);
             this.Controls.Add(this.customersComboBox);
             this.Controls.Add(this.toolingLocationTextBox);
             this.Controls.Add(this.nameTextBox);
@@ -282,6 +283,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ComboBox customersComboBox;
-        private System.Windows.Forms.Button raiseNcrButton;
+        private System.Windows.Forms.Button partAlertsButton;
     }
 }

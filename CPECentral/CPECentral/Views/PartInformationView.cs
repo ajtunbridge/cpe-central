@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CPECentral.CustomEventArgs;
@@ -22,11 +23,13 @@ namespace CPECentral.Views
         event EventHandler<PartVersionEventArgs> VersionSelected;
         event EventHandler SaveChanges;
         event EventHandler CreateNewVersion;
-        event EventHandler RaiseNcr;
+        event EventHandler ShowPartAlerts;
 
         void LoadPart(Part part);
         void DisplayModel(PartInformationViewModel model);
         void SaveCompleted(bool successful);
+
+        void UpdatePartAlerts(bool hasAlerts);
     }
 
     [DefaultEvent("VersionSelected")]
@@ -55,7 +58,7 @@ namespace CPECentral.Views
         public event EventHandler<PartVersionEventArgs> VersionSelected;
         public event EventHandler SaveChanges;
         public event EventHandler CreateNewVersion;
-        public event EventHandler RaiseNcr;
+        public event EventHandler ShowPartAlerts;
 
         public void LoadPart(Part part)
         {
@@ -93,6 +96,8 @@ namespace CPECentral.Views
                 nameTextBox.Text = model.Name;
                 toolingLocationTextBox.Text = model.ToolingLocation;
 
+                UpdatePartAlerts(model.PartHasAlerts);
+
                 versionsComboBox.Items.Clear();
 
                 versionsComboBox.Items.AddRange(model.AllVersions.ToArray());
@@ -124,9 +129,9 @@ namespace CPECentral.Views
 
         #endregion
 
-        protected virtual void OnRaiseNcr()
+        protected virtual void OnShowPartAlerts()
         {
-            EventHandler handler = RaiseNcr;
+            EventHandler handler = ShowPartAlerts;
             if (handler != null)
             {
                 handler(this, EventArgs.Empty);
@@ -228,9 +233,26 @@ namespace CPECentral.Views
             saveChangesButton.Enabled = true;
         }
 
-        private void RaiseNcrButton_Click(object sender, EventArgs e)
+        private void partAlertsButton_Click(object sender, EventArgs e)
         {
-            OnRaiseNcr();
+            OnShowPartAlerts();
+        }
+
+        public void UpdatePartAlerts(bool hasAlerts)
+        {
+            if (hasAlerts)
+            {
+                partAlertsButton.BackColor = Color.Firebrick;
+                partAlertsButton.ForeColor = Color.White;
+                partAlertsButton.Text = "VIEW ALERTS";
+            }
+            else
+            {
+                partAlertsButton.BackColor = Color.ForestGreen;
+                partAlertsButton.ForeColor = Color.White;
+                partAlertsButton.Text = "No alerts";
+            }
+
         }
     }
 }

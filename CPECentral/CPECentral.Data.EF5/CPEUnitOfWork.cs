@@ -143,13 +143,13 @@ namespace CPECentral.Data.EF5
         private OperationToolRepository _operationTools;
         private OperationRepository _operations;
         private PartVersionRepository _partVersions;
+        private PartAlertsRepository _partAlerts;
         private PartRepository _parts;
         private PhotoRepository _photos;
         private RecentPartRepository _recentParts;
         private ToolGroupRepository _toolGroups;
         private ToolRepository _tools;
         private TricornToolRepository _tricornTools;
-
         #endregion
 
         #region Properties
@@ -196,6 +196,8 @@ namespace CPECentral.Data.EF5
             => _operationTools ?? (_operationTools = new OperationToolRepository(this));
 
         public PartRepository Parts => _parts ?? (_parts = new PartRepository(this));
+
+        public PartAlertsRepository PartsAlerts => _partAlerts ?? (_partAlerts = new PartAlertsRepository(this));
 
         public RecentPartRepository RecentParts => _recentParts ?? (_recentParts = new RecentPartRepository(this));
 

@@ -30,6 +30,7 @@ namespace CPECentral.Presenters
             _view.LoadSuperDumpDialog += _view_LoadSuperDumpDialog;
         }
 
+
         private void _view_LoadSuperDumpDialog(object sender, EventArgs e)
         {
             using (var dialog = new SuperDumpDialog())
