@@ -22,6 +22,7 @@ namespace CPECentral.Views
         event EventHandler<PartVersionEventArgs> VersionSelected;
         event EventHandler SaveChanges;
         event EventHandler CreateNewVersion;
+        event EventHandler RaiseNcr;
 
         void LoadPart(Part part);
         void DisplayModel(PartInformationViewModel model);
@@ -54,6 +55,7 @@ namespace CPECentral.Views
         public event EventHandler<PartVersionEventArgs> VersionSelected;
         public event EventHandler SaveChanges;
         public event EventHandler CreateNewVersion;
+        public event EventHandler RaiseNcr;
 
         public void LoadPart(Part part)
         {
@@ -121,6 +123,15 @@ namespace CPECentral.Views
         }
 
         #endregion
+
+        protected virtual void OnRaiseNcr()
+        {
+            EventHandler handler = RaiseNcr;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
 
         protected virtual void OnCreateNewVersion()
         {
@@ -215,6 +226,11 @@ namespace CPECentral.Views
 
             saveChangesButton.Text = "Save changes";
             saveChangesButton.Enabled = true;
+        }
+
+        private void RaiseNcrButton_Click(object sender, EventArgs e)
+        {
+            OnRaiseNcr();
         }
     }
 }

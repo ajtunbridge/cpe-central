@@ -59,6 +59,8 @@
             this.newTurningProgramToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newFeatureCAMFileToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.filesListView = new CPECentral.Controls.FilesListView();
+            this.extractSinglePageForThisPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.listViewContextMenuStrip.SuspendLayout();
             this.listViewItemContextMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -142,13 +144,16 @@
             this.listViewItemContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.openExternallyToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.extractSinglePageForThisPartToolStripMenuItem,
             this.makePrimaryDrawingFileForThisVersionToolStripMenuItem,
             this.toolStripSeparator3,
             this.deleteToolStripMenuItem,
             this.toolStripSeparator5,
             this.copyToolStripMenuItem});
             this.listViewItemContextMenuStrip.Name = "listViewContextMenuStrip";
-            this.listViewItemContextMenuStrip.Size = new System.Drawing.Size(294, 126);
+            this.listViewItemContextMenuStrip.Size = new System.Drawing.Size(294, 176);
+            this.listViewItemContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.listViewItemContextMenuStrip_Opening);
             this.listViewItemContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
             // 
             // openToolStripMenuItem
@@ -312,6 +317,7 @@
             this.filesListView.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filesListView.FullRowSelect = true;
             this.filesListView.GridLines = true;
+            this.filesListView.HideSelection = false;
             this.filesListView.IndexOfColumnToResize = 0;
             this.filesListView.ItemContextMenuStrip = this.listViewItemContextMenuStrip;
             this.filesListView.LabelEdit = true;
@@ -333,6 +339,17 @@
             this.filesListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.filesListView_DragEnter);
             this.filesListView.DragLeave += new System.EventHandler(this.filesListView_DragLeave);
             this.filesListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesListView_KeyDown);
+            // 
+            // extractSinglePageForThisPartToolStripMenuItem
+            // 
+            this.extractSinglePageForThisPartToolStripMenuItem.Name = "extractSinglePageForThisPartToolStripMenuItem";
+            this.extractSinglePageForThisPartToolStripMenuItem.Size = new System.Drawing.Size(293, 22);
+            this.extractSinglePageForThisPartToolStripMenuItem.Text = "Extract single page for this part";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(290, 6);
             // 
             // DocumentsView
             // 
@@ -386,5 +403,7 @@
         private System.Windows.Forms.ToolStripMenuItem makePrimaryDrawingFileForThisVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scanServerForDrawingsmodelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem extractSinglePageForThisPartToolStripMenuItem;
     }
 }

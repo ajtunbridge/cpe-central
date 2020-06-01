@@ -35,6 +35,47 @@ namespace CPECentral.Presenters
             _partView.SetPartVersionPhoto += _partView_SetPartVersionPhoto;
             _partView.RemovePartVersionPhoto += _partView_RemovePartVersionPhoto;
             _partView.CheckForNonConformances += _partView_CheckForNonConformances;
+            _partView.ScanServerForDrawings += _partView_ScanServerForDrawings;
+            _partView.ExtractSinglePage += _partView_ExtractSinglePage;
+        }
+
+        private void _partView_ExtractSinglePage(object sender, DocumentEventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            {
+                return;
+            }
+
+            string pathToFile = null;
+
+            using (BusyCursor.Show())
+            {
+                pathToFile = Session.DocumentService.GetPathToDocument(e.Document);
+            }
+
+            using (var extractPageDialog = new PdfPageExtractionDialog(pathToFile, _partView.SelectedPartVersion))
+            {
+                if (extractPageDialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+
+            }
+        }
+
+        private void _partView_ScanServerForDrawings(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageDocuments, true))
+            {
+                return;
+            }
+
+            using (var dialog = new DrawingFinderDialog(_partView.Part.DrawingNumber, _partView.SelectedPartVersion))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                // refresh documents
+            }
         }
 
         private void _partView_CheckForNonConformances(object sender, EventArgs e)

@@ -28,7 +28,7 @@
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
     <MinimumRequiredVersion>3.6.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>3.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -73,6 +73,12 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -229,6 +235,12 @@
     <Compile Include="Dialogs\CalibrationShellDialog.Designer.cs">
       <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DrawingFinderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DrawingFinderDialog.Designer.cs">
+      <DependentUpon>DrawingFinderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditOperationToolDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +319,18 @@
     <Compile Include="Dialogs\OperationToolsEditorDialog.Designer.cs">
       <DependentUpon>OperationToolsEditorDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\PartAlertsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PartAlertsDialog.Designer.cs">
+      <DependentUpon>PartAlertsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PdfPageExtractionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PdfPageExtractionDialog.Designer.cs">
+      <DependentUpon>PdfPageExtractionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PhotoEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,6 +342,12 @@
     </Compile>
     <Compile Include="Dialogs\PhotoViewerDialog.Designer.cs">
       <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RaiseNcrDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\RaiseNcrDialog.Designer.cs">
+      <DependentUpon>RaiseNcrDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ReceiveMillingProgramDialog.cs">
       <SubType>Form</SubType>
@@ -872,6 +902,9 @@
     <EmbeddedResource Include="Dialogs\CalibrationShellDialog.resx">
       <DependentUpon>CalibrationShellDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DrawingFinderDialog.resx">
+      <DependentUpon>DrawingFinderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditOperationToolDialog.resx">
       <DependentUpon>EditOperationToolDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -908,11 +941,20 @@
     <EmbeddedResource Include="Dialogs\OperationToolsEditorDialog.resx">
       <DependentUpon>OperationToolsEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PartAlertsDialog.resx">
+      <DependentUpon>PartAlertsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PdfPageExtractionDialog.resx">
+      <DependentUpon>PdfPageExtractionDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PhotoEditorDialog.resx">
       <DependentUpon>PhotoEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PhotoViewerDialog.resx">
       <DependentUpon>PhotoViewerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\RaiseNcrDialog.resx">
+      <DependentUpon>RaiseNcrDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ReceiveMillingProgramDialog.resx">
       <DependentUpon>ReceiveMillingProgramDialog.cs</DependentUpon>

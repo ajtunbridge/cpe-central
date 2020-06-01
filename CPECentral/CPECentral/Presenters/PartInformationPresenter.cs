@@ -26,6 +26,7 @@ namespace CPECentral.Presenters
             _partInformationView.ReloadData += PartInformationView_ReloadData;
             _partInformationView.SaveChanges += _partInformationView_SaveChanges;
             _partInformationView.CreateNewVersion += _partInformationView_CreateNewVersion;
+            _partInformationView.RaiseNcr += _partInformationView_RaiseNcr;
         }
 
         private void _partInformationView_CreateNewVersion(object sender, EventArgs e)
@@ -81,6 +82,14 @@ namespace CPECentral.Presenters
             }
         }
 
+        private void _partInformationView_RaiseNcr(object sender, EventArgs e)
+        {
+            if (!AppSecurity.Check(AppPermission.ManageParts, true))
+            {
+                return;
+            }
+        }
+
         private void _partInformationView_SaveChanges(object sender, EventArgs e)
         {
             if (!AppSecurity.Check(AppPermission.ManageParts, true)) {
@@ -117,6 +126,7 @@ namespace CPECentral.Presenters
 
             getDataWorker.RunWorkerAsync(_partInformationView.Part);
         }
+
 
         private void getDataWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

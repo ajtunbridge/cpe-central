@@ -241,6 +241,13 @@ namespace CPECentral.Dialogs
                 _selectedItem.SubItems[3].Text = "NO HOLDER";
                 holderTextBox.Text = "NO HOLDER";
                 holderTextBox.BringToFront();
+
+                if (_selectedOperationTool.ToolId > 0)
+                {
+                    AskToAddAnotherTool();
+
+                    return;
+                }
             }
             else
             {

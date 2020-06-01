@@ -126,6 +126,8 @@ namespace CPECentral.Views
             this.versionDocumentsView.TabIndex = 0;
             this.versionDocumentsView.OpenDocument += new System.EventHandler(this.documentsView_OpenDocument);
             this.versionDocumentsView.OpenDocumentExternally += new System.EventHandler(this.documentsView_OpenDocumentExternally);
+            this.versionDocumentsView.ScanServerForDrawings += new System.EventHandler(this.versionDocumentsView_ScanServerForDrawings);
+            this.versionDocumentsView.ExtractSinglePage += new System.EventHandler<CPECentral.CustomEventArgs.DocumentEventArgs>(this.versionDocumentsView_ExtractSinglePage);
             // 
             // tabPage7
             // 

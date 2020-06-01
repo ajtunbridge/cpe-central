@@ -40,6 +40,8 @@ namespace CPECentral.Views
         event EventHandler ImportMillingFile;
         event EventHandler<RenameDocumentEventArgs> RenameDocument;
         event EventHandler<DocumentEventArgs> TextFileSelected;
+        event EventHandler ScanServerForDrawings;
+        event EventHandler<DocumentEventArgs> ExtractSinglePage;
 
         void LoadDocuments(IEntity entity);
         void DisplayDocuments(DocumentsViewModel model);
@@ -100,6 +102,8 @@ namespace CPECentral.Views
         public event EventHandler ImportMillingFile;
         public event EventHandler<RenameDocumentEventArgs> RenameDocument;
         public event EventHandler<DocumentEventArgs> TextFileSelected;
+        public event EventHandler ScanServerForDrawings;
+        public event EventHandler<DocumentEventArgs> ExtractSinglePage;
 
         public void DisplayDocuments(DocumentsViewModel model)
         {
@@ -158,6 +162,16 @@ namespace CPECentral.Views
 
         #endregion
 
+        protected virtual void OnExtractSinglePage(DocumentEventArgs e)
+        {
+            var handler = ExtractSinglePage;
+
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
         protected virtual void OnTextFileSelected(DocumentEventArgs e)
         {
             EventHandler<DocumentEventArgs> handler = TextFileSelected;
@@ -172,6 +186,15 @@ namespace CPECentral.Views
             EventHandler<DocumentEventArgs> handler = SetVersionDrawingDocument;
             if (handler != null) {
                 handler(this, e);
+            }
+        }
+
+        protected virtual void OnScanServerForDrawings()
+        {
+            EventHandler handler = ScanServerForDrawings;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
             }
         }
 
@@ -401,6 +424,9 @@ namespace CPECentral.Views
                     Settings.Default.PreferredDocumentsViewStyle = View.Details;
                     Settings.Default.Save();
                     break;
+                case "extractSinglePageForThisPartToolStripMenuItem":
+                    OnExtractSinglePage(new DocumentEventArgs(SelectedDocuments.First()));
+                    break;
                 case "openToolStripMenuItem":
                     OnOpenDocument();
                     break;
@@ -418,6 +444,9 @@ namespace CPECentral.Views
                     break;
                 case "copyToolStripMenuItem":
                     OnCopyDocuments();
+                    break;
+                case "scanServerForDrawingsmodelsToolStripMenuItem":
+                    OnScanServerForDrawings();
                     break;
             }
         }
@@ -447,6 +476,22 @@ namespace CPECentral.Views
 
             DataObject data = new DataObject(DataFormats.FileDrop, selection.ToArray());
             DoDragDrop(data, DragDropEffects.Copy);
+        }
+
+        private void listViewItemContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            if (filesListView.SelectedItems.Count != 1)
+            {
+                extractSinglePageForThisPartToolStripMenuItem.Visible = false;
+                makePrimaryDrawingFileForThisVersionToolStripMenuItem.Visible = false;
+                return;
+            }
+
+            var selectedFile = filesListView.SelectedItems[0].Tag as DocumentModel;
+
+            var isPdf = Path.GetExtension(selectedFile.FileName).ToLower() == ".pdf";
+
+            extractSinglePageForThisPartToolStripMenuItem.Visible = isPdf;
         }
     }
 }

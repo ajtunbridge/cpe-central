@@ -30,6 +30,8 @@ namespace CPECentral.Views
         event EventHandler SetPartVersionPhoto;
         event EventHandler RemovePartVersionPhoto;
         event EventHandler CheckForNonConformances;
+        event EventHandler ScanServerForDrawings;
+        event EventHandler<DocumentEventArgs> ExtractSinglePage;
 
         void LoadPart(Part part);
 
@@ -92,6 +94,8 @@ namespace CPECentral.Views
         public event EventHandler SetPartVersionPhoto;
         public event EventHandler RemovePartVersionPhoto;
         public event EventHandler CheckForNonConformances;
+        public event EventHandler ScanServerForDrawings;
+        public event EventHandler<DocumentEventArgs> ExtractSinglePage;
 
         public Part Part { get; private set; }
 
@@ -195,6 +199,21 @@ namespace CPECentral.Views
             EventHandler handler = ReloadData;
             if (handler != null) {
                 handler(this, EventArgs.Empty);
+            }
+        }
+
+        protected virtual void OnScanServerForDrawings()
+        {
+            ScanServerForDrawings?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnExtractSinglePage(DocumentEventArgs e)
+        {
+            var handler = ExtractSinglePage;
+
+            if (handler!= null)
+            {
+                handler(this, e);
             }
         }
 
@@ -328,6 +347,16 @@ namespace CPECentral.Views
             }
 
             new PhotoViewerDialog(partPhotoPictureBox.Image).ShowDialog(ParentForm);
+        }
+
+        private void versionDocumentsView_ScanServerForDrawings(object sender, EventArgs e)
+        {
+            OnScanServerForDrawings();
+        }
+
+        private void versionDocumentsView_ExtractSinglePage(object sender, DocumentEventArgs e)
+        {
+            OnExtractSinglePage(e);
         }
     }
 }

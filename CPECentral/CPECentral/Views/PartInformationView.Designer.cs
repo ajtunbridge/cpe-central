@@ -46,6 +46,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customersComboBox = new System.Windows.Forms.ComboBox();
+            this.raiseNcrButton = new System.Windows.Forms.Button();
             this.versionOptionsContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +102,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(-3, 144);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 17);
+            this.label4.Size = new System.Drawing.Size(57, 17);
             this.label4.TabIndex = 1;
             this.label4.Text = "Versions";
             // 
@@ -131,9 +132,9 @@
             this.saveChangesButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.saveChangesButton.Enabled = false;
-            this.saveChangesButton.Location = new System.Drawing.Point(0, 196);
+            this.saveChangesButton.Location = new System.Drawing.Point(92, 196);
             this.saveChangesButton.Name = "saveChangesButton";
-            this.saveChangesButton.Size = new System.Drawing.Size(282, 37);
+            this.saveChangesButton.Size = new System.Drawing.Size(190, 37);
             this.saveChangesButton.TabIndex = 4;
             this.saveChangesButton.Text = "No changes";
             this.saveChangesButton.UseVisualStyleBackColor = true;
@@ -192,26 +193,26 @@
             this.toolStripMenuItem1,
             this.deleteToolStripMenuItem});
             this.versionOptionsContextMenuStrip.Name = "versionOptionsContextMenuStrip";
-            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(149, 54);
+            this.versionOptionsContextMenuStrip.Size = new System.Drawing.Size(140, 54);
             this.versionOptionsContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.versionOptionsContextMenuStrip_ItemClicked);
             // 
             // newVersionToolStripMenuItem
             // 
             this.newVersionToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.newVersionToolStripMenuItem.Name = "newVersionToolStripMenuItem";
-            this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.newVersionToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.newVersionToolStripMenuItem.Text = "&New version";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(136, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Image = global::CPECentral.Properties.Resources.DeleteIcon_16x16;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
             // customersComboBox
@@ -226,8 +227,19 @@
             this.customersComboBox.TabIndex = 6;
             this.customersComboBox.SelectedIndexChanged += new System.EventHandler(this.customersComboBox_SelectedIndexChanged);
             // 
+            // raiseNcrButton
+            // 
+            this.raiseNcrButton.Location = new System.Drawing.Point(0, 196);
+            this.raiseNcrButton.Name = "raiseNcrButton";
+            this.raiseNcrButton.Size = new System.Drawing.Size(86, 37);
+            this.raiseNcrButton.TabIndex = 7;
+            this.raiseNcrButton.Text = "N.C.R";
+            this.raiseNcrButton.UseVisualStyleBackColor = true;
+            this.raiseNcrButton.Click += new System.EventHandler(this.RaiseNcrButton_Click);
+            // 
             // PartInformationView
             // 
+            this.Controls.Add(this.raiseNcrButton);
             this.Controls.Add(this.customersComboBox);
             this.Controls.Add(this.toolingLocationTextBox);
             this.Controls.Add(this.nameTextBox);
@@ -270,5 +282,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ComboBox customersComboBox;
+        private System.Windows.Forms.Button raiseNcrButton;
     }
 }

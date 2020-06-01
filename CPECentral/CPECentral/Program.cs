@@ -1,19 +1,16 @@
 ﻿#region Using directives
 
+using CPECentral.Data.EF5;
+using CPECentral.Dialogs;
+using nGenLibrary.Security;
 using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using CPECentral.Data.EF5;
-using CPECentral.Dialogs;
-using CPECentral.QMS;
-using NcCommunicator.Data;
-using nGenLibrary.Security;
 
-#endregion
+#endregion Using directives
 
 namespace CPECentral
 {
@@ -36,8 +33,10 @@ namespace CPECentral
         {
             bool createdNew = true;
 
-            using (var mutex = new Mutex(true, "CPECentral", out createdNew)) {
-                if (createdNew) {
+            using (var mutex = new Mutex(true, "CPECentral", out createdNew))
+            {
+                if (createdNew)
+                {
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
 
@@ -49,11 +48,31 @@ namespace CPECentral
                     var form = new MainForm();
 
                     Application.Run(form);
+
+
+                    // clean out PDF page extraction temp files
+                    var extractedPdfTempPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
+                                          "\\CpeCentral\\pdf_page_extraction_temp\\";
+
+                    foreach (var file in Directory.GetFiles(extractedPdfTempPath))
+                    {
+                        try
+                        {
+                            File.Delete(file);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
                 }
-                else {
+                else
+                {
                     Process current = Process.GetCurrentProcess();
-                    foreach (Process process in Process.GetProcessesByName(current.ProcessName)) {
-                        if (process.Id != current.Id) {
+                    foreach (Process process in Process.GetProcessesByName(current.ProcessName))
+                    {
+                        if (process.Id != current.Id)
+                        {
                             ShowWindow(process.MainWindowHandle, SW_RESTORE);
                             SetForegroundWindow(process.MainWindowHandle);
                             break;
@@ -72,11 +91,14 @@ namespace CPECentral
 
         private static void EnsureThereIsAnAdminAccount()
         {
-            try {
-                using (var cpe = new CPEUnitOfWork()) {
+            try
+            {
+                using (var cpe = new CPEUnitOfWork())
+                {
                     EmployeeGroup adminGroup = cpe.EmployeeGroups.GetByName("BUILTIN_ADMIN_GROUP");
 
-                    if (adminGroup == null) {
+                    if (adminGroup == null)
+                    {
                         adminGroup = new EmployeeGroup();
                         adminGroup.Name = "BUILTIN_ADMIN_GROUP";
                         adminGroup.GrantPermission(AppPermission.Administrator);
@@ -86,7 +108,8 @@ namespace CPECentral
 
                     Employee adminEmployee = cpe.Employees.GetByUserName("admin");
 
-                    if (adminEmployee == null) {
+                    if (adminEmployee == null)
+                    {
                         adminEmployee = new Employee();
                         adminEmployee.FirstName = "System";
                         adminEmployee.LastName = "Administrator";
@@ -104,7 +127,8 @@ namespace CPECentral
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
@@ -113,11 +137,14 @@ namespace CPECentral
 
         private static void AddMyAccount()
         {
-            try {
-                using (var cpe = new CPEUnitOfWork()) {
+            try
+            {
+                using (var cpe = new CPEUnitOfWork())
+                {
                     EmployeeGroup myGroup = cpe.EmployeeGroups.GetByName("Power users");
 
-                    if (myGroup == null) {
+                    if (myGroup == null)
+                    {
                         myGroup = new EmployeeGroup();
                         myGroup.Name = "Power users";
                         myGroup.GrantPermission(AppPermission.ManageDocuments);
@@ -133,7 +160,8 @@ namespace CPECentral
 
                     Employee myEmployee = cpe.Employees.GetByUserName("adam");
 
-                    if (myEmployee == null) {
+                    if (myEmployee == null)
+                    {
                         myEmployee = new Employee();
                         myEmployee.FirstName = "Adam";
                         myEmployee.LastName = "Tunbridge";
@@ -151,7 +179,8 @@ namespace CPECentral
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 string msg = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
 
                 MessageBox.Show(msg);
