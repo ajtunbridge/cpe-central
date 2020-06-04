@@ -116,6 +116,8 @@ namespace CPECentral.Controls
                 versionHistoryDropDownButton.DropDownItems.Add(item);
             }
 
+            versionHistoryDropDownButton.Enabled = versionHistoryDropDownButton.DropDownItems.Count > 1;
+
             ThreadPool.QueueUserWorkItem(delegate {
                 string text = File.ReadAllText(fileName);
 
@@ -507,7 +509,18 @@ namespace CPECentral.Controls
 
         private void versionHistoryDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            versionHistoryDropDownButton.HideDropDown();
+
             var fileName = (string)e.ClickedItem.Tag;
+            
+            if (saveToolStripButton.Enabled)
+            {
+                if (_dialogService.AskQuestion("Do you want to save your changes before loading this version?"))
+                {
+                    SaveChanges();
+                }
+            }
+
             LoadFile(fileName);
         }
     }
