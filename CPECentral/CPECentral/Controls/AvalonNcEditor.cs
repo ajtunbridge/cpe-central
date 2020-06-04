@@ -89,6 +89,33 @@ namespace CPECentral.Controls
             _editor.Text = "loading...";
             Enabled = false;
 
+            versionHistoryDropDownButton.DropDownItems.Clear();
+
+            var baseDir = Path.GetDirectoryName(fileName);
+
+            const string previousVersionIdentifier = "_previous_";
+
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            var indexOfId = fileNameWithoutExtension.IndexOf(previousVersionIdentifier);
+
+            string programName = fileNameWithoutExtension;
+
+            if (indexOfId > 0)
+            {
+                programName = fileNameWithoutExtension.Substring(0, indexOfId);
+            }
+
+            var patternMatch = $"{programName}*";
+
+            foreach (var fn in Directory.GetFiles(baseDir, patternMatch))
+            {
+                var item = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(fn));
+                item.Tag = fn;
+
+                versionHistoryDropDownButton.DropDownItems.Add(item);
+            }
+
             ThreadPool.QueueUserWorkItem(delegate {
                 string text = File.ReadAllText(fileName);
 
@@ -99,6 +126,7 @@ namespace CPECentral.Controls
                     Enabled = true;
                 });
             });
+
         }
 
         public void GoToNextToolCall()
@@ -338,8 +366,12 @@ namespace CPECentral.Controls
                         return;
                     }
 
+                    CreateOldVersionFile();
+
                     _editor.Text = dialog.ReceivedProgram;
                     SaveChanges();
+
+                    LoadFile(_currentFileName);
                 }
             }
         }
@@ -434,6 +466,49 @@ namespace CPECentral.Controls
             else {
                 e.HasMorePages = true;
             }
+        }
+
+        private void CreateOldVersionFile()
+        {
+            var oldestVersionFileName = GenerateVersionFileName(4);
+
+            if (File.Exists(oldestVersionFileName))
+                File.Delete(oldestVersionFileName);
+
+            for (int i = 3; i > 0; i--)
+            {
+                var oldFileName = GenerateVersionFileName(i);
+
+                if (File.Exists(oldFileName))
+                {
+                    var newFileName = GenerateVersionFileName(i + 1);
+                    File.Move(oldFileName, newFileName);
+                }
+            }
+
+            var newestVersionFileName = GenerateVersionFileName(1);
+
+            File.Move(_currentFileName, newestVersionFileName);
+        }
+
+        private string GenerateVersionFileName(int versionNumber)
+        {
+            var programDir = Path.GetDirectoryName(_currentFileName);
+            var programName = Path.GetFileNameWithoutExtension(_currentFileName);
+            var programExt = Path.GetExtension(_currentFileName); 
+            
+            return $"{programDir}\\{programName}_previous_{versionNumber}{programExt}";
+        }
+
+        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void versionHistoryDropDownButton_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var fileName = (string)e.ClickedItem.Tag;
+            LoadFile(fileName);
         }
     }
 }

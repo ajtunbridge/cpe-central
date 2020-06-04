@@ -33,19 +33,20 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.languageToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.findReplaceToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.transmitToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.receiveToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.gotoNextToolCallToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findReplaceToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.versionHistoryDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,10 +67,11 @@
             this.gotoNextToolCallToolStripButton,
             this.toolStripSeparator3,
             this.printToolStripButton,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.versionHistoryDropDownButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(428, 25);
+            this.toolStrip.Size = new System.Drawing.Size(810, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip1";
             this.toolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip_ItemClicked);
@@ -93,26 +95,6 @@
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -122,6 +104,25 @@
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // findReplaceToolStripButton
+            // 
+            this.findReplaceToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.findReplaceToolStripButton.Image = global::CPECentral.Properties.Resources.ReplaceTextIcon_16x16;
+            this.findReplaceToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.findReplaceToolStripButton.Name = "findReplaceToolStripButton";
+            this.findReplaceToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.findReplaceToolStripButton.Text = "Find and replace text";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // transmitToolStripDropDownButton
             // 
@@ -145,6 +146,11 @@
             this.receiveToolStripDropDownButton.ToolTipText = "Receive program from machine";
             this.receiveToolStripDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.receiveToolStripDropDownButton_DropDownItemClicked);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // gotoNextToolCallToolStripButton
             // 
             this.gotoNextToolCallToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -153,6 +159,11 @@
             this.gotoNextToolCallToolStripButton.Name = "gotoNextToolCallToolStripButton";
             this.gotoNextToolCallToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.gotoNextToolCallToolStripButton.Text = "Goto next tool call";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // printToolStripButton
             // 
@@ -179,19 +190,22 @@
             this.toolListToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.toolListToolStripMenuItem.Text = "&Tool list";
             // 
-            // findReplaceToolStripButton
+            // toolStripSeparator1
             // 
-            this.findReplaceToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findReplaceToolStripButton.Image = global::CPECentral.Properties.Resources.ReplaceTextIcon_16x16;
-            this.findReplaceToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.findReplaceToolStripButton.Name = "findReplaceToolStripButton";
-            this.findReplaceToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.findReplaceToolStripButton.Text = "Find and replace text";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripSeparator5
+            // versionHistoryDropDownButton
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.versionHistoryDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.versionHistoryDropDownButton.Image = global::CPECentral.Properties.Resources.ScanServerIcon_16x16;
+            this.versionHistoryDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.versionHistoryDropDownButton.Name = "versionHistoryDropDownButton";
+            this.versionHistoryDropDownButton.Size = new System.Drawing.Size(29, 22);
+            this.versionHistoryDropDownButton.Text = "toolStripDropDownButton1";
+            this.versionHistoryDropDownButton.ToolTipText = "Version history";
+            this.versionHistoryDropDownButton.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.versionHistoryDropDownButton_DropDownItemClicked);
+            this.versionHistoryDropDownButton.Click += new System.EventHandler(this.toolStripDropDownButton1_Click);
             // 
             // AvalonNcEditor
             // 
@@ -201,7 +215,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AvalonNcEditor";
-            this.Size = new System.Drawing.Size(428, 360);
+            this.Size = new System.Drawing.Size(810, 488);
             this.Load += new System.EventHandler(this.AvalonNcEditor_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
@@ -229,6 +243,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolListToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton findReplaceToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-
+        private System.Windows.Forms.ToolStripDropDownButton versionHistoryDropDownButton;
     }
 }
