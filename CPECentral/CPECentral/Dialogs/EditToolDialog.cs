@@ -62,6 +62,7 @@ namespace CPECentral.Dialogs
                                 continue;
                             }
                             ListViewItem item = tricornLinksEnhancedListView.Items.Add(material.Name);
+                            item.SubItems.Add(material.Specification);
                             item.Tag = material;
                         }
                     }
@@ -94,6 +95,7 @@ namespace CPECentral.Dialogs
                         continue;
                     }
                     ListViewItem item = tricornLinksEnhancedListView.Items.Add(material.Name);
+                    item.SubItems.Add(material.Specification);
                     item.Tag = material;
                 }
             }

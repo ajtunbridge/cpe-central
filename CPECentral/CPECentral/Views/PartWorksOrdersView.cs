@@ -14,6 +14,9 @@ namespace CPECentral.Views
     public interface IPartWorksOrdersView : IView
     {
         event EventHandler<PartEventArgs> LoadWorksOrders;
+
+        event EventHandler<StringEventArgs> ShowWorksOrderValues;
+
         void DisplayModel(IEnumerable<PartWorksOrdersViewModel> model);
         void InitializeView(Part part);
     }
@@ -34,6 +37,7 @@ namespace CPECentral.Views
         #region IPartWorksOrdersView Members
 
         public event EventHandler<PartEventArgs> LoadWorksOrders;
+        public event EventHandler<StringEventArgs> ShowWorksOrderValues;
 
         public void DisplayModel(IEnumerable<PartWorksOrdersViewModel> model)
         {
@@ -54,10 +58,19 @@ namespace CPECentral.Views
 
         private void OnLoadWorksOrders(PartEventArgs e)
         {
-            EventHandler<PartEventArgs> handler = LoadWorksOrders;
-            if (handler != null) {
-                handler(this, e);
-            }
+            LoadWorksOrders?.Invoke(this, e);
+        }
+
+        private void OnShowWorksOrderValues(StringEventArgs e)
+        {
+            ShowWorksOrderValues?.Invoke(this, e);
+        }
+
+        private void worksOrdersObjectListView_ItemActivate(object sender, EventArgs e)
+        {
+            var wo = worksOrdersObjectListView.SelectedObject as PartWorksOrdersViewModel;
+
+            OnShowWorksOrderValues(new StringEventArgs(wo.WorksOrderNumber));
         }
     }
 }

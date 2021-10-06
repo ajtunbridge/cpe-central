@@ -30,6 +30,73 @@ namespace CPECentral.Presenters
             _view.AddOperationTool += _view_AddOperationTool;
             _view.EditOperationTool += _view_EditOperationTool;
             _view.DeleteOperationTool += _view_DeleteOperationTool;
+            _view.CopyToolList += _view_CopyToolList;
+            _view.PasteToolList += _view_PasteToolList;
+        }
+
+        private void _view_PasteToolList(object sender, OperationEventArgs e)
+        {
+            var clipboardData = Clipboard.GetText();
+
+            int operationId = 0;
+
+            try
+            {
+                operationId = Convert.ToInt32(clipboardData.Substring(7));
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+                return;
+            }
+
+            using (BusyCursor.Show())
+            {
+                using (var cpe = new CPEUnitOfWork())
+                {
+                    IOrderedEnumerable<OperationTool> opTools = cpe.OperationTools.GetByOperation(e.Operation.Id)
+                    .OrderBy(t => t.Position)
+                    .ThenBy(t => t.Offset);
+
+                    if (opTools.Any())
+                    {
+                        _view.DialogService.Notify("Cannot paste tool list as the current tool list is not empty!");
+                        return;
+                    }
+
+                    var toolsToCopy = cpe.OperationTools.GetByOperation(operationId)
+                        .OrderBy(t => t.Position)
+                        .ThenBy(t => t.Offset);
+
+                    if (!toolsToCopy.Any())
+                        return;
+
+                    foreach (var tool in toolsToCopy)
+                    {
+                        var opTool = new OperationTool
+                        {
+                            HolderId = tool.HolderId,
+                            Notes = tool.Notes,
+                            Offset = tool.Offset,
+                            OperationId = e.Operation.Id,
+                            Position = tool.Position,
+                            ToolId = tool.ToolId,
+                            UseOnePer = tool.UseOnePer
+                        };
+
+                        cpe.OperationTools.Add(opTool);
+                    }
+
+                    cpe.Commit();
+
+                    _view.NewToolAdded();
+                }
+            }
+        }
+
+        private void _view_CopyToolList(object sender, OperationEventArgs e)
+        {
+            Clipboard.SetText($"OPTOOLS{e.Operation.Id}");
         }
 
         private void _view_DeleteOperationTool(object sender, OperationToolEventArgs e)

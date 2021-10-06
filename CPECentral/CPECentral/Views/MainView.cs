@@ -233,34 +233,63 @@ namespace CPECentral.Views
         {
             var employee = e.ClickedItem.Tag as Employee;
 
-            using (var passwordDialog = new EmployeeLoginDialog(employee)) {
-                if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
-                    return;
+            /// Comment out to enable password dialog
+            Session.CurrentEmployee = employee; 
+            using (NoFlicker.On(this))
+            {
+                if (employeeSessionPanel.Controls.Count == 1)
+                {
+                    employeeSessionPanel.Controls.RemoveAt(0);
                 }
 
-                Session.CurrentEmployee = employee;
+                EmployeeSessionView sessionView = _sessionViews.SingleOrDefault(v => v.SessionEmployee == employee);
 
-                using (NoFlicker.On(this)) {
-                    if (employeeSessionPanel.Controls.Count == 1) {
-                        employeeSessionPanel.Controls.RemoveAt(0);
-                    }
-
-                    EmployeeSessionView sessionView = _sessionViews.SingleOrDefault(v => v.SessionEmployee == employee);
-
-                    if (sessionView == null) {
-                        sessionView = new EmployeeSessionView(employee);
-                        _sessionViews.Add(sessionView);
-                    }
-
-                    employeeSessionPanel.Controls.Add(sessionView);
-
-                    switchUserToolStripDropDownButton.Enabled = false;
-
-                    OnRetrieveEmployeeAccounts();
-
-                    Session.MessageBus.Publish(new EmployeeSwitchedMessage(employee));
+                if (sessionView == null)
+                {
+                    sessionView = new EmployeeSessionView(employee);
+                    _sessionViews.Add(sessionView);
                 }
+
+                employeeSessionPanel.Controls.Add(sessionView);
+
+                switchUserToolStripDropDownButton.Enabled = false;
+
+                OnRetrieveEmployeeAccounts();
+
+                Session.MessageBus.Publish(new EmployeeSwitchedMessage(employee));
             }
+
+            return;
+
+            /// Uncomment to enable password dialog
+            //using (var passwordDialog = new EmployeeLoginDialog(employee)) {
+            //    if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
+            //        return;
+            //    }
+
+            //    Session.CurrentEmployee = employee;
+
+            //    using (NoFlicker.On(this)) {
+            //        if (employeeSessionPanel.Controls.Count == 1) {
+            //            employeeSessionPanel.Controls.RemoveAt(0);
+            //        }
+
+            //        EmployeeSessionView sessionView = _sessionViews.SingleOrDefault(v => v.SessionEmployee == employee);
+
+            //        if (sessionView == null) {
+            //            sessionView = new EmployeeSessionView(employee);
+            //            _sessionViews.Add(sessionView);
+            //        }
+
+            //        employeeSessionPanel.Controls.Add(sessionView);
+
+            //        switchUserToolStripDropDownButton.Enabled = false;
+
+            //        OnRetrieveEmployeeAccounts();
+
+            //        Session.MessageBus.Publish(new EmployeeSwitchedMessage(employee));
+            //    }
+            //}
         }
 
         private void OnLoadSuperDumpDialog()

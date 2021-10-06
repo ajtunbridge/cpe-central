@@ -37,6 +37,7 @@
             this.descriptionEnhancedTextBox = new nGenLibrary.Controls.EnhancedTextBox();
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
             this.generateDescriptionButton = new System.Windows.Forms.Button();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,10 +78,12 @@
             // 
             this.tricornLinksEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
             this.tricornLinksEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader2});
             this.tricornLinksEnhancedListView.EnsureSelection = false;
             this.tricornLinksEnhancedListView.FullRowSelect = true;
             this.tricornLinksEnhancedListView.GridLines = true;
+            this.tricornLinksEnhancedListView.HideSelection = false;
             this.tricornLinksEnhancedListView.IndexOfColumnToResize = 0;
             this.tricornLinksEnhancedListView.ItemContextMenuStrip = null;
             this.tricornLinksEnhancedListView.Location = new System.Drawing.Point(6, 24);
@@ -97,7 +100,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 418;
+            this.columnHeader1.Width = 298;
             // 
             // label1
             // 
@@ -145,6 +148,12 @@
             this.generateDescriptionButton.UseVisualStyleBackColor = true;
             this.generateDescriptionButton.Click += new System.EventHandler(this.generateDescriptionButton_Click);
             // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Specification";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 120;
+            // 
             // EditToolDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -183,5 +192,6 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button generateDescriptionButton;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

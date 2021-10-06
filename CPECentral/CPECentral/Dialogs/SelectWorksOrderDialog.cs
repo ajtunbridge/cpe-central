@@ -25,7 +25,7 @@ namespace CPECentral.Dialogs
         private void SelectWorksOrderDialog_Load(object sender, EventArgs e)
         {
             matchesListBox.DataSource = _worksOrders;
-            matchesListBox.DisplayMember = "User_Reference";
+            matchesListBox.DisplayMember = "Sequence";
         }
 
         private void matchesListBox_SelectedIndexChanged(object sender, EventArgs e)

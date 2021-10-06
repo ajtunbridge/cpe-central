@@ -17,8 +17,9 @@ namespace Playground
 
         static void Main(string[] args)
         {
-            SendProgram(@"C:\Users\adam.tunbridge\Desktop\6215.txt");
+            // SendProgram(@"C:\Users\adam.tunbridge\Desktop\6215.txt");
 
+            CreateNewUser();
 
             Console.ReadLine();
         }
@@ -110,7 +111,7 @@ namespace Playground
             var retval = Console.ReadLine();
             index = Convert.ToInt32(retval);
 
-            Console.Write("Enter the first and last names of this employee: ");
+            Console.Write("Enter the first and last name of this employee: ");
             retval = Console.ReadLine();
 
             var firstName = retval.Substring(0, retval.IndexOf(" ")).Trim();

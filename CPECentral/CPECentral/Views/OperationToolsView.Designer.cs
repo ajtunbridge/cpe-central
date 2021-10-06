@@ -47,6 +47,9 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyToolListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.mainContextMenuStrip.SuspendLayout();
             this.itemContextMenuStrip.SuspendLayout();
@@ -122,6 +125,7 @@
             this.operationToolsEnhancedListView.EnsureSelection = false;
             this.operationToolsEnhancedListView.FullRowSelect = true;
             this.operationToolsEnhancedListView.GridLines = true;
+            this.operationToolsEnhancedListView.HideSelection = false;
             this.operationToolsEnhancedListView.IndexOfColumnToResize = 2;
             this.operationToolsEnhancedListView.ItemContextMenuStrip = this.itemContextMenuStrip;
             this.operationToolsEnhancedListView.Location = new System.Drawing.Point(0, 25);
@@ -169,16 +173,20 @@
             // 
             this.mainContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolToolStripMenuItem});
+            this.addToolToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.copyToolListToolStripMenuItem,
+            this.pasteToolListToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
-            this.mainContextMenuStrip.Size = new System.Drawing.Size(128, 26);
+            this.mainContextMenuStrip.Size = new System.Drawing.Size(181, 98);
+            this.mainContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.mainContextMenuStrip_Opening);
             this.mainContextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mainContextMenuStrip_ItemClicked);
             // 
             // addToolToolStripMenuItem
             // 
             this.addToolToolStripMenuItem.Image = global::CPECentral.Properties.Resources.AddIcon_16x16;
             this.addToolToolStripMenuItem.Name = "addToolToolStripMenuItem";
-            this.addToolToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.addToolToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.addToolToolStripMenuItem.Text = "&Add tool";
             // 
             // itemContextMenuStrip
@@ -210,6 +218,23 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(151, 6);
+            // 
+            // copyToolListToolStripMenuItem
+            // 
+            this.copyToolListToolStripMenuItem.Name = "copyToolListToolStripMenuItem";
+            this.copyToolListToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.copyToolListToolStripMenuItem.Text = "Copy tool list";
+            // 
+            // pasteToolListToolStripMenuItem
+            // 
+            this.pasteToolListToolStripMenuItem.Name = "pasteToolListToolStripMenuItem";
+            this.pasteToolListToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.pasteToolListToolStripMenuItem.Text = "Paste tool list";
             // 
             // OperationToolsView
             // 
@@ -251,5 +276,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton viewStockLevelsToolStripButton;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem copyToolListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolListToolStripMenuItem;
     }
 }

@@ -55,6 +55,7 @@
             this.worksOrdersObjectListView.EmptyListMsgFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.worksOrdersObjectListView.FullRowSelect = true;
             this.worksOrdersObjectListView.HasCollapsibleGroups = false;
+            this.worksOrdersObjectListView.HideSelection = false;
             this.worksOrdersObjectListView.Location = new System.Drawing.Point(0, 0);
             this.worksOrdersObjectListView.Name = "worksOrdersObjectListView";
             this.worksOrdersObjectListView.ShowGroups = false;
@@ -63,6 +64,7 @@
             this.worksOrdersObjectListView.UseAlternatingBackColors = true;
             this.worksOrdersObjectListView.UseCompatibleStateImageBehavior = false;
             this.worksOrdersObjectListView.View = System.Windows.Forms.View.Details;
+            this.worksOrdersObjectListView.ItemActivate += new System.EventHandler(this.worksOrdersObjectListView_ItemActivate);
             // 
             // olvColumn1
             // 

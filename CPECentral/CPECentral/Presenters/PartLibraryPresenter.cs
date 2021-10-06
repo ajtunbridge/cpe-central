@@ -106,7 +106,7 @@ namespace CPECentral.Presenters
                     var photoBytes = cpe.Photos.GetByPartVersion(latestVersion);
                     if (photoBytes != null) {
                         using (var ms = new MemoryStream(photoBytes)) {
-                            Session.PartPartPhotoCache.CreateOrUpdate(part.Id, Image.FromStream(ms));
+                            Session.PartPartPhotoCache.CreateOrUpdate(part.Id, System.Drawing.Image.FromStream(ms));
                         }
                     }
                 }

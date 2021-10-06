@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.matchesListBox = new System.Windows.Forms.ListBox();
             this.okayCancelFooter1 = new CPECentral.Controls.OkayCancelFooter();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
@@ -39,7 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.customerNameTextBox = new nGenLibrary.Controls.EnhancedTextBox();
-            this.matchesListBox = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +52,18 @@
             this.groupBox1.Size = new System.Drawing.Size(137, 180);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Matches";
+            this.groupBox1.Text = "Sequence #";
+            // 
+            // matchesListBox
+            // 
+            this.matchesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchesListBox.FormattingEnabled = true;
+            this.matchesListBox.ItemHeight = 17;
+            this.matchesListBox.Location = new System.Drawing.Point(3, 21);
+            this.matchesListBox.Name = "matchesListBox";
+            this.matchesListBox.Size = new System.Drawing.Size(131, 156);
+            this.matchesListBox.TabIndex = 0;
+            this.matchesListBox.SelectedIndexChanged += new System.EventHandler(this.matchesListBox_SelectedIndexChanged);
             // 
             // okayCancelFooter1
             // 
@@ -176,17 +187,6 @@
             this.customerNameTextBox.Size = new System.Drawing.Size(333, 25);
             this.customerNameTextBox.SuppressEnterKey = false;
             this.customerNameTextBox.TabIndex = 15;
-            // 
-            // matchesListBox
-            // 
-            this.matchesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchesListBox.FormattingEnabled = true;
-            this.matchesListBox.ItemHeight = 17;
-            this.matchesListBox.Location = new System.Drawing.Point(3, 21);
-            this.matchesListBox.Name = "matchesListBox";
-            this.matchesListBox.Size = new System.Drawing.Size(131, 156);
-            this.matchesListBox.TabIndex = 0;
-            this.matchesListBox.SelectedIndexChanged += new System.EventHandler(this.matchesListBox_SelectedIndexChanged);
             // 
             // SelectWorksOrderDialog
             // 

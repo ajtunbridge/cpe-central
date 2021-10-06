@@ -63,7 +63,9 @@ namespace CPECentral.Views
             {
                 jobsObjectListView.SetObjects(model.NextJobs);
             }
-            
+
+            jobsObjectListView.Sort(4);
+
             progressBar.Visible = false;
         }
 
@@ -116,6 +118,9 @@ namespace CPECentral.Views
 
         private void jobsObjectListView_ItemActivate(object sender, EventArgs e)
         {
+            if (SelectedJob == null)
+                return;
+
             if (ModifierKeys.Has(Keys.Control))
             {
                 ShowJobTotalCost = true;

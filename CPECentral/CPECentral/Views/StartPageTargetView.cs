@@ -58,6 +58,12 @@ namespace CPECentral.Views
             lastMonthEasyProgressBar.Value = model.LastMonthProgress;
             fiscalYearEasyProgressBar.Value = model.FiscalYearProgress;
 
+            toolTip.SetToolTip(currentMonthEasyProgressBar, model.TotalTurnoverThisMonth.ToString("C"));
+
+            toolTip.SetToolTip(lastMonthEasyProgressBar, model.TotalTurnoverLastMonth.ToString("C"));
+
+            toolTip.SetToolTip(fiscalYearEasyProgressBar, "Can't be bothered to add this one in");
+
             if (model.CurrentMonthProgress < 60) {
                 currentMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;
                 currentMonthEasyProgressBar.ProgressGradient.ColorEnd = _lowColorEnd;
@@ -114,6 +120,8 @@ namespace CPECentral.Views
             currentMonthEasyProgressBar.Value = 0;
             lastMonthEasyProgressBar.Value = 0;
             fiscalYearEasyProgressBar.Value = 0;
+            toolTip.SetToolTip(currentMonthEasyProgressBar, "refreshing...");
+            toolTip.SetToolTip(currentMonthEasyProgressBar, "refreshing...");
 
             updateNowLinkLabel.Enabled = false;
 

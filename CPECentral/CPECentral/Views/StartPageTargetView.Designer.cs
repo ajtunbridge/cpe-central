@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.fiscalYearEasyProgressBar = new EasyProgressBar.EasyProgressBar();
             this.updateNowLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -209,5 +211,6 @@
         private System.Windows.Forms.Label label5;
         private EasyProgressBar.EasyProgressBar fiscalYearEasyProgressBar;
         private System.Windows.Forms.LinkLabel updateNowLinkLabel;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

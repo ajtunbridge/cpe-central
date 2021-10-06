@@ -22,6 +22,45 @@ namespace CPECentral.Presenters
             _view = view;
 
             _view.LoadWorksOrders += View_LoadWorksOrders;
+            _view.ShowWorksOrderValues += _view_ShowWorksOrderValues;
+        }
+
+        private void _view_ShowWorksOrderValues(object sender, StringEventArgs e)
+        {
+            var retrieveValuesWorker = new BackgroundWorker();
+
+            retrieveValuesWorker.DoWork += (obj, args) =>
+            {
+                try
+                {
+                    using (var tricorn = new TricornDataProvider())
+                    {
+                        var wo = tricorn.GetWorksOrdersByUserReference(e.Value).FirstOrDefault();
+
+                        args.Result = wo.Total_Cost;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    args.Result = ex;
+                }
+            };
+
+            retrieveValuesWorker.RunWorkerCompleted += (obj, args) =>
+            {
+                if (args.Result is Exception)
+                {
+                    HandleException(args.Result as Exception);
+                    _view.DisplayModel(null);
+                    return;
+                }
+
+                var value = (decimal?)args.Result;
+
+                _view.DialogService.Notify($"The value of this works order is {value:C}");
+            };
+
+            retrieveValuesWorker.RunWorkerAsync();
         }
 
         private void View_LoadWorksOrders(object sender, PartEventArgs e)

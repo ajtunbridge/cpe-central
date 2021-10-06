@@ -72,6 +72,10 @@ namespace CPECentral.Presenters
                     return;
                 }
 
+                e.Result = employee;
+                return;
+
+                // removed password login as per Simon's request
                 var passwordService = Session.GetInstanceOf<IPasswordService>();
 
                 bool passwordOk = passwordService.AreEqual(args.Password, employee.Password, employee.Salt);

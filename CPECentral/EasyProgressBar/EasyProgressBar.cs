@@ -336,6 +336,10 @@ namespace EasyProgressBar
             {
                 try
                 {
+                    if (value is null)
+                        return;
+                        //throw new NullReferenceException();
+
                     if (!value.Equals(alphaMaker))
                     {
                         alphaMaker = value;

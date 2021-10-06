@@ -22,6 +22,8 @@ namespace CPECentral.Views
         event EventHandler<OperationEventArgs> AddOperationTool;
         event EventHandler<OperationToolEventArgs> EditOperationTool;
         event EventHandler<OperationToolEventArgs> DeleteOperationTool;
+        event EventHandler<OperationEventArgs> CopyToolList;
+        event EventHandler<OperationEventArgs> PasteToolList;
 
         void RefreshOperationTools();
         void DisplayModel(OperationToolsViewModel model);
@@ -53,6 +55,8 @@ namespace CPECentral.Views
         public event EventHandler<OperationEventArgs> AddOperationTool;
         public event EventHandler<OperationToolEventArgs> EditOperationTool;
         public event EventHandler<OperationToolEventArgs> DeleteOperationTool;
+        public event EventHandler<OperationEventArgs> CopyToolList;
+        public event EventHandler<OperationEventArgs> PasteToolList;
 
         public void RefreshOperationTools()
         {
@@ -115,11 +119,6 @@ namespace CPECentral.Views
         public void NewToolAdded()
         {
             RetrieveOperationTools(_currentOperation);
-
-            if (DialogService.AskQuestion("Do you want to add another tool?"))
-            {
-                OnAddOperationTool(new OperationEventArgs(_currentOperation));
-            }
         }
 
         #endregion
@@ -150,10 +149,17 @@ namespace CPECentral.Views
 
         protected virtual void OnLoadOperationTools(OperationEventArgs e)
         {
-            EventHandler<OperationEventArgs> handler = LoadOperationTools;
-            if (handler != null) {
-                handler(this, e);
-            }
+            LoadOperationTools?.Invoke(this, e);
+        }
+
+        protected virtual void OnCopyToolList(OperationEventArgs e)
+        {
+            CopyToolList?.Invoke(this, e);
+        }
+
+        protected virtual void OnPasteToolList(OperationEventArgs e)
+        {
+            PasteToolList?.Invoke(this, e);
         }
 
         private void ToolRenamedMessageHandler(ToolRenamedMessage toolRenamedMessage)
@@ -224,8 +230,14 @@ namespace CPECentral.Views
         private void mainContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.Name) {
-                case "addToolToolStripMenuItem":
+                case nameof(addToolToolStripMenuItem):
                     OnAddOperationTool(new OperationEventArgs(_currentOperation));
+                    break;
+                case nameof(copyToolListToolStripMenuItem):
+                    OnCopyToolList(new OperationEventArgs(_currentOperation));
+                    break;
+                case nameof(pasteToolListToolStripMenuItem):
+                    OnPasteToolList(new OperationEventArgs(_currentOperation));
                     break;
             }
         }
@@ -250,6 +262,11 @@ namespace CPECentral.Views
         private void viewStockLevelsToolStripButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mainContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            pasteToolListToolStripMenuItem.Enabled = Clipboard.ContainsText();
         }
     }
 }

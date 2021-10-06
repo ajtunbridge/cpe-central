@@ -36,6 +36,7 @@
             this.resultsEnhancedListView = new nGenLibrary.Controls.EnhancedListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.okayCancelFooter = new CPECentral.Controls.OkayCancelFooter();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -112,11 +113,13 @@
             this.resultsEnhancedListView.AlternateBackColor = System.Drawing.Color.LightYellow;
             this.resultsEnhancedListView.CheckBoxes = true;
             this.resultsEnhancedListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader2});
             this.resultsEnhancedListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultsEnhancedListView.EnsureSelection = false;
             this.resultsEnhancedListView.FullRowSelect = true;
             this.resultsEnhancedListView.GridLines = true;
+            this.resultsEnhancedListView.HideSelection = false;
             this.resultsEnhancedListView.IndexOfColumnToResize = 0;
             this.resultsEnhancedListView.ItemContextMenuStrip = null;
             this.resultsEnhancedListView.Location = new System.Drawing.Point(3, 21);
@@ -132,7 +135,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Description";
-            this.columnHeader1.Width = 473;
+            this.columnHeader1.Width = 353;
             // 
             // okayCancelFooter
             // 
@@ -146,6 +149,12 @@
             this.okayCancelFooter.TabIndex = 2;
             this.okayCancelFooter.OkayClicked += new System.EventHandler(this.okayCancelFooter1_OkayClicked);
             this.okayCancelFooter.CancelClicked += new System.EventHandler(this.okayCancelFooter1_CancelClicked);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Specification";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 120;
             // 
             // SelectTricornMaterialDialog
             // 
@@ -182,5 +191,6 @@
         private Controls.OkayCancelFooter okayCancelFooter;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

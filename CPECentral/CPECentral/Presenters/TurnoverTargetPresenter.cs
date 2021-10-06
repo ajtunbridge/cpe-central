@@ -91,7 +91,7 @@ namespace CPECentral.Presenters
                         fiscalYearProgress = Math.Min(fiscalYearProgress, 100);
                     }
 
-                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress, fiscalYearProgress);
+                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress, fiscalYearProgress, turnoverThisMonth, turnoverLastMonth);
 
                     e.Result = model;
                 }

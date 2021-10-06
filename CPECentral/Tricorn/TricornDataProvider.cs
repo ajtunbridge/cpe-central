@@ -74,53 +74,52 @@ namespace Tricorn
             var wowcentres =
                 _entities.WOWCentres.Where(wow => wow.WCentre_Reference == wcentreId && !wow.Operation_Finished);
 
-            var worders = new List<WOrder>();
-
-            const string query = @"SELECT TOP 1 ORNO, STARTDATE, STARTSEC FROM OR_FRAG_VIEWER WHERE OPNO=@opnumber ORDER BY STARTDATE ASC, STARTSEC ASC";
-
-            var conn = _entities.Database.Connection;
-
-            if (conn.State == ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            
-            var cmd = new SqlCommand(query, (SqlConnection)conn);
-            cmd.Prepare();
+            var worksOrders = new List<WOrder>();
 
             foreach (var wowc in wowcentres)
             {
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@opnumber", wowc.WOWCentre_Reference);
+                var worder = _entities.WOrders.Single(wo => wo.WOrder_Reference == wowc.WOrder_Reference);
 
-                using (var reader = cmd.ExecuteReader())
+                if (worder.Drawing_Number == null || worder.Drawing_Number.StartsWith("DW"))
+                    continue;
+
+                if (worder.Status == "Invoiced" || worder.Status == "Delivered" || worder.Status == "Cancelled")
+                    continue;
+
+                if (!worder.Delivery.HasValue)
+                    continue;
+
+                if (worksOrders.Any(wo => wo.WOrder_Reference == worder.WOrder_Reference))
                 {
-                    if (reader.Read())
-                    {
-                        var worderReference = Convert.ToInt32(reader.GetValue(0));
+                    // update scheduled start if it's earlier than the current one
 
-                        if (worderReference == 0)
-                        {
-                            continue;
-                        }
-                        
-                        var startDate = reader.IsDBNull(1) ? DateTime.MaxValue : Convert.ToDateTime(reader.GetValue(1));
-                        var startSeconds = reader.IsDBNull(2) ? 0 : Convert.ToInt32(reader.GetValue(2));
-                        var worder = _entities.WOrders.Single(wo => wo.WOrder_Reference == worderReference);
+                    var wo = worksOrders.First(w => w.WOrder_Reference == worder.WOrder_Reference);
 
-                        if (worders.Any(wo => wo.WOrder_Reference == worder.WOrder_Reference))
-                        {
-                            continue;
-                        }
+                    if (!wowc.Start_date.HasValue)
+                        continue;
 
-                        worder.ScheduledStart = startDate.AddSeconds(startSeconds);
+                    var thisStartDate = wowc.Start_date.Value.AddSeconds(wowc.Start_Time.Value);
 
-                        worders.Add(worder);
-                    }
+                    if (thisStartDate < wo.ScheduledStart)
+                        wo.ScheduledStart = thisStartDate;
+
+                    continue;
                 }
+
+                if (wowc.Start_date.HasValue)
+                {
+                    worder.ScheduledStart = wowc.Start_date.Value.AddSeconds(wowc.Start_Time.Value);
+                }
+
+                worksOrders.Add(worder);
             }
 
-            return worders.OrderBy(wo => wo.ScheduledStart);
+            if (!worksOrders.Any())
+            {
+                return worksOrders;
+            }
+
+            return worksOrders.OrderBy(wo => wo.Delivery);
         }
 
         public IEnumerable<WCentre> GetWorkCentres()
@@ -148,6 +147,17 @@ namespace Tricorn
         {
             return
                 _entities.Invoices.Where(i => i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
+        }
+
+        public decimal? GetTurnoverMinusPurchaseOrdersForPeriod(DateTime startDate, DateTime endDate)
+        {
+            var turnover = GetTurnoverForPeriod(startDate, endDate);
+
+            var purchases = _entities.POrders
+                .Where(po => po.Order_Date >= startDate && po.Order_Date <= endDate)
+                .Sum(po => po.Total_Cost);
+
+            return turnover - purchases;
         }
 
         public string GetLastWorksOrderNumber(string drawingNumber)

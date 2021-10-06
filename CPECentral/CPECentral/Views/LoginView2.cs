@@ -124,15 +124,15 @@ namespace CPECentral.Views
         {
             var employee = e.ClickedItem.Tag as Employee;
 
-            using (var passwordDialog = new EmployeeLoginDialog(employee)) {
-                if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
-                    return;
-                }
+            //using (var passwordDialog = new EmployeeLoginDialog(employee)) {
+            //    if (passwordDialog.ShowDialog(ParentForm) != DialogResult.OK) {
+            //        return;
+            //    }
 
                 Session.CurrentEmployee = employee;
 
                 Session.MessageBus.Publish(new EmployeeLoggedInMessage(employee));
-            }
+            //}
         }
 
         private void gaugesView1_GaugeSelected(object sender, CustomEventArgs.GaugeEventArgs e)

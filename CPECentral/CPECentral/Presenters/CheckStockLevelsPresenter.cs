@@ -41,7 +41,7 @@ namespace CPECentral.Presenters
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             var searchValue = (string) e.Argument;
-
+            
             if (!searchValue.Contains("%")) {
                 searchValue = "%" + searchValue + "%";
             }
@@ -51,7 +51,7 @@ namespace CPECentral.Presenters
             using (var tricorn = new TricornDataProvider()) {
                 IOrderedEnumerable<Material> materials = tricorn.GetMaterials(searchValue).OrderBy(m => m.Name);
 
-                foreach (Material material in materials) {
+                foreach (Material material in materials.Where(x => x.Active_Record)) {
                     IEnumerable<MStock> batchesGreaterThanZero = tricorn.GetMStocks(material.Material_Reference)
                         .Where(b => b.Quantity_In_Stock > 0);
 

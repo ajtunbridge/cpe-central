@@ -183,7 +183,7 @@ namespace CPECentral.Presenters
                 {
                     var nextJobs = tricorn.GetNextJobsForWorkCentre(machineReference);
 
-                    foreach (var nextJob in nextJobs)
+                    foreach (var nextJob in nextJobs.OrderBy(j => j.Delivery.Value))
                     {
                         if (model.NextJobs.Any(j => j.WorksOrderNumber == nextJob.User_Reference))
                             continue;

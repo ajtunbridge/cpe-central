@@ -67,6 +67,7 @@ namespace CPECentral.Dialogs
 
             foreach (Material result in results) {
                 ListViewItem item = resultsEnhancedListView.Items.Add(result.Name);
+                item.SubItems.Add(result.Specification);
                 item.Tag = result;
             }
         }
@@ -82,7 +83,9 @@ namespace CPECentral.Dialogs
             var filterValue = (string) e.Argument;
             try {
                 using (var tricorn = new TricornDataProvider()) {
-                    List<Material> materials = tricorn.GetMaterials(filterValue).OrderBy(m => m.Name).ToList();
+                    List<Material> materials = tricorn.GetMaterials(filterValue)
+                        .Where(m => m.Active_Record == true)
+                        .OrderBy(m => m.Name).ToList();
                     e.Result = materials;
                 }
             }
