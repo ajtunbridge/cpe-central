@@ -60,12 +60,12 @@ namespace CPECentral.Presenters
                     var monthToday = DateTime.Today.Month;
                     int year = DateTime.Today.Year;
 
-                    if (monthToday < 4)
-                    {
-                        year -= 1;
-                    }
+                    //if (monthToday < 4)
+                    //{
+                    //    year -= 1;
+                    //}
 
-                    var startOfFiscalYear = new DateTime(year, 4, 1);
+                    var startOfFiscalYear = new DateTime(year, 1, 1);
                     
                     decimal turnoverThisMonth = tricorn.GetTurnoverThisMonth() ?? 0;
                     decimal turnoverLastMonth = tricorn.GetTurnoverLastMonth() ?? 0;
@@ -91,7 +91,7 @@ namespace CPECentral.Presenters
                         fiscalYearProgress = Math.Min(fiscalYearProgress, 100);
                     }
 
-                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress, fiscalYearProgress, turnoverThisMonth, turnoverLastMonth);
+                    var model = new TurnoverTargetViewModel(currentMonthProgress, lastMonthProgress, fiscalYearProgress, turnoverThisMonth, turnoverLastMonth, turnoverFiscalYear);
 
                     e.Result = model;
                 }

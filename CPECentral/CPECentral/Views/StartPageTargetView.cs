@@ -62,7 +62,7 @@ namespace CPECentral.Views
 
             toolTip.SetToolTip(lastMonthEasyProgressBar, model.TotalTurnoverLastMonth.ToString("C"));
 
-            toolTip.SetToolTip(fiscalYearEasyProgressBar, "Can't be bothered to add this one in");
+            toolTip.SetToolTip(fiscalYearEasyProgressBar, model.TotalTurnoverFiscalYear.ToString("C"));
 
             if (model.CurrentMonthProgress < 60) {
                 currentMonthEasyProgressBar.ProgressGradient.ColorStart = _lowColorStart;

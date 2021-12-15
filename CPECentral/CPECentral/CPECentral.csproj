@@ -27,8 +27,8 @@
     <ProductName>CPE Central</ProductName>
     <PublisherName>CPE Ltd</PublisherName>
     <SuiteName>CPE Central</SuiteName>
-    <MinimumRequiredVersion>3.8.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>14</ApplicationRevision>
+    <MinimumRequiredVersion>3.8.0.14</MinimumRequiredVersion>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>3.8.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
