@@ -192,6 +192,7 @@ namespace CPECentral.Presenters
                         job.WorksOrderNumber = nextJob.User_Reference;
                         job.DrawingNumber = nextJob.Drawing_Number;
                         job.Version = nextJob.Drawing_Issue;
+                        job.Quantity = Convert.ToInt32(nextJob.Quantity);
                         job.Name = nextJob.Description;
                         job.DueOn = nextJob.Delivery.Value;
                         job.ScheduledStart = nextJob.ScheduledStart;

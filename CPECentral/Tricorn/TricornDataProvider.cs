@@ -146,15 +146,18 @@ namespace Tricorn
         public decimal? GetTurnoverForPeriod(DateTime startDate, DateTime endDate)
         {
             return
-                _entities.Invoices.Where(i => i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
+                _entities.Invoices.Where(i => !i.Credit_Note && i.Invoice_Date >= startDate && i.Invoice_Date <= endDate).Sum(i => i.Cost);
         }
 
         public decimal? GetTurnoverMinusPurchaseOrdersForPeriod(DateTime startDate, DateTime endDate)
         {
             var turnover = GetTurnoverForPeriod(startDate, endDate);
 
+            var lastMonthStart = startDate.AddMonths(-1);
+            var lastMonthEnd = endDate.AddMonths(-1);
+
             var purchases = _entities.POrders
-                .Where(po => po.Order_Date >= startDate && po.Order_Date <= endDate)
+                .Where(po => po.Order_Date >= lastMonthStart && po.Order_Date <= lastMonthEnd)
                 .Sum(po => po.Total_Cost);
 
             return turnover - purchases;

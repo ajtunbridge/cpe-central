@@ -52,7 +52,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(275, 39);
+            this.panel1.Size = new System.Drawing.Size(275, 41);
             this.panel1.TabIndex = 8;
             // 
             // pictureBox1
@@ -73,7 +73,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(41, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 31);
+            this.label1.Size = new System.Drawing.Size(231, 26);
             this.label1.TabIndex = 2;
             this.label1.Text = "Progress to target turnover";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

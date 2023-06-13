@@ -37,6 +37,8 @@ namespace CPECentral.Views
     {
         private readonly PartInformationPresenter _presenter;
         private bool _isLoadingData;
+        private int _flashCount = 0;
+        private Timer _alertFlashTimer;
 
         public PartInformationView()
         {
@@ -242,6 +244,11 @@ namespace CPECentral.Views
         {
             if (hasAlerts)
             {
+                _alertFlashTimer = new Timer();
+                _alertFlashTimer.Tick += Timer_Tick;
+                _alertFlashTimer.Interval= 500;
+                _alertFlashTimer.Start();
+
                 partAlertsButton.BackColor = Color.Firebrick;
                 partAlertsButton.ForeColor = Color.White;
                 partAlertsButton.Text = "VIEW ALERTS";
@@ -253,6 +260,30 @@ namespace CPECentral.Views
                 partAlertsButton.Text = "No alerts";
             }
 
+        }
+
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (_flashCount > 19) 
+            { 
+                _alertFlashTimer.Stop();
+            }
+            else
+            {
+                if (_flashCount % 2 == 0)
+                {
+                    partAlertsButton.BackColor = Color.Blue;
+                    partAlertsButton.ForeColor = Color.White;
+                }
+                else
+                {
+                    partAlertsButton.BackColor = Color.Firebrick;
+                    partAlertsButton.ForeColor = Color.White;
+                }
+            }
+
+            _flashCount++;
         }
     }
 }

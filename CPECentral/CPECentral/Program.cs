@@ -49,10 +49,12 @@ namespace CPECentral
 
                     Application.Run(form);
 
-
                     // clean out PDF page extraction temp files
                     var extractedPdfTempPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
                                           "\\CpeCentral\\pdf_page_extraction_temp\\";
+
+                    if (!Directory.Exists(extractedPdfTempPath))
+                        Directory.CreateDirectory(extractedPdfTempPath);
 
                     foreach (var file in Directory.GetFiles(extractedPdfTempPath))
                     {

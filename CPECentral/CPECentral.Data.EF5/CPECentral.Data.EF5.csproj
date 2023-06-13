@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CPECentral.Data.EF5</RootNamespace>
     <AssemblyName>CPECentral.Data.EF5</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +40,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -47,6 +50,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -76,11 +80,6 @@
     <Compile Include="ClientSetting.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>CPECentralModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataProviderError.cs" />
-    <Compile Include="DataProviderException.cs" />
     <Compile Include="CPECentralModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CPECentralModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>CPECentralModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataProviderError.cs" />
+    <Compile Include="DataProviderException.cs" />
     <Compile Include="Document.cs">
       <DependentUpon>CPECentralModel.tt</DependentUpon>
     </Compile>
@@ -207,23 +211,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CPECentralModel.Partials.cs" />
+    <None Include="App.Config" />
     <EntityDeploy Include="CPECentralModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPECentralModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
-    <None Include="CPECentralModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPECentralModel.edmx</DependentUpon>
-      <LastGenOutput>CPECentralModel.Context.cs</LastGenOutput>
-    </None>
     <None Include="CPECentralModel.edmx.diagram">
       <DependentUpon>CPECentralModel.edmx</DependentUpon>
-    </None>
-    <None Include="CPECentralModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CPECentralModel.edmx</DependentUpon>
-      <LastGenOutput>CPECentralModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -231,7 +225,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CPECentralModel.edmx.sql" />
+    <Content Include="CPECentralModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPECentralModel.edmx</DependentUpon>
+      <LastGenOutput>CPECentralModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CPECentralModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPECentralModel.edmx</DependentUpon>
+      <LastGenOutput>CPECentralModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

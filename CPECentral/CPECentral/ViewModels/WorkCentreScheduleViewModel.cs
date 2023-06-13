@@ -20,6 +20,9 @@ namespace CPECentral.ViewModels
             public string DrawingNumber { get; set; }
             public string Version { get; set; }
             public string Name { get; set; }
+
+            public int Quantity { get; set; }
+
             public DateTime DueOn { get; set; }
             public DateTime ScheduledStart { get; set; }
             public DateTime? ScheduledEnd { get; set; }

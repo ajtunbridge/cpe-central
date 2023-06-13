@@ -71,6 +71,7 @@ namespace CPECentral.Controls
                 && e.KeyboardDevice.IsKeyDown(Key.S) && saveToolStripButton.Enabled) {
                 SaveChanges();
             }
+            
         }
 
         private void Editor_TextChanged(object sender, EventArgs e)

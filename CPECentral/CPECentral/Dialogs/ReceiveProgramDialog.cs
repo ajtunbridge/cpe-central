@@ -67,6 +67,7 @@ namespace CPECentral.Dialogs
         {
             // clean up whitespace
             string cleanValue = e.Value.Replace("\n\r\r", Environment.NewLine);
+            cleanValue = e.Value.Replace("\r\n", Environment.NewLine);
 
             Invoke((MethodInvoker) delegate {
                 programTextBox.Text += cleanValue;
